@@ -1,0 +1,79 @@
+﻿<Application x:Class="ConfigEditor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                    
+             xmlns:vc="clr-namespace:ConfigEditor.ValueConverters"
+             
+             StartupUri="Windows\MainWindow.xaml">
+    <Application.Resources>
+        
+        <DrawingImage x:Key="add">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="edit">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 42.7499,25.3335L 50.6666,33.2501L 31.6667,52.25L 23.75,44.3334L 42.7499,25.3335 Z M 52.1704,31.6664L 44.3333,23.8293L 47.6921,20.4706C 48.9288,19.2339 50.9338,19.2339 52.1705,20.4706L 55.5292,23.8293C 56.7659,25.066 56.7659,27.071 55.5292,28.3077L 52.1704,31.6664 Z M 21.7709,55.0207L 20.9792,54.2291L 23.0573,47.5988L 28.4011,52.9426L 21.7709,55.0207 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="delete">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 25.3333,23.75L 50.6667,23.75C 51.5411,23.75 51.8541,27.3125 51.8541,27.3125L 24.1458,27.3125C 24.1458,27.3125 24.4589,23.75 25.3333,23.75 Z M 35.625,19.7917L 40.375,19.7917C 40.8122,19.7917 41.9583,20.9378 41.9583,21.375C 41.9583,21.8122 40.8122,22.9584 40.375,22.9584L 35.625,22.9584C 35.1878,22.9584 34.0416,21.8122 34.0416,21.375C 34.0416,20.9378 35.1878,19.7917 35.625,19.7917 Z M 27.7083,28.5L 48.2916,28.5C 49.1661,28.5 49.875,29.2089 49.875,30.0834L 48.2916,53.8334C 48.2916,54.7078 47.5828,55.4167 46.7083,55.4167L 29.2917,55.4167C 28.4172,55.4167 27.7083,54.7078 27.7083,53.8334L 26.125,30.0834C 26.125,29.2089 26.8339,28.5 27.7083,28.5 Z M 30.0833,31.6667L 30.4792,52.25L 33.25,52.25L 32.8542,31.6667L 30.0833,31.6667 Z M 36.4167,31.6667L 36.4167,52.25L 39.5833,52.25L 39.5833,31.6667L 36.4167,31.6667 Z M 43.1458,31.6667L 42.75,52.25L 45.5208,52.25L 45.9167,31.6667L 43.1458,31.6667 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="save">
+            <DrawingImage.Drawing>
+                <GeometryDrawing   Brush="#FF343434" Geometry="F1 M 20.5833,20.5833L 55.4167,20.5833L 55.4167,55.4167L 45.9167,55.4167L 45.9167,44.3333L 30.0833,44.3333L 30.0833,55.4167L 20.5833,55.4167L 20.5833,20.5833 Z M 33.25,55.4167L 33.25,50.6667L 39.5833,50.6667L 39.5833,55.4167L 33.25,55.4167 Z M 26.9167,23.75L 26.9167,33.25L 49.0833,33.25L 49.0833,23.75L 26.9167,23.75 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage  x:Key="new">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 44.4832,15.8147L 38.0245,32.9939L 37.8017,32.9939L 31.6771,15.8147L 21.7662,21.578L 33.4588,35.6539L 33.4588,35.8755L 16.087,32.3289L 16.087,43.523L 33.5702,40.4197L 33.6815,40.6414L 21.7662,54.4955L 31.343,60.148L 37.6904,43.0797L 37.9131,43.0797L 44.3718,60.148L 54.1713,54.4955L 42.1447,40.7522L 42.1447,40.5305L 60.0713,43.523L 60.0713,32.3289L 42.256,35.8755L 42.256,35.6539L 54.1713,21.4672L 44.4832,15.8147 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage  x:Key="newConfig">
+            <DrawingImage.Drawing>
+                <GeometryDrawing  Brush="#FF343434" Geometry="F1 M 51.5487,37.9814L 56.814,41.0534L 50.3383,48.7636L 50.3383,48.8841L 60.0205,46.9565L 60.0205,53.0403L 50.2777,51.414L 50.2777,51.5344L 56.814,59.0037L 51.4882,62.0757L 47.978,52.7994L 47.8569,52.7994L 44.4072,62.0757L 39.2025,59.0037L 45.6782,51.4742L 45.6177,51.3537L 36.1159,53.0403L 36.1159,46.9565L 45.5571,48.8841L 45.5571,48.7636L 39.2025,41.1137L 44.5888,37.9814L 47.9174,47.3179L 48.0385,47.3179L 51.5487,37.9814 Z M 20,17L 43.25,17L 56,29.75L 56,39L 52,36.75L 52,34L 39,34L 39,21L 24,21L 24,55L 41,55L 37.5,59L 20,59L 20,17 Z M 43,22.25L 43,30L 50.75,30L 43,22.25 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage  x:Key="deleteConfig">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 43,30L 50.75,30L 43,22.25L 43,30 Z M 52,34L 39,34L 39,21L 24,21L 24,39L 20,43L 20,17L 43.25,17L 56,29.75L 56,59L 36.5,59L 40.5,55L 52,55L 52,34 Z M 35.1379,40.67L 38.4967,44.0287L 32.8988,49.6266L 38.4967,55.2246L 35.1379,58.5833L 29.54,52.9854L 23.9421,58.5833L 20.5833,55.2246L 26.1813,49.6266L 20.5833,44.0287L 23.9421,40.67L 29.54,46.2679L 35.1379,40.67 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="importConfig">
+            <DrawingImage.Drawing>
+                <GeometryDrawing  Brush="#FF343434" Geometry="F1 M 35,13L 35,30.5L 27,21L 27,30.75L 38,43.25L 49,30.75L 49,21L 41,30.5L 41,13L 35,13 Z M 17,38L 30,38L 33.75,42L 21,42L 21,53L 55,53L 55,42L 42.25,42L 46,38L 59,38L 59,57L 17,57L 17,38 Z M 33,46L 43,46L 43,49L 33,49L 33,46 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="loadDefaults">
+            <DrawingImage.Drawing>
+                <GeometryDrawing  Brush="#FF343434" Geometry="F1 M 42,19.0002L 34,19.0002L 34,43.7502L 24,33.7502L 24,44.2502L 38,58.2502L 52,44.2502L 52,33.7502L 42,43.7502L 42,19.0002 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="locked">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 22.17,36.4216L 25.3369,36.4216L 25.3369,31.6711C 25.3369,24.6745 31.0087,19.0027 38.0053,19.0027C 45.0019,19.0027 50.6737,24.6745 50.6737,31.6711L 50.6737,36.4216L 53.841,36.4216L 53.8411,57.008L 22.17,57.008L 22.17,36.4216 Z M 45.9231,31.6711C 45.9231,27.2982 42.3782,23.7533 38.0053,23.7533C 33.6324,23.7533 30.0875,27.2982 30.0875,31.6711L 30.0875,36.4216L 45.923,36.4216L 45.9231,31.6711 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="unlocked">
+            <DrawingImage.Drawing>
+                <GeometryDrawing Brush="#FF343434" Geometry="F1 M 22.1698,36.4215L 25.3366,36.4215L 25.3367,31.6711C 25.3367,24.6745 31.0085,19.0027 38.0051,19.0027C 45.0017,19.0027 50.6735,24.6745 50.6735,31.6711L 45.9228,31.6711C 45.9228,27.2982 42.3779,23.7533 38.0051,23.7533C 33.6322,23.7533 30.0873,27.2982 30.0873,31.6711L 30.0873,36.4216L 53.8408,36.4215L 53.8409,57.008L 22.1698,57.008L 22.1698,36.4215 Z "/>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <vc:SelectedItemToBooleanConverter x:Key="selectionToBoolConverter"/>
+        <vc:InvertBooleanConverter x:Key="invertBooleanConverter"/>
+        <vc:ReadWriteWordsToMaximumConverter x:Key="rwWordsToMaxConverter"/>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,4 @@
+﻿<vm:FanControllerViewModel  xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels"
+                            CurrentFanSpeed="95.5" TargetFanSpeed="100.0" FanSpeedSteps="41" 
+                            IsAutoFanControlEnabled="True" FanDisplayName="CPU fan" FanSpeedSliderValue="41"/>
+

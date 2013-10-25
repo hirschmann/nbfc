@@ -1,0 +1,10 @@
+﻿ <dd:FanControllerViewModelCollection xmlns:dd="clr-namespace:NbfcServiceClient.DesignData"
+                                      xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels">
+
+    <vm:FanControllerViewModel CurrentFanSpeed="95.5" TargetFanSpeed="100.0" FanSpeedSteps="41" 
+                            IsAutoFanControlEnabled="True" FanSpeedSliderValue="41" FanDisplayName="CPU fan"/>
+
+    <vm:FanControllerViewModel CurrentFanSpeed="30.5" TargetFanSpeed="0.0" FanSpeedSteps="41" 
+                            IsAutoFanControlEnabled="True" FanSpeedSliderValue="41" FanDisplayName="GPU fan"/>
+
+</dd:FanControllerViewModelCollection>

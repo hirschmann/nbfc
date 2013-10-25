@@ -1,0 +1,86 @@
+﻿<Window x:Class="NbfcServiceClient.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels"
+        xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"
+        
+        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355"
+        WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
+        d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}" mc:Ignorable="d">
+
+    <Grid>
+        <!--Background-->
+        <Grid.Background>
+            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+        </Grid.Background>
+
+        <Rectangle Fill="White" Margin="0,40,0,0"/>
+
+        <!--Config selector-->
+        <Button x:Name="selectConfig" Content="..." Margin="0,7,10,0" VerticalAlignment="Top" 
+                HorizontalAlignment="Right" Width="30" Height="23" Click="selectConfig_Click" ToolTip="Select a config"/>
+
+        <Label Content="Selected config:" HorizontalAlignment="Left" Margin="3,4,0,0" 
+               VerticalAlignment="Top" FontWeight="Bold"/>
+
+        <TextBox Text="{Binding SelectedConfig}" Height="23" Margin="121,7,55,0" 
+                 TextWrapping="Wrap" VerticalAlignment="Top"/>
+
+        <!--Service info-->
+        <CheckBox Content="  :Fan control service enabled" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" 
+                  FlowDirection="RightToLeft" IsChecked="{Binding IsServiceAvailable}" Click="CheckBox_Click">
+            <CheckBox.Resources>
+                <Style TargetType="{x:Type Path}">
+                    <Setter Property="FlowDirection" Value="LeftToRight"/>
+                </Style>
+            </CheckBox.Resources>
+        </CheckBox>
+
+        <Label Content="{Binding CpuTemperature}" ContentStringFormat="CPU temperature:  {0}°C" 
+               HorizontalAlignment="Left" Margin="8,77,0,0" VerticalAlignment="Top"/>
+
+        <!--Fan info-->
+        <ScrollViewer Margin="10,117,10,45" DataContext="{Binding FanControllers}" 
+                      d:DataContext="{d:DesignData /DesignData/FanControllerCollection.xaml}" >
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,5,10,5">
+                            <uc:FanController/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <!--Settings-->
+        <Button x:Name="settings" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="20" HorizontalAlignment="Right" 
+                Width="20" Click="settings_Click" Padding="2" ToolTip="Settings">
+            <Image Source="{StaticResource settings}"/>
+        </Button>
+
+        <!--Donation-->
+        <TextBlock Margin="10,0,0,14" VerticalAlignment="Bottom" HorizontalAlignment="Left" ToolTip="Please click here if you want to support me with a small donation via PayPal">            
+            <Hyperlink NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=HUALCC9HY9MKC"
+                       RequestNavigate="donationLink_RequestNavigate">
+                If you like my work, click here to buy me a beer :)
+            </Hyperlink>
+        </TextBlock>
+
+        <!--Notify icon-->
+        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/NoteBook FanControl;component/nbfc.ico"
+                        TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Close"  Click="close_Click"/>
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+            <tb:TaskbarIcon.TrayToolTip>
+                <uc:TrayToolTip DataContext="{Binding FanControllers}"/>
+            </tb:TaskbarIcon.TrayToolTip>
+        </tb:TaskbarIcon>
+    </Grid>
+</Window>

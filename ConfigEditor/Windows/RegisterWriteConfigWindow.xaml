@@ -1,0 +1,88 @@
+﻿<wnd:NonModalDialogWindow x:Class="ConfigEditor.Windows.RegisterWriteConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cfg="clr-namespace:StagWare.FanControl.Configurations;assembly=StagWare.FanControl.Configurations"
+        xmlns:wnd="clr-namespace:ConfigEditor.Windows"
+        Title="Register write configuration" Height="320" Width="320"
+        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/nbfc.ico">
+
+    <wnd:NonModalDialogWindow.Resources>
+        <ObjectDataProvider x:Key="registerWriteModeValues"
+                            MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="cfg:RegisterWriteMode"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="registerWriteOccasionValues"
+                            MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="cfg:RegisterWriteOccasion"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </wnd:NonModalDialogWindow.Resources>
+
+    <Grid Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Description:" Margin="0,10,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
+            <TextBox Height="23" Margin="0,13,10,0" TextWrapping="Wrap" Text="{Binding Description}" 
+                     VerticalAlignment="Top" Grid.Column="1"/>
+
+            <Label Content="Write mode:" Margin="0,42,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
+            <ComboBox Margin="0,46,39,0" VerticalAlignment="Top" Grid.Column="1" Height="22" SelectedValue="{Binding WriteMode}"
+                      ItemsSource="{Binding Source={StaticResource registerWriteModeValues}}"/>
+
+            <Label Content="Write occasion:" Margin="0,73,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
+            <ComboBox Margin="0,77,39,0" VerticalAlignment="Top" Grid.Column="1" Height="22" SelectedValue="{Binding WriteOccasion}"
+                      ItemsSource="{Binding Source={StaticResource registerWriteOccasionValues}}"/>
+
+            <Label Content="Register:" Margin="0,104,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Register}" Margin="0,108,0,0" Width="70" 
+                                Grid.Column="1" Height="22" VerticalAlignment="Top" 
+                                Minimum="0" Maximum="255"/>
+
+            <Label Content="Value:" Margin="0,135,8,0" VerticalAlignment="Top" 
+                    HorizontalAlignment="Right" Width="Auto" Height="26" Grid.ColumnSpan="1"/>
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Value}" Margin="0,137,0,0" 
+                                Width="70" Grid.Column="1" Height="22" VerticalAlignment="Top" 
+                                Minimum="0" Maximum="255"/>
+
+            <CheckBox Name="resetRequired" Content="Reset required" Margin="0,175,8,0" VerticalAlignment="Top" 
+                      Height="15" HorizontalAlignment="Right" Width="Auto" Grid.Column="0" IsChecked="{Binding ResetRequired}"/>
+            <Label Content="Reset value:" Margin="0,196,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
+            <xctk:IntegerUpDown IsEnabled="{Binding IsChecked, ElementName=resetRequired}" HorizontalAlignment="Left" 
+                                Value="{Binding ResetValue}" Margin="0,198,0,0" Width="70" Grid.Column="1" Height="24" VerticalAlignment="Top" 
+                                Minimum="0" Maximum="255"/>
+        </Grid>
+
+        <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="OK" HorizontalAlignment="Left" Margin="3,0,0,13" VerticalAlignment="Bottom" Width="75" Height="20" Grid.Column="1" Click="OK_Click"/>
+            <Button Content="Cancel" Margin="83,0,0,13" VerticalAlignment="Bottom" Height="20" Grid.Column="1" HorizontalAlignment="Left" Width="75" Click="Cancel_Click" />
+        </Grid>
+    </Grid>
+</wnd:NonModalDialogWindow >

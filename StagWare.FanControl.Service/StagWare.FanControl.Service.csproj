@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{15B3E0D2-6217-493A-A690-158C497F5318}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StagWare.FanControl.Service</RootNamespace>
+    <AssemblyName>StagWare.FanControl.Service</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <WcfConfigValidationEnabled>False</WcfConfigValidationEnabled>
+    <XsdCodeGenEnabled>False</XsdCodeGenEnabled>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XsdCodeGenSerializerMode>XmlSerializer</XsdCodeGenSerializerMode>
+    <XsdCodeGenReuseTypesFlag>True</XsdCodeGenReuseTypesFlag>
+    <XsdCodeGenReuseTypesMode>All</XsdCodeGenReuseTypesMode>
+    <XsdCodeGenReferences />
+    <XsdCodeGenNamespaceMappings>%2a, StagWare.FanControl.Service.ContractTypes</XsdCodeGenNamespaceMappings>
+    <XsdCodeGenCollectionTypes>System.Array%3bSystem.Collections.Generic.Dictionary`2</XsdCodeGenCollectionTypes>
+    <XsdCodeGenExcludedTypes />
+    <XsdCodeGenImportXmlTypes>True</XsdCodeGenImportXmlTypes>
+    <XsdCodeGenGenerateSerializableTypes>True</XsdCodeGenGenerateSerializableTypes>
+    <XsdCodeGenGenerateInternalTypes>False</XsdCodeGenGenerateInternalTypes>
+    <XsdCodeGenEnableDataBinding>False</XsdCodeGenEnableDataBinding>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FanControlInfo.cs" />
+    <Compile Include="FanControlService.cs" />
+    <Compile Include="FanStatus.cs" />
+    <Compile Include="IFanControlService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceSettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+      <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
+      <Name>StagWare.FanControl.Configurations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
+      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
+      <Name>StagWare.FanControl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\WCF\Microsoft.VisualStudio.ServiceModel.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>False</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

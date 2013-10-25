@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Hardcodet.Wpf.TaskbarNotification</id>
+    <version>1.0.4.0</version>
+    <title>Hardcodet.Wpf.TaskbarNotification</title>
+    <authors>Hardcodet</authors>
+    <owners>Hardcodet</owners>
+    <projectUrl>http://www.hardcodet.net/projects/wpf-notifyicon</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>It does not just rely on the Windows Forms NotifyIcon component, but is a purely independent control which leverages several features of the WPF framework in order to display rich ToolTips, Popups, context menus, and balloon messages. It can be used directly in code or embedded in any XAML file.</description>
+    <summary>This is an implementation of a NotifyIcon (aka system tray icon or taskbar icon) for the WPF platform.</summary>
+    <tags>taskbar tray wpf</tags>
+  </metadata>
+</package>
