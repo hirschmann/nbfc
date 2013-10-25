@@ -1,11 +1,13 @@
 ﻿using ConfigEditor.ViewModels;
 using Ookii.Dialogs.Wpf;
 using StagWare.FanControl.Configurations;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace ConfigEditor.Windows
 {
@@ -15,6 +17,8 @@ namespace ConfigEditor.Windows
     public partial class MainWindow : Window
     {
         #region Constants
+
+        private const string SelectConfigArgumentPrefix = "-s:";
 
         private readonly Style MessageBoxErrorStyle;
         private readonly Style MessageBoxInfoStyle;
@@ -70,6 +74,14 @@ namespace ConfigEditor.Windows
             vm.ImportConfigError += vm_ImportConfigError;
 
             this.DataContext = vm;
+
+            string arg = Environment.GetCommandLineArgs().FirstOrDefault(
+                x => x.StartsWith(SelectConfigArgumentPrefix, StringComparison.OrdinalIgnoreCase));
+
+            if (arg != null)
+            {
+                vm.SelectConfigCommand.Execute(arg.Substring(SelectConfigArgumentPrefix.Length));
+            }
         }
 
         #endregion

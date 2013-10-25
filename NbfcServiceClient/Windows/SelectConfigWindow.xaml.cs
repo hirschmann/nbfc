@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
+using System.Diagnostics;
 
 namespace NbfcServiceClient.Windows
 {
@@ -14,22 +15,46 @@ namespace NbfcServiceClient.Windows
     /// </summary>
     public partial class SelectConfigWindow : Window
     {
+        #region Constants
+
         private const string ConfigsDirectoryName = "Configs";
+        private const string ConfigEditorExecutableName = "ConfigEditor.exe";
+        private const string ConfigEditorSelectConfigArgumentPrefix = "-s:";
+
+        #endregion
+
+        #region Private Fields
 
         private FanControlClient client;
         private FanControlConfigManager configManager;
+        private string parentDirName;
 
-        public SelectConfigWindow(FanControlClient client)
+        #endregion
+
+        #region Constructors
+
+        public SelectConfigWindow()
         {
             InitializeComponent();
 
-            string path = Assembly.GetExecutingAssembly().Location;
-            path = Path.GetDirectoryName(path);
-            path = Path.Combine(path, ConfigsDirectoryName);
+            parentDirName = Assembly.GetExecutingAssembly().Location;
+            parentDirName = Path.GetDirectoryName(parentDirName);
+
+            string path = Path.Combine(parentDirName, ConfigsDirectoryName);
 
             this.configManager = new FanControlConfigManager(path);
+            this.configSelector.ItemsSource = configManager.ConfigNames;            
+
+            if (!File.Exists(Path.Combine(parentDirName, ConfigEditorExecutableName)))
+            {
+                this.edit.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
+
+        public SelectConfigWindow(FanControlClient client)
+            : this()
+        {
             this.client = client;
-            this.configSelector.ItemsSource = configManager.ConfigNames;
 
             bool configFound = false;
 
@@ -45,6 +70,31 @@ namespace NbfcServiceClient.Windows
             if (configFound)
             {
                 this.configSelector.SelectedValue = configManager.SelectedConfigName;
+            }
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private void edit_Click(object sender, RoutedEventArgs e)
+        {
+            string path = Path.Combine(parentDirName, ConfigEditorExecutableName);
+
+            if (File.Exists(path))
+            {
+                try
+                {
+                    string arg = string.Format(
+                        "{0}\"{1}\"",
+                        ConfigEditorSelectConfigArgumentPrefix,
+                        configSelector.SelectedValue.ToString());
+
+                    Process.Start(path, arg);
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -64,8 +114,8 @@ namespace NbfcServiceClient.Windows
                             "In the selected config, for one ore more fans are no temperature thresholds defined."
                                 + "NBFC auto fan control will load the default thresholds instead."
                                 + "\n\nIf you encounter problems, try defining thresholds in Config Editor",
-                            "Warning", 
-                            MessageBoxButton.OK, 
+                            "Warning",
+                            MessageBoxButton.OK,
                             MessageBoxImage.Warning);
                     }
 
@@ -83,5 +133,7 @@ namespace NbfcServiceClient.Windows
         {
             Close();
         }
+
+        #endregion
     }
 }
