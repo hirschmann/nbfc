@@ -444,18 +444,17 @@ namespace ConfigEditor.ViewModels
         {
             config = null;
 
-            using (FileStream fs = new FileStream(configFilePath, FileMode.Open))
+            try
             {
-                var serializer = new XmlSerializer(typeof(FanControlConfig));
-
-                try
+                using (FileStream fs = new FileStream(configFilePath, FileMode.Open))
                 {
+                    var serializer = new XmlSerializer(typeof(FanControlConfig));
                     config = (FanControlConfig)serializer.Deserialize(fs);
                 }
-                catch
-                {
-                    return false;
-                }
+            }
+            catch
+            {
+                return false;
             }
 
             return config != null;
@@ -464,8 +463,8 @@ namespace ConfigEditor.ViewModels
         private bool IsConfigNameValid(string configName)
         {
             return !(this.configManager.Contains(configName)
-                    || this.configManager.ConfigFileExists(configName));            
-        }        
+                    || this.configManager.ConfigFileExists(configName));
+        }
 
         private void AddNewConfig(FanControlConfigV2 config, string configName)
         {
