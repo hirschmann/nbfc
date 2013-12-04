@@ -31,9 +31,6 @@
     <!--Program Icon-->
     <Icon Id="Nbfc.ico" SourceFile="$(var.NbfcServiceClient.ProjectDir)nbfc.ico" />
     <Property Id="ARPPRODUCTICON" Value="Nbfc.ico" />
-    
-    <!--Set Program files dir-->
-    <SetDirectory Id="ProgramFilesFolder" Value="[ProgramFiles64Folder]">NOT(VersionNT64)</SetDirectory>
 
     <!--Features-->
     <Feature Id="NoteBookFanControl" Title="$(var.ProductName)" Level="1">
