@@ -9,7 +9,7 @@
            Manufacturer="$(var.Manufacturer)"  UpgradeCode="$(var.UpgradeGuid)">
 
     <!--Package-->
-    <Package InstallerVersion="300" Compressed="yes"  Id="*" InstallScope="perMachine" Platform="x64"
+    <Package InstallerVersion="300" Compressed="yes"  Id="*" InstallScope="perMachine"
              Manufacturer="$(var.Manufacturer)" Description="$(var.ProductName) Installer"/>
 
     <!--Upgrade-->
