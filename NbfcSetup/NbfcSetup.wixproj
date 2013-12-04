@@ -20,6 +20,8 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs;ResourcesDir=D:\Users\Stefan\Documents\Visual Studio 2012\Projects\Desktop Software Projects\NoteBookFanControl\NbfcSetup\Resources</DefineConstants>
+    <SuppressIces>ICE80</SuppressIces>
+    <SuppressValidation>False</SuppressValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
     <DefineConstants>Debug;ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs;ResourcesDir=D:\Users\Stefan\Documents\Visual Studio 2012\Projects\Desktop Software Projects\NoteBookFanControl\NbfcSetup\Resources</DefineConstants>

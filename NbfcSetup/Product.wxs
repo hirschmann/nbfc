@@ -56,7 +56,7 @@
   <Fragment>
     <!--Directory structure-->
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFiles64Folder">
+      <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
           <Directory Id="ConfigsFolder" Name="Configs"/>
         </Directory>

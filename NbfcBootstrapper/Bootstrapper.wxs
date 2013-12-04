@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
-
+  
   <!--Includes-->
   <?include $(var.NbfcSetup.ProjectDir)Constants.wxi ?>
-
+  
   <Bundle Name="$(var.ProductName)" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeGuid)"
           IconSourceFile="$(var.NbfcServiceClient.ProjectDir)nbfc.ico">
 
-    <BootstrapperApplicationRef Id="WixExtendedBootstrapperApplication.HyperlinkLicense">   
+    <BootstrapperApplicationRef Id="WixExtendedBootstrapperApplication.HyperlinkLicense">
       <Payload SourceFile="$(var.ProjectDir)Resources\logoside.png" />
       <Payload SourceFile="$(var.ProjectDir)Resources\logo.png" />
     </BootstrapperApplicationRef>
-    
+
     <WixVariable Id="WixExtbaThemeXml" Value="$(var.ProjectDir)Resources\Bundle2Theme.xml" />
     <WixVariable Id="WixExtbaThemeWxl" Value="$(var.ProjectDir)Resources\HyperlinkTheme.wxl" />
-    
-    <WixVariable Id="WixExtbaLogo" Value="$(var.ProjectDir)Resources\logo.png" />
-    <WixVariable Id="WixExtbaLicenseUrl" Value="" />
-    
-    <Variable Name="InstallFolder" Type="string" Value="[ProgramFiles64Folder]$(var.ProductName)" />
 
+    <WixVariable Id="WixExtbaLogo" Value="$(var.ProjectDir)Resources\logo.png" />
+    <WixVariable Id="WixExtbaLicenseUrl" Value="" /> 
+    
+    <Variable Name="InstallFolder" Type="string" Value="[ProgramFilesFolder]$(var.ProductName)"/>
+    
     <Chain>
       <PackageGroupRef Id="NetFx40Web"/>
-      <MsiPackage Compressed="yes" SourceFile="$(var.NbfcSetup.TargetPath)">
+      <MsiPackage Compressed="yes" SourceFile="$(var.NbfcSetup.TargetPath)">        
         <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
       </MsiPackage>
     </Chain>
