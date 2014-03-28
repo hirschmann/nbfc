@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
-using OpenHardwareMonitor.Hardware;
 using StagWare.FanControl.Configurations;
 
 namespace StagWare.FanControl
@@ -12,7 +11,6 @@ namespace StagWare.FanControl
     {
         #region Constants
 
-        private const int MaxRetries = 10;
         private const int MinPollInterval = 100;
         private const int DefaultPollInterval = 3000;
         private const int AverageTemperatureTimespan = 6000;
@@ -28,37 +26,57 @@ namespace StagWare.FanControl
         private readonly int pollInterval;
         private readonly FanControlConfigV2 config;
 
-        private readonly IHardware cpu;
         private readonly ITemperatureFilter tempFilter;
-        private readonly ISensor[] cpuTempSensors;
+        private readonly ITemperatureProvider tempProvider;
+        private readonly IEmbeddedController ec;
 
         private readonly FanInformation[] fanInfo;
         private readonly FanSpeedManager[] fanSpeeds;
 
-        private volatile int cpuTemperature;
+        private volatile float cpuTemperature;
 
         #endregion
 
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(config, GetDefaultTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)))
+            : this(
+            config,
+            GetDefaultTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
+            GetDefaultTemperatureProvider(),
+            GetDefaultEc())
         {
         }
 
-        public FanControl(FanControlConfigV2 config, ITemperatureFilter filter)
+        public FanControl(
+            FanControlConfigV2 config,
+            ITemperatureFilter tempFilter,
+            ITemperatureProvider tempProvider,
+            IEmbeddedController ec)
         {
             if (config == null)
             {
                 throw new ArgumentNullException("config");
             }
 
-            if (filter == null)
+            if (tempFilter == null)
             {
                 throw new ArgumentNullException("filter");
             }
 
-            this.tempFilter = filter;
+            if (tempProvider == null)
+            {
+                throw new ArgumentNullException("tempProvider");
+            }
+
+            if (ec == null)
+            {
+                throw new ArgumentNullException("ec");
+            }
+
+            this.tempFilter = tempFilter;
+            this.tempProvider = tempProvider;
+            this.ec = ec;
             this.config = (FanControlConfigV2)config.Clone();
             this.pollInterval = config.EcPollInterval;
             this.asyncOp = AsyncOperationManager.CreateOperation(null);
@@ -75,21 +93,6 @@ namespace StagWare.FanControl
                     FanDisplayName = cfg.FanDisplayName
                 };
             }
-
-            var computer = new Computer();
-            computer.CPUEnabled = true;
-            computer.Open();
-            this.cpu = computer.Hardware.FirstOrDefault(x => x.HardwareType == HardwareType.CPU);
-
-            if (this.cpu != null)
-            {
-                this.cpuTempSensors = InitializeTempSensors(cpu);
-            }
-
-            if (this.cpuTempSensors == null || this.cpuTempSensors.Length <= 0)
-            {
-                throw new PlatformNotSupportedException("No CPU temperature sensor(s) found.");
-            }
         }
 
         #region Contruction Helper Methods
@@ -98,6 +101,16 @@ namespace StagWare.FanControl
         {
             return new AverageTemperatureFilter(
                 (int)Math.Ceiling((double)AverageTemperatureTimespan / pollInterval));
+        }
+
+        private static ITemperatureProvider GetDefaultTemperatureProvider()
+        {
+            return new CpuTemperatureProvider();
+        }
+
+        private static IEmbeddedController GetDefaultEc()
+        {
+            return new EmbeddedController();
         }
 
         private static int DeliminatePollInterval(int pollInterval)
@@ -130,8 +143,15 @@ namespace StagWare.FanControl
 
         #region Properties
 
-        public int CpuTemperature { get { return this.cpuTemperature; } }
-        public bool Enabled { get { return this.timer != null; } }
+        public float CpuTemperature
+        {
+            get { return this.cpuTemperature; }
+        }
+
+        public bool Enabled
+        {
+            get { return this.timer != null; }
+        }
 
         public IList<FanInformation> FanInformation
         {
@@ -144,13 +164,13 @@ namespace StagWare.FanControl
             }
         }
 
-        #endregion       
+        #endregion
 
         #region Public Methods
 
         public void Start(int delay = 0)
         {
-            if (EmbeddedController.WaitIsaBusMutex(DefaultPollInterval))
+            if (this.ec.AquireLock(DefaultPollInterval))
             {
                 try
                 {
@@ -158,7 +178,7 @@ namespace StagWare.FanControl
                 }
                 finally
                 {
-                    EmbeddedController.ReleaseIsaBusMutex();
+                    this.ec.ReleaseLock();
                 }
             }
 
@@ -224,7 +244,7 @@ namespace StagWare.FanControl
                 {
                     // Read CPU temperature before the call to UpdateEc(),
                     // because both methods try to aquire ISA bus mutex
-                    this.cpuTemperature = GetCpuTemperature();
+                    this.cpuTemperature = (float)GetTemperature();
                     UpdateEc();
                 }
                 finally
@@ -236,7 +256,7 @@ namespace StagWare.FanControl
 
         private void UpdateEc()
         {
-            if (EmbeddedController.WaitIsaBusMutex(pollInterval / 2))
+            if (this.ec.AquireLock(pollInterval / 2))
             {
                 try
                 {
@@ -245,7 +265,7 @@ namespace StagWare.FanControl
                 }
                 finally
                 {
-                    EmbeddedController.ReleaseIsaBusMutex();
+                    this.ec.ReleaseLock();
                 }
 
                 asyncOp.Post((object args) => OnECUpdated(), null);
@@ -264,7 +284,7 @@ namespace StagWare.FanControl
 
                     WriteValue(
                         this.config.FanConfigurations[idx].WriteRegister,
-                        fsm.FanSpeedValue, 
+                        fsm.FanSpeedValue,
                         this.config.ReadWriteWords);
 
                     idx++;
@@ -345,54 +365,23 @@ namespace StagWare.FanControl
 
         #region R/W EC
 
-        private static void WriteValue(int register, int value, bool writeWord)
+        private void WriteValue(int register, int value, bool writeWord)
         {
-            int tries = 0;
-            int successfulTries = 0;
-
-            while ((successfulTries < 3) && (tries < MaxRetries))
+            if (writeWord)
             {
-                tries++;
-                bool success = false;
-
-                if (writeWord)
-                {
-                    success = EmbeddedController.TryWriteWord((byte)register, value);
-                }
-                else
-                {
-                    success = EmbeddedController.TryWriteByte((byte)register, (byte)value);
-                }
-
-                if (success)
-                {
-                    successfulTries++;
-                }
+                this.ec.WriteWord((byte)register, (ushort)value);
+            }
+            else
+            {
+                this.ec.WriteByte((byte)register, (byte)value);
             }
         }
 
-        private static int ReadValue(int register, bool readWord)
+        private int ReadValue(int register, bool readWord)
         {
-            int tries = 0;
-            int wordValue = 0;
-            byte byteValue = 0;
-            bool success = false;
-
-            while (!success && (tries < MaxRetries))
-            {
-                tries++;
-
-                if (readWord)
-                {
-                    success = EmbeddedController.TryReadWord((byte)register, out wordValue);
-                }
-                else
-                {
-                    success = EmbeddedController.TryReadByte((byte)register, out byteValue);
-                }
-            }
-
-            return readWord ? wordValue : byteValue;
+            return readWord
+                ? this.ec.ReadWord((byte)register)
+                : this.ec.ReadByte((byte)register);
         }
 
         private void ResetEc()
@@ -402,7 +391,7 @@ namespace StagWare.FanControl
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                bool mutexAquired = EmbeddedController.WaitIsaBusMutex(DefaultPollInterval / 2);
+                bool mutexAquired = this.ec.AquireLock(DefaultPollInterval / 2);
 
                 try
                 {
@@ -419,7 +408,7 @@ namespace StagWare.FanControl
                 {
                     if (mutexAquired)
                     {
-                        EmbeddedController.ReleaseIsaBusMutex();
+                        this.ec.ReleaseLock();
                     }
                 }
             }
@@ -451,7 +440,7 @@ namespace StagWare.FanControl
 
         #region Get Hardware Infos
 
-        private static int GetFanSpeedValue(FanConfiguration cfg, bool readWriteWords)
+        private int GetFanSpeedValue(FanConfiguration cfg, bool readWriteWords)
         {
             int fanSpeed = 0;
             int min = Math.Min(cfg.MinSpeedValue, cfg.MaxSpeedValue);
@@ -472,46 +461,9 @@ namespace StagWare.FanControl
             return fanSpeed;
         }
 
-        private int GetCpuTemperature()
+        private double GetTemperature()
         {
-            float temp = 0;
-            int count = 0;
-            this.cpu.Update();
-
-            foreach (ISensor sensor in this.cpuTempSensors)
-            {
-                if (sensor.Value != null)
-                {
-                    temp += (float)sensor.Value;
-                    count++;
-                }
-            }
-
-            int temperature = (int)Math.Round(temp / (float)count);
-
-            return tempFilter.FilterTemperature(temperature);
-        }
-
-        private static ISensor[] InitializeTempSensors(IHardware cpu)
-        {
-            if (cpu == null)
-            {
-                throw new PlatformNotSupportedException("Failed to access CPU temperature sensors(s).");
-            }
-
-            cpu.Update();
-
-            IEnumerable<ISensor> sensors = cpu.Sensors
-                .Where(x => x.SensorType == SensorType.Temperature);
-
-            ISensor packageSensor = sensors.FirstOrDefault(x =>
-            {
-                string upper = x.Name.ToUpperInvariant();
-                return upper.Contains("PACKAGE") || upper.Contains("TOTAL");
-            });
-
-            return packageSensor != null ?
-                new ISensor[] { packageSensor } : sensors.ToArray();
+            return this.tempFilter.FilterTemperature(this.tempProvider.GetTemperature());
         }
 
         #endregion

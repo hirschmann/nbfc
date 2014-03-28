@@ -40,7 +40,7 @@ namespace StagWare.FanControl
 
         #region Public Methods
 
-        public void ResetCurrentThreshold(int cpuTemperature)
+        public void ResetCurrentThreshold(double cpuTemperature)
         {
             // Linked list must be ordered by ascending
             var node = thresholds.Last;
@@ -60,7 +60,7 @@ namespace StagWare.FanControl
             }
         }
 
-        public TemperatureThreshold AutoSelectThreshold(int cpuTemperature)
+        public TemperatureThreshold AutoSelectThreshold(double cpuTemperature)
         {
             if (this.current == null)
             {

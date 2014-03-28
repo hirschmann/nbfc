@@ -59,9 +59,13 @@
     <Compile Include="FanControl.cs" />
     <Compile Include="FanInformation.cs" />
     <Compile Include="FanSpeedManager.cs" />
-    <Compile Include="ITemperatureFilter.cs" />
+    <Compile Include="Impl\CpuTemperatureProvider.cs" />
+    <Compile Include="Impl\EmbeddedController.cs" />
+    <Compile Include="Interfaces\IEmbeddedController.cs" />
+    <Compile Include="Interfaces\ITemperatureFilter.cs" />
+    <Compile Include="Interfaces\ITemperatureProvider.cs" />
     <Compile Include="TemperatureThresholdManager.cs" />
-    <Compile Include="AverageTemperatureFilter.cs" />
+    <Compile Include="Impl\AverageTemperatureFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

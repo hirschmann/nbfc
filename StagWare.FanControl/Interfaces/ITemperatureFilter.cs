@@ -7,6 +7,6 @@ namespace StagWare.FanControl
 {
     public interface ITemperatureFilter
     {
-        int FilterTemperature(int temperature);
+        double FilterTemperature(double temperature);
     }
 }
