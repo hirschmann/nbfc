@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 using OpenHardwareMonitor.Hardware;
+using OpenHardwareMonitor.Hardware.LPC;
 using StagWare.FanControl.Configurations;
 
 namespace StagWare.FanControl
