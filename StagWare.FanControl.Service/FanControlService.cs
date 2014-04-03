@@ -64,7 +64,7 @@ namespace StagWare.FanControl.Service
 
             if (fanControl != null)
             {
-                info.CpuTemperature = fanControl.CpuTemperature;
+                info.CpuTemperature = (int)Math.Round(fanControl.CpuTemperature);
 
                 IList<FanInformation> fanInfo = this.fanControl.FanInformation;
                 info.FanStatus = new FanStatus[fanInfo.Count];

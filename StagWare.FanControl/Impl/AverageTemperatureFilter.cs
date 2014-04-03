@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace StagWare.FanControl
 {
-    internal class AverageTemperatureFilter : ITemperatureFilter
+    public class AverageTemperatureFilter : ITemperatureFilter
     {
         #region Private Fields
 
         private readonly int maxSize;
-        private Queue<int> queue;
-        private int sum;
+        private Queue<double> queue;
+        private double sum;
 
         #endregion
 
@@ -23,14 +23,14 @@ namespace StagWare.FanControl
             }
 
            this.maxSize = maxQueueSize;
-           this.queue = new Queue<int>(maxQueueSize);
+           this.queue = new Queue<double>(maxQueueSize);
         }
 
         #endregion
 
         #region ITemperatureFilter implementation
 
-        public int FilterTemperature(int temperature)
+        public double FilterTemperature(double temperature)
         {
             if (this.queue.Count >= this.maxSize)
             {

@@ -24,9 +24,9 @@
     <Compile Include="Bootstrapper.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="WixBalExtensionExt">
-      <HintPath>$(WixExtDir)\WixBalExtensionExt.dll</HintPath>
-      <Name>WixBalExtensionExt</Name>
+    <WixExtension Include="WixBalExtension">
+      <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
+      <Name>WixBalExtension</Name>
     </WixExtension>
     <WixExtension Include="WixNetFxExtension">
       <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>

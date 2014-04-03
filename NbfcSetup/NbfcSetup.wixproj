@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs;ResourcesDir=D:\Users\Stefan\Documents\Visual Studio 2012\Projects\Desktop Software Projects\NoteBookFanControl\NbfcSetup\Resources</DefineConstants>
+    <DefineConstants>Debug;ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -114,7 +114,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files (x86)\WiX Toolset v3.7\bin\heat.exe" dir "D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs" -gg -g1 -dr INSTALLFOLDER -cg Configs -var var.ConfigsDir -out $(ProjectDir)Configs.wxs</PreBuildEvent>
+    <PreBuildEvent>"C:\Program Files (x86)\WiX Toolset v3.8\bin\heat.exe" dir "D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs" -gg -g1 -dr INSTALLFOLDER -cg Configs -var var.ConfigsDir -out $(ProjectDir)Configs.wxs</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -91,7 +91,19 @@ namespace StagWare.FanControl
 
         #region Public Methods
 
-        public void UpdateFanSpeed(double speed, int cpuTemperature)
+        public static int FanSpeedToRpm(int fanSpeed)
+        {
+            if (fanSpeed == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return RPMConstant / fanSpeed;
+            }
+        }
+
+        public void UpdateFanSpeed(double speed, double cpuTemperature)
         {
             HandleCriticalMode(cpuTemperature);
 
@@ -114,17 +126,13 @@ namespace StagWare.FanControl
             this.fanSpeedValue = PercentageToFanSpeed(this.fanSpeedPercentage);
         }
 
-        public void UpdateFanSpeed(int cpuTemperature, bool autoSelectSpeed = false)
+        public void UpdateFanSpeed(double cpuTemperature, bool autoSelectSpeed = false)
         {
             double speed = autoSelectSpeed ?
                 AutoFanSpeedPercentage : this.fanSpeedPercentage;
 
             UpdateFanSpeed(speed, cpuTemperature);
         }
-
-        #endregion
-
-        #region Public Methods
 
         public int PercentageToFanSpeed(double percentage)
         {
@@ -168,23 +176,11 @@ namespace StagWare.FanControl
             }
         }
 
-        public static int FanSpeedToRpm(int fanSpeed)
-        {
-            if (fanSpeed == 0)
-            {
-                return 0;
-            }
-            else
-            {
-                return RPMConstant / fanSpeed;
-            }
-        }
-
         #endregion
         
         #region Private Methods
 
-        private void HandleCriticalMode(int cpuTemperature)
+        private void HandleCriticalMode(double cpuTemperature)
         {
             if (this.CriticalModeEnabled
                 && (cpuTemperature < this.criticalTemperature - CriticalTemperatureOffset))
