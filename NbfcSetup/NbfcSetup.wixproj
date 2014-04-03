@@ -38,14 +38,6 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\OpenHardwareMonitor\OpenHardwareMonitorLib.csproj">
-      <Name>OpenHardwareMonitorLib</Name>
-      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\ConfigEditor\ConfigEditor.csproj">
       <Name>ConfigEditor</Name>
       <Project>{a2e2e628-7bda-4072-83de-b28de7ea85a9}</Project>
@@ -65,6 +57,14 @@
     <ProjectReference Include="..\NbfcService\NbfcService.csproj">
       <Name>NbfcService</Name>
       <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+      <Name>OpenHardwareMonitorLib</Name>
+      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
