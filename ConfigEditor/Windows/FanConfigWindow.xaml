@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:wnd="clr-namespace:ConfigEditor.Windows"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         
         Title="Fan configuration" Height="360" Width="390" Icon="/ConfigEditor;component/nbfc.ico"
         WindowStartupLocation="CenterOwner">
@@ -61,14 +62,23 @@
             </TabItem>
             <TabItem Header="Temperature thresholds">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
-                    <DataGrid Name="thresholdsGrid" Margin="0,35,0,0" ItemsSource="{Binding TemperatureThresholds}"
+                    
+                    <Grid.Resources>
+                        <CollectionViewSource x:Key="viewSource" Source="{Binding TemperatureThresholds}">
+                            <CollectionViewSource.SortDescriptions>
+                                <scm:SortDescription PropertyName="UpThreshold" />
+                            </CollectionViewSource.SortDescriptions>
+                        </CollectionViewSource>
+                    </Grid.Resources>
+
+                    <DataGrid Name="thresholdsGrid" Margin="0,35,0,0" ItemsSource="{Binding Source={StaticResource viewSource}}"
                 		HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" AutoGenerateColumns="False"
                         SelectionMode="Single" HeadersVisibility="Column" CanUserResizeRows="False" IsReadOnly="True" CanUserSortColumns="False" MouseDoubleClick="thresholdsGrid_MouseDoubleClick">
-
+                        
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding UpThreshold, StringFormat={}{0:0}°C}" Header="Up threshold" SortDirection="Ascending"/>
+                            <DataGridTextColumn Binding="{Binding UpThreshold, StringFormat={}{0:0}°C}" Header="Up threshold"/>
                             <DataGridTextColumn Binding="{Binding DownThreshold, StringFormat={}{0:0}°C}" Header="Down threshold"/>
                             <DataGridTextColumn Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" Header="Fan speed"/>
                         </DataGrid.Columns>

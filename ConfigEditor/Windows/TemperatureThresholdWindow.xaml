@@ -18,6 +18,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
+            
             <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="{Binding Parent.FanSpeedSteps}" 
                     Margin="10,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="18" 
                     SmallChange="1" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"/>
