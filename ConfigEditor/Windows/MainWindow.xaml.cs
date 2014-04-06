@@ -71,6 +71,7 @@ namespace ConfigEditor.Windows
             vm.RequestingConfigPath += vm_RequestingConfigPath;
             vm.SaveConfigCommandExecuted += vm_SaveConfigCommandExecuted;
             vm.ImportConfigError += vm_ImportConfigError;
+            vm.PropertyChanged += vm_PropertyChanged;
 
             this.DataContext = vm;
 
@@ -253,6 +254,17 @@ namespace ConfigEditor.Windows
                             "Import failed",
                             MessageBoxButton.OK,
                             MessageBoxErrorStyle);
+        }
+
+        void vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "SelectedConfigName")
+            {
+                foreach (Window wnd in this.currentlyEditedViewModels.Values.ToArray())
+                {
+                    wnd.Close();
+                }
+            }
         }
 
         #endregion

@@ -12,6 +12,7 @@ namespace ConfigEditor.ViewModels
 
         private string description;
         private RegisterWriteMode writeMode;
+        private RegisterWriteMode resetWriteMode;
         private RegisterWriteOccasion writeOccasion;
         private int register;
         private int val;
@@ -124,6 +125,20 @@ namespace ConfigEditor.ViewModels
             }
         }
 
+        public RegisterWriteMode ResetWriteMode
+        {
+            get { return resetWriteMode; }
+            set
+            {
+                if (resetWriteMode != value)
+                {
+                    resetWriteMode = value;
+                    OnPropertyChanged("ResetWriteMode");
+                }
+            }
+        }
+
+
         public string Description
         {
             get
@@ -155,6 +170,7 @@ namespace ConfigEditor.ViewModels
                 WriteMode = this.WriteMode,
                 WriteOccasion = this.WriteOccasion,
                 ResetRequired = this.ResetRequired,
+                ResetWriteMode = this.ResetWriteMode,
                 ResetValue = this.ResetValue
             };
         }

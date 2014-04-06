@@ -5,7 +5,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:cfg="clr-namespace:StagWare.FanControl.Configurations;assembly=StagWare.FanControl.Configurations"
         xmlns:wnd="clr-namespace:ConfigEditor.Windows"
-        Title="Register write configuration" Height="320" Width="320"
+        Title="Register write configuration" Height="370" Width="370"
         WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/nbfc.ico">
 
     <wnd:NonModalDialogWindow.Resources>
@@ -37,40 +37,59 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Description:" Margin="0,10,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+            <Label Content="Description:" Margin="0,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
                    HorizontalAlignment="Right" Width="Auto" Height="26"/>
             <TextBox Height="23" Margin="0,13,10,0" TextWrapping="Wrap" Text="{Binding Description}" 
                      VerticalAlignment="Top" Grid.Column="1"/>
 
-            <Label Content="Write mode:" Margin="0,42,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+            <Label Content="Write mode:" Margin="0,69,10,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
                    HorizontalAlignment="Right" Width="Auto" Height="26"/>
-            <ComboBox Margin="0,46,39,0" VerticalAlignment="Top" Grid.Column="1" Height="22" SelectedValue="{Binding WriteMode}"
-                      ItemsSource="{Binding Source={StaticResource registerWriteModeValues}}"/>
+            <ComboBox Margin="0,73,0,0" VerticalAlignment="Top" Height="22" SelectedValue="{Binding WriteMode}"
+                      ItemsSource="{Binding Source={StaticResource registerWriteModeValues}}" Grid.Column="1" HorizontalAlignment="Left" Width="125"/>
 
-            <Label Content="Write occasion:" Margin="0,73,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+            <Label Content="Write occasion:" Margin="0,39,10,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
                    HorizontalAlignment="Right" Width="Auto" Height="26"/>
-            <ComboBox Margin="0,77,39,0" VerticalAlignment="Top" Grid.Column="1" Height="22" SelectedValue="{Binding WriteOccasion}"
-                      ItemsSource="{Binding Source={StaticResource registerWriteOccasionValues}}"/>
+            <ComboBox Margin="0,43,0,0" VerticalAlignment="Top" Grid.Column="1" Height="22" SelectedValue="{Binding WriteOccasion}"
+                      ItemsSource="{Binding Source={StaticResource registerWriteOccasionValues}}" HorizontalAlignment="Left" Width="125"/>
 
-            <Label Content="Register:" Margin="0,104,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
+            <Label Content="Register:" Margin="0,98,10,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
                    HorizontalAlignment="Right" Width="Auto" Height="26"/>
-            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Register}" Margin="0,108,0,0" Width="70" 
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Register}" Margin="0,102,0,0" Width="70" 
                                 Grid.Column="1" Height="22" VerticalAlignment="Top" 
                                 Minimum="0" Maximum="255"/>
 
-            <Label Content="Value:" Margin="0,135,8,0" VerticalAlignment="Top" 
+            <Label Content="Value:" Margin="0,127,10,0" VerticalAlignment="Top" 
                     HorizontalAlignment="Right" Width="Auto" Height="26" Grid.ColumnSpan="1"/>
-            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Value}" Margin="0,137,0,0" 
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding Value}" Margin="0,131,0,0" 
                                 Width="70" Grid.Column="1" Height="22" VerticalAlignment="Top" 
                                 Minimum="0" Maximum="255"/>
 
-            <CheckBox Name="resetRequired" Content="Reset required" Margin="0,175,8,0" VerticalAlignment="Top" 
-                      Height="15" HorizontalAlignment="Right" Width="Auto" Grid.Column="0" IsChecked="{Binding ResetRequired}"/>
-            <Label Content="Reset value:" Margin="0,196,8,0" VerticalAlignment="Top" Grid.ColumnSpan="1" 
-                   HorizontalAlignment="Right" Width="Auto" Height="26"/>
-            <xctk:IntegerUpDown IsEnabled="{Binding IsChecked, ElementName=resetRequired}" HorizontalAlignment="Left" 
-                                Value="{Binding ResetValue}" Margin="0,198,0,0" Width="70" Grid.Column="1" Height="24" VerticalAlignment="Top" 
-                                Minimum="0" Maximum="255"/>
+
+            <GroupBox Margin="10,161,10,10" Grid.ColumnSpan="2">
+                <GroupBox.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox VerticalAlignment="Center" IsChecked="{Binding ResetRequired}"/>
+                        <Label Content="Reset on exit" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </GroupBox.Header>
+
+                <Grid IsEnabled="{Binding ResetRequired}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Reset value:" Margin="0,36,10,0" VerticalAlignment="Top" Grid.ColumnSpan="1"
+                           HorizontalAlignment="Right" Width="73" Height="26"/>
+                    <xctk:IntegerUpDown HorizontalAlignment="Left" Value="{Binding ResetValue}" Margin="0,38,0,0" 
+                                        Width="70" Grid.Column="1" Height="24" VerticalAlignment="Top" Minimum="0" Maximum="255"/>
+
+                    <Label Content="Reset write mode:" Margin="0,5,10,0" VerticalAlignment="Top" 
+                           Grid.ColumnSpan="1" HorizontalAlignment="Right" Width="105" Height="26"/>
+                    <ComboBox Margin="0,9,0,0" VerticalAlignment="Top" Height="22" SelectedValue="{Binding ResetWriteMode}" 
+                              ItemsSource="{Binding Source={StaticResource registerWriteModeValues}}" Grid.Column="1" HorizontalAlignment="Left" Width="125"/>
+                </Grid>
+            </GroupBox>
         </Grid>
 
         <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1" >

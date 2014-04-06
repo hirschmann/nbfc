@@ -594,6 +594,7 @@ namespace ConfigEditor.ViewModels
                     ResetRequired = x.ResetRequired,
                     ResetValue = x.ResetValue,
                     WriteMode = x.WriteMode,
+                    ResetWriteMode = x.ResetWriteMode,
                     WriteOccasion = x.WriteOccasion
                 }).ToList();
         }

@@ -16,6 +16,7 @@ namespace StagWare.FanControl.Configurations
         public int Value { get; set; }
         public bool ResetRequired { get; set; }
         public int ResetValue { get; set; }
+        public RegisterWriteMode ResetWriteMode { get; set; }
         public string Description { get; set; }
 
         #endregion
@@ -32,6 +33,7 @@ namespace StagWare.FanControl.Configurations
                 Value = this.Value,
                 ResetRequired = this.ResetRequired,
                 ResetValue = this.ResetValue,
+                ResetWriteMode = this.ResetWriteMode,
                 Description = this.Description
             };
         }

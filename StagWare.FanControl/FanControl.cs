@@ -100,15 +100,15 @@ namespace StagWare.FanControl
         #region Contruction Helper Methods
 
         private static ITemperatureFilter GetDefaultTemperatureFilter(int pollInterval)
-            {
+        {
             return new AverageTemperatureFilter(
                 (int)Math.Ceiling((double)AverageTemperatureTimespan / pollInterval));
-            }
+        }
 
         private static ITemperatureProvider GetDefaultTemperatureProvider()
-            {
+        {
             return new CpuTemperatureProvider();
-            }
+        }
 
         private static IEmbeddedController GetDefaultEc()
         {
@@ -166,7 +166,7 @@ namespace StagWare.FanControl
             }
         }
 
-        #endregion       
+        #endregion
 
         #region Public Methods
 
@@ -286,7 +286,7 @@ namespace StagWare.FanControl
 
                     WriteValue(
                         this.config.FanConfigurations[idx].WriteRegister,
-                        fsm.FanSpeedValue, 
+                        fsm.FanSpeedValue,
                         this.config.ReadWriteWords);
 
                     idx++;
@@ -331,32 +331,30 @@ namespace StagWare.FanControl
         {
             if (this.config.RegisterWriteConfigurations != null)
             {
-                foreach (RegisterWriteConfiguration rwc in this.config.RegisterWriteConfigurations)
+                foreach (RegisterWriteConfiguration cfg in this.config.RegisterWriteConfigurations)
                 {
-                    if (initializing || rwc.WriteOccasion == RegisterWriteOccasion.OnWriteFanSpeed)
+                    if (initializing || cfg.WriteOccasion == RegisterWriteOccasion.OnWriteFanSpeed)
                     {
-                        ApplyRegisterWriteConfig(rwc);
+                        ApplyRegisterWriteConfig(cfg.Value, cfg.Register, cfg.WriteMode);
                     }
                 }
             }
         }
 
-        private void ApplyRegisterWriteConfig(RegisterWriteConfiguration rwc)
+        private void ApplyRegisterWriteConfig(int value, int register, RegisterWriteMode mode)
         {
-            int value = rwc.Value;
-
-            switch (rwc.WriteMode)
+            switch (mode)
             {
                 case RegisterWriteMode.And:
-                    value &= ReadValue(rwc.Register, config.ReadWriteWords);
+                    value &= ReadValue(register, config.ReadWriteWords);
                     goto case RegisterWriteMode.Set;
 
                 case RegisterWriteMode.Or:
-                    value |= ReadValue(rwc.Register, config.ReadWriteWords);
+                    value |= ReadValue(register, config.ReadWriteWords);
                     goto case RegisterWriteMode.Set;
 
                 case RegisterWriteMode.Set:
-                    WriteValue(rwc.Register, value, config.ReadWriteWords);
+                    WriteValue(register, value, config.ReadWriteWords);
                     break;
             }
         }
@@ -369,22 +367,22 @@ namespace StagWare.FanControl
 
         private void WriteValue(int register, int value, bool writeWord)
         {
-                if (writeWord)
-                {
+            if (writeWord)
+            {
                 this.ec.WriteWord((byte)register, (ushort)value);
-                }
-                else
-                {
+            }
+            else
+            {
                 this.ec.WriteByte((byte)register, (byte)value);
-                }
-                }
+            }
+        }
 
         private int ReadValue(int register, bool readWord)
         {
             return readWord
                 ? this.ec.ReadWord((byte)register)
                 : this.ec.ReadByte((byte)register);
-                }
+        }
 
         private void ResetEc()
         {
@@ -418,22 +416,22 @@ namespace StagWare.FanControl
 
         private void ResetFans()
         {
-            foreach (FanConfiguration fanCfg in this.config.FanConfigurations)
+            foreach (FanConfiguration cfg in this.config.FanConfigurations)
             {
-                if (fanCfg.ResetRequired)
+                if (cfg.ResetRequired)
                 {
-                    WriteValue(fanCfg.WriteRegister, fanCfg.FanSpeedResetValue, this.config.ReadWriteWords);
+                    WriteValue(cfg.WriteRegister, cfg.FanSpeedResetValue, this.config.ReadWriteWords);
                 }
             }
         }
 
         private void ResetRegisterWriteConfigs()
         {
-            foreach (RegisterWriteConfiguration regWrtCfg in this.config.RegisterWriteConfigurations)
+            foreach (RegisterWriteConfiguration cfg in this.config.RegisterWriteConfigurations)
             {
-                if (regWrtCfg.ResetRequired)
+                if (cfg.ResetRequired)
                 {
-                    WriteValue(regWrtCfg.Register, regWrtCfg.ResetValue, false);
+                    ApplyRegisterWriteConfig(cfg.ResetValue, cfg.Register, cfg.ResetWriteMode);
                 }
             }
         }
@@ -466,7 +464,7 @@ namespace StagWare.FanControl
         private double GetTemperature()
         {
             return this.tempFilter.FilterTemperature(this.tempProvider.GetTemperature());
-                }
+        }
 
         #endregion
 
