@@ -22,15 +22,39 @@
     <Media Id="1" Cabinet="NBFC.cab" EmbedCab="yes" CompressionLevel="high"/>
 
     <!--.NET Framework check-->
-    <PropertyRef Id="NETFRAMEWORK40FULL"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
 
     <Condition Message="$(var.ProductName) requires .NET Framework 4.0.">
-      <![CDATA[NETFRAMEWORK40FULL]]>
+      <![CDATA[NETFRAMEWORK40CLIENT]]>
     </Condition>
 
     <!--Program Icon-->
     <Icon Id="Nbfc.ico" SourceFile="$(var.NbfcServiceClient.ProjectDir)nbfc.ico" />
     <Property Id="ARPPRODUCTICON" Value="Nbfc.ico" />
+
+    <!--DriverSetupAction-->
+    <Binary Id="DriverSetupWixAction.CA.dll" SourceFile="$(var.DriverSetupWixAction.TargetDir)DriverSetupWixAction.CA.dll"/>
+    <CustomAction Id="InstallDriver" BinaryKey="DriverSetupWixAction.CA.dll" DllEntry="InstallDriver" Execute="deferred"
+                  Impersonate="no" Return="check" HideTarget="no" TerminalServerAware="no"/>
+    <CustomAction Id="UninstallDriver" BinaryKey="DriverSetupWixAction.CA.dll" DllEntry="UninstallDriver" Execute="deferred"
+                  Impersonate="no" Return="ignore" HideTarget="no" TerminalServerAware="no"/>
+
+    <!--Set custom action properties-->
+    <CustomAction Id="SetInstallFolderForInstallDriver" Property="InstallDriver" Value="INSTALLFOLDER=[INSTALLFOLDER]"
+                  Return="check" Execute="immediate"/>
+    <CustomAction Id="SetInstallFolderForUninstallDriver" Property="UninstallDriver" Value="INSTALLFOLDER=[INSTALLFOLDER]"
+                  Return="check" Execute="immediate"/>
+
+    <!--Do actions-->
+    <InstallExecuteSequence>
+      <Custom Action="SetInstallFolderForUninstallDriver" Before="UninstallDriver"/>
+      <Custom Action="UninstallDriver" After="DeleteServices"/>
+      
+      <Custom Action="SetInstallFolderForInstallDriver" Before ="InstallDriver"/>
+      <Custom Action="InstallDriver" After="InstallFiles">
+        NOT REMOVE="ALL"
+      </Custom>
+    </InstallExecuteSequence>
 
     <!--Features-->
     <Feature Id="NoteBookFanControl" Title="$(var.ProductName)" Level="1">
@@ -44,7 +68,6 @@
       <ComponentRef Id="ClientConfig" />
       <ComponentRef Id="TaskbarNotificationLib" />
       <ComponentRef Id="ConfigEditor" />
-      <ComponentRef Id="WpfDialogsLib" />
       <ComponentRef Id="WpfToolkit" />
       <ComponentRef Id="ConfigsFolderPermissions" />
       <ComponentRef Id="CleanupProgramFiles" />
@@ -135,11 +158,6 @@
           <Shortcut Id="EditorStartMenuShortcut" Directory="ProgramMenuProductFolder" Name="Config Editor"
                     Icon="Nbfc.ico" Advertise="yes" />
         </File>
-      </Component>
-
-      <Component Id="WpfDialogsLib" Guid="35ABAA85-38E1-4463-83F4-A0E72637C7CC">
-        <File Id="Ookii.Dialogs.Wpf.dll" Name="Ookii.Dialogs.Wpf.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.ConfigEditor.TargetDir)Ookii.Dialogs.Wpf.dll"/>
       </Component>
 
       <Component Id="WpfToolkit" Guid="40C4D054-AD1F-40B7-9A0E-1E73AE026CA4">
