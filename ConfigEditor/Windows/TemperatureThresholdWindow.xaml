@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         
-        Title="Temperature Threshold" Height="220" Width="290" Icon="/ConfigEditor;component/nbfc.ico"
+        Title="Temperature Threshold" Height="254" Width="320" Icon="/ConfigEditor;component/nbfc.ico"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
 
     <Grid>
@@ -12,29 +12,28 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="148"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            
-            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="{Binding Parent.FanSpeedSteps}" 
+        <!--Fan speed-->
+        <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="{Binding Parent.FanSpeedSteps}" 
                     Margin="10,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="18" 
                     SmallChange="1" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"/>
-            <Label Content="{Binding FanSpeedPercentage}" ContentStringFormat="Fan speed percentage:  {0:0.0}%"
-                   Margin="10,30,10,0" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2"/>
+        <Label Content="{Binding FanSpeedPercentage}" ContentStringFormat="Fan speed:  {0:0.0}%"
+                   Margin="10,30,10,0" VerticalAlignment="Top" Height="26"/>
 
-            <Label Content="Up threshold (°C):" HorizontalAlignment="Right" 
-                   Margin="0,66,8,0" VerticalAlignment="Top" Width="104" Height="26"/>
-            <xctk:IntegerUpDown Margin="0,68,0,0" Height="23" VerticalAlignment="Top" Value="{Binding UpThreshold}"
-                                HorizontalAlignment="Left" Width="70" Grid.Column="1" Minimum="0"/>
+        <!--UpThreshold-->
+        <Slider Value="{Binding UpThreshold}" Minimum="0" Maximum="100"
+                    Margin="10,61,10,0" VerticalAlignment="Top" Height="18" 
+                    SmallChange="1" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"/>
+        <Label Content="{Binding UpThreshold}" ContentStringFormat="Up threshold:  {0:0}°C"
+                   Margin="10,81,10,0" VerticalAlignment="Top" Height="26"/>
 
-            <Label Content="Down threshold (°C):" HorizontalAlignment="Right" 
-                   Margin="0,97,8,0" VerticalAlignment="Top" Width="119" Height="26"/>
-            <xctk:IntegerUpDown Margin="0,99,0,0" Height="23" VerticalAlignment="Top" Value="{Binding DownThreshold}"
-                            HorizontalAlignment="Left" Width="70" Grid.Column="1" Minimum="0"/>
-        </Grid>
+        <!--DownThreshold-->
+        <Slider Value="{Binding DownThreshold}" Minimum="0" Maximum="{Binding UpThreshold}"
+                    Margin="10,115,10,0" VerticalAlignment="Top" Height="18"
+                    SmallChange="1" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"/>
+        <Label Content="{Binding DownThreshold}" ContentStringFormat="Down threshold:  {0:0}°C"
+                   Margin="10,135,10,0" VerticalAlignment="Top" Height="26"/>
+
+
         <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1">
 
             <Grid.ColumnDefinitions>
