@@ -31,6 +31,8 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcBootstrapper", "NbfcBoo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverSetupWixAction", "DriverSetupWixAction\DriverSetupWixAction.csproj", "{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -224,6 +226,24 @@ Global
 		{B0397530-545A-471D-BB74-027AE456DF1A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.Release|x86.ActiveCfg = Release|Any CPU
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|Any CPU.Build.0 = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|x86.ActiveCfg = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|x86.Build.0 = Debug|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|Any CPU.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|Any CPU.Build.0 = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|Mixed Platforms.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|Mixed Platforms.Build.0 = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|x86.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release Mono|x86.Build.0 = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|Any CPU.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|Any CPU.Build.0 = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|Mixed Platforms.Build.0 = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|x86.ActiveCfg = Release|x86
+		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

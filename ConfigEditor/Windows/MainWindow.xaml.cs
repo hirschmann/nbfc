@@ -1,5 +1,4 @@
 ﻿using ConfigEditor.ViewModels;
-using Ookii.Dialogs.Wpf;
 using StagWare.FanControl.Configurations;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace ConfigEditor.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, System.Windows.Forms.IWin32Window
     {
         #region Constants
 
@@ -208,7 +207,7 @@ namespace ConfigEditor.Windows
 
         void vm_RequestingConfigPath(object sender, DialogEventArgs<RequestConfigPathViewModel> e)
         {
-            var dialog = new VistaOpenFileDialog()
+            var dialog = new System.Windows.Forms.OpenFileDialog()
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
@@ -218,7 +217,7 @@ namespace ConfigEditor.Windows
                 Title = "Please select a config file"
             };
 
-            if (dialog.ShowDialog(this) == true)
+            if (dialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
                 e.Update = true;
                 e.ViewModel.ConfigFilePath = dialog.FileName;
@@ -376,6 +375,18 @@ namespace ConfigEditor.Windows
         }
 
         #endregion
+
+        #endregion
+
+        #region IWin32Window implementation
+
+        public IntPtr Handle
+        {
+            get
+            {
+                return (new System.Windows.Interop.WindowInteropHelper(this)).Handle;
+            }
+        } 
 
         #endregion
     }
