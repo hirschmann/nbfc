@@ -14,6 +14,7 @@ namespace NbfcService
         #region Private Fields
 
         private ServiceHost host;
+        private FanControlService service;
 
         #endregion
 
@@ -43,7 +44,8 @@ namespace NbfcService
         {
             StopServiceHost();
 
-            host = new ServiceHost(typeof(FanControlService));
+            service = new FanControlService();
+            host = new ServiceHost(service);
             host.Open();
         }
 
@@ -52,12 +54,23 @@ namespace NbfcService
             StopServiceHost();
         }
 
+        protected override bool OnPowerEvent(PowerBroadcastStatus powerStatus)
+        {
+            if (powerStatus == PowerBroadcastStatus.ResumeSuspend
+                || powerStatus == PowerBroadcastStatus.ResumeAutomatic
+                || powerStatus == PowerBroadcastStatus.ResumeCritical)
+            {
+                this.service.ReInitializeFanControl();
+            }
+
+            return true;
+        }
+
         protected override void OnShutdown()
         {
-            //// base.RequestAdditionalTime(2000);
+            // base.RequestAdditionalTime(2000);
 
-            StopServiceHost();            
-            base.OnShutdown();
+            StopServiceHost();
         }
 
         #endregion
@@ -66,10 +79,24 @@ namespace NbfcService
 
         private void StopServiceHost()
         {
-            if (host != null)
+            if (this.host != null)
             {
-                host.Close();
-                host = null;
+                if (this.host.State == CommunicationState.Faulted)
+                {
+                    this.host.Abort();
+                }
+                else
+                {
+                    this.host.Close();
+                }
+
+                this.host = null;
+            }
+
+            if (this.service != null)
+            {
+                this.service.Dispose();
+                this.service = null;
             }
         }
 

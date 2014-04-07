@@ -42,7 +42,7 @@ namespace StagWare.FanControl.Service
             }
         }
 
-        #endregion
+        #endregion        
 
         #region IFanControlService implementation
 
@@ -140,28 +140,58 @@ namespace StagWare.FanControl.Service
 
         #region IDisposable implementation
 
+        private bool disposed;
+
         public void Dispose()
         {
-            if (fanControl != null)
-            {
-                try
-                {
-                    using (var settings = ServiceSettings.Load())
-                    {
-                        settings.AutoStart = this.initialized;
-                        settings.TargetFanSpeeds = fanControl.FanInformation
-                            .Select(x => x.AutoFanControlEnabled ? AutoControlFanSpeedPercentage : x.TargetFanSpeed).ToArray();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-                        settings.Save();
+        private void Dispose(bool disposeManagedResources)
+        {
+            if (!disposed)
+            {
+                if (disposeManagedResources)
+                {
+                    if (fanControl != null)
+                    {
+                        try
+                        {
+                            using (var settings = ServiceSettings.Load())
+                            {
+                                settings.AutoStart = this.initialized;
+                                settings.TargetFanSpeeds = fanControl.FanInformation
+                                    .Select(x => x.AutoFanControlEnabled ? AutoControlFanSpeedPercentage : x.TargetFanSpeed).ToArray();
+
+                                settings.Save();
+                            }
+                        }
+                        catch
+                        {
+                        }
+
+                        fanControl.Dispose();
+                        fanControl = null;
                     }
                 }
-                catch
-                {
-                }
 
-                fanControl.Dispose();
-                fanControl = null;
+                disposed = true;
             }
+        }
+
+        ~FanControlService()
+        {
+            Dispose(false);
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ReInitializeFanControl()
+        {
+            this.fanControl.Start();
         }
 
         #endregion
