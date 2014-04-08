@@ -27,7 +27,7 @@
                VerticalAlignment="Top" FontWeight="Bold"/>
 
         <TextBox Text="{Binding SelectedConfig}" Height="23" Margin="121,7,55,0" 
-                 TextWrapping="Wrap" VerticalAlignment="Top"/>
+                 TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
 
         <!--Service info-->
         <CheckBox Content="  :Fan control service enabled" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" 

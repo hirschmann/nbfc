@@ -136,7 +136,7 @@ namespace NbfcServiceClient.Windows
 
         #region Private Methods
 
-        private System.Drawing.Bitmap RenderTrayImage(int cpuTemperature)
+        private static System.Drawing.Bitmap RenderTrayImage(int cpuTemperature)
         {
             int trayIconSize = System.Windows.Forms.SystemInformation.IconSize.Height / 2;
             double scalingFactor = trayIconSize / DefaultTrayIconSize;
@@ -182,7 +182,7 @@ namespace NbfcServiceClient.Windows
             }
         }
 
-        private bool IsPathValid(string path)
+        private static bool IsPathValid(string path)
         {
             bool isValid = false;
 
