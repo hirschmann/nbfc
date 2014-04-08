@@ -27,7 +27,7 @@
                    Margin="10,81,10,0" VerticalAlignment="Top" Height="26"/>
 
         <!--DownThreshold-->
-        <Slider Value="{Binding DownThreshold}" Minimum="0" Maximum="{Binding UpThreshold}"
+        <Slider Value="{Binding DownThreshold}" Minimum="0" Maximum="100"
                     Margin="10,115,10,0" VerticalAlignment="Top" Height="18"
                     SmallChange="1" IsSnapToTickEnabled="True" IsMoveToPointEnabled="True"/>
         <Label Content="{Binding DownThreshold}" ContentStringFormat="Down threshold:  {0:0}°C"

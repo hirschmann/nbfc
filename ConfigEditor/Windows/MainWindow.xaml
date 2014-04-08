@@ -152,7 +152,7 @@
                             <DataGridTextColumn Binding="{Binding WriteRegister}" Header="Write register"/>
                             <DataGridTextColumn Binding="{Binding MinSpeedValue}" Header="Min. speed"/>
                             <DataGridTextColumn Binding="{Binding MaxSpeedValue}" Header="Max. speed"/>
-                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" Header="Reset required"/>
+                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" Header="Reset on exit"/>
                             <DataGridTextColumn Binding="{Binding ResetValue}" Header="Reset value"/>
                             <DataGridTextColumn Binding="{Binding TemperatureThresholds.Count}" Header="Temperature thresholds"/>
                             <DataGridTextColumn Binding="{Binding FanSpeedOverrides.Count}" Header="Fan speed overrides"/>
@@ -187,11 +187,12 @@
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Description}" Header="Description"/>
-                            <DataGridTextColumn Binding="{Binding WriteMode}" Header="Write mode" />
                             <DataGridTextColumn Binding="{Binding WriteOccasion}" Header="Write occasion" />
+                            <DataGridTextColumn Binding="{Binding WriteMode}" Header="Write mode" />                            
                             <DataGridTextColumn Binding="{Binding Register}" Header="Register"/>
                             <DataGridTextColumn Binding="{Binding Value}" Header="Value"/>
-                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" Header="Reset required"/>
+                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" Header="Reset on exit"/>                            
+                            <DataGridTextColumn Binding="{Binding ResetWriteMode}" Header="Reset write mode"/>
                             <DataGridTextColumn Binding="{Binding ResetValue}" Header="Reset value"/>
                         </DataGrid.Columns>
                     </DataGrid>
