@@ -45,7 +45,7 @@ namespace ConfigEditor.ViewModels
 
             set
             {
-                if (downThreshold != value && value <= this.UpThreshold)
+                if (downThreshold != value)
                 {
                     downThreshold = value;
                     OnPropertyChanged("DownThreshold");
@@ -67,7 +67,7 @@ namespace ConfigEditor.ViewModels
                     upThreshold = value;
                     OnPropertyChanged("UpThreshold");
 
-                    if (this.DownThreshold > value)
+                    if (value < this.DownThreshold)
                     {
                         this.DownThreshold = value;
                     }
