@@ -101,7 +101,7 @@
       <Component Id="Service" Guid="A178E4FC-45EF-4246-B946-EC6CC879A26C">
         <File Id="NbfcService.exe" Name="NbfcService.exe" DiskId="1" Vital="yes" KeyPath="yes"
               Source="$(var.NbfcService.TargetDir)NbfcService.exe">
-          <netfx:NativeImage Id="NbfcServiceNativeImage" Priority="1"/>
+          <netfx:NativeImage Id="NbfcServiceNativeImage" Priority="1" Platform="all"/>
         </File>
 
         <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Vital="yes" Name="NbfcService" Start="auto"
@@ -135,14 +135,14 @@
       <Component Id="OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
         <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
               Source="$(var.StagWare.FanControl.TargetDir)OpenHardwareMonitorLib.dll">
-          <!--<netfx:NativeImage Id="OpenHardwareMonitorLibNativeImage" AssemblyApplication="NbfcService.exe" AppBaseDirectory="INSTALLFOLDER" Priority="1"/>-->
+          <!--<netfx:NativeImage Id="OpenHardwareMonitorLibNativeImage" AssemblyApplication="NbfcService.exe" AppBaseDirectory="INSTALLFOLDER" Priority="1" Platform="all"/>-->
         </File>
       </Component>
 
       <Component Id="Client" Guid="6CD59558-48F7-4E1E-B4F6-470F8510D57A">
         <File Id="NoteBookFanControl.exe" Name="NoteBook FanControl.exe" DiskId="1" Vital="yes" KeyPath="yes"
               Source="$(var.NbfcServiceClient.TargetDir)NoteBook FanControl.exe">
-          <netfx:NativeImage Id="NoteBookFanControlNativeImage" Priority="1"/>
+          <netfx:NativeImage Id="NoteBookFanControlNativeImage" Priority="1" Platform="all"/>
           <Shortcut Id="ClientStartMenuShortcut" Directory="ProgramMenuProductFolder" Name="$(var.ProductName)" 
                     Icon="Nbfc.ico" Advertise="yes" />          
         </File>
@@ -161,7 +161,7 @@
       <Component Id="ConfigEditor" Guid="C3D8D023-75AB-49F5-B276-75E80FA87DBF">
         <File Id="ConfigEditor.exe" Name="ConfigEditor.exe" DiskId="1" Vital="yes" KeyPath="yes"
               Source="$(var.ConfigEditor.TargetDir)ConfigEditor.exe">
-          <netfx:NativeImage Id="ConfigEditorNativeImage" Priority="1"/>
+          <netfx:NativeImage Id="ConfigEditorNativeImage" Priority="1" Platform="all"/>
           <Shortcut Id="EditorStartMenuShortcut" Directory="ProgramMenuProductFolder" Name="Config Editor"
                     Icon="Nbfc.ico" Advertise="yes" />
         </File>
