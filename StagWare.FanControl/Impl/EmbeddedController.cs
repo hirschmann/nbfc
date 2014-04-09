@@ -1,86 +1,44 @@
-﻿using System;
+﻿using StagWare.FanControl.Impl.Linux;
+using StagWare.FanControl.Impl.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using EC = OpenHardwareMonitor.Hardware.LPC.EmbeddedController;
-
 namespace StagWare.FanControl
 {
-    public class EmbeddedController : IEmbeddedController
+    public abstract class EmbeddedController : IEmbeddedController
     {
-        private const int MaxRetries = 10;
-
-        public void WriteByte(byte register, byte value)
+        public static EmbeddedController Create()
         {
-            int tries = 0;
-            int successfulTries = 0;
+            EmbeddedController instance = null;
 
-            while ((successfulTries < 3) && (tries < MaxRetries))
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             {
-                tries++;
-
-                if (EC.TryWriteByte(register, value))
-                {
-                    successfulTries++;
-                }
+                instance = new WindowsEmbeddedController();
             }
-        }
-
-        public void WriteWord(byte register, ushort value)
-        {
-            int tries = 0;
-            int successfulTries = 0;
-
-            while ((successfulTries < 3) && (tries < MaxRetries))
+            else if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                tries++;
-
-                if (EC.TryWriteWord(register, value))
-                {
-                    successfulTries++;
-                }
+                instance = new LinuxEmbeddedController();
             }
-        }
-
-        public byte ReadByte(byte register)
-        {
-            byte result = 0;
-            int tries = 0;
-            bool success = false;
-
-            while (!success && (tries < MaxRetries))
+            else
             {
-                tries++;
-                success = EC.TryReadByte(register, out result);
+                throw new PlatformNotSupportedException();
             }
 
-            return result;
+            return instance;
         }
 
-        public ushort ReadWord(byte register)
-        {
-            int result = 0;
-            int tries = 0;
-            bool success = false;
+        public abstract void WriteByte(byte register, byte value);
 
-            while (!success && (tries < MaxRetries))
-            {
-                tries++;
-                success = EC.TryReadWord(register, out result);
-            }
+        public abstract void WriteWord(byte register, ushort value);
 
-            return (ushort)result;
-        }
+        public abstract byte ReadByte(byte register);
 
-        public bool AquireLock(int timeout)
-        {
-            return EC.WaitIsaBusMutex(timeout);
-        }
+        public abstract ushort ReadWord(byte register);
 
-        public void ReleaseLock()
-        {
-            EC.ReleaseIsaBusMutex();
-        }
+        public abstract bool AquireLock(int timeout);
+
+        public abstract void ReleaseLock();
     }
 }

@@ -107,12 +107,12 @@ namespace StagWare.FanControl
 
         private static ITemperatureProvider GetDefaultTemperatureProvider()
         {
-            return new CpuTemperatureProvider();
+            return CpuTemperatureProvider.Create();
         }
 
         private static IEmbeddedController GetDefaultEc()
         {
-            return new EmbeddedController();
+            return EmbeddedController.Create();
         }
 
         private static int DeliminatePollInterval(int pollInterval)

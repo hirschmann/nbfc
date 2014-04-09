@@ -61,6 +61,10 @@
     <Compile Include="FanSpeedManager.cs" />
     <Compile Include="Impl\CpuTemperatureProvider.cs" />
     <Compile Include="Impl\EmbeddedController.cs" />
+    <Compile Include="Impl\Linux\LinuxCpuTemperatureProvider.cs" />
+    <Compile Include="Impl\Linux\LinuxEmbeddedController.cs" />
+    <Compile Include="Impl\Windows\WindowsCpuTemperatureProvider.cs" />
+    <Compile Include="Impl\Windows\WindowsEmbeddedController.cs" />
     <Compile Include="Interfaces\IEmbeddedController.cs" />
     <Compile Include="Interfaces\ITemperatureFilter.cs" />
     <Compile Include="Interfaces\ITemperatureProvider.cs" />
@@ -78,6 +82,7 @@
       <Name>StagWare.FanControl.Configurations</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
