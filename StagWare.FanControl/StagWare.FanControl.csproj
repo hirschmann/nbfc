@@ -69,7 +69,7 @@
     <Compile Include="Interfaces\ITemperatureFilter.cs" />
     <Compile Include="Interfaces\ITemperatureProvider.cs" />
     <Compile Include="TemperatureThresholdManager.cs" />
-    <Compile Include="Impl\AverageTemperatureFilter.cs" />
+    <Compile Include="Impl\ArithmeticMeanTemperatureFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

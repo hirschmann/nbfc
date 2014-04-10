@@ -14,8 +14,7 @@ namespace StagWare.FanControl
         #region Constants
 
         private const int MinPollInterval = 100;
-        private const int DefaultPollInterval = 3000;
-        private const int AverageTemperatureTimespan = 6000;
+        private const int DefaultPollInterval = 3000;        
 
         #endregion
 
@@ -44,9 +43,9 @@ namespace StagWare.FanControl
         public FanControl(FanControlConfigV2 config)
             : this(
             config,
-            GetDefaultTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
-            GetDefaultTemperatureProvider(),
-            GetDefaultEc())
+            new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
+            CpuTemperatureProvider.Create(),
+            EmbeddedController.Create())
         {
         }
 
@@ -98,22 +97,6 @@ namespace StagWare.FanControl
         }
 
         #region Contruction Helper Methods
-
-        private static ITemperatureFilter GetDefaultTemperatureFilter(int pollInterval)
-        {
-            return new AverageTemperatureFilter(
-                (int)Math.Ceiling((double)AverageTemperatureTimespan / pollInterval));
-        }
-
-        private static ITemperatureProvider GetDefaultTemperatureProvider()
-        {
-            return CpuTemperatureProvider.Create();
-        }
-
-        private static IEmbeddedController GetDefaultEc()
-        {
-            return EmbeddedController.Create();
-        }
 
         private static int DeliminatePollInterval(int pollInterval)
         {
