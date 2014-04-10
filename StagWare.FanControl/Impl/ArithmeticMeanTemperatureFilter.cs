@@ -5,12 +5,6 @@ namespace StagWare.FanControl
 {
     public class ArithmeticMeanTemperatureFilter : ITemperatureFilter
     {
-        #region Constants
-
-        private const int AverageTemperatureTimespan = 6000; //ms
-
-        #endregion
-
         #region Private Fields
 
         private readonly int maxSize;
@@ -21,22 +15,18 @@ namespace StagWare.FanControl
 
         #region Constructors
 
-        public ArithmeticMeanTemperatureFilter(int pollInterval)
-            : this(pollInterval, AverageTemperatureTimespan)
-        {
-        }
-
-        public ArithmeticMeanTemperatureFilter(int pollInterval, int timespan)
+        public ArithmeticMeanTemperatureFilter(int pollInterval, int timespan = 6000)
         {
             if (pollInterval <= 0)
             {
-                throw new ArgumentOutOfRangeException("pollInterval", "pollInterval must be greater than 0");
+                throw new ArgumentOutOfRangeException("pollInterval", "The value must be greater than 0.");
             }
 
-            if (timespan > pollInterval)
+            if (timespan <= 0)
             {
-                throw new ArgumentOutOfRangeException("timespan", "timespan must be greater or equal to pollInterval");
+                throw new ArgumentOutOfRangeException("timespan", "The value must be greater than 0.");
             }
+
 
             this.maxSize = (int)Math.Ceiling((double)timespan / pollInterval);
             this.queue = new Queue<double>(maxSize);

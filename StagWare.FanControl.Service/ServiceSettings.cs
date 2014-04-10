@@ -33,6 +33,11 @@ namespace StagWare.FanControl.Service.Settings
 
         public static ServiceSettings Load(string directory)
         {
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             string path = Path.Combine(directory, SettingsFileName);
 
             var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
@@ -71,19 +76,6 @@ namespace StagWare.FanControl.Service.Settings
             this.fileStream.SetLength(0);
 
             this.serializer.Serialize(this.fileStream, this);
-        }
-
-        #endregion
-
-        #region Private Static Methods
-
-        private static string GetSettingsFilePath()
-        {
-            string path = Assembly.GetExecutingAssembly().Location;
-            path = Path.GetDirectoryName(path);
-            path = Path.Combine(path, SettingsFileName);
-
-            return path;
         }
 
         #endregion
