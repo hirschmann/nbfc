@@ -16,6 +16,9 @@ namespace StagWare.FanControl.Service
 
         private const string ConfigsDirectoryName = "Configs";
         private const int AutoControlFanSpeedPercentage = 101;
+        private readonly string SettingsDir = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            "NbfcService");
 
         #endregion
 
@@ -36,7 +39,7 @@ namespace StagWare.FanControl.Service
             executingAssemblyDirName = Assembly.GetExecutingAssembly().Location;
             executingAssemblyDirName = Path.GetDirectoryName(executingAssemblyDirName);
 
-            using (var settings = ServiceSettings.Load())
+            using (var settings = ServiceSettings.Load(SettingsDir))
             {
                 initialized = TryInitializeFanControl(settings);
             }
@@ -88,7 +91,7 @@ namespace StagWare.FanControl.Service
 
         public bool Restart()
         {
-            using (var settings = ServiceSettings.Load())
+            using (var settings = ServiceSettings.Load(SettingsDir))
             {
                 return Restart(settings);
             }
@@ -101,7 +104,7 @@ namespace StagWare.FanControl.Service
                 initialized = false;
                 Dispose();
 
-                using (var settings = ServiceSettings.Load())
+                using (var settings = ServiceSettings.Load(SettingsDir))
                 {
                     settings.AutoStart = false;
                     settings.Save();
@@ -113,7 +116,7 @@ namespace StagWare.FanControl.Service
         {
             if (!this.initialized)
             {
-                using (var settings = ServiceSettings.Load())
+                using (var settings = ServiceSettings.Load(SettingsDir))
                 {
                     this.initialized = TryInitializeFanControl(settings);
 
@@ -127,7 +130,7 @@ namespace StagWare.FanControl.Service
 
         public void SetConfig(string configUniqueId)
         {
-            using (var settings = ServiceSettings.Load())
+            using (var settings = ServiceSettings.Load(SettingsDir))
             {
                 settings.SelectedConfigId = configUniqueId;
                 settings.Save();
@@ -158,7 +161,7 @@ namespace StagWare.FanControl.Service
                     {
                         try
                         {
-                            using (var settings = ServiceSettings.Load())
+                            using (var settings = ServiceSettings.Load(SettingsDir))
                             {
                                 settings.AutoStart = this.initialized;
                                 settings.TargetFanSpeeds = fanControl.FanInformation

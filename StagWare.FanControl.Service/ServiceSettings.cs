@@ -31,9 +31,10 @@ namespace StagWare.FanControl.Service.Settings
 
         #region Public Static Methods
 
-        public static ServiceSettings Load()
+        public static ServiceSettings Load(string directory)
         {
-            string path = GetSettingsFilePath();
+            string path = Path.Combine(directory, SettingsFileName);
+
             var fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             var serializer = new XmlSerializer(typeof(ServiceSettings));
             ServiceSettings settings = null;
@@ -66,8 +67,6 @@ namespace StagWare.FanControl.Service.Settings
 
         public void Save()
         {
-            string path = GetSettingsFilePath();
-
             // clear file before saving
             this.fileStream.SetLength(0);
 
