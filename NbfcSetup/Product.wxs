@@ -135,7 +135,6 @@
       <Component Id="OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
         <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
               Source="$(var.StagWare.FanControl.TargetDir)OpenHardwareMonitorLib.dll">
-          <!--<netfx:NativeImage Id="OpenHardwareMonitorLibNativeImage" AssemblyApplication="NbfcService.exe" AppBaseDirectory="INSTALLFOLDER" Priority="1" Platform="all"/>-->
         </File>
       </Component>
 
@@ -175,7 +174,7 @@
 
     <!--Start menu directory setup-->
     <DirectoryRef Id="ProgramMenuProductFolder">
-      <Component Id="ProgramMenuShortcuts" Guid="8A01AEFF-9679-47B9-A4C2-C9AE197A52F3">
+      <Component Id="ProgramMenuShortcuts" Guid="8A01AEFF-9679-47B9-A4C2-C9AE197A52F3">        
         <RemoveFolder Id="ProgramMenuProductFolder" On="uninstall"/>
         <RegistryValue Root="HKMU" Key="Software\$(var.CompanyName)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
       </Component>
