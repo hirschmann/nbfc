@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("DriverSetupWixAction")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
