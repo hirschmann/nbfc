@@ -19,11 +19,20 @@
             <Component Id="cmpC44EFEBABECB63D258739911099329A1" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="filC05321758B1FA1B7BE703A6B35EE38B1" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 1825PTZ.xml" />
             </Component>
+            <Component Id="cmpB4D731767D9B54C3B31DCD01F1B102D0" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="fil22DDA4DD710E4CCC6B76B89CCBCB20CC" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 5738G.xml" />
+            </Component>
             <Component Id="cmpC0795ECB5FB91D448337AC58831AB910" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil52B50575765079A6493D16EB7F1CC36F" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 5930.xml" />
             </Component>
+            <Component Id="cmp35DA0C4F6296CE79607B94F0A3085C62" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="filECFA816057C0C833D042C2D88BC9AE8C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7551G.xml" />
+            </Component>
             <Component Id="cmp73E51126EC5D80726E5E0573DF8F2139" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil6F7C4D5BE5A5781F205B66620A7F62EC" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7735.xml" />
+            </Component>
+            <Component Id="cmpF4E96941555B91560BAC8025D9512327" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="fil5D70EDE59E8BDCAA79164BAD37A4E04D" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7741G.xml" />
             </Component>
             <Component Id="cmp3557EB72E8E98F4BBD32BFBC7E825026" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil782B91716C8C0FD6D15A1AA19436A032" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire LT-10Q.xml" />
@@ -72,6 +81,9 @@
             </Component>
             <Component Id="cmpD086105289B944ED3B305922651396C8" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil25401F2CECA3E2ABCD52FCB70B663A57" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX32A.xml" />
+            </Component>
+            <Component Id="cmp578E6F9D223FDEA8EE9910CB3D4B0C6A" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="filE458BF9417FB4D3E82FC490330C05113" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX32LN.xml" />
             </Component>
             <Component Id="cmpEE41396EC16FF3E82DB7189A069C6057" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil4E6DC583C3EFD0FF9DBFF3E2EB5CEE51" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX32VD.xml" />
@@ -132,6 +144,9 @@
             </Component>
             <Component Id="cmp08E4B62915B894B885B146B0E34D3F73" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil7F5008181DDA358A4635B9CF1A9C0BB3" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 4720s.xml" />
+            </Component>
+            <Component Id="cmp414E31CDADE98F0F7A4A78192DA8FB45" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="fil178FB081BC7A9958E5A84EE280EADA97" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 5330m.xml" />
             </Component>
             <Component Id="cmp5D780640405364A89CDB4E6587F60ADA" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="filEF5249934DB5BEA582F7B4C51925C6C1" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6460b.xml" />

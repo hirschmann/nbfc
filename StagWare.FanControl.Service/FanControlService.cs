@@ -102,7 +102,7 @@ namespace StagWare.FanControl.Service
             if (this.initialized)
             {
                 initialized = false;
-                Dispose();
+                DisposeFanControl();
 
                 using (var settings = ServiceSettings.Load(SettingsDir))
                 {
@@ -157,26 +157,7 @@ namespace StagWare.FanControl.Service
             {
                 if (disposeManagedResources)
                 {
-                    if (fanControl != null)
-                    {
-                        try
-                        {
-                            using (var settings = ServiceSettings.Load(SettingsDir))
-                            {
-                                settings.AutoStart = this.initialized;
-                                settings.TargetFanSpeeds = fanControl.FanInformation
-                                    .Select(x => x.AutoFanControlEnabled ? AutoControlFanSpeedPercentage : x.TargetFanSpeed).ToArray();
-
-                                settings.Save();
-                            }
-                        }
-                        catch
-                        {
-                        }
-
-                        fanControl.Dispose();
-                        fanControl = null;
-                    }
+                    DisposeFanControl();
                 }
 
                 disposed = true;
@@ -279,6 +260,30 @@ namespace StagWare.FanControl.Service
             this.initialized = TryInitializeFanControl(settings);
 
             return this.initialized;
+        }
+
+        private void DisposeFanControl()
+        {
+            if (fanControl != null)
+            {
+                try
+                {
+                    using (var settings = ServiceSettings.Load(SettingsDir))
+                    {
+                        settings.AutoStart = this.initialized;
+                        settings.TargetFanSpeeds = fanControl.FanInformation
+                            .Select(x => x.AutoFanControlEnabled ? AutoControlFanSpeedPercentage : x.TargetFanSpeed).ToArray();
+
+                        settings.Save();
+                    }
+                }
+                catch
+                {
+                }
+
+                fanControl.Dispose();
+                fanControl = null;
+            }
         }
 
         #endregion
