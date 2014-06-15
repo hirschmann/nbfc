@@ -41,7 +41,10 @@ namespace StagWare.FanControl.Service
 
             using (var settings = ServiceSettings.Load(SettingsDir))
             {
-                initialized = TryInitializeFanControl(settings);
+                if (settings.AutoStart)
+                {
+                    initialized = TryInitializeFanControl(settings);
+                }
             }
         }
 
