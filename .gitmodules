@@ -1,3 +1,3 @@
 [submodule "OpenHardwareMonitorLib"]
-	path = OpenHardwareMonitorLib
+	path = Libraries/OpenHardwareMonitorLib
 	url = c:/Users/Stefan/Documents/Visual Studio 2012/Projects/Desktop Software Projects/OpenHardwareMonitor/
