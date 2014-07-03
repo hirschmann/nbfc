@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
@@ -56,27 +57,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArithmeticMeanTemperatureFilter.cs" />
     <Compile Include="FanControl.cs" />
     <Compile Include="FanInformation.cs" />
     <Compile Include="FanSpeedManager.cs" />
-    <Compile Include="Impl\CpuTemperatureProvider.cs" />
-    <Compile Include="Impl\EmbeddedController.cs" />
-    <Compile Include="Impl\Linux\LinuxCpuTemperatureProvider.cs" />
-    <Compile Include="Impl\Linux\LinuxEmbeddedController.cs" />
-    <Compile Include="Impl\Windows\WindowsCpuTemperatureProvider.cs" />
-    <Compile Include="Impl\Windows\WindowsEmbeddedController.cs" />
-    <Compile Include="Interfaces\IEmbeddedController.cs" />
-    <Compile Include="Interfaces\ITemperatureFilter.cs" />
-    <Compile Include="Interfaces\ITemperatureProvider.cs" />
+    <Compile Include="ITemperatureFilter.cs" />
+    <Compile Include="Plugins\EmbeddedControllerPluginLoader.cs" />
+    <Compile Include="Plugins\FanControlMetadataAttribute.cs" />
+    <Compile Include="Plugins\FanControlPluginLoader.cs" />
+    <Compile Include="Plugins\IEmbeddedController.cs" />
+    <Compile Include="Plugins\IFanControlPluginMetadata.cs" />
+    <Compile Include="Plugins\ITemperatureProvider.cs" />
+    <Compile Include="Plugins\TemperatureProviderPluginLoader.cs" />
     <Compile Include="TemperatureThresholdManager.cs" />
-    <Compile Include="Impl\ArithmeticMeanTemperatureFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
-      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
-      <Name>OpenHardwareMonitorLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
       <Name>StagWare.FanControl.Configurations</Name>

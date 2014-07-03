@@ -1,11 +1,10 @@
-﻿using System;
+﻿using StagWare.FanControl.Configurations;
+using StagWare.FanControl.Plugins;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
-using OpenHardwareMonitor.Hardware;
-using OpenHardwareMonitor.Hardware.LPC;
-using StagWare.FanControl.Configurations;
 
 namespace StagWare.FanControl
 {
@@ -14,7 +13,8 @@ namespace StagWare.FanControl
         #region Constants
 
         private const int MinPollInterval = 100;
-        private const int DefaultPollInterval = 3000;        
+        private const int DefaultPollInterval = 3000;
+        private const string PluginPath = "Plugins";
 
         #endregion
 
@@ -41,13 +41,17 @@ namespace StagWare.FanControl
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(
-            config,
-            new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
-            CpuTemperatureProvider.Create(),
-            EmbeddedController.Create())
+            : this(PluginPath, config)
         {
         }
+
+        public FanControl(string pluginsPath, FanControlConfigV2 config) :
+            this(
+             config,
+             new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
+             LoadTempProviderPlugin(pluginsPath),
+             LoadEcPlugin(pluginsPath))
+        { }
 
         public FanControl(
             FanControlConfigV2 config,
@@ -114,6 +118,18 @@ namespace StagWare.FanControl
             #endregion
 
             return pollInterval;
+        }
+
+        private static IEmbeddedController LoadEcPlugin(string pluginsPath)
+        {
+            var loader = new EmbeddedControllerPluginLoader(pluginsPath);
+            return loader.FanControlPlugin;
+        }
+
+        private static ITemperatureProvider LoadTempProviderPlugin(string pluginsPath)
+        {
+            var loader = new TemperatureProviderPluginLoader(pluginsPath);
+            return loader.FanControlPlugin;
         }
 
         #endregion

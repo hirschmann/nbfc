@@ -1,16 +1,17 @@
 ﻿using OpenHardwareMonitor.Hardware;
+using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StagWare.FanControl.Impl.Windows
+namespace StagWare.Windows.CpuTempProvider
 {
-    public class WindowsCpuTemperatureProvider : CpuTemperatureProvider
+    public class CpuTemperatureProvider : ITemperatureProvider
     {
         private readonly IHardware cpu;
         private readonly ISensor[] cpuTempSensors;
 
-        public WindowsCpuTemperatureProvider()
+        public CpuTemperatureProvider()
         {
             var computer = new Computer();
             computer.CPUEnabled = true;
@@ -28,7 +29,7 @@ namespace StagWare.FanControl.Impl.Windows
             }
         }
 
-        public override double GetTemperature()
+        public double GetTemperature()
         {
             double temperatureSum = 0;
             int count = 0;

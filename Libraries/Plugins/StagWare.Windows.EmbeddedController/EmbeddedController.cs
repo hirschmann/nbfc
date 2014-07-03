@@ -1,17 +1,17 @@
-﻿using System;
+﻿using StagWare.FanControl.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using EC = OpenHardwareMonitor.Hardware.LPC.EmbeddedController;
 
-namespace StagWare.FanControl.Impl.Windows
+namespace StagWare.Windows.EmbeddedController
 {
-    public class WindowsEmbeddedController : EmbeddedController
+    public class EmbeddedController : IEmbeddedController
     {
         private const int MaxRetries = 10;
 
-        public override void WriteByte(byte register, byte value)
+        public void WriteByte(byte register, byte value)
         {
             int tries = 0;
             int successfulTries = 0;
@@ -27,7 +27,7 @@ namespace StagWare.FanControl.Impl.Windows
             }
         }
 
-        public override void WriteWord(byte register, ushort value)
+        public void WriteWord(byte register, ushort value)
         {
             int tries = 0;
             int successfulTries = 0;
@@ -43,7 +43,7 @@ namespace StagWare.FanControl.Impl.Windows
             }
         }
 
-        public override byte ReadByte(byte register)
+        public byte ReadByte(byte register)
         {
             byte result = 0;
             int tries = 0;
@@ -58,7 +58,7 @@ namespace StagWare.FanControl.Impl.Windows
             return result;
         }
 
-        public override ushort ReadWord(byte register)
+        public ushort ReadWord(byte register)
         {
             int result = 0;
             int tries = 0;
@@ -73,12 +73,12 @@ namespace StagWare.FanControl.Impl.Windows
             return (ushort)result;
         }
 
-        public override bool AquireLock(int timeout)
+        public bool AquireLock(int timeout)
         {
             return EC.WaitIsaBusMutex(timeout);
         }
 
-        public override void ReleaseLock()
+        public void ReleaseLock()
         {
             EC.ReleaseIsaBusMutex();
         }
