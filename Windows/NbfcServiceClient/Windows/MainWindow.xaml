@@ -9,7 +9,8 @@
         
         Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355"
         WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
-        d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}" mc:Ignorable="d">
+        d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}" mc:Ignorable="d"
+        x:Name="window">
 
     <Grid>
         <!--Background-->
@@ -79,7 +80,7 @@
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
             <tb:TaskbarIcon.TrayToolTip>
-                <uc:TrayToolTip DataContext="{Binding FanControllers}"/>
+                <uc:TrayToolTip />
             </tb:TaskbarIcon.TrayToolTip>
         </tb:TaskbarIcon>
     </Grid>

@@ -1,37 +1,28 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl", "StagWare.FanControl\StagWare.FanControl.csproj", "{12084B38-C1A2-414C-80A7-B8D02D6F5B84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl", "Libraries\StagWare.FanControl\StagWare.FanControl.csproj", "{12084B38-C1A2-414C-80A7-B8D02D6F5B84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcService", "NbfcService\NbfcService.csproj", "{820ABB59-7F86-4D7F-89C9-8F7DA013D992}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcService", "Windows\NbfcService\NbfcService.csproj", "{820ABB59-7F86-4D7F-89C9-8F7DA013D992}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Configurations", "StagWare.Configurations\StagWare.FanControl.Configurations.csproj", "{EB60FFBC-51F9-42F7-B22B-2200C3F0CB64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Configurations", "Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj", "{EB60FFBC-51F9-42F7-B22B-2200C3F0CB64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Service", "StagWare.FanControl.Service\StagWare.FanControl.Service.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Service", "Libraries\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcServiceTestClient", "NbfcServiceTestClient\NbfcServiceTestClient.csproj", "{B87CEC20-6F16-44E5-B340-DDBCA09B6AA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigEditor", "Windows\ConfigEditor\ConfigEditor.csproj", "{A2E2E628-7BDA-4072-83DE-B28DE7EA85A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcServiceClient", "Windows\NbfcServiceClient\NbfcServiceClient.csproj", "{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}"
 	ProjectSection(ProjectDependencies) = postProject
 		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigEditor", "ConfigEditor\ConfigEditor.csproj", "{A2E2E628-7BDA-4072-83DE-B28DE7EA85A9}"
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcSetup", "Windows\Setup\NbfcSetup\NbfcSetup.wixproj", "{D709446B-7DEC-4F18-B2A2-638A2EF8AAA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcServiceClient", "NbfcServiceClient\NbfcServiceClient.csproj", "{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}"
-	ProjectSection(ProjectDependencies) = postProject
-		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
-	EndProjectSection
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcBootstrapper", "Windows\Setup\NbfcBootstrapper\NbfcBootstrapper.wixproj", "{088065D5-99ED-4A8B-9301-3666C5B88718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanControlTestConsole", "FanControlTestConsole\FanControlTestConsole.csproj", "{65A29D11-8B42-41E4-BECE-1A409E329304}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "Libraries\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigBatchConverter", "ConfigBatchConverter\ConfigBatchConverter.csproj", "{786B5A56-1721-403F-B83F-6D890DBA0324}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcSetup", "NbfcSetup\NbfcSetup.wixproj", "{D709446B-7DEC-4F18-B2A2-638A2EF8AAA6}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcBootstrapper", "NbfcBootstrapper\NbfcBootstrapper.wixproj", "{088065D5-99ED-4A8B-9301-3666C5B88718}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverSetupWixAction", "DriverSetupWixAction\DriverSetupWixAction.csproj", "{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverSetupWixAction", "Windows\Setup\DriverSetupWixAction\DriverSetupWixAction.csproj", "{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

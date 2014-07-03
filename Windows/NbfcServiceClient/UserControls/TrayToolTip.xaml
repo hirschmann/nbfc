@@ -6,10 +6,10 @@
              xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"
              mc:Ignorable="d" 
              Width="Auto" Height="Auto" MinWidth="235"
-             d:DesignHeight="242" d:DesignWidth="235"
-             d:DataContext="{d:DesignData /DesignData/FanControllerCollection.xaml}">
+             d:DesignHeight="242" d:DesignWidth="235">
 
-    <Border BorderBrush="#FF8B8A87" BorderThickness="1" CornerRadius="0" Width="Auto" Height="Auto">
+    <Border BorderBrush="#FF8B8A87" BorderThickness="1" CornerRadius="0" Width="Auto" Height="Auto"
+            DataContext="{Binding FanControllers}" d:DataContext="{d:DesignData /DesignData/FanControllerCollection.xaml}">
         <Border.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="White" Offset="0"/>
@@ -28,7 +28,7 @@
             <Label Content="NoteBook FanControl" Margin="39,5,-4,0" 
                                VerticalAlignment="Top" FontWeight="SemiBold" FontSize="16" Foreground="#FF3C3C3C"/>
 
-            <ItemsControl ItemsSource="{Binding}" Margin="0,43,0,0">
+            <ItemsControl ItemsSource="{Binding }" Margin="0,43,0,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <uc:ToolTipFanInfo/>

@@ -34,7 +34,7 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NbfcServiceClient\NbfcServiceClient.csproj">
+    <ProjectReference Include="..\..\NbfcServiceClient\NbfcServiceClient.csproj">
       <Name>NbfcServiceClient</Name>
       <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
       <Private>True</Private>

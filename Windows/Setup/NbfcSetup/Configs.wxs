@@ -166,6 +166,9 @@
             <Component Id="cmp482EBAC6B8AC9E27909928300535944D" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil99798ACFA7BE67D5A13BD0606D362A63" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo x121e 30515YG.xml" />
             </Component>
+            <Component Id="cmp9810F83FCDEA0C70094EEFDF34684BD3" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
+                <File Id="fil7F1D6DBDE82DD68726CF163C43FEA243" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Yoga 11s.xml" />
+            </Component>
             <Component Id="cmpC8E2E82E993F2FD4724BCAFEAB7598C1" Directory="dir42B6B52760D807EF6B53FE218617E2D6" Guid="*">
                 <File Id="fil29F9073FD7CF8C3B604AEE9C598BFBCD" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Yoga 13 2191.xml" />
             </Component>

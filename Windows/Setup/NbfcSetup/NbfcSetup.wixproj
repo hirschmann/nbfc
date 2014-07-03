@@ -40,9 +40,57 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ConfigEditor\ConfigEditor.csproj">
+    <ProjectReference Include="..\..\..\Libraries\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+      <Name>OpenHardwareMonitorLib</Name>
+      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+      <Name>StagWare.FanControl.Configurations</Name>
+      <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
+      <Name>StagWare.FanControl.Service</Name>
+      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\StagWare.FanControl\StagWare.FanControl.csproj">
+      <Name>StagWare.FanControl</Name>
+      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ConfigEditor\ConfigEditor.csproj">
       <Name>ConfigEditor</Name>
       <Project>{a2e2e628-7bda-4072-83de-b28de7ea85a9}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NbfcServiceClient\NbfcServiceClient.csproj">
+      <Name>NbfcServiceClient</Name>
+      <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NbfcService\NbfcService.csproj">
+      <Name>NbfcService</Name>
+      <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
@@ -51,54 +99,6 @@
     <ProjectReference Include="..\DriverSetupWixAction\DriverSetupWixAction.csproj">
       <Name>DriverSetupWixAction</Name>
       <Project>{98ee4668-8f55-43b7-b2f9-a8c4b0dafa79}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\NbfcServiceClient\NbfcServiceClient.csproj">
-      <Name>NbfcServiceClient</Name>
-      <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\NbfcService\NbfcService.csproj">
-      <Name>NbfcService</Name>
-      <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
-      <Name>OpenHardwareMonitorLib</Name>
-      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
-      <Name>StagWare.FanControl.Configurations</Name>
-      <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
-      <Name>StagWare.FanControl.Service</Name>
-      <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
-      <Name>StagWare.FanControl</Name>
-      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>

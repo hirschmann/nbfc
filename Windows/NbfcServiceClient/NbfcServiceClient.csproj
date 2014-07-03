@@ -70,7 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification">
-      <HintPath>..\packages\Hardcodet.Wpf.TaskbarNotification.1.0.4.0\lib\net40\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net40-client\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -222,7 +222,7 @@
     <WCFMetadataStorage Include="Service References\NbfcService\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+    <ProjectReference Include="..\..\Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
       <Name>StagWare.FanControl.Configurations</Name>
     </ProjectReference>
