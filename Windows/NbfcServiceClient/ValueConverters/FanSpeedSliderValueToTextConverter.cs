@@ -3,7 +3,6 @@ using System.Windows.Data;
 
 namespace NbfcServiceClient.ValueConverters
 {
-    [ValueConversion(typeof(double), typeof(string))]
     public class FanSpeedSliderValueToTextConverter : IMultiValueConverter
     {
         #region Constants

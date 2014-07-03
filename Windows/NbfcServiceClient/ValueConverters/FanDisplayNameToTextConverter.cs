@@ -6,7 +6,6 @@ using System.Windows.Data;
 
 namespace NbfcServiceClient.ValueConverters
 {
-    [ValueConversion(typeof(string), typeof(string))]
     public class FanDisplayNameToTextConverter : IMultiValueConverter
     {
         private const string StringFormat = "Fan #{0}";

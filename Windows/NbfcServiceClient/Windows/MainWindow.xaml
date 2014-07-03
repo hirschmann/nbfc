@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels"
-        xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"
+        xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"        
+        mc:Ignorable="d"
         
-        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355"
+        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355" 
+        Icon="/NoteBook FanControl;component/nbfc.ico"
         WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
-        d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}" mc:Ignorable="d"
-        x:Name="window">
-
+        d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
+    
     <Grid>
         <!--Background-->
         <Grid.Background>

@@ -6,7 +6,6 @@ using System.Windows.Data;
 
 namespace NbfcServiceClient.ValueConverters
 {
-    [ValueConversion(typeof(double), typeof(string))]
     public class TargetFanSpeedToTextConverter : IMultiValueConverter
     {
         #region Constants
