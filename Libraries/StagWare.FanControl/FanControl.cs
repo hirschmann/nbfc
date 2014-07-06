@@ -171,6 +171,16 @@ namespace StagWare.FanControl
 
         public void Start(int delay = 0)
         {
+            if (!this.tempProvider.IsInitialized)
+            {
+                this.tempProvider.Initialize();
+            }
+
+            if (!this.ec.IsInitialized)
+            {
+                this.ec.Initialize();
+            }
+
             if (this.ec.AquireLock(DefaultPollInterval))
             {
                 try
@@ -205,6 +215,29 @@ namespace StagWare.FanControl
             UpdateEcAsync();
         }
 
+        public void Stop()
+        {
+            if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+            {
+                this.autoEvent.Reset();
+            }
+
+            if (timer != null)
+            {
+                using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
+                {
+                    timer.Dispose(handle);
+
+                    if (handle.WaitOne())
+                    {
+                        timer = null;
+                    }
+                }
+            }
+
+            ResetEc();
+        }
+
         #endregion
 
         #region Protected Methods
@@ -222,20 +255,6 @@ namespace StagWare.FanControl
         #region Private Methods
 
         #region Update EC
-
-        private void Stop()
-        {
-            if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
-            {
-                this.autoEvent.Reset();
-            }
-
-            if (this.timer != null)
-            {
-                this.timer.Dispose();
-                this.timer = null;
-            }
-        }
 
         private void TimerCallback(object state)
         {
@@ -383,10 +402,12 @@ namespace StagWare.FanControl
                 : this.ec.ReadByte((byte)register);
         }
 
+        #endregion
+
+        #region Reset EC
+
         private void ResetEc()
         {
-            Stop();
-
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
@@ -471,41 +492,31 @@ namespace StagWare.FanControl
 
         #region IDisposable implementation
 
-        ~FanControl()
-        {
-            Dispose(false);
-        }
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            Stop();
 
-        protected virtual void Dispose(bool disposeManagedResources)
-        {
-            if (disposeManagedResources)
+            if (this.autoEvent != null)
             {
-                if (timer != null)
-                {
-                    using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
-                    {
-                        timer.Dispose(handle);
-
-                        if (handle.WaitOne())
-                        {
-                            timer = null;
-                        }
-                    }
-                }
-
-                if (autoEvent != null)
-                {
-                    autoEvent.Dispose();
-                }
+                this.autoEvent.Dispose();
             }
 
-            ResetEc();
+            if (this.asyncOp != null)
+            {
+                this.asyncOp.OperationCompleted();
+            }
+
+            if (this.ec != null)
+            {
+                this.ec.Dispose();
+            }
+
+            if (this.tempProvider != null)
+            {
+                this.tempProvider.Dispose();
+            }
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion

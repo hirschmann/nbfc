@@ -66,6 +66,7 @@
     <Compile Include="Plugins\FanControlMetadataAttribute.cs" />
     <Compile Include="Plugins\FanControlPluginLoader.cs" />
     <Compile Include="Plugins\IEmbeddedController.cs" />
+    <Compile Include="Plugins\IFanControlPlugin.cs" />
     <Compile Include="Plugins\IFanControlPluginMetadata.cs" />
     <Compile Include="Plugins\ITemperatureProvider.cs" />
     <Compile Include="Plugins\TemperatureProviderPluginLoader.cs" />

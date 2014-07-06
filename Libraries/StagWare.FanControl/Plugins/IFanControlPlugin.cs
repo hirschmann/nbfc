@@ -5,8 +5,9 @@ using System.Text;
 
 namespace StagWare.FanControl.Plugins
 {
-    public interface ITemperatureProvider : IFanControlPlugin
+    public interface IFanControlPlugin : IDisposable
     {
-        double GetTemperature();
+        bool IsInitialized { get; }
+        void Initialize();
     }
 }

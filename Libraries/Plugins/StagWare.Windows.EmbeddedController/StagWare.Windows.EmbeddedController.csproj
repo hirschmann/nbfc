@@ -7,10 +7,11 @@
     <ProjectGuid>{49BBEBDD-9A3A-4963-A52C-D6154E2D6B3E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StagWare.Windows.EC</RootNamespace>
-    <AssemblyName>StagWare.Windows.EC</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>StagWare.Windows.EmbeddedController</RootNamespace>
+    <AssemblyName>StagWare.Windows.EmbeddedController</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmbeddedController.cs" />
+    <Compile Include="Port.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +52,10 @@
     <ProjectReference Include="..\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Name>OpenHardwareMonitorLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Hardware.EC\StagWare.Hardware.csproj">
+      <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
+      <Name>StagWare.Hardware</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

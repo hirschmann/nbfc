@@ -8,24 +8,53 @@ namespace StagWare.Windows.CpuTempProvider
 {
     public class CpuTemperatureProvider : ITemperatureProvider
     {
-        private readonly IHardware cpu;
-        private readonly ISensor[] cpuTempSensors;
+        #region Private Fields
+
+        private Computer computer;
+        private IHardware cpu;
+        private ISensor[] cpuTempSensors; 
+
+        #endregion
+
+        #region Constructor
 
         public CpuTemperatureProvider()
         {
-            var computer = new Computer();
-            computer.CPUEnabled = true;
-            computer.Open();
-            this.cpu = computer.Hardware.FirstOrDefault(x => x.HardwareType == HardwareType.CPU);
+            this.computer = new Computer();
+            this.computer.CPUEnabled = true;
+        } 
 
-            if (this.cpu != null)
-            {
-                this.cpuTempSensors = InitializeTempSensors(cpu);
-            }
+        #endregion      
 
-            if (this.cpuTempSensors == null || this.cpuTempSensors.Length <= 0)
+        #region ITemperatureProvider implementation
+
+        public bool IsInitialized { get; private set; }        
+
+        public void Initialize()
+        {
+            if (!this.IsInitialized)
             {
-                throw new PlatformNotSupportedException("No CPU temperature sensor(s) found.");
+                this.computer.Open();
+                this.cpu = computer.Hardware.FirstOrDefault(x => x.HardwareType == HardwareType.CPU);
+
+                if (this.cpu != null)
+                {
+                    this.cpuTempSensors = InitializeTempSensors(cpu);
+                }
+
+                if (this.cpuTempSensors == null || this.cpuTempSensors.Length <= 0)
+                {
+                    try
+                    {
+                        Dispose();
+                    }
+                    finally
+                    {
+                        throw new PlatformNotSupportedException("No CPU temperature sensor(s) found.");
+                    }
+                }
+
+                this.IsInitialized = true;
             }
         }
 
@@ -45,7 +74,22 @@ namespace StagWare.Windows.CpuTempProvider
             }
 
             return temperatureSum / count;
+        }        
+
+        public void Dispose()
+        {
+            if (this.computer != null)
+            {
+                this.computer.Close();
+                this.computer = null;
+            }
+
+            GC.SuppressFinalize(this);
         }
+
+        #endregion
+
+        #region Private Methods
 
         private static ISensor[] InitializeTempSensors(IHardware cpu)
         {
@@ -65,9 +109,11 @@ namespace StagWare.Windows.CpuTempProvider
                 return upper.Contains("PACKAGE") || upper.Contains("TOTAL");
             });
 
-            return packageSensor != null 
-                ? new ISensor[] { packageSensor } 
+            return packageSensor != null
+                ? new ISensor[] { packageSensor }
                 : sensors.ToArray();
         }
+
+        #endregion
     }
 }

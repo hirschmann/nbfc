@@ -1,44 +1,67 @@
-﻿using StagWare.FanControl.Plugins;
+﻿using OpenHardwareMonitor.Hardware;
+using StagWare.FanControl.Plugins;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using EC = OpenHardwareMonitor.Hardware.LPC.EmbeddedController;
 
 namespace StagWare.Windows.EmbeddedController
 {
     public class EmbeddedController : IEmbeddedController
     {
+        #region Constants
+
         private const int MaxRetries = 10;
+
+        #endregion
+
+        #region Private Fields
+
+        StagWare.Hardware.EmbeddedController ec;
+        Computer computer;
+
+        #endregion
+
+        #region IEmbeddedController implementation
+
+        public bool IsInitialized { get; private set; }
+
+        public void Initialize()
+        {
+            if (!this.IsInitialized)
+            {
+                this.computer = new Computer();
+                this.ec = new StagWare.Hardware.EmbeddedController(new Port(computer));
+                this.computer.Open();
+                this.IsInitialized = true;
+            }
+        }
 
         public void WriteByte(byte register, byte value)
         {
-            int tries = 0;
-            int successfulTries = 0;
+            int writes = 0;
+            int successful = 0;
 
-            while ((successfulTries < 3) && (tries < MaxRetries))
+            while ((successful < 3) && (writes < MaxRetries))
             {
-                tries++;
+                writes++;
 
-                if (EC.TryWriteByte(register, value))
+                if (this.ec.TryWriteByte(register, value))
                 {
-                    successfulTries++;
+                    successful++;
                 }
             }
         }
 
         public void WriteWord(byte register, ushort value)
         {
-            int tries = 0;
-            int successfulTries = 0;
+            int writes = 0;
+            int successful = 0;
 
-            while ((successfulTries < 3) && (tries < MaxRetries))
+            while ((successful < 3) && (writes < MaxRetries))
             {
-                tries++;
+                writes++;
 
-                if (EC.TryWriteWord(register, value))
+                if (this.ec.TryWriteWord(register, value))
                 {
-                    successfulTries++;
+                    successful++;
                 }
             }
         }
@@ -46,13 +69,13 @@ namespace StagWare.Windows.EmbeddedController
         public byte ReadByte(byte register)
         {
             byte result = 0;
-            int tries = 0;
+            int reads = 0;
             bool success = false;
 
-            while (!success && (tries < MaxRetries))
+            while (!success && (reads < MaxRetries))
             {
-                tries++;
-                success = EC.TryReadByte(register, out result);
+                reads++;
+                success = this.ec.TryReadByte(register, out result);
             }
 
             return result;
@@ -61,13 +84,13 @@ namespace StagWare.Windows.EmbeddedController
         public ushort ReadWord(byte register)
         {
             int result = 0;
-            int tries = 0;
+            int reads = 0;
             bool success = false;
 
-            while (!success && (tries < MaxRetries))
+            while (!success && (reads < MaxRetries))
             {
-                tries++;
-                success = EC.TryReadWord(register, out result);
+                reads++;
+                success = this.ec.TryReadWord(register, out result);
             }
 
             return (ushort)result;
@@ -75,12 +98,25 @@ namespace StagWare.Windows.EmbeddedController
 
         public bool AquireLock(int timeout)
         {
-            return EC.WaitIsaBusMutex(timeout);
+            return this.computer.WaitIsaBusMutex(timeout);
         }
 
         public void ReleaseLock()
         {
-            EC.ReleaseIsaBusMutex();
+            this.computer.ReleaseIsaBusMutex();
         }
+
+        public void Dispose()
+        {
+            if (this.computer != null)
+            {
+                this.computer.Close();
+                this.computer = null;
+            }
+
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
     }
 }

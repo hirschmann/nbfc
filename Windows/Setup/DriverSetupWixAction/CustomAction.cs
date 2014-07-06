@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Deployment.WindowsInstaller;
-using OpenHardwareMonitor.Hardware.LPC;
+using OpenHardwareMonitor.Hardware;
 using System.IO;
 
 namespace DriverSetupWixAction
@@ -19,7 +19,7 @@ namespace DriverSetupWixAction
 
             try
             {
-                EmbeddedController.InstallDriver(session.CustomActionData[InstallDirPropertyName]);
+                Computer.InstallDriver(session.CustomActionData[InstallDirPropertyName]);
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace DriverSetupWixAction
 
             try
             {
-                EmbeddedController.UninstallDriver();
+                Computer.UninstallDriver();
             }
             catch (Exception e)
             {
