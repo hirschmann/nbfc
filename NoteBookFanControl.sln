@@ -36,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Windows.CpuTempPro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Windows.EmbeddedController", "Libraries\Plugins\StagWare.Windows.EmbeddedController\StagWare.Windows.EmbeddedController.csproj", "{49BBEBDD-9A3A-4963-A52C-D6154E2D6B3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware", "Libraries\Plugins\StagWare.Hardware.EC\StagWare.Hardware.csproj", "{1D5D7C81-802F-46E0-913F-8519F157BC3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware", "Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj", "{1D5D7C81-802F-46E0-913F-8519F157BC3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
