@@ -1,9 +1,12 @@
 ﻿using OpenHardwareMonitor.Hardware;
 using StagWare.FanControl.Plugins;
 using System;
+using System.ComponentModel.Composition;
 
 namespace StagWare.Windows.EmbeddedController
 {
+    [Export(typeof(IEmbeddedController))]
+    [FanControlPluginMetadata("StagWare.Windows.EmbeddedController", PlatformID.Win32NT, MinOSVersion = "5.0")]
     public class EmbeddedController : IEmbeddedController
     {
         #region Constants

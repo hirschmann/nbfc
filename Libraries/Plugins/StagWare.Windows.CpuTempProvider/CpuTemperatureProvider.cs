@@ -2,17 +2,20 @@
 using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 
 namespace StagWare.Windows.CpuTempProvider
 {
+    [Export(typeof(ITemperatureProvider))]
+    [FanControlPluginMetadata("StagWare.Windows.CpuTempProvider", PlatformID.Win32NT, MinOSVersion = "5.0")]
     public class CpuTemperatureProvider : ITemperatureProvider
     {
         #region Private Fields
 
         private Computer computer;
         private IHardware cpu;
-        private ISensor[] cpuTempSensors; 
+        private ISensor[] cpuTempSensors;
 
         #endregion
 
@@ -22,13 +25,13 @@ namespace StagWare.Windows.CpuTempProvider
         {
             this.computer = new Computer();
             this.computer.CPUEnabled = true;
-        } 
+        }
 
-        #endregion      
+        #endregion
 
         #region ITemperatureProvider implementation
 
-        public bool IsInitialized { get; private set; }        
+        public bool IsInitialized { get; private set; }
 
         public void Initialize()
         {
@@ -74,7 +77,7 @@ namespace StagWare.Windows.CpuTempProvider
             }
 
             return temperatureSum / count;
-        }        
+        }
 
         public void Dispose()
         {

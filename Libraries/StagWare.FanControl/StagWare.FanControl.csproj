@@ -62,14 +62,11 @@
     <Compile Include="FanInformation.cs" />
     <Compile Include="FanSpeedManager.cs" />
     <Compile Include="ITemperatureFilter.cs" />
-    <Compile Include="Plugins\EmbeddedControllerPluginLoader.cs" />
     <Compile Include="Plugins\FanControlMetadataAttribute.cs" />
     <Compile Include="Plugins\FanControlPluginLoader.cs" />
     <Compile Include="Plugins\IEmbeddedController.cs" />
-    <Compile Include="Plugins\IFanControlPlugin.cs" />
     <Compile Include="Plugins\IFanControlPluginMetadata.cs" />
     <Compile Include="Plugins\ITemperatureProvider.cs" />
-    <Compile Include="Plugins\TemperatureProviderPluginLoader.cs" />
     <Compile Include="TemperatureThresholdManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

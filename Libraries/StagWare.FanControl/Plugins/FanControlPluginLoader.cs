@@ -5,7 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 
 namespace StagWare.FanControl.Plugins
 {
-    internal abstract class FanControlPluginLoader<T>
+    public class FanControlPluginLoader<T>
     {
         T fanControlPlugin;
 
@@ -51,13 +51,15 @@ namespace StagWare.FanControl.Plugins
                 return fanControlPlugin;
             }
         }
-        
-        public abstract IEnumerable<Lazy<T, IFanControlPluginMetadata>> Plugins { get; set; }
+
+        [ImportMany]
+        public IEnumerable<Lazy<T, IFanControlPluginMetadata>> Plugins { get; set; }
 
         public FanControlPluginLoader(string path)
         {
-            var catalog = new AggregateCatalog(new DirectoryCatalog(path));
-            var container = new CompositionContainer(catalog);
+            var dirCatalog = new DirectoryCatalog(path);
+            var aggCatalog = new AggregateCatalog(dirCatalog);
+            var container = new CompositionContainer(aggCatalog);
 
             //Fill the imports of this object
             container.ComposeParts(this);

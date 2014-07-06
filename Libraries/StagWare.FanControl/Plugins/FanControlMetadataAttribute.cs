@@ -8,7 +8,7 @@ namespace StagWare.FanControl.Plugins
 {
     [MetadataAttribute]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    public class FanControlPluginMetadataAttribute : ExportAttribute, IFanControlPluginMetadata
+    public class FanControlPluginMetadataAttribute : ExportAttribute
     {
         public FanControlPluginMetadataAttribute(string uniqueId, PlatformID id)
             : base(typeof(IFanControlPluginMetadata))

@@ -122,13 +122,13 @@ namespace StagWare.FanControl
 
         private static IEmbeddedController LoadEcPlugin(string pluginsPath)
         {
-            var loader = new EmbeddedControllerPluginLoader(pluginsPath);
+            var loader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
             return loader.FanControlPlugin;
         }
 
         private static ITemperatureProvider LoadTempProviderPlugin(string pluginsPath)
         {
-            var loader = new TemperatureProviderPluginLoader(pluginsPath);
+            var loader = new FanControlPluginLoader<ITemperatureProvider>(pluginsPath);
             return loader.FanControlPlugin;
         }
 
