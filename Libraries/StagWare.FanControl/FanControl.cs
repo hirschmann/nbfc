@@ -1,11 +1,10 @@
-﻿using System;
+﻿using StagWare.FanControl.Configurations;
+using StagWare.FanControl.Plugins;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
-using OpenHardwareMonitor.Hardware;
-using OpenHardwareMonitor.Hardware.LPC;
-using StagWare.FanControl.Configurations;
 
 namespace StagWare.FanControl
 {
@@ -14,7 +13,8 @@ namespace StagWare.FanControl
         #region Constants
 
         private const int MinPollInterval = 100;
-        private const int DefaultPollInterval = 3000;        
+        private const int DefaultPollInterval = 3000;
+        private const string PluginPath = "Plugins";
 
         #endregion
 
@@ -41,13 +41,17 @@ namespace StagWare.FanControl
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(
-            config,
-            new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
-            CpuTemperatureProvider.Create(),
-            EmbeddedController.Create())
+            : this(PluginPath, config)
         {
         }
+
+        public FanControl(string pluginsPath, FanControlConfigV2 config) :
+            this(
+             config,
+             new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
+             LoadTempProviderPlugin(pluginsPath),
+             LoadEcPlugin(pluginsPath))
+        { }
 
         public FanControl(
             FanControlConfigV2 config,
@@ -116,6 +120,18 @@ namespace StagWare.FanControl
             return pollInterval;
         }
 
+        private static IEmbeddedController LoadEcPlugin(string pluginsPath)
+        {
+            var loader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
+            return loader.FanControlPlugin;
+        }
+
+        private static ITemperatureProvider LoadTempProviderPlugin(string pluginsPath)
+        {
+            var loader = new FanControlPluginLoader<ITemperatureProvider>(pluginsPath);
+            return loader.FanControlPlugin;
+        }
+
         #endregion
 
         #endregion
@@ -155,6 +171,16 @@ namespace StagWare.FanControl
 
         public void Start(int delay = 0)
         {
+            if (!this.tempProvider.IsInitialized)
+            {
+                this.tempProvider.Initialize();
+            }
+
+            if (!this.ec.IsInitialized)
+            {
+                this.ec.Initialize();
+            }
+
             if (this.ec.AquireLock(DefaultPollInterval))
             {
                 try
@@ -189,6 +215,29 @@ namespace StagWare.FanControl
             UpdateEcAsync();
         }
 
+        public void Stop()
+        {
+            if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+            {
+                this.autoEvent.Reset();
+            }
+
+            if (timer != null)
+            {
+                using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
+                {
+                    timer.Dispose(handle);
+
+                    if (handle.WaitOne())
+                    {
+                        timer = null;
+                    }
+                }
+            }
+
+            ResetEc();
+        }
+
         #endregion
 
         #region Protected Methods
@@ -206,20 +255,6 @@ namespace StagWare.FanControl
         #region Private Methods
 
         #region Update EC
-
-        private void Stop()
-        {
-            if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
-            {
-                this.autoEvent.Reset();
-            }
-
-            if (this.timer != null)
-            {
-                this.timer.Dispose();
-                this.timer = null;
-            }
-        }
 
         private void TimerCallback(object state)
         {
@@ -367,10 +402,12 @@ namespace StagWare.FanControl
                 : this.ec.ReadByte((byte)register);
         }
 
+        #endregion
+
+        #region Reset EC
+
         private void ResetEc()
         {
-            Stop();
-
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
@@ -380,7 +417,7 @@ namespace StagWare.FanControl
                 {
                     if (config != null)
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             ResetRegisterWriteConfigs();
                             ResetFans();
@@ -455,41 +492,31 @@ namespace StagWare.FanControl
 
         #region IDisposable implementation
 
-        ~FanControl()
-        {
-            Dispose(false);
-        }
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+            Stop();
 
-        protected virtual void Dispose(bool disposeManagedResources)
-        {
-            if (disposeManagedResources)
+            if (this.autoEvent != null)
             {
-                if (timer != null)
-                {
-                    using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
-                    {
-                        timer.Dispose(handle);
-
-                        if (handle.WaitOne())
-                        {
-                            timer = null;
-                        }
-                    }
-                }
-
-                if (autoEvent != null)
-                {
-                    autoEvent.Dispose();
-                }
+                this.autoEvent.Dispose();
             }
 
-            ResetEc();
+            if (this.asyncOp != null)
+            {
+                this.asyncOp.OperationCompleted();
+            }
+
+            if (this.ec != null)
+            {
+                this.ec.Dispose();
+            }
+
+            if (this.tempProvider != null)
+            {
+                this.tempProvider.Dispose();
+            }
+
+            GC.SuppressFinalize(this);
         }
 
         #endregion

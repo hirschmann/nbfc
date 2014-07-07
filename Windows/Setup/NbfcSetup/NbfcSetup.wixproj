@@ -40,7 +40,7 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+    <ProjectReference Include="..\..\..\Libraries\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
       <Name>OpenHardwareMonitorLib</Name>
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Private>True</Private>
