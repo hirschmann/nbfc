@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ConfigEditor.ViewModels
@@ -20,7 +22,7 @@ namespace ConfigEditor.ViewModels
 
         #region Private Fields
 
-        private FanControlConfigManager configManager;
+        private FanControlConfigManager configManager;        
 
         #region Property Backing Fields
 
@@ -32,6 +34,7 @@ namespace ConfigEditor.ViewModels
         private bool readWriteWords;
         private ObservableCollection<FanConfigViewModel> fanConfigs;
         private ObservableCollection<RegisterWriteConfigViewModel> registerWriteConfigs;
+        private string actualNotebookModel;
 
         #endregion
 
@@ -197,6 +200,23 @@ namespace ConfigEditor.ViewModels
             }
         }
 
+        public string ActualNotebookModel
+        {
+            get
+            {
+                return actualNotebookModel;
+            }
+            set
+            {
+                if (actualNotebookModel != value)
+                {
+                    actualNotebookModel = value;
+                    OnPropertyChanged("ActualNotebookModel");
+                }
+            }
+        }
+
+
         #endregion
 
         #region Commands
@@ -290,7 +310,7 @@ namespace ConfigEditor.ViewModels
                     {
                         try
                         {
-                            string cfgName = FanControlConfigManager.NotebookModel;
+                            string cfgName = this.ActualNotebookModel;
 
                             if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
                             {
@@ -430,14 +450,43 @@ namespace ConfigEditor.ViewModels
 
         #region Private Methods
 
+        private static string GetModelName()
+        {
+            string model = string.Empty;
+
+            using (var searcher = new ManagementObjectSearcher(@"SELECT * FROM CIM_ComputerSystem"))
+            {
+                foreach (ManagementObject obj in searcher.Get())
+                {
+                    try
+                    {
+                        model = obj["Model"].ToString();
+                    }
+                    catch
+                    {
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(model))
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return model.Trim();
+        }
+
         private void InitializeConfigManager()
         {
+            var t = Task.Factory.StartNew(() => GetModelName());
+
             string path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
             path = Path.Combine(path, ConfigsDirectoryName);
-
             this.configManager = new FanControlConfigManager(path);
-            this.configManager.AutoSelectConfig();
+
+            this.ActualNotebookModel = t.Result;
+            this.configManager.SelectConfig(this.ActualNotebookModel);
         }
 
         private bool TryLoadFanControlConfigV1(string configFilePath, out FanControlConfig config)
@@ -480,7 +529,7 @@ namespace ConfigEditor.ViewModels
 
             if (string.IsNullOrWhiteSpace(config.NotebookModel))
             {
-                config.NotebookModel = FanControlConfigManager.NotebookModel;
+                config.NotebookModel = this.ActualNotebookModel;
             }
 
             if (this.configManager.Contains(configName))

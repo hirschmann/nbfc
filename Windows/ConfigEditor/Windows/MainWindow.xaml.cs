@@ -273,7 +273,12 @@ namespace ConfigEditor.Windows
 
         private void insertNotebookModel_Click(object sender, RoutedEventArgs e)
         {
-            this.notebookModel.Text = FanControlConfigManager.NotebookModel;
+            var vm = this.DataContext as MainViewModel;
+
+            if (vm != null)
+            {
+                this.notebookModel.Text = vm.ActualNotebookModel;
+            }
         }
 
         private void lock_Checked(object sender, RoutedEventArgs e)

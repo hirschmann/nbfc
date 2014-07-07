@@ -8,29 +8,10 @@ namespace StagWare.FanControl.Configurations
 {
     public class FanControlConfigManager : ConfigManager<FanControlConfigV2>
     {
-        #region Private Fields
-
-        private static string notebookModel;
-
-        #endregion
-
         #region Properties
 
         public FanControlConfigV2 SelectedConfig { get; private set; }
         public string SelectedConfigName { get; private set; }
-
-        public static string NotebookModel
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(notebookModel))
-                {
-                    notebookModel = GetModelName();
-                }
-
-                return notebookModel;
-            }
-        }
 
         #endregion
 
@@ -50,25 +31,6 @@ namespace StagWare.FanControl.Configurations
 
         #region Public Methods
 
-        public bool AutoSelectConfig()
-        {
-            var pairs = KeyValuePairs.Where(x => x.Value.NotebookModel.Trim().Equals(
-                    FanControlConfigManager.NotebookModel,
-                    StringComparison.OrdinalIgnoreCase));
-
-            if (pairs.Count() > 0)
-            {
-                var pair = pairs.First();
-
-                this.SelectedConfigName = pair.Key;
-                this.SelectedConfig = pair.Value;
-
-                return true;
-            }
-
-            return false;
-        }
-
         public bool SelectConfig(string configName)
         {
             if (Contains(configName))
@@ -83,36 +45,6 @@ namespace StagWare.FanControl.Configurations
             }
 
             return SelectedConfig != null;
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private static string GetModelName()
-        {
-            string model = string.Empty;
-
-            using (var searcher = new ManagementObjectSearcher(@"SELECT * FROM CIM_ComputerSystem"))
-            {
-                foreach (ManagementObject obj in searcher.Get())
-                {
-                    try
-                    {
-                        model = obj["Model"].ToString();
-                    }
-                    catch
-                    { 
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(model))
-                    {
-                        break;
-                    }
-                }
-            }
-
-            return model.Trim();
         }
 
         #endregion
