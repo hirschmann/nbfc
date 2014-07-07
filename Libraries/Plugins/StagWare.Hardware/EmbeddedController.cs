@@ -38,12 +38,15 @@ namespace StagWare.Hardware
 
         const int RWTimeout = 500;      // spins
         const int IsaBusTimeout = 100;  // ms
+        const int WaitReadFailsLimit = 20;
 
         #endregion
 
         #region Private Fields
 
         IPort port;
+        int waitReadConsecFails;
+        bool skipWaitRead;
 
         #endregion
 
@@ -52,6 +55,8 @@ namespace StagWare.Hardware
         public EmbeddedController(IPort port)
         {
             this.port = port;
+            this.waitReadConsecFails = 0;
+            this.skipWaitRead = false;
         }
 
         #endregion
@@ -68,7 +73,7 @@ namespace StagWare.Hardware
                 {
                     this.port.Write(DataPort, register);
 
-                    if (WaitWrite() && WaitRead())
+                    if (WaitWrite() && (skipWaitRead || WaitRead()))
                     {
                         value = this.port.Read(DataPort);
                         return true;
@@ -165,12 +170,20 @@ namespace StagWare.Hardware
 
                 if (status.HasFlag(ECStatus.OutputBufferFull))
                 {
+                    waitReadConsecFails = 0;
                     return true;
                 }
 
                 timeout--;
+                Thread.SpinWait(5);
             }
 
+            if (waitReadConsecFails > WaitReadFailsLimit)
+            {
+                skipWaitRead = true;
+            }
+
+            waitReadConsecFails++;
             return false;
         }
 
@@ -188,6 +201,7 @@ namespace StagWare.Hardware
                 }
 
                 timeout--;
+                Thread.SpinWait(5);
             }
 
             return false;
@@ -208,6 +222,7 @@ namespace StagWare.Hardware
                 }
 
                 timeout--;
+                Thread.SpinWait(5);
             }
 
             return false;

@@ -417,7 +417,7 @@ namespace StagWare.FanControl
                 {
                     if (config != null)
                     {
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             ResetRegisterWriteConfigs();
                             ResetFans();

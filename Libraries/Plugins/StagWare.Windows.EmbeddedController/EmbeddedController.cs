@@ -40,32 +40,30 @@ namespace StagWare.Windows.EmbeddedController
         public void WriteByte(byte register, byte value)
         {
             int writes = 0;
-            int successful = 0;
 
-            while ((successful < 3) && (writes < MaxRetries))
+            while (writes < MaxRetries)
             {
-                writes++;
-
                 if (this.ec.TryWriteByte(register, value))
                 {
-                    successful++;
+                    return;
                 }
+
+                writes++;
             }
         }
 
         public void WriteWord(byte register, ushort value)
         {
             int writes = 0;
-            int successful = 0;
 
-            while ((successful < 3) && (writes < MaxRetries))
+            while (writes < MaxRetries)
             {
-                writes++;
-
                 if (this.ec.TryWriteWord(register, value))
                 {
-                    successful++;
+                    return;
                 }
+
+                writes++;
             }
         }
 
@@ -73,12 +71,15 @@ namespace StagWare.Windows.EmbeddedController
         {
             byte result = 0;
             int reads = 0;
-            bool success = false;
 
-            while (!success && (reads < MaxRetries))
+            while (reads < MaxRetries)
             {
+                if (this.ec.TryReadByte(register, out result))
+                {
+                    return result;
+                }
+
                 reads++;
-                success = this.ec.TryReadByte(register, out result);
             }
 
             return result;
@@ -88,12 +89,15 @@ namespace StagWare.Windows.EmbeddedController
         {
             int result = 0;
             int reads = 0;
-            bool success = false;
 
-            while (!success && (reads < MaxRetries))
+            while (reads < MaxRetries)
             {
+                if (this.ec.TryReadWord(register, out result))
+                {
+                    return (ushort)result;
+                }
+
                 reads++;
-                success = this.ec.TryReadWord(register, out result);
             }
 
             return (ushort)result;
