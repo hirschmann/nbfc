@@ -25,7 +25,7 @@ namespace StagWare.FanControl.Service.Settings
 
         public string SelectedConfigId { get; set; }
         public bool AutoStart { get; set; }
-        public double[] TargetFanSpeeds { get; set; }
+        public float[] TargetFanSpeeds { get; set; }
 
         #endregion
 

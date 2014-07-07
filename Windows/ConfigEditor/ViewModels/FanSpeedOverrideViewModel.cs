@@ -10,14 +10,14 @@ namespace ConfigEditor.ViewModels
         #region Private Fields
 
         private int fanSpeedValue;
-        private double fanSpeedPercentage;
+        private float fanSpeedPercentage;
         private FanConfigViewModel parent;
 
         #endregion
 
         #region Properties
 
-        public double FanSpeedPercentage
+        public float FanSpeedPercentage
         {
             get
             {
@@ -69,10 +69,10 @@ namespace ConfigEditor.ViewModels
             }
         }
 
-        public double SliderValue
+        public float SliderValue
         {
-            get { return (Parent.FanSpeedSteps * FanSpeedPercentage) / 100.0; }
-            set { FanSpeedPercentage = (value / Parent.FanSpeedSteps) * 100.0; }
+            get { return (Parent.FanSpeedSteps * FanSpeedPercentage) / 100.0f; }
+            set { FanSpeedPercentage = (value / Parent.FanSpeedSteps) * 100.0f; }
         }
 
         #endregion

@@ -52,7 +52,7 @@ namespace StagWare.FanControl.Service
 
         #region IFanControlService implementation
 
-        public void SetTargetFanSpeed(double value, int fanIndex)
+        public void SetTargetFanSpeed(float value, int fanIndex)
         {
             if (fanControl != null)
             {

@@ -1,28 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace StagWare.FanControl
 {
-    public class FanInformation : ICloneable
+    public class FanInformation
     {
-        public double TargetFanSpeed { get; set; }
-        public double CurrentFanSpeed { get; set; }
-        public bool AutoFanControlEnabled { get; set; }
-        public bool CriticalModeEnabled { get; set; }
-        public string FanDisplayName { get; set; }
+        public float TargetFanSpeed { get; private set; }
+        public float CurrentFanSpeed { get; private set; }
+        public bool AutoFanControlEnabled { get; private set; }
+        public bool CriticalModeEnabled { get; private set; }
+        public string FanDisplayName { get; private set; }
 
-        public object Clone()
+        public FanInformation(
+            float targetFanSpeed,
+            float currentFanSpeed,
+            bool autoControlEnabled,
+            bool criticalModeEnabled,
+            string fanDisplayName)
         {
-            return new FanInformation()
-            {
-                TargetFanSpeed = this.TargetFanSpeed,
-                CurrentFanSpeed = this.CurrentFanSpeed,
-                AutoFanControlEnabled = this.AutoFanControlEnabled,
-                CriticalModeEnabled = this.CriticalModeEnabled,
-                FanDisplayName = this.FanDisplayName
-            };
+            this.TargetFanSpeed = targetFanSpeed;
+            this.CurrentFanSpeed = currentFanSpeed;
+            this.AutoFanControlEnabled = autoControlEnabled;
+            this.CriticalModeEnabled = criticalModeEnabled;
+            this.FanDisplayName = fanDisplayName;
         }
     }
 }
