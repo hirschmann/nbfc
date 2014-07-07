@@ -18,9 +18,9 @@ namespace NbfcServiceClient.ViewModels
 
         #region Private Fields
 
-        private double currentFanSpeed;
-        private double targetFanSpeed;
-        private double fanSpeedSliderValue;
+        private float currentFanSpeed;
+        private float targetFanSpeed;
+        private float fanSpeedSliderValue;
         private int fanSpeedSteps;
         private bool isAutoFanControlEnabled;
         private string fanDisplayName;
@@ -88,7 +88,7 @@ namespace NbfcServiceClient.ViewModels
             }
         }
 
-        public double FanSpeedSliderValue
+        public float FanSpeedSliderValue
         {
             get
             {
@@ -106,7 +106,7 @@ namespace NbfcServiceClient.ViewModels
             }
         }
 
-        public double TargetFanSpeed
+        public float TargetFanSpeed
         {
             get
             {
@@ -123,7 +123,7 @@ namespace NbfcServiceClient.ViewModels
             }
         }
 
-        public double CurrentFanSpeed
+        public float CurrentFanSpeed
         {
             get
             {
@@ -201,7 +201,7 @@ namespace NbfcServiceClient.ViewModels
             this.timer.Start();
         }
 
-        private double GetFanSpeedPercentage()
+        private float GetFanSpeedPercentage()
         {
             if (this.fanSpeedSteps == 1)
             {
@@ -210,7 +210,7 @@ namespace NbfcServiceClient.ViewModels
             else
             {
                 // subtract 1 from steps, because last step is reserved for "auto control" setting
-                return (this.fanSpeedSliderValue / (this.fanSpeedSteps - 1)) * 100;
+                return (this.fanSpeedSliderValue / (this.fanSpeedSteps - 1)) * 100.0f;
             }
         }
 

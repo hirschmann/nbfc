@@ -15,10 +15,10 @@ namespace StagWare.FanControl.Service
         public bool CriticalModeEnabled { get; set; }
 
         [DataMember]
-        public double CurrentFanSpeed { get; set; }
+        public float CurrentFanSpeed { get; set; }
 
         [DataMember]
-        public double TargetFanSpeed { get; set; }
+        public float TargetFanSpeed { get; set; }
 
         [DataMember]
         public int FanSpeedSteps { get; set; }

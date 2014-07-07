@@ -122,7 +122,7 @@ namespace NbfcServiceClient.NbfcService {
         private bool CriticalModeEnabledField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double CurrentFanSpeedField;
+        private float CurrentFanSpeedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FanDisplayNameField;
@@ -131,7 +131,7 @@ namespace NbfcServiceClient.NbfcService {
         private int FanSpeedStepsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private double TargetFanSpeedField;
+        private float TargetFanSpeedField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -170,7 +170,7 @@ namespace NbfcServiceClient.NbfcService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double CurrentFanSpeed {
+        public float CurrentFanSpeed {
             get {
                 return this.CurrentFanSpeedField;
             }
@@ -209,7 +209,7 @@ namespace NbfcServiceClient.NbfcService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double TargetFanSpeed {
+        public float TargetFanSpeed {
             get {
                 return this.TargetFanSpeedField;
             }
@@ -236,7 +236,7 @@ namespace NbfcServiceClient.NbfcService {
     public interface IFanControlService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFanControlService/SetTargetFanSpeed")]
-        void SetTargetFanSpeed(double value, int fanIndex);
+        void SetTargetFanSpeed(float value, int fanIndex);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetFanControlInfo", ReplyAction="http://tempuri.org/IFanControlService/GetFanControlInfoResponse")]
         NbfcServiceClient.NbfcService.FanControlInfo GetFanControlInfo();
@@ -281,7 +281,7 @@ namespace NbfcServiceClient.NbfcService {
                 base(binding, remoteAddress) {
         }
         
-        public void SetTargetFanSpeed(double value, int fanIndex) {
+        public void SetTargetFanSpeed(float value, int fanIndex) {
             base.Channel.SetTargetFanSpeed(value, fanIndex);
         }
         

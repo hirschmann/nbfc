@@ -64,25 +64,11 @@ namespace NbfcServiceClient
 
         #region Public Methods
 
-        public void SetFanSpeed(double speed, int fanIndex)
+        public void SetFanSpeed(float speed, int fanIndex)
         {
             try
             {
                 this.client.SetTargetFanSpeed(speed, fanIndex);
-                UpdateMainViewModel();
-            }
-            catch
-            {
-                InitializeClient();
-            }
-        }
-
-        public void RestartFanControl()
-        {
-            try
-            {
-                client.Restart();
-                ResetMainViewModel();
                 UpdateMainViewModel();
             }
             catch
