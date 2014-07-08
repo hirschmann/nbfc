@@ -48,6 +48,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Windows.EmbeddedController\StagWare.Windows.EmbeddedController.csproj">
+      <Name>StagWare.Windows.EmbeddedController</Name>
+      <Project>{49bbebdd-9a3a-4963-a52c-d6154e2d6b3e}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Name>StagWare.FanControl.Configurations</Name>
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>

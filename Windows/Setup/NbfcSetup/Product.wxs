@@ -137,7 +137,7 @@
 
       <Component Id="OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
         <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.FanControl.TargetDir)OpenHardwareMonitorLib.dll">
+              Source="$(var.StagWare.Windows.EmbeddedController.TargetDir)OpenHardwareMonitorLib.dll">
         </File>
       </Component>
 

@@ -203,7 +203,7 @@ namespace StagWare.FanControl.Service
                 FanControlConfigV2 cfg;
 
                 if (TryLoadConfig(settings, out cfg))
-                {
+                {                    
                     InitializeFanSpeedSteps(cfg);
                     InitializeFanControl(settings, cfg);
                     success = true;
@@ -264,6 +264,7 @@ namespace StagWare.FanControl.Service
             if (!string.IsNullOrWhiteSpace(settings.SelectedConfigId)
                 && configManager.SelectConfig(settings.SelectedConfigId))
             {
+                this.selectedConfig = configManager.SelectedConfigName;
                 config = configManager.SelectedConfig;
                 result = true;
             }
