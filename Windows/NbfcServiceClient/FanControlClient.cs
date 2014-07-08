@@ -1,13 +1,13 @@
-﻿using NbfcServiceClient.ViewModels;
+﻿using NbfcClient.ViewModels;
 using System;
 using System.ServiceModel;
 using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using NbfcServiceClient.NbfcService;
+using NbfcClient.NbfcService;
 
-namespace NbfcServiceClient
+namespace NbfcClient
 {
     public class FanControlClient : IDisposable
     {

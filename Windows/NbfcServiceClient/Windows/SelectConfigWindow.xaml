@@ -1,6 +1,7 @@
-﻿<Window x:Class="NbfcServiceClient.Windows.SelectConfigWindow"
+﻿<Window x:Class="NbfcClient.Windows.SelectConfigWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
+        
         Title="Select Config" Height="140" Width="346" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <ComboBox x:Name="configSelector" Margin="82,14,74,0" VerticalAlignment="Top"/>

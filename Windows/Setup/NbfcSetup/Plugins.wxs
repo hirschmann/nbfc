@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+
+  <!--Includes-->
+  <?include $(var.ProjectDir)Constants.wxi ?>
+
+  <Fragment>
+    <ComponentGroup Id="Plugins" Directory="PluginsFolder">
+      <Component Id="Plg.StagWare.Windows.EmbeddedController" Guid="F2519422-B09F-4E36-BC16-89FABF05DA90">
+        <File Id="StagWare.Windows.EmbeddedController.dll" Name="StagWare.Windows.EmbeddedController.dll" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.StagWare.Windows.EmbeddedController.TargetDir)StagWare.Windows.EmbeddedController.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Windows.EmbeddedController.NativeImage" Priority="1" Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.StagWare.Windows.CpuTempProvider" Guid="201E7795-E7E3-4CA1-A017-4615E3A89080">
+        <File Id="StagWare.Windows.CpuTempProvider.dll" Name="StagWare.Windows.CpuTempProvider.dll" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.StagWare.Windows.CpuTempProvider.TargetDir)StagWare.Windows.CpuTempProvider.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Windows.CpuTempProvider.NativeImage" Priority="1" Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.StagWare.Hardware" Guid="4A948EE5-F20F-4281-A44F-D65A02E9D5AB">
+        <File Id="StagWare.Hardware.dll" Name="StagWare.Hardware.dll" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.StagWare.Hardware.TargetDir)StagWare.Hardware.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Hardware.NativeImage" Priority="1" Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
+        <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.StagWare.Windows.EmbeddedController.TargetDir)OpenHardwareMonitorLib.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="OpenHardwareMonitorLib.NativeImage" Priority="1" Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

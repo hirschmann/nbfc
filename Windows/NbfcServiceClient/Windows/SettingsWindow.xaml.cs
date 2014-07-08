@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace NbfcServiceClient.Windows
+namespace NbfcClient.Windows
 {
     /// <summary>
     /// Interaction logic for SettingsWindow.xaml

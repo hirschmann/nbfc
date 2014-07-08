@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <!--Includes-->
+  <?include $(var.ProjectDir)Constants.wxi ?>
+
+  <Fragment>
+    <!--Directory structure-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
+          <Directory Id="ConfigsFolder" Name="Configs"/>
+          <Directory Id="PluginsFolder" Name="Plugins"/>
+        </Directory>
+      </Directory>
+      
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ProgramMenuProductFolder" Name="$(var.ProductName)" />
+      </Directory>
+
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="ServiceSettingsFolder" Name="$(var.NbfcService.ProjectName)"/>
+      </Directory>
+    </Directory>    
+
+    <ComponentGroup Id="Directories">
+
+      <!--Main directory setup-->
+      <Component Id="Dir.InstallFolderSetup" Directory="INSTALLFOLDER" Guid="48FBA1F6-5A7E-41FF-948F-F891D85B80DC" >
+        <RemoveFolder Id="RemoveConfigsFolder" Directory="ConfigsFolder" On="uninstall" />
+        <RemoveFolder Id="RemovePluginsFolder" Directory="PluginsFolder" On="uninstall" />
+        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+
+        <!--Remove service settings files of older versions-->
+        <RemoveFile Id="RemoveServiceSettingsOld" Name="NbfcServiceSettings.xml" On="uninstall" />
+      </Component>
+
+      <!--Start menu folder setup-->
+      <Component Id="Dir.ProgramMenuSetup" Directory="ProgramMenuProductFolder" Guid="8A01AEFF-9679-47B9-A4C2-C9AE197A52F3">
+        <RemoveFolder Id="ProgramMenuProductFolder" On="uninstall"/>
+        <RegistryValue Root="HKMU" Key="Software\$(var.CompanyName)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+      </Component>
+
+      <!--Configs folder setup-->
+      <Component Id="Dir.ConfigsFolderSetup" Directory="ConfigsFolder" Guid="51F8CF74-10B9-4F0F-8717-F32CEF26C185">
+        <CreateFolder Directory="ConfigsFolder">
+          <Permission User="Everyone" GenericAll="yes" ChangePermission="yes"/>
+        </CreateFolder>
+
+        <RemoveFile Id="RemoveConfigXmlFiles" Name="*.xml" On="uninstall"/>
+      </Component>
+
+      <!--Plugins folder setup-->
+      <Component Id="Dir.PluginsFolderSetup" Directory="PluginsFolder" Guid="4524F641-6D7C-49E2-8643-272BD632C024">
+        <RemoveFile Id="RemovePlugins" Name="*.*" On="uninstall"/>
+      </Component>
+
+      <!--AppData folder setup-->
+      <Component Id="Dir.AppDataFolderSetup" Directory="CommonAppDataFolder" Guid="CB64FBF8-B6B5-460A-B8B3-941E16BA946D" >
+        <RemoveFile Id="RemoveServiceSettings" Directory="ServiceSettingsFolder" Name="NbfcServiceSettings.xml" On="uninstall" />
+        <RemoveFolder Id="ServiceSettingsFolder" On="uninstall"/>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace NbfcServiceClient.ValueConverters
+namespace NbfcClient.ValueConverters
 {
     public class FanSpeedSliderValueToTextConverter : IMultiValueConverter
     {

@@ -5,7 +5,7 @@
   <?include $(var.NbfcSetup.ProjectDir)Constants.wxi ?>
   
   <Bundle Name="$(var.ProductName)" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeGuid)"
-          IconSourceFile="$(var.NbfcServiceClient.ProjectDir)nbfc.ico">
+          IconSourceFile="$(var.NbfcClient.ProjectDir)nbfc.ico">
 
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
       <Payload SourceFile="$(var.ProjectDir)Resources\logoside.png" />

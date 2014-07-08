@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigEditor", "Windows\ConfigEditor\ConfigEditor.csproj", "{A2E2E628-7BDA-4072-83DE-B28DE7EA85A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcServiceClient", "Windows\NbfcServiceClient\NbfcServiceClient.csproj", "{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcClient", "Windows\NbfcServiceClient\NbfcClient.csproj", "{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}"
 	ProjectSection(ProjectDependencies) = postProject
 		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
 	EndProjectSection

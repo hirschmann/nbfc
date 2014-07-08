@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Markup;
 
-namespace NbfcServiceClient
+namespace NbfcClient
 {
     /// <summary>
     /// Interaction logic for App.xaml

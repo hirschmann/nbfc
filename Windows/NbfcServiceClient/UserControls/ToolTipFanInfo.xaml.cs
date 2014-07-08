@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NbfcServiceClient.UserControls
+namespace NbfcClient.UserControls
 {
     /// <summary>
     /// Interaction logic for ToolTipFanInfo.xaml

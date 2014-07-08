@@ -9,7 +9,7 @@ using System.Linq;
 using System.Diagnostics;
 using StagWare.BiosInfo;
 
-namespace NbfcServiceClient.Windows
+namespace NbfcClient.Windows
 {
     /// <summary>
     /// Interaction logic for SelectConfigWindow.xaml

@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="NbfcServiceClient.UserControls.TrayToolTip"
+﻿<UserControl x:Class="NbfcClient.UserControls.TrayToolTip"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"
+             xmlns:uc="clr-namespace:NbfcClient.UserControls"
              mc:Ignorable="d" 
              Width="Auto" Height="Auto" MinWidth="235"
              d:DesignHeight="242" d:DesignWidth="235">

@@ -1,6 +1,7 @@
-﻿<Window x:Class="NbfcServiceClient.Windows.SettingsWindow"
+﻿<Window x:Class="NbfcClient.Windows.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
         Title="Settings" Height="170" Width="260" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
     <Grid>
         <CheckBox x:Name="startWithWin" Content="Start with Windows" HorizontalAlignment="Left" Margin="23,10,0,0" 

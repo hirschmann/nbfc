@@ -1,4 +1,4 @@
-﻿using NbfcServiceClient.NbfcService;
+﻿using NbfcClient.NbfcService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Threading;
 
-namespace NbfcServiceClient.ViewModels
+namespace NbfcClient.ViewModels
 {
     public class FanControllerViewModel : ViewModelBase
     {

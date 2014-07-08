@@ -1,4 +1,4 @@
-﻿using NbfcServiceClient.ViewModels;
+﻿using NbfcClient.ViewModels;
 using StagWare.Settings;
 using System;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace NbfcServiceClient.Windows
+namespace NbfcClient.Windows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -319,7 +319,7 @@ namespace NbfcServiceClient.Windows
 
         private void settings_Click(object sender, RoutedEventArgs e)
         {
-            var wnd = new NbfcServiceClient.Windows.SettingsWindow();
+            var wnd = new NbfcClient.Windows.SettingsWindow();
             wnd.Owner = this;
 
             wnd.ShowDialog();

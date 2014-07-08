@@ -1,15 +1,15 @@
-﻿<Window x:Class="NbfcServiceClient.Windows.MainWindow"
+﻿<Window x:Class="NbfcClient.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels"
-        xmlns:uc="clr-namespace:NbfcServiceClient.UserControls"        
+        xmlns:vm="clr-namespace:NbfcClient.ViewModels"
+        xmlns:uc="clr-namespace:NbfcClient.UserControls"        
         mc:Ignorable="d"
         
         Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355" 
-        Icon="/NoteBook FanControl;component/nbfc.ico"
+        Icon="/NoteBookFanControl;component/nbfc.ico"
         WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
         d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
     

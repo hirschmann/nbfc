@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NbfcServiceClient.NbfcService {
+namespace NbfcClient.NbfcService {
     using System.Runtime.Serialization;
     using System;
     
@@ -26,7 +26,7 @@ namespace NbfcServiceClient.NbfcService {
         private int CpuTemperatureField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private NbfcServiceClient.NbfcService.FanStatus[] FanStatusField;
+        private NbfcClient.NbfcService.FanStatus[] FanStatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsInitializedField;
@@ -58,7 +58,7 @@ namespace NbfcServiceClient.NbfcService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public NbfcServiceClient.NbfcService.FanStatus[] FanStatus {
+        public NbfcClient.NbfcService.FanStatus[] FanStatus {
             get {
                 return this.FanStatusField;
             }
@@ -239,7 +239,7 @@ namespace NbfcServiceClient.NbfcService {
         void SetTargetFanSpeed(float value, int fanIndex);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetFanControlInfo", ReplyAction="http://tempuri.org/IFanControlService/GetFanControlInfoResponse")]
-        NbfcServiceClient.NbfcService.FanControlInfo GetFanControlInfo();
+        NbfcClient.NbfcService.FanControlInfo GetFanControlInfo();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/Restart", ReplyAction="http://tempuri.org/IFanControlService/RestartResponse")]
         bool Restart();
@@ -255,12 +255,12 @@ namespace NbfcServiceClient.NbfcService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IFanControlServiceChannel : NbfcServiceClient.NbfcService.IFanControlService, System.ServiceModel.IClientChannel {
+    public interface IFanControlServiceChannel : NbfcClient.NbfcService.IFanControlService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class FanControlServiceClient : System.ServiceModel.ClientBase<NbfcServiceClient.NbfcService.IFanControlService>, NbfcServiceClient.NbfcService.IFanControlService {
+    public partial class FanControlServiceClient : System.ServiceModel.ClientBase<NbfcClient.NbfcService.IFanControlService>, NbfcClient.NbfcService.IFanControlService {
         
         public FanControlServiceClient() {
         }
@@ -285,7 +285,7 @@ namespace NbfcServiceClient.NbfcService {
             base.Channel.SetTargetFanSpeed(value, fanIndex);
         }
         
-        public NbfcServiceClient.NbfcService.FanControlInfo GetFanControlInfo() {
+        public NbfcClient.NbfcService.FanControlInfo GetFanControlInfo() {
             return base.Channel.GetFanControlInfo();
         }
         

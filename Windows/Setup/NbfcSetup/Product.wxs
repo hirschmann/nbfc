@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
-     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
-     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
   <!--Includes-->
   <?include $(var.ProjectDir)Constants.wxi ?>
@@ -17,7 +15,7 @@
     <MajorUpgrade Schedule="afterInstallInitialize"
                   AllowDowngrades="no"
                   AllowSameVersionUpgrades="no"
-                  DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />      
+                  DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
 
     <!--Media-->
     <Media Id="1" Cabinet="NBFC.cab" EmbedCab="yes" CompressionLevel="high"/>
@@ -30,7 +28,7 @@
     </Condition>
 
     <!--Program Icon-->
-    <Icon Id="Nbfc.ico" SourceFile="$(var.NbfcServiceClient.ProjectDir)nbfc.ico" />
+    <Icon Id="Nbfc.ico" SourceFile="$(var.NbfcClient.ProjectDir)nbfc.ico" />
     <Property Id="ARPPRODUCTICON" Value="Nbfc.ico" />
 
     <!--DriverSetupAction-->
@@ -50,7 +48,7 @@
     <InstallExecuteSequence>
       <Custom Action="SetInstallFolderForUninstallDriver" Before="UninstallDriver"/>
       <Custom Action="UninstallDriver" After="DeleteServices"/>
-      
+
       <Custom Action="SetInstallFolderForInstallDriver" Before ="InstallDriver"/>
       <Custom Action="InstallDriver" After="InstallFiles">
         NOT REMOVE="ALL"
@@ -59,143 +57,10 @@
 
     <!--Features-->
     <Feature Id="NoteBookFanControl" Title="$(var.ProductName)" Level="1">
-      <ComponentRef Id="Service" />
-      <ComponentRef Id="ServiceConfig" />
-      <ComponentRef Id="FanControlServiceLib" />
-      <ComponentRef Id="FanControlLib" />
-      <ComponentRef Id="FanControlConfigurationsLib" />
-      <ComponentRef Id="OpenHardwareMonitorLib" />
-      <ComponentRef Id="Client" />
-      <ComponentRef Id="ClientConfig" />
-      <ComponentRef Id="TaskbarNotificationLib" />
-      <ComponentRef Id="ConfigEditor" />
-      <ComponentRef Id="WpfToolkit" />
-      <ComponentRef Id="ConfigsFolderPermissions" />
-      <ComponentRef Id="CleanupProgramFiles" />
-      <ComponentRef Id="ProgramMenuShortcuts" />
+      <ComponentGroupRef Id="Application" />
+      <ComponentGroupRef Id="Plugins" />
       <ComponentGroupRef Id="Configs" />
+      <ComponentGroupRef Id="Directories" />
     </Feature>
   </Product>
-
-  <Fragment>
-    <!--Directory structure-->
-    <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
-          <Directory Id="ConfigsFolder" Name="Configs"/>
-        </Directory>
-      </Directory>
-      <Directory Id="ProgramMenuFolder">
-        <Directory Id="ProgramMenuProductFolder" Name="$(var.ProductName)" />
-      </Directory>
-    </Directory>
-
-    <!--Install directory setup-->
-    <DirectoryRef Id="INSTALLFOLDER">
-      <Component Id="CleanupProgramFiles" Guid="48FBA1F6-5A7E-41FF-948F-F891D85B80DC">
-        <RemoveFile Id="RemoveServiceSettings" Name="NbfcServiceSettings.xml" On="uninstall" />
-        <RemoveFolder Id="RemoveConfigsFolder" Directory="ConfigsFolder" On="uninstall" />
-        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
-      </Component>
-
-      <Component Id="Service" Guid="A178E4FC-45EF-4246-B946-EC6CC879A26C">
-        <File Id="NbfcService.exe" Name="NbfcService.exe" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcService.TargetDir)NbfcService.exe">
-          
-          <?if $(var.Configuration) = "Release"?>
-            <netfx:NativeImage Id="NbfcServiceNativeImage" Priority="1" Platform="all"/>
-          <?endif?>
-        </File>
-
-        <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Vital="yes" Name="NbfcService" Start="auto"
-                        Account="LocalSystem" ErrorControl="ignore" Interactive="no"
-                        DisplayName="NoteBook FanControl Service"
-                        Description="Allows to control the fans on many different notebook models via user defined configuration files.">
-        </ServiceInstall>
-        <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="NbfcService" Wait="yes" />
-      </Component>
-
-      <Component Id="ServiceConfig" Guid="ED567D74-C19E-40B7-B984-54D720B7BB17">
-        <File Id="NbfcService.exe.config" Name="NbfcService.exe.config" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcService.TargetDir)NbfcService.exe.config"/>
-      </Component>
-
-      <Component Id="FanControlServiceLib" Guid="0300428D-8A7C-4EB5-A7DB-88F48C265E0B">
-        <File Id="StagWare.FanControl.Service.dll" Name="StagWare.FanControl.Service.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.FanControl.Service.TargetDir)StagWare.FanControl.Service.dll"/>
-      </Component>
-
-      <Component Id="FanControlLib" Guid="5ED83797-32AC-4B22-BED0-40CC7D3E868F">
-        <File Id="StagWare.FanControl.dll" Name="StagWare.FanControl.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.FanControl.TargetDir)StagWare.FanControl.dll"/>
-      </Component>
-
-      <Component Id="FanControlConfigurationsLib" Guid="19CC0856-0909-49B2-A708-15FA70891049">
-        <File Id="StagWare.FanControl.Configurations.dll" Name="StagWare.FanControl.Configurations.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.FanControl.Configurations.TargetDir)StagWare.FanControl.Configurations.dll"/>
-      </Component>
-
-      <Component Id="OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
-        <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.Windows.EmbeddedController.TargetDir)OpenHardwareMonitorLib.dll">
-        </File>
-      </Component>
-
-      <Component Id="Client" Guid="6CD59558-48F7-4E1E-B4F6-470F8510D57A">
-        <File Id="NoteBookFanControl.exe" Name="NoteBook FanControl.exe" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcServiceClient.TargetDir)NoteBook FanControl.exe">          
-          <Shortcut Id="ClientStartMenuShortcut" Directory="ProgramMenuProductFolder" Name="$(var.ProductName)" 
-                    Icon="Nbfc.ico" Advertise="yes" />
-
-          <?if $(var.Configuration) = "Release"?>
-            <netfx:NativeImage Id="NoteBookFanControlNativeImage" Priority="1" Platform="all" />
-          <?endif?>
-        </File>
-      </Component>
-
-      <Component Id="ClientConfig" Guid="3EAE4C2F-E19A-466E-901C-72769E50E37C">
-        <File Id="NoteBookFanControl.exe.config" Name="NoteBook FanControl.exe.config" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcServiceClient.TargetDir)NoteBook FanControl.exe.config"/>
-      </Component>
-
-      <Component Id="TaskbarNotificationLib" Guid="076A2E94-119E-4EF7-8131-4C174E90F3BE">
-        <File Id="Hardcodet.Wpf.TaskbarNotification.dll" Name="Hardcodet.Wpf.TaskbarNotification.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcServiceClient.TargetDir)Hardcodet.Wpf.TaskbarNotification.dll"/>
-      </Component>
-
-      <Component Id="ConfigEditor" Guid="C3D8D023-75AB-49F5-B276-75E80FA87DBF">
-        <File Id="ConfigEditor.exe" Name="ConfigEditor.exe" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.ConfigEditor.TargetDir)ConfigEditor.exe">          
-          <Shortcut Id="EditorStartMenuShortcut" Directory="ProgramMenuProductFolder" Name="Config Editor"
-                    Icon="Nbfc.ico" Advertise="yes" />
-
-          <?if $(var.Configuration) = "Release"?>
-            <netfx:NativeImage Id="ConfigEditorNativeImage" Priority="1" Platform="all"></netfx:NativeImage>
-          <?endif?>
-        </File>
-      </Component>
-
-      <Component Id="WpfToolkit" Guid="40C4D054-AD1F-40B7-9A0E-1E73AE026CA4">
-        <File Id="Xceed.Wpf.Toolkit.dll" Name="Xceed.Wpf.Toolkit.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.ConfigEditor.TargetDir)Xceed.Wpf.Toolkit.dll"/>
-      </Component>
-    </DirectoryRef>
-
-    <!--Start menu directory setup-->
-    <DirectoryRef Id="ProgramMenuProductFolder">
-      <Component Id="ProgramMenuShortcuts" Guid="8A01AEFF-9679-47B9-A4C2-C9AE197A52F3">        
-        <RemoveFolder Id="ProgramMenuProductFolder" On="uninstall"/>
-        <RegistryValue Root="HKMU" Key="Software\$(var.CompanyName)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-      </Component>
-    </DirectoryRef>
-
-    <!--Configs directory setup-->
-    <DirectoryRef Id="ConfigsFolder">
-      <Component Id="ConfigsFolderPermissions" Guid="51F8CF74-10B9-4F0F-8717-F32CEF26C185">
-        <CreateFolder Directory="ConfigsFolder">
-          <Permission User="Everyone" GenericAll="yes" ChangePermission="yes"/>
-        </CreateFolder>
-      </Component>
-    </DirectoryRef>
-  </Fragment>
 </Wix>

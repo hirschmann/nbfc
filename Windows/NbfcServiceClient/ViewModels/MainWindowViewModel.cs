@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
-namespace NbfcServiceClient.ViewModels
+namespace NbfcClient.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

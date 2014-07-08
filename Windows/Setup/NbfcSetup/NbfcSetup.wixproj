@@ -36,13 +36,32 @@
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Application.wxs" />
     <Compile Include="Configs.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="Plugins.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Libraries\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
       <Name>OpenHardwareMonitorLib</Name>
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
+      <Name>StagWare.Hardware</Name>
+      <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Windows.CpuTempProvider\StagWare.Windows.CpuTempProvider.csproj">
+      <Name>StagWare.Windows.CpuTempProvider</Name>
+      <Project>{fc64e51e-1372-45d5-8b25-134a6859dedd}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
@@ -88,8 +107,8 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\NbfcServiceClient\NbfcServiceClient.csproj">
-      <Name>NbfcServiceClient</Name>
+    <ProjectReference Include="..\..\NbfcServiceClient\NbfcClient.csproj">
+      <Name>NbfcClient</Name>
       <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
@@ -99,6 +118,14 @@
     <ProjectReference Include="..\..\NbfcService\NbfcService.csproj">
       <Name>NbfcService</Name>
       <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
+      <Name>StagWare.BiosInfo</Name>
+      <Project>{b45bbd0f-9345-4ec8-b70d-8369659da3b4}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
@@ -132,7 +159,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files (x86)\WiX Toolset v3.8\bin\heat.exe" dir "D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs" -ag -dr INSTALLFOLDER -cg Configs -var var.ConfigsDir -out "$(ProjectDir)Configs.wxs"</PreBuildEvent>
+    <PreBuildEvent>"C:\Program Files (x86)\WiX Toolset v3.8\bin\heat.exe" dir "D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs" -ag -dr ConfigsFolder -srd -cg Configs -var var.ConfigsDir -out "$(ProjectDir)Configs.wxs"</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

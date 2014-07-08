@@ -1,5 +1,5 @@
-﻿<vm:MainWindowViewModel xmlns:vm="clr-namespace:NbfcServiceClient.ViewModels"
-                        xmlns:dd="clr-namespace:NbfcServiceClient.DesignData"
+﻿<vm:MainWindowViewModel xmlns:vm="clr-namespace:NbfcClient.ViewModels"
+                        xmlns:dd="clr-namespace:NbfcClient.DesignData"
                         
                         CpuTemperature="50" IsServiceAvailable="True" SelectedConfig="HP ProBook 6465b" />
     
