@@ -1,4 +1,5 @@
 ﻿using ConfigEditor.Commands;
+using StagWare.BiosInfo;
 using StagWare.FanControl.Configurations;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ConfigEditor.ViewModels
         #region Constants
 
         private const string ConfigsDirectoryName = "Configs";
+        private const string NotebookModelValueName = "SystemProductName";
 
         #endregion
 
@@ -402,9 +404,10 @@ namespace ConfigEditor.ViewModels
         #region Constructors
 
         public MainViewModel()
-        {
+        {            
             this.FanConfigs = new ObservableCollection<FanConfigViewModel>();
             this.RegisterWriteConfigs = new ObservableCollection<RegisterWriteConfigViewModel>();
+            this.ActualNotebookModel = GetNotebookModel();            
 
             InitializeConfigManager();
             UpdateViewModel();
@@ -450,42 +453,29 @@ namespace ConfigEditor.ViewModels
 
         #region Private Methods
 
-        private static string GetModelName()
+        private static string GetNotebookModel()
         {
-            string model = string.Empty;
-
-            using (var searcher = new ManagementObjectSearcher(@"SELECT * FROM CIM_ComputerSystem"))
+            if (BiosInfo.ValueInfo.Any(x => x.ValueName.Equals(
+                NotebookModelValueName, StringComparison.OrdinalIgnoreCase)))
             {
-                foreach (ManagementObject obj in searcher.Get())
+                try
                 {
-                    try
-                    {
-                        model = obj["Model"].ToString();
-                    }
-                    catch
-                    {
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(model))
-                    {
-                        break;
-                    }
+                    return BiosInfo.GetStringValue(NotebookModelValueName);
+                }
+                catch
+                {
                 }
             }
 
-            return model.Trim();
+            return null;
         }
 
         private void InitializeConfigManager()
         {
-            var t = Task.Factory.StartNew(() => GetModelName());
-
             string path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
             path = Path.Combine(path, ConfigsDirectoryName);
             this.configManager = new FanControlConfigManager(path);
-
-            this.ActualNotebookModel = t.Result;
             this.configManager.SelectConfig(this.ActualNotebookModel);
         }
 

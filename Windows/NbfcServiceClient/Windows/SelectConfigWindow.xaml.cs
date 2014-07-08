@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Linq;
 using System.Diagnostics;
+using StagWare.BiosInfo;
 
 namespace NbfcServiceClient.Windows
 {
@@ -20,6 +21,7 @@ namespace NbfcServiceClient.Windows
         private const string ConfigsDirectoryName = "Configs";
         private const string ConfigEditorExecutableName = "ConfigEditor.exe";
         private const string ConfigEditorSelectConfigArgumentPrefix = "-s:";
+        private const string NotebookModelValueName = "SystemProductName";
 
         #endregion
 
@@ -62,15 +64,31 @@ namespace NbfcServiceClient.Windows
             {
                 configFound = configManager.SelectConfig(client.ViewModel.SelectedConfig);
             }
-            else
-            {
-                configFound = configManager.AutoSelectConfig();
-            }
-
-            if (configFound)
+            else if(configManager.SelectConfig(GetNotebookModel()))
             {
                 this.configSelector.SelectedValue = configManager.SelectedConfigName;
             }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private static string GetNotebookModel()
+        {
+            if (BiosInfo.ValueInfo.Any(x => x.ValueName.Equals(
+                NotebookModelValueName, StringComparison.OrdinalIgnoreCase)))
+            {
+                try
+                {
+                    return BiosInfo.GetStringValue(NotebookModelValueName);
+                }
+                catch
+                {
+                }
+            }
+
+            return null;
         }
 
         #endregion
