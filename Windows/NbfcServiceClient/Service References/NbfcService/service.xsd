@@ -4,7 +4,7 @@
   <xs:element name="SetTargetFanSpeed">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="value" type="xs:double" />
+        <xs:element minOccurs="0" name="value" type="xs:float" />
         <xs:element minOccurs="0" name="fanIndex" type="xs:int" />
       </xs:sequence>
     </xs:complexType>

@@ -19,10 +19,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="AutoControlEnabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="CriticalModeEnabled" type="xs:boolean" />
-      <xs:element minOccurs="0" name="CurrentFanSpeed" type="xs:double" />
+      <xs:element minOccurs="0" name="CurrentFanSpeed" type="xs:float" />
       <xs:element minOccurs="0" name="FanDisplayName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FanSpeedSteps" type="xs:int" />
-      <xs:element minOccurs="0" name="TargetFanSpeed" type="xs:double" />
+      <xs:element minOccurs="0" name="TargetFanSpeed" type="xs:float" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FanStatus" nillable="true" type="tns:FanStatus" />

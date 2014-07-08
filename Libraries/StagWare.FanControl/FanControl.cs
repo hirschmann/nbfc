@@ -2,6 +2,7 @@
 using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
@@ -20,6 +21,7 @@ namespace StagWare.FanControl
 
         #region Private Fields
 
+        private readonly object syncRoot = new object();
         private readonly AutoResetEvent autoEvent = new AutoResetEvent(false);
         private Timer timer;
         private AsyncOperation asyncOp;
@@ -30,11 +32,13 @@ namespace StagWare.FanControl
         private readonly ITemperatureFilter tempFilter;
         private readonly ITemperatureProvider tempProvider;
         private readonly IEmbeddedController ec;
+        private readonly FanSpeedManager[] fanSpeedManagers;
 
-        private readonly FanInformation[] fanInfo;
-        private readonly FanSpeedManager[] fanSpeeds;
+        private FanInformation[] fanInfo;
+        private FanInformation[] fanInfoInternal;
 
         private volatile float cpuTemperature;
+        private volatile float[] requestedSpeeds;
 
         #endregion
 
@@ -83,20 +87,19 @@ namespace StagWare.FanControl
             this.tempProvider = tempProvider;
             this.ec = ec;
             this.config = (FanControlConfigV2)config.Clone();
-            this.pollInterval = config.EcPollInterval;
-            this.asyncOp = AsyncOperationManager.CreateOperation(null);
+            this.pollInterval = config.EcPollInterval;            
+            this.requestedSpeeds = new float[config.FanConfigurations.Count];
             this.fanInfo = new FanInformation[config.FanConfigurations.Count];
-            this.fanSpeeds = new FanSpeedManager[config.FanConfigurations.Count];
+            this.fanInfoInternal = new FanInformation[config.FanConfigurations.Count];
+            this.fanSpeedManagers = new FanSpeedManager[config.FanConfigurations.Count];
+            this.asyncOp = AsyncOperationManager.CreateOperation(null);
 
             for (int i = 0; i < this.fanInfo.Length; i++)
             {
                 var cfg = config.FanConfigurations[i];
 
-                this.fanSpeeds[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
-                this.fanInfo[i] = new FanInformation()
-                {
-                    FanDisplayName = cfg.FanDisplayName
-                };
+                this.fanSpeedManagers[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
+                this.fanInfo[i] = new FanInformation(0, 0, false, false, cfg.FanDisplayName);
             }
         }
 
@@ -154,14 +157,11 @@ namespace StagWare.FanControl
             get { return this.timer != null; }
         }
 
-        public IList<FanInformation> FanInformation
+        public ReadOnlyCollection<FanInformation> FanInformation
         {
             get
             {
-                lock (this.fanInfo)
-                {
-                    return this.fanInfo.Select(x => x.Clone() as FanInformation).ToList();
-                }
+                return Array.AsReadOnly(fanInfo);
             }
         }
 
@@ -171,71 +171,68 @@ namespace StagWare.FanControl
 
         public void Start(int delay = 0)
         {
-            if (!this.tempProvider.IsInitialized)
+            lock (syncRoot)
             {
-                this.tempProvider.Initialize();
-            }
-
-            if (!this.ec.IsInitialized)
-            {
-                this.ec.Initialize();
-            }
-
-            if (this.ec.AquireLock(DefaultPollInterval))
-            {
-                try
+                if (!this.tempProvider.IsInitialized)
                 {
-                    ApplyRegisterWriteConfigurations(true);
+                    this.tempProvider.Initialize();
                 }
-                finally
-                {
-                    this.ec.ReleaseLock();
-                }
-            }
 
-            if (this.timer == null)
-            {
-                this.autoEvent.Set();
-                this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
+                if (!this.ec.IsInitialized)
+                {
+                    this.ec.Initialize();
+                }
+
+                if (this.ec.AquireLock(DefaultPollInterval))
+                {
+                    try
+                    {
+                        ApplyRegisterWriteConfigurations(true);
+                    }
+                    finally
+                    {
+                        this.ec.ReleaseLock();
+                    }
+                }
+
+                if (this.timer == null)
+                {
+                    this.autoEvent.Set();
+                    this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
+                }
             }
         }
 
-        public void SetTargetFanSpeed(double speed, int fanIndex)
+        public void SetTargetFanSpeed(float speed, int fanIndex)
         {
-            lock (this.fanSpeeds)
-            {
-                this.fanSpeeds[fanIndex].UpdateFanSpeed(speed, this.cpuTemperature);
-
-                lock (this.fanInfo)
-                {
-                    UpdateFanInformation();
-                }
-            }
-
+            Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
             UpdateEcAsync();
         }
 
         public void Stop()
         {
-            if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+            lock (syncRoot)
             {
-                this.autoEvent.Reset();
-            }
-
-            if (timer != null)
-            {
-                using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
+                if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
                 {
-                    timer.Dispose(handle);
+                    this.autoEvent.Reset();
+                }
 
-                    if (handle.WaitOne())
+                if (timer != null)
+                {
+                    using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
                     {
-                        timer = null;
+                        timer.Dispose(handle);
+
+                        if (handle.WaitOne())
+                        {
+                            timer = null;
+                        }
                     }
                 }
-            }
 
-            ResetEc();
+                ResetEc();
+            }
         }
 
         #endregion
@@ -274,6 +271,12 @@ namespace StagWare.FanControl
             }
         }
 
+        private void UpdateEcAsync()
+        {
+            var action = new Action<object>(TimerCallback);
+            action.BeginInvoke(null, null, null);
+        }
+
         private void UpdateEc()
         {
             if (this.ec.AquireLock(pollInterval / 2))
@@ -294,55 +297,37 @@ namespace StagWare.FanControl
 
         private void UpdateAndApplyFanSpeeds()
         {
-            lock (this.fanSpeeds)
+            for (int i = 0; i < this.fanSpeedManagers.Length; i++)
             {
-                int idx = 0;
+                float speed = Thread.VolatileRead(ref this.requestedSpeeds[i]);
+                this.fanSpeedManagers[i].UpdateFanSpeed(speed, this.cpuTemperature);
 
-                foreach (FanSpeedManager fsm in this.fanSpeeds)
-                {
-                    fsm.UpdateFanSpeed(this.cpuTemperature, fsm.AutoControlEnabled);
-
-                    WriteValue(
-                        this.config.FanConfigurations[idx].WriteRegister,
-                        fsm.FanSpeedValue,
-                        this.config.ReadWriteWords);
-
-                    idx++;
-                }
-
-                lock (this.fanInfo)
-                {
-                    UpdateFanInformation(true);
-                }
+                WriteValue(
+                    this.config.FanConfigurations[i].WriteRegister,
+                    this.fanSpeedManagers[i].FanSpeedValue,
+                    this.config.ReadWriteWords);
             }
+
+            UpdateFanInformation();
         }
 
-        private void UpdateEcAsync()
+        private void UpdateFanInformation()
         {
-            var action = new Action<object>(TimerCallback);
-            action.BeginInvoke(null, null, null);
-        }
-
-        #region Helper Methods
-
-        private void UpdateFanInformation(bool isaBusMutexAquired = false)
-        {
-            for (int i = 0; i < this.fanSpeeds.Length; i++)
+            for (int i = 0; i < this.fanSpeedManagers.Length; i++)
             {
-                var info = this.fanInfo[i];
-                var speed = this.fanSpeeds[i];
-                var fanConfig = this.config.FanConfigurations[i];
+                FanSpeedManager speedMan = this.fanSpeedManagers[i];
+                FanConfiguration cfg = this.config.FanConfigurations[i];
+                int speedVal = GetFanSpeedValue(cfg, this.config.ReadWriteWords);
 
-                info.CriticalModeEnabled = speed.CriticalModeEnabled;
-                info.AutoFanControlEnabled = speed.AutoControlEnabled;
-                info.TargetFanSpeed = speed.FanSpeedPercentage;
-
-                if (isaBusMutexAquired)
-                {
-                    info.CurrentFanSpeed = speed.FanSpeedToPercentage(
-                        GetFanSpeedValue(fanConfig, this.config.ReadWriteWords));
-                }
+                this.fanInfoInternal[i] = new FanInformation(
+                    speedMan.FanSpeedPercentage,
+                    speedMan.FanSpeedToPercentage(speedVal),
+                    speedMan.AutoControlEnabled,
+                    speedMan.CriticalModeEnabled,
+                    cfg.FanDisplayName);
             }
+
+            this.fanInfoInternal = Interlocked.Exchange(ref this.fanInfo, this.fanInfoInternal);
         }
 
         private void ApplyRegisterWriteConfigurations(bool initializing = false)
@@ -376,8 +361,6 @@ namespace StagWare.FanControl
                     break;
             }
         }
-
-        #endregion
 
         #endregion
 

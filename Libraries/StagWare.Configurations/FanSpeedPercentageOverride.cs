@@ -7,7 +7,7 @@ namespace StagWare.FanControl.Configurations
 {
     public class FanSpeedPercentageOverride : ICloneable
     {
-        public double FanSpeedPercentage { get; set; }
+        public float FanSpeedPercentage { get; set; }
         public int FanSpeedValue { get; set; }
 
         #region ICloneable implementation

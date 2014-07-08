@@ -8,7 +8,7 @@ namespace StagWare.FanControl.Configurations
 
         private int upThreshold;
         private int downThreshold;
-        private double fanSpeed;
+        private float fanSpeed;
 
         #endregion
 
@@ -26,7 +26,7 @@ namespace StagWare.FanControl.Configurations
             set { downThreshold = value; }
         }
 
-        public double FanSpeed
+        public float FanSpeed
         {
             get 
             { 
@@ -57,7 +57,7 @@ namespace StagWare.FanControl.Configurations
         public TemperatureThreshold()
         { }
 
-        public TemperatureThreshold(int upThreshold, int downThreshold, double fanSpeed)
+        public TemperatureThreshold(int upThreshold, int downThreshold, float fanSpeed)
         {
             this.UpThreshold = upThreshold;
             this.DownThreshold = downThreshold;

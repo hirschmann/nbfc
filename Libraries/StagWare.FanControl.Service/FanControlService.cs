@@ -41,18 +41,19 @@ namespace StagWare.FanControl.Service
 
             using (var settings = ServiceSettings.Load(SettingsDir))
             {
-                if (settings.AutoStart)
+                if (settings.AutoStart && TryInitializeFanControl(settings))
                 {
-                    initialized = TryInitializeFanControl(settings);
+                    this.initialized = true;
+                    this.fanControl.Start();
                 }
             }
         }
 
-        #endregion        
+        #endregion
 
         #region IFanControlService implementation
 
-        public void SetTargetFanSpeed(double value, int fanIndex)
+        public void SetTargetFanSpeed(float value, int fanIndex)
         {
             if (fanControl != null)
             {
@@ -121,7 +122,11 @@ namespace StagWare.FanControl.Service
             {
                 using (var settings = ServiceSettings.Load(SettingsDir))
                 {
-                    this.initialized = TryInitializeFanControl(settings);
+                    if (TryInitializeFanControl(settings))
+                    {
+                        this.initialized = true;
+                        this.fanControl.Start();
+                    }
 
                     settings.AutoStart = true;
                     settings.Save();
@@ -146,123 +151,10 @@ namespace StagWare.FanControl.Service
 
         #region IDisposable implementation
 
-        private bool disposed;
-
         public void Dispose()
         {
-            Dispose(true);
+            DisposeFanControl();
             GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposeManagedResources)
-        {
-            if (!disposed)
-            {
-                if (disposeManagedResources)
-                {
-                    DisposeFanControl();
-                }
-
-                disposed = true;
-            }
-        }
-
-        ~FanControlService()
-        {
-            Dispose(false);
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        public void ReInitializeFanControl()
-        {
-            this.fanControl.Start();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private bool TryInitializeFanControl(ServiceSettings settings)
-        {
-            bool success = false;
-
-            try
-            {
-                string path = Path.Combine(executingAssemblyDirName, ConfigsDirectoryName);
-                var configManager = new FanControlConfigManager(path);
-
-                if (!string.IsNullOrWhiteSpace(settings.SelectedConfigId))
-                {
-                    if (!configManager.SelectConfig(settings.SelectedConfigId))
-                    {
-                        return false;
-                    }
-                    else
-                    {
-                        var config = configManager.SelectedConfig;
-                        selectedConfig = configManager.SelectedConfigName;
-                        fanSpeedSteps = new int[config.FanConfigurations.Count];
-
-                        for (int i = 0; i < fanSpeedSteps.Length; i++)
-                        {
-                            var fanConfig = config.FanConfigurations[i];
-
-                            // Add 1 extra step for "auto control"
-                            fanSpeedSteps[i] = 1 + (Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
-                                - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue));
-                        }
-                    }
-                }
-
-                if (configManager.SelectedConfig == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    fanControl = new FanControl(configManager.SelectedConfig);
-
-                    for (int i = 0; i < fanControl.FanInformation.Count; i++)
-                    {
-                        if (settings.TargetFanSpeeds == null || i >= settings.TargetFanSpeeds.Length)
-                        {
-                            fanControl.SetTargetFanSpeed(101, i);
-                        }
-                        else
-                        {
-                            fanControl.SetTargetFanSpeed(settings.TargetFanSpeeds[i], i);
-                        }
-                    }
-
-                    fanControl.Start();
-                    success = true;
-                }
-            }
-            catch
-            { 
-            }
-            finally
-            {
-                if (!success && this.fanControl != null)
-                {
-                    this.fanControl.Dispose();
-                    this.fanControl = null;
-                }
-            }
-
-            return success;
-        }
-
-        private bool Restart(ServiceSettings settings)
-        {
-            this.initialized = false;
-            Dispose();
-            this.initialized = TryInitializeFanControl(settings);
-
-            return this.initialized;
         }
 
         private void DisposeFanControl()
@@ -287,6 +179,114 @@ namespace StagWare.FanControl.Service
                 fanControl.Dispose();
                 fanControl = null;
             }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void ReInitializeFanControl()
+        {
+            this.fanControl.Start();
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private bool TryInitializeFanControl(ServiceSettings settings)
+        {
+            bool success = false;
+
+            try
+            {
+                FanControlConfigV2 cfg;
+
+                if (TryLoadConfig(settings, out cfg))
+                {
+                    InitializeFanSpeedSteps(cfg);
+                    InitializeFanControl(settings, cfg);
+                    success = true;
+                }
+            }
+            catch
+            {
+            }
+            finally
+            {
+                if (!success && this.fanControl != null)
+                {
+                    this.fanControl.Dispose();
+                    this.fanControl = null;
+                }
+            }
+
+            return success;
+        }
+
+        private void InitializeFanControl(ServiceSettings settings, FanControlConfigV2 cfg)
+        {
+            this.fanControl = new FanControl(cfg);
+
+            for (int i = 0; i < fanControl.FanInformation.Count; i++)
+            {
+                if (settings.TargetFanSpeeds == null || i >= settings.TargetFanSpeeds.Length)
+                {
+                    fanControl.SetTargetFanSpeed(101, i);
+                }
+                else
+                {
+                    fanControl.SetTargetFanSpeed(settings.TargetFanSpeeds[i], i);
+                }
+            }
+        }
+
+        private void InitializeFanSpeedSteps(FanControlConfigV2 cfg)
+        {
+            this.fanSpeedSteps = new int[cfg.FanConfigurations.Count];
+
+            for (int i = 0; i < this.fanSpeedSteps.Length; i++)
+            {
+                var fanConfig = cfg.FanConfigurations[i];
+
+                // Add 1 extra step for "auto control"
+                this.fanSpeedSteps[i] = 1 + (Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
+                    - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue));
+            }
+        }
+
+        private bool TryLoadConfig(ServiceSettings settings, out FanControlConfigV2 config)
+        {
+            bool result = false;
+            string path = Path.Combine(executingAssemblyDirName, ConfigsDirectoryName);
+            var configManager = new FanControlConfigManager(path);
+
+            if (!string.IsNullOrWhiteSpace(settings.SelectedConfigId)
+                && configManager.SelectConfig(settings.SelectedConfigId))
+            {
+                config = configManager.SelectedConfig;
+                result = true;
+            }
+            else
+            {
+                config = null;
+            }
+
+            return result;
+        }
+
+        private bool Restart(ServiceSettings settings)
+        {
+            this.initialized = false;
+            DisposeFanControl();
+
+            if (TryInitializeFanControl(settings))
+            {
+                this.initialized = true;
+                this.fanControl.Start();
+            }
+
+            return this.initialized;
         }
 
         #endregion

@@ -21,22 +21,23 @@ namespace StagWare.FanControl
         private readonly int criticalTemperature;
         private TemperatureThresholdManager threshMan;
         private FanConfiguration fanConfig;
-        private Dictionary<double, int> overriddenPercentages;
-        private Dictionary<int, double> overriddenValues;
+        private Dictionary<float, int> overriddenPercentages;
+        private Dictionary<int, float> overriddenValues;
 
-        private double fanSpeedPercentage;
+        private float fanSpeedPercentage;
         private int fanSpeedValue;
 
         #endregion
 
         #region Properties
 
-        public double FanSpeedPercentage
+        public float FanSpeedPercentage
         {
             get
             {
-                return this.CriticalModeEnabled ?
-                    100 : this.fanSpeedPercentage;
+                return this.CriticalModeEnabled
+                    ? 100.0f
+                    : this.fanSpeedPercentage;
             }
         }
 
@@ -59,9 +60,9 @@ namespace StagWare.FanControl
         public FanSpeedManager(FanConfiguration config, int criticalTemperature)
         {
             this.fanConfig = config;
-            this.criticalTemperature = criticalTemperature;            
-            this.overriddenPercentages = new Dictionary<double, int>();
-            this.overriddenValues = new Dictionary<int, double>();
+            this.criticalTemperature = criticalTemperature;
+            this.overriddenPercentages = new Dictionary<float, int>();
+            this.overriddenValues = new Dictionary<int, float>();
 
             if (config.TemperatureThresholds != null
                 && config.TemperatureThresholds.Count > 0)
@@ -103,7 +104,7 @@ namespace StagWare.FanControl
             }
         }
 
-        public void UpdateFanSpeed(double speed, double cpuTemperature)
+        public void UpdateFanSpeed(float speed, float cpuTemperature)
         {
             HandleCriticalMode(cpuTemperature);
 
@@ -126,20 +127,12 @@ namespace StagWare.FanControl
             this.fanSpeedValue = PercentageToFanSpeed(this.fanSpeedPercentage);
         }
 
-        public void UpdateFanSpeed(double cpuTemperature, bool autoSelectSpeed = false)
-        {
-            double speed = autoSelectSpeed ?
-                AutoFanSpeedPercentage : this.fanSpeedPercentage;
-
-            UpdateFanSpeed(speed, cpuTemperature);
-        }
-
-        public int PercentageToFanSpeed(double percentage)
+        public int PercentageToFanSpeed(float percentage)
         {
             if ((percentage > 100) || (percentage < 0))
             {
                 throw new ArgumentOutOfRangeException(
-                    "percentage", 
+                    "percentage",
                     "Percentage must be greater or equal 0 and less or equal 100");
             }
 
@@ -151,12 +144,12 @@ namespace StagWare.FanControl
             {
                 return (int)Math.Round(
                     ((percentage / 100.0)
-                    * (this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue)) 
+                    * (this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue))
                     + this.fanConfig.MinSpeedValue);
             }
         }
 
-        public double FanSpeedToPercentage(int fanSpeed)
+        public float FanSpeedToPercentage(int fanSpeed)
         {
             if (this.overriddenValues.ContainsKey(fanSpeed))
             {
@@ -170,14 +163,14 @@ namespace StagWare.FanControl
                 }
                 else
                 {
-                    return (double)(fanSpeed - this.fanConfig.MinSpeedValue)
-                        / (double)(this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue) * 100;
+                    return (float)(fanSpeed - this.fanConfig.MinSpeedValue)
+                        / (float)(this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue) * 100;
                 }
             }
         }
 
         #endregion
-        
+
         #region Private Methods
 
         private void HandleCriticalMode(double cpuTemperature)
