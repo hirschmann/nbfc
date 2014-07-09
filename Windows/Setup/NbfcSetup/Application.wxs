@@ -63,8 +63,8 @@
       </Component>
 
       <Component Id="App.NbfcClientConfig" Guid="3EAE4C2F-E19A-466E-901C-72769E50E37C">
-        <File Id="NoteBookFanControl.exe.config" Name="NoteBook FanControl.exe.config" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.NbfcClient.TargetDir)NoteBook FanControl.exe.config"/>
+        <File Id="NoteBookFanControl.exe.config" Name="NoteBookFanControl.exe.config" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)NoteBookFanControl.exe.config"/>
       </Component>
 
       <Component Id="App.Hardcodet.Wpf.TaskbarNotification" Guid="076A2E94-119E-4EF7-8131-4C174E90F3BE">

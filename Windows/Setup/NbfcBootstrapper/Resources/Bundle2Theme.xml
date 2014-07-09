@@ -9,14 +9,14 @@
   
   <Page Name="Help">
     <Text X="80" Y="11" Width="-11" Height="32" FontId="1" DisablePrefix="yes">#(loc.Title)</Text>
-    <Image X="11" Y="11" Width="64" Height="64" ImageFile="Logo.png"/>
+    <Image X="11" Y="11" Width="64" Height="64" ImageFile="logo.png"/>
     <Text X="11" Y="80" Width="-11" Height="32" FontId="2" DisablePrefix="yes">#(loc.HelpHeader)</Text>
     <Text X="11" Y="121" Width="-11" Height="-35" FontId="3" DisablePrefix="yes">#(loc.HelpText)</Text>
     <Button Name="HelpCancelButton" X="-11" Y="-11" Width="75" Height="23" TabStop="yes" FontId="0">#(loc.HelpCloseButton)</Button>
   </Page>
   <Page Name="Install">
     <Text X="120" Y="11" Width="-11" Height="32" FontId="1" DisablePrefix="yes">#(loc.Title)</Text>
-    <Image X="11" Y="11" Width="96" Height="350" ImageFile="LogoSide.png"/>
+    <Image X="11" Y="11" Width="96" Height="350" ImageFile="logoside.png"/>
     <Text X="120" Y="50" Width="-11" Height="32" FontId="2" DisablePrefix="yes">#(loc.InstallHeader)</Text>
     <Text X="120" Y="91" Width="-11" Height="64" FontId="3" DisablePrefix="yes">#(loc.InstallMessage)</Text><!-- HexStyle="0x800000" -->
     <Text X="120" Y="-81" Width="-11" Height="17" FontId="3" DisablePrefix="yes">#(loc.InstallVersion)</Text>

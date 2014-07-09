@@ -12,15 +12,16 @@ namespace NbfcClient.ValueConverters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string s = (string)values[0];
+            string displayName = (string)values[0];            
 
-            if (string.IsNullOrWhiteSpace(s))
+            if (string.IsNullOrWhiteSpace(displayName))
             {
-                return string.Format(StringFormat, (int)values[1] + 1);
+                int fanIndex = (int)values[1];
+                return string.Format(StringFormat, fanIndex + 1);
             }
             else
             {
-                return s;
+                return displayName;
             }
         }
 

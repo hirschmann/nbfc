@@ -69,7 +69,20 @@ namespace NbfcClient
             try
             {
                 this.client.SetTargetFanSpeed(speed, fanIndex);
-                UpdateMainViewModel();
+
+                Action a = () =>
+                {
+                    int i = 0;
+
+                    while (i < 5)
+                    {
+                        i++;
+                        Thread.Sleep(750);
+                        Dispatcher.CurrentDispatcher.Invoke(new Action(UpdateViewModel));
+                    }
+                };
+
+                a.BeginInvoke(null, null);
             }
             catch
             {

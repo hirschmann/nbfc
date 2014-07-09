@@ -8,7 +8,7 @@
         xmlns:uc="clr-namespace:NbfcClient.UserControls"        
         mc:Ignorable="d"
         
-        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355" 
+        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355"
         Icon="/NoteBookFanControl;component/nbfc.ico"
         WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
         d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
@@ -73,7 +73,7 @@
         </TextBlock>
 
         <!--Notify icon-->
-        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/NoteBook FanControl;component/nbfc.ico"
+        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/NoteBookFanControl;component/nbfc.ico"
                         TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>

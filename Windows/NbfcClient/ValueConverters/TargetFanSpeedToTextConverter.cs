@@ -11,7 +11,7 @@ namespace NbfcClient.ValueConverters
         #region Constants
 
         private const string StringFormat = "{0:0.0}%";
-        private const string AutoControledSuffix = " (Auto)";
+        private const string AutoControlledSuffix = " (Auto)";
         private const string CriticalModeSuffix = " (Critical)";
 
         #endregion
@@ -20,18 +20,21 @@ namespace NbfcClient.ValueConverters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string text = string.Format(StringFormat, (double)values[0]);
+            float fanSpeed = (float)values[0];
+            bool autoControlEnabled = (bool)values[1];
+            bool ciritcalModeEnabled = (bool)values[2];
+            string fanSpeedString = string.Format(StringFormat, fanSpeed);
 
-            if ((bool)values[2])
+            if (ciritcalModeEnabled)
             {
-                text += CriticalModeSuffix;
+                fanSpeedString += CriticalModeSuffix;
             }
-            else if ((bool)values[1])
+            else if (autoControlEnabled)
             {
-                text += AutoControledSuffix;
+                fanSpeedString += AutoControlledSuffix;
             }
 
-            return text;
+            return fanSpeedString;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

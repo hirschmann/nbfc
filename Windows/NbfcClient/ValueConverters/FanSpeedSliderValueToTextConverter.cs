@@ -17,15 +17,16 @@ namespace NbfcClient.ValueConverters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int steps = (int)values[1];
+            double sliderValue = (double)values[0];
+            int fanSpeedSteps = (int)values[1];
 
-            if (steps == 1)
+            if (fanSpeedSteps == 1)
             {
                 return string.Format(StringFormat, 0);
             }
             else
             {
-                double speed = ((double)values[0] / (steps - 1)) * 100;
+                double speed = (sliderValue / (fanSpeedSteps - 1)) * 100;
 
                 if (speed >= 0 && speed <= 100)
                 {

@@ -203,7 +203,7 @@ namespace StagWare.FanControl.Service
                 FanControlConfigV2 cfg;
 
                 if (TryLoadConfig(settings, out cfg))
-                {                    
+                {
                     InitializeFanSpeedSteps(cfg);
                     InitializeFanControl(settings, cfg);
                     success = true;
@@ -228,16 +228,19 @@ namespace StagWare.FanControl.Service
         {
             this.fanControl = new FanControl(cfg);
 
-            for (int i = 0; i < fanControl.FanInformation.Count; i++)
+            if (settings.TargetFanSpeeds == null)
             {
-                if (settings.TargetFanSpeeds == null || i >= settings.TargetFanSpeeds.Length)
+                settings.TargetFanSpeeds = new float[fanControl.FanInformation.Count];
+
+                for (int i = 0; i < settings.TargetFanSpeeds.Length; i++)
                 {
-                    fanControl.SetTargetFanSpeed(101, i);
+                    settings.TargetFanSpeeds[i] = AutoControlFanSpeedPercentage;
                 }
-                else
-                {
-                    fanControl.SetTargetFanSpeed(settings.TargetFanSpeeds[i], i);
-                }
+            }
+
+            for (int i = 0; i < settings.TargetFanSpeeds.Length; i++)
+            {
+                fanControl.SetTargetFanSpeed(settings.TargetFanSpeeds[i], i);
             }
         }
 
