@@ -37,11 +37,10 @@ namespace NbfcClient.ViewModels
 
         public FanControllerViewModel()
         {
-            this.FanSpeedSliderValue = AutoControlFanSpeedPercentage;
             this.timer = new DispatcherTimer();
             this.timer.Interval = TimeSpan.FromMilliseconds(SetFanSpeedDelay);
-
             timer.Tick += timer_Tick;
+            this.FanSpeedSliderValue = AutoControlFanSpeedPercentage;
         }
 
         public FanControllerViewModel(FanControlClient client, int fanIndex)
@@ -199,8 +198,11 @@ namespace NbfcClient.ViewModels
 
         private void SetSpeedDelayed()
         {
-            this.timer.Stop();
-            this.timer.Start();
+            if (this.timer != null)
+            {
+                this.timer.Stop();
+                this.timer.Start();
+            }
         }
 
         private float GetFanSpeedPercentage()

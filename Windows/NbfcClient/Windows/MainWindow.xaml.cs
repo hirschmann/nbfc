@@ -3,14 +3,10 @@ using StagWare.Settings;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace NbfcClient.Windows
@@ -34,11 +30,7 @@ namespace NbfcClient.Windows
 
         private const int UpdateInterval = 3; // seconds
         private const int SaveWindowSizeDelay = 1; // seconds
-
-        private const double DefaultTrayIconSize = 16.0;
-        private const double DefaultTrayFontSize = 16;
-        private const int TrayIconDPI = 72;
-        private const string TrayIconFontFamily = "Microsoft Sans Serif";
+        
         private const string SettingsFileName = "NbfcSettings.xml";
         private const string SettingsDirectoryName = "NoteBook FanControl";
         private const string StartInTrayParameter = "-tray";
@@ -51,6 +43,7 @@ namespace NbfcClient.Windows
         private FanControlClient client;
         private MainWindowViewModel viewModel;
         private DispatcherTimer saveSizeTimer;
+        private TrayIconRenderer renderer;
         private bool close;
         private double lastWidth;
         private double lastHeight;
@@ -64,6 +57,9 @@ namespace NbfcClient.Windows
             ProcessCommandLineArgs();
             InitializeAppSettings();
             InitializeComponent();
+
+            this.renderer = new TrayIconRenderer();
+            this.renderer.Color = AppSettings.Values.TrayIconForegroundColor;
 
             this.saveSizeTimer = new DispatcherTimer();
             this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
@@ -119,7 +115,7 @@ namespace NbfcClient.Windows
 
         public void UpdateNotifyIcon()
         {
-            using (var bmp = RenderTrayImage(viewModel.CpuTemperature))
+            using (var bmp = this.renderer.RenderIcon(viewModel.CpuTemperature.ToString()))
             {
                 var tmp = notifyIcon.Icon;
                 notifyIcon.Icon = System.Drawing.Icon.FromHandle(bmp.GetHicon());
@@ -135,52 +131,6 @@ namespace NbfcClient.Windows
         #endregion
 
         #region Private Methods
-
-        private static System.Drawing.Bitmap RenderTrayImage(int cpuTemperature)
-        {
-            int trayIconSize = System.Windows.Forms.SystemInformation.IconSize.Height / 2;
-            double scalingFactor = trayIconSize / DefaultTrayIconSize;
-            double fontSize = DefaultTrayFontSize * scalingFactor;
-            Color c = AppSettings.Values.TrayIconForegroundColor;
-
-            FormattedText text = new FormattedText(
-                cpuTemperature.ToString(),
-                new CultureInfo("en-us"),
-                FlowDirection.LeftToRight,
-                new Typeface(
-                    new System.Windows.Media.FontFamily(TrayIconFontFamily),
-                    FontStyles.Normal,
-                    FontWeights.SemiBold,
-                    new FontStretch()),
-                fontSize,
-                new SolidColorBrush(c));
-
-            var drawingVisual = new DrawingVisual();
-            var drawingContext = drawingVisual.RenderOpen();
-            drawingContext.DrawText(text, new Point(2, 2));
-            drawingContext.Close();
-
-            var target = new RenderTargetBitmap(
-                trayIconSize,
-                trayIconSize,
-                TrayIconDPI,
-                TrayIconDPI,
-                PixelFormats.Default);
-
-            target.Clear();
-            target.Render(drawingVisual);
-
-            var enc = new PngBitmapEncoder();
-            enc.Frames.Add(BitmapFrame.Create(target));
-
-            using (var ms = new MemoryStream())
-            {
-                enc.Save(ms);
-                ms.Position = 0;
-
-                return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(ms);
-            }
-        }
 
         private static bool IsPathValid(string path)
         {
@@ -335,32 +285,13 @@ namespace NbfcClient.Windows
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposeManagedResources)
-        {
-            if (!disposed)
+            if (this.client != null)
             {
-                if (disposeManagedResources)
-                {
-                    if (this.client != null)
-                    {
-                        this.client.Dispose();
-                        this.client = null;
-                    }
-                }
-
-                //TODO: Dispose unmanaged resources.
-
-                disposed = true;
+                this.client.Dispose();
+                this.client = null;
             }
-        }
 
-        ~MainWindow()
-        {
-            Dispose(false);
+            GC.SuppressFinalize(this);
         }
 
         #endregion

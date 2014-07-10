@@ -1,11 +1,8 @@
-﻿using NbfcClient.ViewModels;
+﻿using NbfcClient.NbfcService;
+using NbfcClient.ViewModels;
 using System;
 using System.ServiceModel;
 using System.Windows.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using NbfcClient.NbfcService;
 
 namespace NbfcClient
 {
@@ -69,20 +66,6 @@ namespace NbfcClient
             try
             {
                 this.client.SetTargetFanSpeed(speed, fanIndex);
-
-                Action a = () =>
-                {
-                    int i = 0;
-
-                    while (i < 5)
-                    {
-                        i++;
-                        Thread.Sleep(750);
-                        Dispatcher.CurrentDispatcher.Invoke(new Action(UpdateViewModel));
-                    }
-                };
-
-                a.BeginInvoke(null, null);
             }
             catch
             {
