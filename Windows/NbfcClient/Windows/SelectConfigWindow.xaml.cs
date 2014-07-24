@@ -58,13 +58,9 @@ namespace NbfcClient.Windows
         {
             this.client = client;
 
-            bool configFound = false;
-
-            if (!string.IsNullOrWhiteSpace(client.ViewModel.SelectedConfig))
-            {
-                configFound = configManager.SelectConfig(client.ViewModel.SelectedConfig);
-            }
-            else if(configManager.SelectConfig(GetNotebookModel()))
+            if ((!string.IsNullOrWhiteSpace(client.ViewModel.SelectedConfig)
+                && configManager.SelectConfig(client.ViewModel.SelectedConfig))
+                || (configManager.SelectConfig(GetNotebookModel())))
             {
                 this.configSelector.SelectedValue = configManager.SelectedConfigName;
             }
