@@ -281,8 +281,6 @@ namespace NbfcClient.Windows
 
         #region IDisposable implementation
 
-        private bool disposed;
-
         public void Dispose()
         {
             if (this.client != null)

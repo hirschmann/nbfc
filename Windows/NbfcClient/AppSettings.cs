@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace StagWare.Settings
@@ -50,8 +51,8 @@ namespace StagWare.Settings
          * public XmlWrapper<Font> MyFont { get; set; }
          */
 
-        [PropertyDefaultValue(typeof(XmlWrapper<System.Windows.Media.Color>), "#FF000000")]
-        public XmlWrapper<System.Windows.Media.Color> TrayIconForegroundColor { get; set; }
+        [PropertyDefaultValue(typeof(XmlWrapper<Color>), "#FF000000")]
+        public XmlWrapper<Color> TrayIconForegroundColor { get; set; }
 
         [PropertyDefaultValue(false)]
         public bool CloseToTray { get; set; }
@@ -186,16 +187,16 @@ namespace StagWare.Settings
                 get
                 {
                     return TypeDescriptor.GetConverter(typeof(T)).ConvertToString(
-                        null, 
-                        CultureInfo.InvariantCulture, 
+                        null,
+                        CultureInfo.InvariantCulture,
                         wrappedItem);
                 }
 
                 set
                 {
                     wrappedItem = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(
-                        null, 
-                        CultureInfo.InvariantCulture, 
+                        null,
+                        CultureInfo.InvariantCulture,
                         value);
                 }
             }
@@ -234,53 +235,100 @@ namespace StagWare.Settings
         #region Attributes
 
         [AttributeUsage(AttributeTargets.Property)]
-        private sealed class LoadDefaultsIgnoreAttribute : Attribute
+        public class LoadDefaultsIgnoreAttribute : Attribute
         {
         }
 
         [AttributeUsage(AttributeTargets.Property)]
-        private sealed class PropertyDefaultValueAttribute : Attribute
+        public class PropertyDefaultValueAttribute : DefaultValueAttribute
         {
-            #region Properties
-
-            public object Value { get; set; }
-
-            #endregion
-
             #region Constructors
 
-            public PropertyDefaultValueAttribute(object value)
+            public PropertyDefaultValueAttribute(char value)
+                : base(value)
             {
-                this.Value = value;
+            }
+
+            public PropertyDefaultValueAttribute(byte value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(short value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(int value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(long value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(float value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(double value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(bool value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(string value)
+                : base(value)
+            {
+            }
+
+            public PropertyDefaultValueAttribute(object value)
+                : base(value)
+            {
             }
 
             public PropertyDefaultValueAttribute(Type propertyType, params object[] constructorParameters)
-            {
-                Type[] types = new Type[constructorParameters.Length];
+                : base(InvokeConstructor(propertyType, constructorParameters))
+            {                
+            }
 
-                for (int i = 0; i < constructorParameters.Length; i++)
+            #endregion
+
+            private static object InvokeConstructor(Type type, params object[] parameters)
+            {
+                Type[] types = new Type[parameters.Length];
+
+                for (int i = 0; i < parameters.Length; i++)
                 {
-                    types[i] = constructorParameters[i].GetType();
+                    types[i] = parameters[i].GetType();
                 }
 
-                ConstructorInfo constructor = propertyType.GetConstructor(types);
+                ConstructorInfo constructor = type.GetConstructor(types);
 
                 if (constructor != null)
                 {
-                    this.Value = constructor.Invoke(constructorParameters);
+                    return constructor.Invoke(parameters);
                 }
                 else
                 {
                     if (types.Length <= 0)
                     {
-                        string msg = "There ist no default constructor for the type " + propertyType;
+                        string msg = "There ist no default constructor for the type " + type;
 
                         throw new ArgumentException(msg);
                     }
                     else
                     {
                         string msg = "There ist no default constructor for the type "
-                            + propertyType.ToString() + " which accepts the following arguments: ";
+                            + type.ToString() 
+                            + " which accepts the following arguments: ";
 
                         for (int i = 0; i < types.Length; i++)
                         {
@@ -296,8 +344,6 @@ namespace StagWare.Settings
                     }
                 }
             }
-
-            #endregion
         }
 
         #endregion
@@ -479,7 +525,7 @@ namespace StagWare.Settings
                 }
 
                 using (FileStream fs = new FileStream(
-                    Path.Combine(AppSettings.settingsFileDir, AppSettings.settingsFileName), 
+                    Path.Combine(AppSettings.settingsFileDir, AppSettings.settingsFileName),
                     FileMode.Create))
                 {
                     AppSettings.Values.serializer.Serialize(fs, AppSettings.Values);
@@ -507,7 +553,7 @@ namespace StagWare.Settings
             }
         }
 
-        public static void LoadLastStoredSettings()
+        public static void LoadStoredStoredSettings()
         {
             PropertyInfo[] propInfos = Values.GetType().GetProperties();
 
@@ -554,7 +600,7 @@ namespace StagWare.Settings
         private static string GetDefaultSettingsFileDirPath()
         {
             string path = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), 
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 GetProductName());
 
             foreach (char c in Path.GetInvalidPathChars())

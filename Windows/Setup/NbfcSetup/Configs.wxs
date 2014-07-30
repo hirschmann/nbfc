@@ -152,6 +152,9 @@
             <Component Id="cmp1D1DD173640A1F3C1012DC81171C5C18" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil72C76041469F5CEC8A59E8615F9C5706" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6465b.xml" />
             </Component>
+            <Component Id="cmpEFD85E5E413F0DD8B78CB01E3A182F9F" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil539CCFD04C1D084B1FE0778182DC8763" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 650 G1.xml" />
+            </Component>
             <Component Id="cmp8E7A04B657D9DE04CEBA9381245E61DB" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8CEFC96581123F9EF92D9719D46673B2" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6560b.xml" />
             </Component>

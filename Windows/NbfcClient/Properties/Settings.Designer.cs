@@ -22,5 +22,16 @@ namespace NbfcClient.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::StagWare.FanControl.Configurations.FanControlConfigV2 Setting {
+            get {
+                return ((global::StagWare.FanControl.Configurations.FanControlConfigV2)(this["Setting"]));
+            }
+            set {
+                this["Setting"] = value;
+            }
+        }
     }
 }

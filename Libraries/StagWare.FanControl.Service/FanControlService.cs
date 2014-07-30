@@ -16,8 +16,8 @@ namespace StagWare.FanControl.Service
 
         private const string ConfigsDirectoryName = "Configs";
         private const int AutoControlFanSpeedPercentage = 101;
-        private static readonly string SettingsDir = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+        private static readonly string SettingsDir = Path.Combine(Environment.GetFolderPath(
+            Environment.SpecialFolder.CommonApplicationData),
             "NbfcService");
 
         #endregion
