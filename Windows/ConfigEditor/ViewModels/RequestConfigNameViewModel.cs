@@ -76,7 +76,7 @@ namespace ConfigEditor.ViewModels
         private void UpdateIsConfigNameValidProperty()
         {
             bool isValid = !string.IsNullOrWhiteSpace(this.ConfigName)
-                            && this.ConfigName.IndexOfAny(FanControlConfigManager.InvalidFileNameChars) == -1;
+                            && this.ConfigName.IndexOfAny(FanControlConfigManager.InvalidFileNameChars.ToArray()) == -1;
 
             if (isValid != IsConfigNameValid)
             {

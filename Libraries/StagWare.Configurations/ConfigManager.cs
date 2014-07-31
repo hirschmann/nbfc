@@ -12,7 +12,7 @@ namespace StagWare.Configurations
     {
         #region Constants
 
-        private const string DefaultFileExtension = ".xml";        
+        private const string DefaultFileExtension = ".xml";
 
         // Use Windows specific invalid filename chars on all platforms
         private static readonly char[] InvalidChars = new byte[] 
@@ -27,7 +27,7 @@ namespace StagWare.Configurations
 
         #region Private Fields
 
-        private Dictionary<string, T> configs;
+        private Dictionary<string, Lazy<T>> configs;
         private XmlSerializer serializer;
         private string configDirPath;
         private string configFileExtension;
@@ -36,37 +36,21 @@ namespace StagWare.Configurations
 
         #region Properties
 
-        public static char[] InvalidFileNameChars
+        public static ReadOnlyCollection<char> InvalidFileNameChars
         {
             get
             {
-                return (char[])InvalidChars.Clone();
+                return new ReadOnlyCollection<char>(InvalidChars);
             }
         }
 
-        public IList<string> ConfigNames
+        public ReadOnlyCollection<string> ConfigNames
         {
             get
             {
-                return this.configs.Keys.ToList();
+                return new ReadOnlyCollection<string>(this.configs.Keys.ToList());
             }
         }
-
-        public IList<T> Configs
-        {
-            get
-            {
-                return configs.Values.Select(x => (T)x.Clone()).ToList();
-            }
-        }
-
-        protected IList<KeyValuePair<string, T>> KeyValuePairs
-        {
-            get
-            {
-                return configs.Select(x => new KeyValuePair<string, T>(x.Key, (T)x.Value.Clone())).ToList();
-            }
-        }        
 
         #endregion
 
@@ -81,26 +65,32 @@ namespace StagWare.Configurations
         {
             this.configDirPath = configsDirPath;
             this.configFileExtension = configFileExtension;
-            configs = new Dictionary<string, T>();
-            serializer = new XmlSerializer(typeof(T));
+            this.serializer = new XmlSerializer(typeof(T));
 
             if (!Directory.Exists(configsDirPath))
             {
                 Directory.CreateDirectory(configsDirPath);
             }
 
-            foreach (string path in Directory.GetFiles(configsDirPath))
+            string[] files = Directory.GetFiles(configsDirPath);
+            this.configs = new Dictionary<string, Lazy<T>>(files.Length);
+
+            foreach (string path in files)
             {
-                LoadConfig(path);
+                string key = Path.GetFileNameWithoutExtension(path);
+
+                if (!this.configs.ContainsKey(key))
+                {
+                    var lazy = new Lazy<T>(() => LoadConfig(path, this.serializer), false);
+                    this.configs.Add(key, lazy);
+                }
             }
         }
 
         #region Helper Methods
 
-        private bool LoadConfig(string path)
+        private static T LoadConfig(string path, XmlSerializer serializer)
         {
-            bool success = false;
-
             try
             {
                 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -109,21 +99,15 @@ namespace StagWare.Configurations
 
                     if (cfg != null)
                     {
-                        string key = Path.GetFileNameWithoutExtension(path);
-
-                        if (!this.configs.ContainsKey(key))
-                        {
-                            configs.Add(key, (T)cfg);
-                            success = true;
-                        }
+                        return (T)cfg;
                     }
                 }
             }
-            catch 
+            catch
             {
             }
 
-            return success;
+            return default(T);
         }
 
         #endregion
@@ -136,7 +120,7 @@ namespace StagWare.Configurations
         {
             if (Contains(configName))
             {
-                return (T)configs[configName].Clone();
+                return (T)configs[configName].Value.Clone();
             }
             else
             {
@@ -190,7 +174,8 @@ namespace StagWare.Configurations
                 this.serializer.Serialize(stream, clone);
             }
 
-            this.configs.Add(configName, clone);
+            var lazy = new Lazy<T>(() => clone, false);
+            this.configs.Add(configName, lazy);
         }
 
         public virtual void RemoveConfig(string configName)
@@ -225,12 +210,14 @@ namespace StagWare.Configurations
 
             #endregion
 
-            this.configs[configName] = newConfig;
+            var clone = (T)newConfig.Clone();
 
             using (var stream = new FileStream(GetConfigFilePath(configName), FileMode.Create))
             {
-                serializer.Serialize(stream, newConfig);
+                serializer.Serialize(stream, clone);
             }
+
+            this.configs[configName] = new Lazy<T>(() => clone, false);
         }
 
         #endregion
