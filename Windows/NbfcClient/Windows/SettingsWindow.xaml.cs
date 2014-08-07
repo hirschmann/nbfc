@@ -1,4 +1,4 @@
-﻿using StagWare.Settings;
+﻿using NbfcClient.Properties;
 using StagWare.Windows;
 using System.Linq;
 using System.Windows;
@@ -33,7 +33,7 @@ namespace NbfcClient.Windows
 
             int count = 0;
             int idx = -1;
-            Color current = AppSettings.Values.TrayIconForegroundColor;
+            Color current = Settings.Default.TrayIconForegroundColor;
 
             colorPicker.ItemsSource = typeof(Colors).GetProperties().Select(propInfo =>
             {
@@ -59,7 +59,7 @@ namespace NbfcClient.Windows
             autorun.Parameters = StartInTrayParameter;
             startWithWin.IsChecked = autorun.Exists;
 
-            closeToTray.IsChecked = AppSettings.Values.CloseToTray;
+            closeToTray.IsChecked = Settings.Default.CloseToTray;
         }
 
         #endregion
@@ -78,14 +78,14 @@ namespace NbfcClient.Windows
 
         private void closeToTray_Checked(object sender, RoutedEventArgs e)
         {
-            AppSettings.Values.CloseToTray = true;
-            AppSettings.Save();
+            Settings.Default.CloseToTray = true;
+            Settings.Default.Save();
         }        
 
         private void closeToTray_Unchecked(object sender, RoutedEventArgs e)
         {
-            AppSettings.Values.CloseToTray = false;
-            AppSettings.Save();
+            Settings.Default.CloseToTray = false;
+            Settings.Default.Save();
         }
 
         private void colorPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -98,11 +98,11 @@ namespace NbfcClient.Windows
 
                 if (brush != null)
                 {
-                    AppSettings.Values.TrayIconForegroundColor = brush.Color;
+                    Settings.Default.TrayIconForegroundColor = brush.Color;
                 }
             }
 
-            AppSettings.Save();
+            Settings.Default.Save();
 
             var parent = Owner as MainWindow;
 

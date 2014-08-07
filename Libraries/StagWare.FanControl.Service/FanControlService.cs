@@ -1,11 +1,11 @@
 ﻿using StagWare.FanControl.Configurations;
+using StagWare.FanControl.Service.Properties;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
-using System.Linq;
-using StagWare.FanControl.Service.Settings;
-using System.Collections.Generic;
 
 namespace StagWare.FanControl.Service
 {
@@ -15,10 +15,6 @@ namespace StagWare.FanControl.Service
         #region Constants
 
         private const string ConfigsDirectoryName = "Configs";
-        private const int AutoControlFanSpeedPercentage = 101;
-        private static readonly string SettingsDir = Path.Combine(Environment.GetFolderPath(
-            Environment.SpecialFolder.CommonApplicationData),
-            "NbfcService");
 
         #endregion
 
@@ -36,16 +32,20 @@ namespace StagWare.FanControl.Service
 
         public FanControlService()
         {
+            if (Settings.Default.UpgradeRequired)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.UpgradeRequired = false;
+                Settings.Default.Save();
+            }
+
             executingAssemblyDirName = Assembly.GetExecutingAssembly().Location;
             executingAssemblyDirName = Path.GetDirectoryName(executingAssemblyDirName);
 
-            using (var settings = ServiceSettings.Load(SettingsDir))
+            if (Settings.Default.AutoStart && TryInitializeFanControl())
             {
-                if (settings.AutoStart && TryInitializeFanControl(settings))
-                {
-                    this.initialized = true;
-                    this.fanControl.Start();
-                }
+                this.initialized = true;
+                this.fanControl.Start();
             }
         }
 
@@ -95,10 +95,8 @@ namespace StagWare.FanControl.Service
 
         public bool Restart()
         {
-            using (var settings = ServiceSettings.Load(SettingsDir))
-            {
-                return Restart(settings);
-            }
+            Stop();
+            return Start();
         }
 
         public void Stop()
@@ -107,30 +105,17 @@ namespace StagWare.FanControl.Service
             {
                 initialized = false;
                 DisposeFanControl();
-
-                using (var settings = ServiceSettings.Load(SettingsDir))
-                {
-                    settings.AutoStart = false;
-                    settings.Save();
-                }
             }
         }
 
         public bool Start()
         {
-            if (!this.initialized)
+            if (!this.initialized && TryInitializeFanControl())
             {
-                using (var settings = ServiceSettings.Load(SettingsDir))
-                {
-                    if (TryInitializeFanControl(settings))
-                    {
-                        this.initialized = true;
-                        this.fanControl.Start();
-                    }
-
-                    settings.AutoStart = true;
-                    settings.Save();
-                }
+                this.initialized = true;
+                this.fanControl.Start();
+                Settings.Default.AutoStart = true;
+                Settings.Default.Save();
             }
 
             return this.initialized;
@@ -138,13 +123,10 @@ namespace StagWare.FanControl.Service
 
         public void SetConfig(string configUniqueId)
         {
-            using (var settings = ServiceSettings.Load(SettingsDir))
-            {
-                settings.SelectedConfigId = configUniqueId;
-                settings.Save();
+            Settings.Default.SelectedConfigId = configUniqueId;
+            Settings.Default.Save();
 
-                Restart(settings);
-            }
+            Restart();
         }
 
         #endregion
@@ -163,14 +145,9 @@ namespace StagWare.FanControl.Service
             {
                 try
                 {
-                    using (var settings = ServiceSettings.Load(SettingsDir))
-                    {
-                        settings.AutoStart = this.initialized;
-                        settings.TargetFanSpeeds = fanControl.FanInformation
-                            .Select(x => x.AutoFanControlEnabled ? AutoControlFanSpeedPercentage : x.TargetFanSpeed).ToArray();
-
-                        settings.Save();
-                    }
+                    Settings.Default.AutoStart = this.initialized;
+                    Settings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
+                    Settings.Default.Save();
                 }
                 catch
                 {
@@ -194,7 +171,15 @@ namespace StagWare.FanControl.Service
 
         #region Private Methods
 
-        private bool TryInitializeFanControl(ServiceSettings settings)
+        private static float[] GetTargetFanSpeeds(IEnumerable<FanInformation> fanInfos)
+        {
+            return fanInfos.Select(
+                x => x.AutoFanControlEnabled
+                    ? FanControl.AutoFanSpeedPercentage
+                    : x.TargetFanSpeed).ToArray();
+        }
+
+        private bool TryInitializeFanControl()
         {
             bool success = false;
 
@@ -202,10 +187,10 @@ namespace StagWare.FanControl.Service
             {
                 FanControlConfigV2 cfg;
 
-                if (TryLoadConfig(settings, out cfg))
+                if (TryLoadConfig(out cfg))
                 {
                     InitializeFanSpeedSteps(cfg);
-                    InitializeFanControl(settings, cfg);
+                    InitializeFanControl(cfg);
                     success = true;
                 }
             }
@@ -224,23 +209,17 @@ namespace StagWare.FanControl.Service
             return success;
         }
 
-        private void InitializeFanControl(ServiceSettings settings, FanControlConfigV2 cfg)
+        private void InitializeFanControl(FanControlConfigV2 cfg)
         {
             this.fanControl = new FanControl(cfg);
+            float[] speeds = Settings.Default.TargetFanSpeeds;
 
-            if (settings.TargetFanSpeeds == null)
+            if (speeds != null && speeds.Length == this.fanControl.FanInformation.Count)
             {
-                settings.TargetFanSpeeds = new float[fanControl.FanInformation.Count];
-
-                for (int i = 0; i < settings.TargetFanSpeeds.Length; i++)
+                for (int i = 0; i < speeds.Length; i++)
                 {
-                    settings.TargetFanSpeeds[i] = AutoControlFanSpeedPercentage;
+                    fanControl.SetTargetFanSpeed(speeds[i], i);
                 }
-            }
-
-            for (int i = 0; i < settings.TargetFanSpeeds.Length; i++)
-            {
-                fanControl.SetTargetFanSpeed(settings.TargetFanSpeeds[i], i);
             }
         }
 
@@ -258,14 +237,14 @@ namespace StagWare.FanControl.Service
             }
         }
 
-        private bool TryLoadConfig(ServiceSettings settings, out FanControlConfigV2 config)
+        private bool TryLoadConfig(out FanControlConfigV2 config)
         {
             bool result = false;
             string path = Path.Combine(executingAssemblyDirName, ConfigsDirectoryName);
             var configManager = new FanControlConfigManager(path);
+            string id = Settings.Default.SelectedConfigId;
 
-            if (!string.IsNullOrWhiteSpace(settings.SelectedConfigId)
-                && configManager.SelectConfig(settings.SelectedConfigId))
+            if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
             {
                 this.selectedConfig = configManager.SelectedConfigName;
                 config = configManager.SelectedConfig;
@@ -277,20 +256,6 @@ namespace StagWare.FanControl.Service
             }
 
             return result;
-        }
-
-        private bool Restart(ServiceSettings settings)
-        {
-            this.initialized = false;
-            DisposeFanControl();
-
-            if (TryInitializeFanControl(settings))
-            {
-                this.initialized = true;
-                this.fanControl.Start();
-            }
-
-            return this.initialized;
         }
 
         #endregion

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NbfcClient.Properties {
+namespace StagWare.FanControl.Service.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,7 +26,6 @@ namespace NbfcClient.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public bool UpgradeRequired {
             get {
                 return ((bool)(this["UpgradeRequired"]));
@@ -38,53 +37,39 @@ namespace NbfcClient.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#FFFFFFFF")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public global::System.Windows.Media.Color TrayIconForegroundColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SelectedConfigId {
             get {
-                return ((global::System.Windows.Media.Color)(this["TrayIconForegroundColor"]));
+                return ((string)(this["SelectedConfigId"]));
             }
             set {
-                this["TrayIconForegroundColor"] = value;
+                this["SelectedConfigId"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public bool CloseToTray {
+        public bool AutoStart {
             get {
-                return ((bool)(this["CloseToTray"]));
+                return ((bool)(this["AutoStart"]));
             }
             set {
-                this["CloseToTray"] = value;
+                this["AutoStart"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("350")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public double WindowHeight {
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfFloat xmlns:xsi=\"http://www.w3.o" +
+            "rg/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <fl" +
+            "oat>101</float>\r\n  <float>101</float>\r\n</ArrayOfFloat>")]
+        public float[] TargetFanSpeeds {
             get {
-                return ((double)(this["WindowHeight"]));
+                return ((float[])(this["TargetFanSpeeds"]));
             }
             set {
-                this["WindowHeight"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("430")]
-        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public double WindowWidth {
-            get {
-                return ((double)(this["WindowWidth"]));
-            }
-            set {
-                this["WindowWidth"] = value;
+                this["TargetFanSpeeds"] = value;
             }
         }
     }

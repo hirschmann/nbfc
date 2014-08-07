@@ -8,9 +8,9 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ConfigEditor")]
-[assembly: AssemblyDescription("Config Editor for NoteBook FanControl")]
+[assembly: AssemblyDescription("Config editor for NoteBook FanControl")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Stefan Hirschmann - StagWare")]
+[assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("ConfigEditor")]
 [assembly: AssemblyCopyright("Copyright © 2013-2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
@@ -49,6 +49,6 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.0.17")]
-[assembly: AssemblyFileVersion("1.1.0.17")]
+[assembly: AssemblyVersion("1.1.11.29")]
+[assembly: AssemblyFileVersion("1.1.11.29")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

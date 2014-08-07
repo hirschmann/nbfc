@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("StagWare.FanControl")]
 [assembly: AssemblyDescription("Fan control library for notebooks")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Stefan Hirschmann - StagWare")]
+[assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("StagWare.FanControl")]
 [assembly: AssemblyCopyright("Copyright © 2012-2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.1.0.17")]
-[assembly: AssemblyFileVersion("2.1.0.17")]
+[assembly: AssemblyVersion("2.1.11.29")]
+[assembly: AssemblyFileVersion("2.1.11.29")]

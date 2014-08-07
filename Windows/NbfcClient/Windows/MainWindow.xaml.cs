@@ -1,5 +1,5 @@
-﻿using NbfcClient.ViewModels;
-using StagWare.Settings;
+﻿using NbfcClient.Properties;
+using NbfcClient.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -30,11 +30,7 @@ namespace NbfcClient.Windows
 
         private const int UpdateInterval = 3; // seconds
         private const int SaveWindowSizeDelay = 1; // seconds
-        
-        private const string SettingsFileName = "NbfcSettings.xml";
-        private const string SettingsDirectoryName = "NoteBook FanControl";
         private const string StartInTrayParameter = "-tray";
-        private const string LoadSettingsFileParameter = "-settings:";
 
         #endregion
 
@@ -55,11 +51,10 @@ namespace NbfcClient.Windows
         public MainWindow()
         {
             ProcessCommandLineArgs();
-            InitializeAppSettings();
             InitializeComponent();
 
             this.renderer = new TrayIconRenderer();
-            this.renderer.Color = AppSettings.Values.TrayIconForegroundColor;
+            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
 
             this.saveSizeTimer = new DispatcherTimer();
             this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
@@ -72,21 +67,12 @@ namespace NbfcClient.Windows
             this.DataContext = viewModel;
             client.UpdateViewModel();
 
-            this.Height = AppSettings.Values.WindowHeight;
-            this.Width = AppSettings.Values.WindowWidth;
+            this.Height = Settings.Default.WindowHeight;
+            this.Width = Settings.Default.WindowWidth;
             this.SizeChanged += MainWindow_SizeChanged;
         }
 
         #region Helper Methods
-
-        private static void InitializeAppSettings()
-        {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            path = Path.Combine(path, SettingsDirectoryName);
-
-            AppSettings.SettingsDirectoryPath = path;
-            AppSettings.SettingsFileName = SettingsFileName;
-        }
 
         private void ProcessCommandLineArgs()
         {
@@ -96,13 +82,6 @@ namespace NbfcClient.Windows
                 {
                     this.WindowState = System.Windows.WindowState.Minimized;
                     this.Visibility = System.Windows.Visibility.Hidden;
-                }
-                else if (s.StartsWith(LoadSettingsFileParameter, StringComparison.OrdinalIgnoreCase))
-                {
-                    string path = s.Substring(LoadSettingsFileParameter.Length);
-
-                    AppSettings.SettingsDirectoryPath = Path.GetDirectoryName(path);
-                    AppSettings.SettingsFileName = Path.GetFileName(path);
                 }
             }
         }
@@ -115,6 +94,8 @@ namespace NbfcClient.Windows
 
         public void UpdateNotifyIcon()
         {
+            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
+
             using (var bmp = this.renderer.RenderIcon(viewModel.CpuTemperature.ToString()))
             {
                 var tmp = notifyIcon.Icon;
@@ -225,7 +206,7 @@ namespace NbfcClient.Windows
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (AppSettings.Values.CloseToTray && !close)
+            if (Settings.Default.CloseToTray && !close)
             {
                 e.Cancel = true;
                 WindowState = System.Windows.WindowState.Minimized;
@@ -252,9 +233,9 @@ namespace NbfcClient.Windows
         {
             this.saveSizeTimer.Stop();
 
-            AppSettings.Values.WindowHeight = lastHeight;
-            AppSettings.Values.WindowWidth = lastWidth;
-            AppSettings.Save();
+            Settings.Default.WindowHeight = lastHeight;
+            Settings.Default.WindowWidth = lastWidth;
+            Settings.Default.Save();
         }
 
         #endregion
