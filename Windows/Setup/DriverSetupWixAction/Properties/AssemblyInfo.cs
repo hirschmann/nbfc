@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("DriverSetupWixAction")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("DriverSetupWixAction")]
 [assembly: AssemblyCopyright("Copyright ©  2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]

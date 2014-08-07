@@ -16,6 +16,7 @@ namespace StagWare.FanControl
         private const int MinPollInterval = 100;
         private const int DefaultPollInterval = 3000;
         private const string PluginPath = "Plugins";
+        public const int AutoFanSpeedPercentage = 101;
 
         #endregion
 
@@ -94,12 +95,13 @@ namespace StagWare.FanControl
             this.fanSpeedManagers = new FanSpeedManager[config.FanConfigurations.Count];
             this.asyncOp = AsyncOperationManager.CreateOperation(null);
 
-            for (int i = 0; i < this.fanInfo.Length; i++)
+            for (int i = 0; i < config.FanConfigurations.Count; i++)
             {
                 var cfg = config.FanConfigurations[i];
 
                 this.fanSpeedManagers[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
-                this.fanInfo[i] = new FanInformation(0, 0, false, false, cfg.FanDisplayName);
+                this.requestedSpeeds[i] = AutoFanSpeedPercentage;
+                this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);                
             }
         }
 
@@ -206,7 +208,7 @@ namespace StagWare.FanControl
         public void SetTargetFanSpeed(float speed, int fanIndex)
         {
             Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
-            UpdateEcAsync();
+            //UpdateEcAsync();
         }
 
         public void Stop()

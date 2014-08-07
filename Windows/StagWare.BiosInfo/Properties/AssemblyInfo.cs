@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("StagWare.BiosInfo")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("StagWare.BiosInfo")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2014 Stefan Hirschcmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

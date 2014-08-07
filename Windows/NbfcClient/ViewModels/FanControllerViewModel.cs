@@ -13,7 +13,6 @@ namespace NbfcClient.ViewModels
         #region Constants
 
         private const int SetFanSpeedDelay = 500; // milliseconds
-        private const int AutoControlFanSpeedPercentage = 101;
 
         #endregion
 
@@ -40,7 +39,6 @@ namespace NbfcClient.ViewModels
             this.timer = new DispatcherTimer();
             this.timer.Interval = TimeSpan.FromMilliseconds(SetFanSpeedDelay);
             timer.Tick += timer_Tick;
-            this.FanSpeedSliderValue = AutoControlFanSpeedPercentage;
         }
 
         public FanControllerViewModel(FanControlClient client, int fanIndex)

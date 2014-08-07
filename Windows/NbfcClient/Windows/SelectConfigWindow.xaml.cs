@@ -1,5 +1,4 @@
 ﻿using StagWare.FanControl.Configurations;
-using StagWare.Settings;
 using System;
 using System.IO;
 using System.Reflection;

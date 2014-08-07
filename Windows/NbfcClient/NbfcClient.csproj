@@ -95,10 +95,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AppSettings.cs" />
     <Compile Include="AutorunEntry.cs" />
     <Compile Include="DesignData\FanControllerViewModelCollection.cs" />
     <Compile Include="FanControlClient.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TrayIconRenderer.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
       <DependentUpon>FanController.xaml</DependentUpon>

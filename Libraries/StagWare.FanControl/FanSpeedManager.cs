@@ -10,7 +10,6 @@ namespace StagWare.FanControl
     {
         #region Constants
 
-        private const int AutoFanSpeedPercentage = 101;
         private const int RPMConstant = 245760;
         private const int CriticalTemperatureOffset = 15;
 

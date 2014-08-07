@@ -9,7 +9,6 @@ namespace NbfcClient.ValueConverters
 
         private const string StringFormat = "{0:0.0}%";
         private const string AutoControlledText = "Auto";
-        private const double AutoControlledSpeed = 101;
 
         #endregion
 
