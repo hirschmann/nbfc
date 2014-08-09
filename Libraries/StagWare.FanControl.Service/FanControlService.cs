@@ -42,10 +42,9 @@ namespace StagWare.FanControl.Service
             executingAssemblyDirName = Assembly.GetExecutingAssembly().Location;
             executingAssemblyDirName = Path.GetDirectoryName(executingAssemblyDirName);
 
-            if (Settings.Default.AutoStart && TryInitializeFanControl())
+            if (Settings.Default.AutoStart)
             {
-                this.initialized = true;
-                this.fanControl.Start();
+                Start();
             }
         }
 

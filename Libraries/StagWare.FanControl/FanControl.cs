@@ -13,6 +13,8 @@ namespace StagWare.FanControl
     {
         #region Constants
 
+        private const int EcTimeout = 200;
+        private const int MaxWaitHandleTimeout = 500;
         private const int MinPollInterval = 100;
         private const int DefaultPollInterval = 3000;
         private const string PluginPath = "Plugins";
@@ -23,11 +25,12 @@ namespace StagWare.FanControl
         #region Private Fields
 
         private readonly object syncRoot = new object();
-        private readonly AutoResetEvent autoEvent = new AutoResetEvent(false);
+        private AutoResetEvent autoEvent = new AutoResetEvent(false);
         private Timer timer;
         private AsyncOperation asyncOp;
 
         private readonly int pollInterval;
+        private readonly int waitHandleTimeout;
         private readonly FanControlConfigV2 config;
 
         private readonly ITemperatureFilter tempFilter;
@@ -88,7 +91,8 @@ namespace StagWare.FanControl
             this.tempProvider = tempProvider;
             this.ec = ec;
             this.config = (FanControlConfigV2)config.Clone();
-            this.pollInterval = config.EcPollInterval;            
+            this.pollInterval = config.EcPollInterval;
+            this.waitHandleTimeout = Math.Min(MaxWaitHandleTimeout, config.EcPollInterval);
             this.requestedSpeeds = new float[config.FanConfigurations.Count];
             this.fanInfo = new FanInformation[config.FanConfigurations.Count];
             this.fanInfoInternal = new FanInformation[config.FanConfigurations.Count];
@@ -143,7 +147,7 @@ namespace StagWare.FanControl
 
         #region Events
 
-        public event EventHandler ECUpdated;
+        public event EventHandler EcUpdated;
 
         #endregion
 
@@ -175,65 +179,75 @@ namespace StagWare.FanControl
         {
             lock (syncRoot)
             {
-                if (!this.tempProvider.IsInitialized)
+                if (this.disposed)
                 {
-                    this.tempProvider.Initialize();
+                    throw new ObjectDisposedException(null);
                 }
 
-                if (!this.ec.IsInitialized)
+                if (!this.Enabled)
                 {
-                    this.ec.Initialize();
-                }
-
-                if (this.ec.AquireLock(DefaultPollInterval))
-                {
-                    try
+                    if (!this.tempProvider.IsInitialized)
                     {
-                        ApplyRegisterWriteConfigurations(true);
+                        this.tempProvider.Initialize();
                     }
-                    finally
-                    {
-                        this.ec.ReleaseLock();
-                    }
-                }
 
-                if (this.timer == null)
-                {
-                    this.autoEvent.Set();
-                    this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
+                    if (!this.ec.IsInitialized)
+                    {
+                        this.ec.Initialize();
+                    }
+
+                    InitializeRegisterWriteConfigurations();
+
+                    if (this.timer == null)
+                    {
+                        this.autoEvent.Set();
+                        this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
+                    }
                 }
             }
         }
 
         public void SetTargetFanSpeed(float speed, int fanIndex)
         {
+            if (this.disposed)
+            {
+                throw new ObjectDisposedException(null);
+            }
+
             Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
-            //UpdateEcAsync();
         }
 
         public void Stop()
         {
             lock (syncRoot)
             {
-                if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+                if (this.Enabled)
                 {
-                    this.autoEvent.Reset();
-                }
-
-                if (timer != null)
-                {
-                    using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
+                    if (this.disposed)
                     {
-                        timer.Dispose(handle);
+                        throw new ObjectDisposedException(null);
+                    }
 
-                        if (handle.WaitOne())
+                    if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+                    {
+                        this.autoEvent.Reset();
+                    }
+
+                    if (timer != null)
+                    {
+                        using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
                         {
-                            timer = null;
+                            timer.Dispose(handle);
+
+                            if (handle.WaitOne())
+                            {
+                                timer = null;
+                            }
                         }
                     }
-                }
 
-                ResetEc();
+                    ResetEc();
+                }
             }
         }
 
@@ -241,11 +255,11 @@ namespace StagWare.FanControl
 
         #region Protected Methods
 
-        protected void OnECUpdated()
+        protected void OnEcUpdated()
         {
-            if (ECUpdated != null)
+            if (EcUpdated != null)
             {
-                ECUpdated(this, new EventArgs());
+                EcUpdated(this, new EventArgs());
             }
         }
 
@@ -257,7 +271,7 @@ namespace StagWare.FanControl
 
         private void TimerCallback(object state)
         {
-            if (this.autoEvent.WaitOne(pollInterval / 2))
+            if (this.autoEvent.WaitOne(this.waitHandleTimeout))
             {
                 try
                 {
@@ -273,15 +287,9 @@ namespace StagWare.FanControl
             }
         }
 
-        private void UpdateEcAsync()
-        {
-            var action = new Action<object>(TimerCallback);
-            action.BeginInvoke(null, null, null);
-        }
-
         private void UpdateEc()
         {
-            if (this.ec.AquireLock(pollInterval / 2))
+            if (this.ec.AquireLock(EcTimeout))
             {
                 try
                 {
@@ -293,7 +301,7 @@ namespace StagWare.FanControl
                     this.ec.ReleaseLock();
                 }
 
-                asyncOp.Post((object args) => OnECUpdated(), null);
+                asyncOp.Post((object args) => OnEcUpdated(), null);
             }
         }
 
@@ -332,6 +340,25 @@ namespace StagWare.FanControl
             this.fanInfoInternal = Interlocked.Exchange(ref this.fanInfo, this.fanInfoInternal);
         }
 
+        private void InitializeRegisterWriteConfigurations()
+        {
+            if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AquireLock(EcTimeout))
+            {
+                try
+                {
+                    ApplyRegisterWriteConfigurations(true);
+                }
+                finally
+                {
+                    this.ec.ReleaseLock();
+                }
+            }
+            else
+            {
+                throw new TimeoutException("EC initialization timed out.");
+            }
+        }
+
         private void ApplyRegisterWriteConfigurations(bool initializing = false)
         {
             if (this.config.RegisterWriteConfigurations != null)
@@ -348,20 +375,16 @@ namespace StagWare.FanControl
 
         private void ApplyRegisterWriteConfig(int value, int register, RegisterWriteMode mode)
         {
-            switch (mode)
+            if (mode == RegisterWriteMode.And)
             {
-                case RegisterWriteMode.And:
-                    value &= ReadValue(register, config.ReadWriteWords);
-                    goto case RegisterWriteMode.Set;
-
-                case RegisterWriteMode.Or:
-                    value |= ReadValue(register, config.ReadWriteWords);
-                    goto case RegisterWriteMode.Set;
-
-                case RegisterWriteMode.Set:
-                    WriteValue(register, value, config.ReadWriteWords);
-                    break;
+                value &= ReadValue(register, config.ReadWriteWords);
             }
+            else if (mode == RegisterWriteMode.Or)
+            {
+                value |= ReadValue(register, config.ReadWriteWords);
+            }
+
+            WriteValue(register, value, config.ReadWriteWords);
         }
 
         #endregion
@@ -396,8 +419,9 @@ namespace StagWare.FanControl
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                bool mutexAquired = this.ec.AquireLock(DefaultPollInterval / 2);
+                bool mutexAquired = this.ec.AquireLock(EcTimeout * 2);
 
+                //try to reset the EC even if AquireLock failed
                 try
                 {
                     if (config != null)
@@ -477,31 +501,38 @@ namespace StagWare.FanControl
 
         #region IDisposable implementation
 
+        private volatile bool disposed = false;
+
         public void Dispose()
         {
-            Stop();
-
-            if (this.autoEvent != null)
+            if (!disposed)
             {
-                this.autoEvent.Dispose();
-            }
+                disposed = true;
 
-            if (this.asyncOp != null)
-            {
-                this.asyncOp.OperationCompleted();
-            }
+                Stop();
 
-            if (this.ec != null)
-            {
-                this.ec.Dispose();
-            }
+                if (this.autoEvent != null)
+                {
+                    this.autoEvent.Dispose();
+                }
 
-            if (this.tempProvider != null)
-            {
-                this.tempProvider.Dispose();
-            }
+                if (this.asyncOp != null)
+                {
+                    this.asyncOp.OperationCompleted();
+                }
 
-            GC.SuppressFinalize(this);
+                if (this.ec != null)
+                {
+                    this.ec.Dispose();
+                }
+
+                if (this.tempProvider != null)
+                {
+                    this.tempProvider.Dispose();
+                }
+
+                GC.SuppressFinalize(this);
+            }
         }
 
         #endregion
