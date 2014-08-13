@@ -18,7 +18,7 @@ namespace StagWare.Windows.EmbeddedController
 
         #region Private Fields
 
-        Computer computer;
+        HardwareMonitor hwMon;
 
         #endregion
 
@@ -30,8 +30,7 @@ namespace StagWare.Windows.EmbeddedController
         {
             if (!this.IsInitialized)
             {
-                this.computer = new Computer();
-                this.computer.Open();
+                this.hwMon = HardwareMonitor.Instance;
                 this.IsInitialized = true;
             }
         }
@@ -104,23 +103,16 @@ namespace StagWare.Windows.EmbeddedController
 
         public bool AquireLock(int timeout)
         {
-            return this.computer.WaitIsaBusMutex(timeout);
+            return this.hwMon.WaitIsaBusMutex(timeout);
         }
 
         public void ReleaseLock()
         {
-            this.computer.ReleaseIsaBusMutex();
+            this.hwMon.ReleaseIsaBusMutex();
         }
 
         public void Dispose()
         {
-            if (this.computer != null)
-            {
-                this.computer.Close();
-                this.computer = null;
-            }
-
-            GC.SuppressFinalize(this);
         }
 
         #endregion
@@ -129,12 +121,12 @@ namespace StagWare.Windows.EmbeddedController
 
         protected override void WritePort(int port, byte value)
         {
-            this.computer.WriteIoPort(port, value);
+            this.hwMon.WriteIoPort(port, value);
         }
 
         protected override byte ReadPort(int port)
         {
-            return this.computer.ReadIoPort(port);
+            return this.hwMon.ReadIoPort(port);
         }
 
         #endregion

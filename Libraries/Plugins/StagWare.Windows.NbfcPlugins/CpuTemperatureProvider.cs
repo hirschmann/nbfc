@@ -13,19 +13,8 @@ namespace StagWare.Windows.CpuTempProvider
     {
         #region Private Fields
 
-        private Computer computer;
         private IHardware cpu;
         private ISensor[] cpuTempSensors;
-
-        #endregion
-
-        #region Constructor
-
-        public CpuTemperatureProvider()
-        {
-            this.computer = new Computer();
-            this.computer.CPUEnabled = true;
-        }
 
         #endregion
 
@@ -37,8 +26,7 @@ namespace StagWare.Windows.CpuTempProvider
         {
             if (!this.IsInitialized)
             {
-                this.computer.Open();
-                this.cpu = computer.Hardware.FirstOrDefault(x => x.HardwareType == HardwareType.CPU);
+                this.cpu = HardwareMonitor.Instance.CPU;
 
                 if (this.cpu != null)
                 {
@@ -81,13 +69,6 @@ namespace StagWare.Windows.CpuTempProvider
 
         public void Dispose()
         {
-            if (this.computer != null)
-            {
-                this.computer.Close();
-                this.computer = null;
-            }
-
-            GC.SuppressFinalize(this);
         }
 
         #endregion

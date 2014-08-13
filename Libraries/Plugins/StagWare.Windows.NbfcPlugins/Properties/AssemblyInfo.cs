@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.Windows.CpuTempProvider")]
+[assembly: AssemblyTitle("StagWare.Windows.NbfcPlugins")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("StagWare")]
-[assembly: AssemblyProduct("StagWare.Windows.CpuTempProvider")]
-[assembly: AssemblyCopyright("Copyright © 2014 Stefan Hirschmann")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("StagWare.Windows.NbfcPlugins")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("48d3df17-5da6-4d0c-9a5e-6b8000c62be8")]
+[assembly: Guid("22834e87-0fce-4972-a43c-f2e2be371cb5")]
 
 // Version information for an assembly consists of the following four values:
 //

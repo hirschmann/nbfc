@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{49BBEBDD-9A3A-4963-A52C-D6154E2D6B3E}</ProjectGuid>
+    <ProjectGuid>{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StagWare.Windows.EmbeddedController</RootNamespace>
-    <AssemblyName>StagWare.Windows.EmbeddedController</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>StagWare.Windows.NbfcPlugins</RootNamespace>
+    <AssemblyName>StagWare.Windows.NbfcPlugins</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CpuTemperatureProvider.cs" />
     <Compile Include="EmbeddedController.cs" />
+    <Compile Include="HardwareMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
