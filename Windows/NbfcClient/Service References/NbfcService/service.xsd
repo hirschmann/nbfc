@@ -21,18 +21,6 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Restart">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RestartResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RestartResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="Start">
     <xs:complexType>
       <xs:sequence />

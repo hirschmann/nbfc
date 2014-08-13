@@ -6,7 +6,7 @@ namespace StagWare.FanControl.Service
     public class FanControlInfo
     {
         [DataMember]
-        public bool IsInitialized { get; set; }
+        public bool Enabled { get; set; }
 
         [DataMember]
         public FanStatus[] FanStatus { get; set; }

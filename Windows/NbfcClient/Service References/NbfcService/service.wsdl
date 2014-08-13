@@ -45,12 +45,6 @@
   <wsdl:message name="IFanControlService_GetFanControlInfo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetFanControlInfoResponse" />
   </wsdl:message>
-  <wsdl:message name="IFanControlService_Restart_InputMessage">
-    <wsdl:part name="parameters" element="tns:Restart" />
-  </wsdl:message>
-  <wsdl:message name="IFanControlService_Restart_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RestartResponse" />
-  </wsdl:message>
   <wsdl:message name="IFanControlService_Start_InputMessage">
     <wsdl:part name="parameters" element="tns:Start" />
   </wsdl:message>
@@ -70,10 +64,6 @@
     <wsdl:operation name="GetFanControlInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/GetFanControlInfo" message="tns:IFanControlService_GetFanControlInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/GetFanControlInfoResponse" message="tns:IFanControlService_GetFanControlInfo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Restart">
-      <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/Restart" message="tns:IFanControlService_Restart_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/RestartResponse" message="tns:IFanControlService_Restart_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Start">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/Start" message="tns:IFanControlService_Start_InputMessage" />
@@ -97,15 +87,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetFanControlInfo">
       <soap12:operation soapAction="http://tempuri.org/IFanControlService/GetFanControlInfo" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Restart">
-      <soap12:operation soapAction="http://tempuri.org/IFanControlService/Restart" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

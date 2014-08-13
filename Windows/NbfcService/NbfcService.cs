@@ -58,7 +58,8 @@ namespace NbfcService
                 || powerStatus == PowerBroadcastStatus.ResumeAutomatic
                 || powerStatus == PowerBroadcastStatus.ResumeCritical)
             {
-                this.service.ReInitializeFanControl();
+                //this.service.ReInitializeFanControl();
+                //TODO: re-implement
             }
 
             return true;

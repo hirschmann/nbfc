@@ -17,9 +17,6 @@ namespace StagWare.FanControl.Service
         FanControlInfo GetFanControlInfo();
 
         [OperationContract]
-        bool Restart();
-
-        [OperationContract]
         bool Start();
 
         [OperationContract(IsOneWay = true)]

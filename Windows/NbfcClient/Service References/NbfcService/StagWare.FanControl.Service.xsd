@@ -3,8 +3,8 @@
   <xs:complexType name="FanControlInfo">
     <xs:sequence>
       <xs:element minOccurs="0" name="CpuTemperature" type="xs:int" />
+      <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="FanStatus" nillable="true" type="tns:ArrayOfFanStatus" />
-      <xs:element minOccurs="0" name="IsInitialized" type="xs:boolean" />
       <xs:element minOccurs="0" name="SelectedConfig" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

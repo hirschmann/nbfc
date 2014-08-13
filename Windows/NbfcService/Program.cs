@@ -13,12 +13,7 @@ namespace NbfcService
         /// </summary>
         public static void Main()
         {
-            ServiceBase[] servicesToRun = new ServiceBase[] 
-            {
-                new NoteBookFanControlService()
-            };
-
-            ServiceBase.Run(servicesToRun);
+            ServiceBase.Run(new NoteBookFanControlService());
         }
     }
 }

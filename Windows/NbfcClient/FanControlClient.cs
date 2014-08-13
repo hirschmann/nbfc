@@ -156,7 +156,7 @@ namespace NbfcClient
                 if (info != null)
                 {
                     viewModel.CpuTemperature = info.CpuTemperature;
-                    viewModel.IsServiceAvailable = info.IsInitialized;
+                    viewModel.IsServiceAvailable = info.Enabled;
                     viewModel.SelectedConfig = info.SelectedConfig;
 
                     if (info.FanStatus != null)

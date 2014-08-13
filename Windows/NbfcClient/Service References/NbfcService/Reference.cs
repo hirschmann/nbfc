@@ -26,10 +26,10 @@ namespace NbfcClient.NbfcService {
         private int CpuTemperatureField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private NbfcClient.NbfcService.FanStatus[] FanStatusField;
+        private bool EnabledField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsInitializedField;
+        private NbfcClient.NbfcService.FanStatus[] FanStatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SelectedConfigField;
@@ -58,6 +58,19 @@ namespace NbfcClient.NbfcService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Enabled {
+            get {
+                return this.EnabledField;
+            }
+            set {
+                if ((this.EnabledField.Equals(value) != true)) {
+                    this.EnabledField = value;
+                    this.RaisePropertyChanged("Enabled");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public NbfcClient.NbfcService.FanStatus[] FanStatus {
             get {
                 return this.FanStatusField;
@@ -66,19 +79,6 @@ namespace NbfcClient.NbfcService {
                 if ((object.ReferenceEquals(this.FanStatusField, value) != true)) {
                     this.FanStatusField = value;
                     this.RaisePropertyChanged("FanStatus");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsInitialized {
-            get {
-                return this.IsInitializedField;
-            }
-            set {
-                if ((this.IsInitializedField.Equals(value) != true)) {
-                    this.IsInitializedField = value;
-                    this.RaisePropertyChanged("IsInitialized");
                 }
             }
         }
@@ -241,9 +241,6 @@ namespace NbfcClient.NbfcService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetFanControlInfo", ReplyAction="http://tempuri.org/IFanControlService/GetFanControlInfoResponse")]
         NbfcClient.NbfcService.FanControlInfo GetFanControlInfo();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/Restart", ReplyAction="http://tempuri.org/IFanControlService/RestartResponse")]
-        bool Restart();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/Start", ReplyAction="http://tempuri.org/IFanControlService/StartResponse")]
         bool Start();
         
@@ -287,10 +284,6 @@ namespace NbfcClient.NbfcService {
         
         public NbfcClient.NbfcService.FanControlInfo GetFanControlInfo() {
             return base.Channel.GetFanControlInfo();
-        }
-        
-        public bool Restart() {
-            return base.Channel.Restart();
         }
         
         public bool Start() {

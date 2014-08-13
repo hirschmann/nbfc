@@ -24,7 +24,6 @@ namespace StagWare.FanControl
 
         #region Private Fields
 
-        private readonly object syncRoot = new object();
         private AutoResetEvent autoEvent = new AutoResetEvent(false);
         private Timer timer;
         private AsyncOperation asyncOp;
@@ -105,7 +104,7 @@ namespace StagWare.FanControl
 
                 this.fanSpeedManagers[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
                 this.requestedSpeeds[i] = AutoFanSpeedPercentage;
-                this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);                
+                this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);
             }
         }
 
@@ -177,77 +176,56 @@ namespace StagWare.FanControl
 
         public void Start(int delay = 0)
         {
-            lock (syncRoot)
+            if (this.disposed)
             {
-                if (this.disposed)
+                throw new ObjectDisposedException(null);
+            }
+
+            if (!this.Enabled)
+            {
+                if (!this.tempProvider.IsInitialized)
                 {
-                    throw new ObjectDisposedException(null);
+                    this.tempProvider.Initialize();
                 }
 
-                if (!this.Enabled)
+                if (!this.ec.IsInitialized)
                 {
-                    if (!this.tempProvider.IsInitialized)
-                    {
-                        this.tempProvider.Initialize();
-                    }
+                    this.ec.Initialize();
+                }
 
-                    if (!this.ec.IsInitialized)
-                    {
-                        this.ec.Initialize();
-                    }
+                this.autoEvent.Set();
+                InitializeRegisterWriteConfigurations();
 
-                    InitializeRegisterWriteConfigurations();
-
-                    if (this.timer == null)
-                    {
-                        this.autoEvent.Set();
-                        this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
-                    }
+                if (this.timer == null)
+                {
+                    this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
                 }
             }
         }
 
         public void SetTargetFanSpeed(float speed, int fanIndex)
         {
-            if (this.disposed)
+            if (fanIndex >= 0 && fanIndex < this.requestedSpeeds.Length)
             {
-                throw new ObjectDisposedException(null);
+                Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
+                ThreadPool.QueueUserWorkItem(TimerCallback, null);
             }
-
-            Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
+            else
+            {
+                this.Dispose();
+                throw new IndexOutOfRangeException("fanIndex");
+            }
         }
 
         public void Stop()
         {
-            lock (syncRoot)
+            if (this.disposed)
             {
-                if (this.Enabled)
-                {
-                    if (this.disposed)
-                    {
-                        throw new ObjectDisposedException(null);
-                    }
-
-                    if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
-                    {
-                        this.autoEvent.Reset();
-                    }
-
-                    if (timer != null)
-                    {
-                        using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
-                        {
-                            timer.Dispose(handle);
-
-                            if (handle.WaitOne())
-                            {
-                                timer = null;
-                            }
-                        }
-                    }
-
-                    ResetEc();
-                }
+                throw new ObjectDisposedException(null);
+            }
+            else
+            {
+                StopFanControlCore();
             }
         }
 
@@ -305,6 +283,32 @@ namespace StagWare.FanControl
             }
         }
 
+        private void StopFanControlCore()
+        {
+            if (this.Enabled)
+            {
+                if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
+                {
+                    this.autoEvent.Reset();
+                }
+
+                if (timer != null)
+                {
+                    using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
+                    {
+                        timer.Dispose(handle);
+
+                        if (handle.WaitOne())
+                        {
+                            timer = null;
+                        }
+                    }
+                }
+
+                ResetEc();
+            }
+        }
+
         private void UpdateAndApplyFanSpeeds()
         {
             for (int i = 0; i < this.fanSpeedManagers.Length; i++)
@@ -342,20 +346,27 @@ namespace StagWare.FanControl
 
         private void InitializeRegisterWriteConfigurations()
         {
-            if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AquireLock(EcTimeout))
+            try
             {
-                try
+                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AquireLock(EcTimeout))
                 {
-                    ApplyRegisterWriteConfigurations(true);
+                    try
+                    {
+                        ApplyRegisterWriteConfigurations(true);
+                    }
+                    finally
+                    {
+                        this.ec.ReleaseLock();
+                    }
                 }
-                finally
+                else
                 {
-                    this.ec.ReleaseLock();
+                    throw new TimeoutException("EC initialization timed out.");
                 }
             }
-            else
+            finally
             {
-                throw new TimeoutException("EC initialization timed out.");
+                this.autoEvent.Set();
             }
         }
 
@@ -501,15 +512,14 @@ namespace StagWare.FanControl
 
         #region IDisposable implementation
 
-        private volatile bool disposed = false;
+        private bool disposed = false;
 
         public void Dispose()
         {
-            if (!disposed)
+            if (!this.disposed)
             {
-                disposed = true;
-
-                Stop();
+                this.disposed = true;
+                StopFanControlCore();
 
                 if (this.autoEvent != null)
                 {
