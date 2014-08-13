@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace StagWare.Hardware
+namespace StagWare.Hardware.LPC
 {
     public abstract class EmbeddedControllerBase
     {

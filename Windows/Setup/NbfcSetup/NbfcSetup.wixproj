@@ -51,8 +51,8 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
-      <Name>StagWare.Hardware</Name>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
+      <Name>StagWare.Hardware.LPC</Name>
       <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>

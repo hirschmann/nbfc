@@ -29,8 +29,8 @@
       </Component>
 
       <Component Id="Plg.StagWare.Hardware" Guid="4A948EE5-F20F-4281-A44F-D65A02E9D5AB">
-        <File Id="StagWare.Hardware.dll" Name="StagWare.Hardware.dll" DiskId="1" Vital="yes" KeyPath="yes"
-              Source="$(var.StagWare.Hardware.TargetDir)StagWare.Hardware.dll">
+        <File Id="StagWare.Hardware.LPC.dll" Name="StagWare.Hardware.LPC.dll" DiskId="1" Vital="yes" KeyPath="yes"
+              Source="$(var.StagWare.Hardware.LPC.TargetDir)StagWare.Hardware.LPC.dll">
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="StagWare.Hardware.NativeImage" Priority="1" Platform="all"/>

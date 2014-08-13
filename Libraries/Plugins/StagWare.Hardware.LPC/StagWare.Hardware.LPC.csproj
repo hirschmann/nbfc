@@ -7,8 +7,8 @@
     <ProjectGuid>{1D5D7C81-802F-46E0-913F-8519F157BC3C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StagWare.Hardware</RootNamespace>
-    <AssemblyName>StagWare.Hardware</AssemblyName>
+    <RootNamespace>StagWare.Hardware.LPC</RootNamespace>
+    <AssemblyName>StagWare.Hardware.LPC</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>

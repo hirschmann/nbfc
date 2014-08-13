@@ -53,9 +53,9 @@
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Name>OpenHardwareMonitorLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StagWare.Hardware\StagWare.Hardware.csproj">
+    <ProjectReference Include="..\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
       <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
-      <Name>StagWare.Hardware</Name>
+      <Name>StagWare.Hardware.LPC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
