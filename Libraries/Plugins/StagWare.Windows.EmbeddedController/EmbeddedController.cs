@@ -1,5 +1,6 @@
 ﻿using OpenHardwareMonitor.Hardware;
 using StagWare.FanControl.Plugins;
+using StagWare.Hardware;
 using System;
 using System.ComponentModel.Composition;
 
@@ -7,7 +8,7 @@ namespace StagWare.Windows.EmbeddedController
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata("StagWare.Windows.EmbeddedController", PlatformID.Win32NT, MinOSVersion = "5.0")]
-    public class EmbeddedController : IEmbeddedController
+    public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
     {
         #region Constants
 
@@ -17,7 +18,6 @@ namespace StagWare.Windows.EmbeddedController
 
         #region Private Fields
 
-        StagWare.Hardware.EmbeddedController ec;
         Computer computer;
 
         #endregion
@@ -31,7 +31,6 @@ namespace StagWare.Windows.EmbeddedController
             if (!this.IsInitialized)
             {
                 this.computer = new Computer();
-                this.ec = new StagWare.Hardware.EmbeddedController(new Port(computer));
                 this.computer.Open();
                 this.IsInitialized = true;
             }
@@ -43,7 +42,7 @@ namespace StagWare.Windows.EmbeddedController
 
             while (writes < MaxRetries)
             {
-                if (this.ec.TryWriteByte(register, value))
+                if (TryWriteByte(register, value))
                 {
                     return;
                 }
@@ -58,7 +57,7 @@ namespace StagWare.Windows.EmbeddedController
 
             while (writes < MaxRetries)
             {
-                if (this.ec.TryWriteWord(register, value))
+                if (TryWriteWord(register, value))
                 {
                     return;
                 }
@@ -74,7 +73,7 @@ namespace StagWare.Windows.EmbeddedController
 
             while (reads < MaxRetries)
             {
-                if (this.ec.TryReadByte(register, out result))
+                if (TryReadByte(register, out result))
                 {
                     return result;
                 }
@@ -92,7 +91,7 @@ namespace StagWare.Windows.EmbeddedController
 
             while (reads < MaxRetries)
             {
-                if (this.ec.TryReadWord(register, out result))
+                if (TryReadWord(register, out result))
                 {
                     return (ushort)result;
                 }
@@ -122,6 +121,20 @@ namespace StagWare.Windows.EmbeddedController
             }
 
             GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region EmbeddedControllerBase implementation
+
+        protected override void WritePort(int port, byte value)
+        {
+            this.computer.WriteIoPort(port, value);
+        }
+
+        protected override byte ReadPort(int port)
+        {
+            return this.computer.ReadIoPort(port);
         }
 
         #endregion

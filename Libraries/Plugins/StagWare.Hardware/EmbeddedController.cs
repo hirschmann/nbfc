@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace StagWare.Hardware
 {
-    public class EmbeddedController
+    public abstract class EmbeddedControllerBase
     {
         #region Enums
 
@@ -44,20 +44,8 @@ namespace StagWare.Hardware
 
         #region Private Fields
 
-        IPort port;
-        int waitReadConsecFails;
-        bool skipWaitRead;
-
-        #endregion
-
-        #region Constructor
-
-        public EmbeddedController(IPort port)
-        {
-            this.port = port;
-            this.waitReadConsecFails = 0;
-            this.skipWaitRead = false;
-        }
+        int waitReadConsecFails = 0;
+        bool skipWaitRead = false;
 
         #endregion
 
@@ -67,15 +55,15 @@ namespace StagWare.Hardware
         {
             if (WaitFree())
             {
-                this.port.Write(CommandPort, (byte)ECCommand.Read);
+                WritePort(CommandPort, (byte)ECCommand.Read);
 
                 if (WaitWrite())
                 {
-                    this.port.Write(DataPort, register);
+                    WritePort(DataPort, register);
 
                     if (WaitWrite() && (skipWaitRead || WaitRead()))
                     {
-                        value = this.port.Read(DataPort);
+                        value = ReadPort(DataPort);
                         return true;
                     }
                 }
@@ -89,15 +77,15 @@ namespace StagWare.Hardware
         {
             if (WaitFree())
             {
-                this.port.Write(CommandPort, (byte)ECCommand.Write);
+                WritePort(CommandPort, (byte)ECCommand.Write);
 
                 if (WaitWrite())
                 {
-                    this.port.Write(DataPort, register);
+                    WritePort(DataPort, register);
 
                     if (WaitWrite())
                     {
-                        this.port.Write(DataPort, value);
+                        WritePort(DataPort, value);
 
                         if (WaitWrite())
                         {
@@ -158,6 +146,13 @@ namespace StagWare.Hardware
 
         #endregion
 
+        #region Protected Methods
+
+        protected abstract void WritePort(int port, byte value);
+        protected abstract byte ReadPort(int port);
+
+        #endregion
+
         #region Private Methods
 
         private bool WaitRead()
@@ -166,7 +161,7 @@ namespace StagWare.Hardware
 
             while (timeout > 0)
             {
-                var status = (ECStatus)this.port.Read(CommandPort);
+                var status = (ECStatus)ReadPort(CommandPort);
 
                 if (status.HasFlag(ECStatus.OutputBufferFull))
                 {
@@ -193,7 +188,7 @@ namespace StagWare.Hardware
 
             while (timeout > 0)
             {
-                var status = (ECStatus)this.port.Read(CommandPort);
+                var status = (ECStatus)ReadPort(CommandPort);
 
                 if (!status.HasFlag(ECStatus.InputBufferFull))
                 {
@@ -213,7 +208,7 @@ namespace StagWare.Hardware
 
             while (timeout > 0)
             {
-                var status = (ECStatus)this.port.Read(CommandPort);
+                var status = (ECStatus)ReadPort(CommandPort);
 
                 if (!status.HasFlag(ECStatus.InputBufferFull)
                     && !status.HasFlag(ECStatus.OutputBufferFull))
