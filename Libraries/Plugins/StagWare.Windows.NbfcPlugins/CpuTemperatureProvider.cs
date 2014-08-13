@@ -3,7 +3,6 @@ using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 
 namespace StagWare.Windows.CpuTempProvider
 {
@@ -30,7 +29,7 @@ namespace StagWare.Windows.CpuTempProvider
 
                 if (this.cpu != null)
                 {
-                    this.cpuTempSensors = InitializeTempSensors(cpu);
+                    this.cpuTempSensors = GetTemperatureSensors(cpu);
                 }
 
                 if (this.cpuTempSensors == null || this.cpuTempSensors.Length <= 0)
@@ -75,27 +74,34 @@ namespace StagWare.Windows.CpuTempProvider
 
         #region Private Methods
 
-        private static ISensor[] InitializeTempSensors(IHardware cpu)
+        private static ISensor[] GetTemperatureSensors(IHardware cpu)
         {
             if (cpu == null)
             {
                 throw new PlatformNotSupportedException("Failed to access CPU temperature sensors(s).");
             }
 
+            var sensors = new List<ISensor>();
             cpu.Update();
 
-            IEnumerable<ISensor> sensors = cpu.Sensors
-                .Where(x => x.SensorType == SensorType.Temperature);
-
-            ISensor packageSensor = sensors.FirstOrDefault(x =>
+            foreach (ISensor s in cpu.Sensors)
             {
-                string upper = x.Name.ToUpperInvariant();
-                return upper.Contains("PACKAGE") || upper.Contains("TOTAL");
-            });
+                if (s.SensorType == SensorType.Temperature)
+                {
+                    string name = s.Name.ToUpper();
 
-            return packageSensor != null
-                ? new ISensor[] { packageSensor }
-                : sensors.ToArray();
+                    if (name.Contains("PACKAGE") || name.Contains("TOTAL"))
+                    {
+                        return new ISensor[] { s };
+                    }
+                    else
+                    {
+                        sensors.Add(s);
+                    }
+                }
+            }
+
+            return sensors.ToArray();
         }
 
         #endregion
