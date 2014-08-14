@@ -50,6 +50,9 @@
             <Component Id="cmp4D492E30788E2A5C7E0E62F65E99FF3E" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil84B0449D2B12A146A780031F1F23A439" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire S3.xml" />
             </Component>
+            <Component Id="cmp70459DCB1319EED2BDDF79ABA31E23CF" Directory="ConfigsFolder" Guid="*">
+                <File Id="filE0D8B8B54ACEC48F250622548F93B828" KeyPath="yes" Source="$(var.ConfigsDir)\Acer LT-10Q.xml" />
+            </Component>
             <Component Id="cmp5083A82F29D735262C5B602AAF287A59" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil956D1FB76F62BABED977CDC539924BED" KeyPath="yes" Source="$(var.ConfigsDir)\Acer TravelMate 7730G.xml" />
             </Component>
@@ -97,6 +100,12 @@
             </Component>
             <Component Id="cmpB562D2FB579D38183A99FF09F9862F48" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB48940E621C244BED19DC1A73DA14F3D" KeyPath="yes" Source="$(var.ConfigsDir)\ESPRIMO Mobile V5505.xml" />
+            </Component>
+            <Component Id="cmp0BD6AC1D09BA5956E9539FB9D0A42CD4" Directory="ConfigsFolder" Guid="*">
+                <File Id="filE86FCFD702C2936672895F213CFE9104" KeyPath="yes" Source="$(var.ConfigsDir)\Gateway AOA110.xml" />
+            </Component>
+            <Component Id="cmp17F1287315C1571F4C3095AC412EEBEC" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil24D92D6F2BCD68A891925CEE94142B1F" KeyPath="yes" Source="$(var.ConfigsDir)\Gateway AOA150.xml" />
             </Component>
             <Component Id="cmp3B60C3B8BD589A666FF388699DD36F29" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9ED7E108D65AB96728584026E19EBF2D" KeyPath="yes" Source="$(var.ConfigsDir)\Gateway LT31.xml" />
@@ -175,6 +184,12 @@
             </Component>
             <Component Id="cmp1877CB760C998D1476819821CE27F2D0" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil0191C14AD6789B206F5F735DBC7580B7" KeyPath="yes" Source="$(var.ConfigsDir)\Medion Akoya P6630.xml" />
+            </Component>
+            <Component Id="cmp7ABD6F8C734063E03F7DAC4161015C7E" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil7DDBACD9A01AEA08382B6E712063FA4F" KeyPath="yes" Source="$(var.ConfigsDir)\Packard Bell AOA110.xml" />
+            </Component>
+            <Component Id="cmp7E5C339E84B37101A4F3086F800360E0" Directory="ConfigsFolder" Guid="*">
+                <File Id="filA44C372DBDC2D12FB551782EDAC56143" KeyPath="yes" Source="$(var.ConfigsDir)\Packard Bell AOA150.xml" />
             </Component>
             <Component Id="cmpA2E891709A07D4F398C8D8962A56A278" Directory="ConfigsFolder" Guid="*">
                 <File Id="filFC5B97B3761AB5D866D316059C297EAB" KeyPath="yes" Source="$(var.ConfigsDir)\Packard Bell DOA150.xml" />
