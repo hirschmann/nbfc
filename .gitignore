@@ -1,6 +1,5 @@
-Packages.dgml
 Thumbs.db
-Packages.dgml
+*.dgml
 *.lnk
 *.obj
 *.exe
