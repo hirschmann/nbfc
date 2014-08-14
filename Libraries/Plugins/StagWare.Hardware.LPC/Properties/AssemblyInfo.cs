@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.Hardware.EC")]
+[assembly: AssemblyTitle("StagWare.Hardware.LPC")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StagWare")]
-[assembly: AssemblyProduct("StagWare.Hardware.EC")]
+[assembly: AssemblyProduct("StagWare.Hardware.LPC")]
 [assembly: AssemblyCopyright("Copyright © 2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

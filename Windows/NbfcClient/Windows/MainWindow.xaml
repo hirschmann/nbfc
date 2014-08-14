@@ -12,7 +12,7 @@
         Icon="/NoteBookFanControl;component/nbfc.ico"
         WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
         d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
-    
+
     <Grid>
         <!--Background-->
         <Grid.Background>
@@ -30,7 +30,10 @@
 
         <TextBox Text="{Binding SelectedConfig}" Height="23" Margin="121,7,55,0" 
                  TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
-
+        
+        <!--Version-->
+        <Label Content="{Binding Version}" Margin="0,43,8,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" HorizontalAlignment="Right" FontFamily="Segoe UI Light"/>
+        
         <!--Service info-->
         <CheckBox Content="  :Fan control service enabled" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" 
                   FlowDirection="RightToLeft" IsChecked="{Binding IsServiceAvailable}" Click="CheckBox_Click">
@@ -83,6 +86,6 @@
             <tb:TaskbarIcon.TrayToolTip>
                 <uc:TrayToolTip />
             </tb:TaskbarIcon.TrayToolTip>
-        </tb:TaskbarIcon>
+        </tb:TaskbarIcon>        
     </Grid>
 </Window>
