@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
 
@@ -188,10 +187,10 @@ namespace StagWare.FanControl.Service
 
         #region Public Methods
 
-        //public void ReInitializeFanControl()
-        //{
-        //    this.fanControl.Start();
-        //}
+        public void ReInitializeFanControl()
+        {
+            this.fanControl.ReInitialize();
+        }
 
         #endregion
 

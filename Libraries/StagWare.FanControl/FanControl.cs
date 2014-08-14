@@ -1,7 +1,6 @@
 ﻿using StagWare.FanControl.Configurations;
 using StagWare.FanControl.Plugins;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -208,7 +207,11 @@ namespace StagWare.FanControl
             if (fanIndex >= 0 && fanIndex < this.requestedSpeeds.Length)
             {
                 Thread.VolatileWrite(ref this.requestedSpeeds[fanIndex], speed);
-                ThreadPool.QueueUserWorkItem(TimerCallback, null);
+
+                if (this.Enabled)
+                {
+                    ThreadPool.QueueUserWorkItem(TimerCallback, null);
+                }
             }
             else
             {
@@ -226,6 +229,14 @@ namespace StagWare.FanControl
             else
             {
                 StopFanControlCore();
+            }
+        }
+
+        public void ReInitialize()
+        {
+            if (this.Enabled)
+            {
+                InitializeRegisterWriteConfigurations();
             }
         }
 

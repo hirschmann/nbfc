@@ -1,11 +1,6 @@
 ﻿using StagWare.FanControl.Service;
-using System;
-using System.IO;
-using System.Reflection;
 using System.ServiceModel;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading;
 
 namespace NbfcService
 {
@@ -42,9 +37,9 @@ namespace NbfcService
         {
             StopServiceHost();
 
-            service = new FanControlService();
-            host = new ServiceHost(service);
-            host.Open();
+            this.service = new FanControlService();
+            this.host = new ServiceHost(service);
+            this.host.Open();
         }
 
         protected override void OnStop()
@@ -58,8 +53,7 @@ namespace NbfcService
                 || powerStatus == PowerBroadcastStatus.ResumeAutomatic
                 || powerStatus == PowerBroadcastStatus.ResumeCritical)
             {
-                //this.service.ReInitializeFanControl();
-                //TODO: re-implement
+                this.service.ReInitializeFanControl();
             }
 
             return true;
@@ -76,24 +70,29 @@ namespace NbfcService
 
         private void StopServiceHost()
         {
-            if (this.host != null)
+            try
             {
-                if (this.host.State == CommunicationState.Faulted)
+                if (this.host != null)
                 {
-                    this.host.Abort();
-                }
-                else
-                {
-                    this.host.Close();
-                }
+                    if (this.host.State == CommunicationState.Faulted)
+                    {
+                        this.host.Abort();
+                    }
+                    else
+                    {
+                        this.host.Close();
+                    }
 
-                this.host = null;
+                    this.host = null;
+                }
             }
-
-            if (this.service != null)
+            finally
             {
-                this.service.Dispose();
-                this.service = null;
+                if (this.service != null)
+                {
+                    this.service.Dispose();
+                    this.service = null;
+                }
             }
         }
 
