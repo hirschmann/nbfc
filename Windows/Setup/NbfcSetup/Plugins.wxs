@@ -9,32 +9,53 @@
   <Fragment>
     <ComponentGroup Id="Plugins" Directory="PluginsFolder">     
 
-      <Component Id="Plg.StagWare.Windows.NbfcPlugins" Guid="379F71BF-D1AC-4A94-BB69-60C93B16BE8C">
-        <File Id="StagWare.Windows.NbfcPlugins.dll" Name="StagWare.Windows.NbfcPlugins.dll" DiskId="1" Vital="yes" KeyPath="yes"
+      <Component Id="Plg.StagWare.Windows.NbfcPlugins" 
+                 Guid="379F71BF-D1AC-4A94-BB69-60C93B16BE8C">
+        <File Id="StagWare.Windows.NbfcPlugins.dll" 
+              Name="StagWare.Windows.NbfcPlugins.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
               Source="$(var.StagWare.Windows.NbfcPlugins.TargetDir)StagWare.Windows.NbfcPlugins.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Windows.NbfcPlugins.NativeImage" Priority="1" Platform="all"/>
+          <netfx:NativeImage Id="StagWare.Windows.NbfcPlugins.NativeImage" 
+                             Priority="1" 
+                             Platform="all"/>
           <?endif?>
         </File>
       </Component>
 
-      <Component Id="Plg.StagWare.Hardware.LPC" Guid="4A948EE5-F20F-4281-A44F-D65A02E9D5AB">
-        <File Id="StagWare.Hardware.LPC.dll" Name="StagWare.Hardware.LPC.dll" DiskId="1" Vital="yes" KeyPath="yes"
+      <Component Id="Plg.StagWare.Hardware.LPC" 
+                 Guid="4A948EE5-F20F-4281-A44F-D65A02E9D5AB">
+        <File Id="StagWare.Hardware.LPC.dll" 
+              Name="StagWare.Hardware.LPC.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
               Source="$(var.StagWare.Hardware.LPC.TargetDir)StagWare.Hardware.LPC.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Hardware.NativeImage" Priority="1" Platform="all"/>
+          <netfx:NativeImage Id="StagWare.Hardware.NativeImage" 
+                             Priority="1" 
+                             Platform="all"/>
           <?endif?>
         </File>
       </Component>
 
-      <Component Id="Plg.OpenHardwareMonitorLib" Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
-        <File Id="OpenHardwareMonitorLib.dll" Name="OpenHardwareMonitorLib.dll" DiskId="1" Vital="yes" KeyPath="yes"
+      <Component Id="Plg.OpenHardwareMonitorLib" 
+                 Guid="0AF2121F-BDA3-40AC-A719-9849AE8A0E5B">
+        <File Id="OpenHardwareMonitorLib.dll" 
+              Name="OpenHardwareMonitorLib.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
               Source="$(var.StagWare.Windows.NbfcPlugins.TargetDir)OpenHardwareMonitorLib.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="OpenHardwareMonitorLib.NativeImage" Priority="1" Platform="all"/>
+          <netfx:NativeImage Id="OpenHardwareMonitorLib.NativeImage" 
+                             Priority="1" 
+                             Platform="all"/>
           <?endif?>
         </File>
       </Component>

@@ -2,20 +2,47 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         
-        Title="Select Config" Height="140" Width="346" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" 
+        Title="Select Config" 
+        Height="140" 
+        Width="346" 
+        ResizeMode="NoResize" 
+        WindowStartupLocation="CenterOwner" 
         Icon="/NoteBookFanControl;component/nbfc.ico">
     <Grid>
-        <ComboBox x:Name="configSelector" Margin="82,14,74,0" VerticalAlignment="Top"/>
+        <ComboBox x:Name="configSelector" 
+                  Margin="82,14,74,0" 
+                  VerticalAlignment="Top"/>
 
-        <Button x:Name="cancel" Content="Cancel" HorizontalAlignment="Left" 
-                Margin="169,71,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="cancel_Click"/>
+        <Button x:Name="cancel" 
+                Content="Cancel" 
+                HorizontalAlignment="Left" 
+                Margin="169,71,0,0" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                Height="22" 
+                Click="cancel_Click"/>
 
-        <Button x:Name="apply" Content="Apply" Margin="89,71,0,0" VerticalAlignment="Top" 
-                HorizontalAlignment="Left" Width="75" Height="22" Click="apply_Click"/>
+        <Button x:Name="apply" 
+                Content="Apply" 
+                Margin="89,71,0,0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left" 
+                Width="75" 
+                Height="22" 
+                Click="apply_Click"/>
 
-        <Label Content="Config:" HorizontalAlignment="Left" 
-               Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="edit" Content="Edit" HorizontalAlignment="Left" 
-        	Margin="271,14,0,0" VerticalAlignment="Top" Width="59" Height="22" Click="edit_Click"  />
+        <Label Content="Config:" 
+               HorizontalAlignment="Left" 
+               Margin="10,10,0,0" 
+               VerticalAlignment="Top"/>
+        
+        <Button x:Name="edit" 
+                Content="Edit" 
+                HorizontalAlignment="Left" 
+        	    Margin="271,14,0,0" 
+                VerticalAlignment="Top" 
+                Width="59" 
+                Height="22" 
+                Click="edit_Click"  />
     </Grid>
 </Window>

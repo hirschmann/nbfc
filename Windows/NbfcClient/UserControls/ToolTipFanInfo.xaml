@@ -5,25 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:NbfcClient.ViewModels"             
              
-             mc:Ignorable="d" MinWidth="212" MinHeight="96" d:DesignWidth="212" Height="59"
+             mc:Ignorable="d" 
+             MinWidth="212" 
+             MinHeight="96"
+             Height="59"
+             Background="WhiteSmoke"
+             d:DesignWidth="212" 
              d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
 
     <Grid>
-        <Border BorderBrush="LightGray" BorderThickness="1" Height="2" Margin="10,26,10,0" VerticalAlignment="Top"/>
-        <Label x:Name="text" Margin="10,2,10,0" VerticalAlignment="Top" Foreground="#FF3C3C3C" FontWeight="Bold">
+        <Border BorderBrush="LightGray" 
+                BorderThickness="1" 
+                Height="2" 
+                Margin="10,26,10,0" 
+                VerticalAlignment="Top"/>
+        
+        <Label x:Name="text" 
+               Margin="10,2,10,0" 
+               VerticalAlignment="Top" 
+               Foreground="#FF3C3C3C" 
+               FontWeight="Bold">
+            
             <MultiBinding Converter="{StaticResource displayNameConverter}">
                 <Binding Path="FanDisplayName"/>
                 <Binding Path="FanIndex"/>
             </MultiBinding>
         </Label>
-        <Label ContentStringFormat="Target fan speed:  {0}" Margin="10,34,10,0" VerticalAlignment="Top" Foreground="#FF3C3C3C">
+        
+        <Label ContentStringFormat="Target fan speed:  {0}" 
+               Margin="10,34,10,0" 
+               VerticalAlignment="Top" 
+               Foreground="#FF3C3C3C">
+            
             <MultiBinding Converter="{StaticResource fanSpeedConverter}">
                 <Binding Path="TargetFanSpeed"/>
                 <Binding Path="IsAutoFanControlEnabled"/>
                 <Binding Path="IsCriticalModeEnabled" />
             </MultiBinding>
         </Label>
-        <Label Content="{Binding CurrentFanSpeed}" ContentStringFormat="Current fan speed:  {0:0.0}%" 
-               Margin="10,57,10,0" VerticalAlignment="Top" Foreground="#FF3C3C3C"/>
+        
+        <Label Content="{Binding CurrentFanSpeed}" 
+               ContentStringFormat="Current fan speed:  {0:0.0}%" 
+               Margin="10,57,10,0" 
+               VerticalAlignment="Top" 
+               Foreground="#FF3C3C3C"/>
     </Grid>
 </UserControl>
