@@ -32,8 +32,7 @@ namespace NbfcClient.ViewModels
         {
             get
             {
-                return
-                    selectedConfig;
+                return selectedConfig;
             }
 
             set
@@ -50,8 +49,7 @@ namespace NbfcClient.ViewModels
         {
             get
             {
-                return
-                    isServiceAvailable;
+                return isServiceAvailable;
             }
 
             set
@@ -97,10 +95,6 @@ namespace NbfcClient.ViewModels
                 }
             }
         }
-
-        #endregion
-
-        #region Private Methods
 
         #endregion
     }

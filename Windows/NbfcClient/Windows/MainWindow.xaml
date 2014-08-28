@@ -8,9 +8,15 @@
         xmlns:uc="clr-namespace:NbfcClient.UserControls"        
         mc:Ignorable="d"
         
-        Title="NoteBook FanControl" Height="350" Width="430" MinWidth="350" MinHeight="355"
+        Title="NoteBook FanControl" 
+        Height="350" 
+        Width="430" 
+        MinWidth="350" 
+        MinHeight="355"
         Icon="/NoteBookFanControl;component/nbfc.ico"
-        WindowStartupLocation="CenterScreen" StateChanged="window_StateChanged" Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen" 
+        StateChanged="window_StateChanged" 
+        Closing="Window_Closing"
         d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
 
     <Grid>
@@ -22,21 +28,45 @@
         <Rectangle Fill="White" Margin="0,40,0,0"/>
 
         <!--Config selector-->
-        <Button x:Name="selectConfig" Content="..." Margin="0,7,10,0" VerticalAlignment="Top" 
-                HorizontalAlignment="Right" Width="30" Height="23" Click="selectConfig_Click" ToolTip="Select a config"/>
+        <Button x:Name="selectConfig" 
+                Content="..." 
+                Margin="0,7,10,0" 
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
+                Width="30" 
+                Height="23" 
+                Click="selectConfig_Click" 
+                ToolTip="Select a config"/>
 
-        <Label Content="Selected config:" HorizontalAlignment="Left" Margin="3,4,0,0" 
-               VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Selected config:" 
+               HorizontalAlignment="Left" 
+               Margin="3,4,0,0" 
+               VerticalAlignment="Top" 
+               FontWeight="Bold"/>
 
-        <TextBox Text="{Binding SelectedConfig}" Height="23" Margin="121,7,55,0" 
-                 TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"/>
+        <TextBox Text="{Binding SelectedConfig}" 
+                 Height="23" 
+                 Margin="121,7,55,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 IsReadOnly="True"/>
         
         <!--Version-->
-        <Label Content="{Binding Version}" Margin="0,43,8,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" HorizontalAlignment="Right" FontFamily="Segoe UI Light"/>
+        <Label Content="{Binding Version}" 
+               Margin="0,43,8,0" 
+               VerticalAlignment="Top" 
+               Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" 
+               HorizontalAlignment="Right" 
+               FontFamily="Segoe UI Light"/>
         
         <!--Service info-->
-        <CheckBox Content="  :Fan control service enabled" HorizontalAlignment="Left" Margin="12,53,0,0" VerticalAlignment="Top" 
-                  FlowDirection="RightToLeft" IsChecked="{Binding IsServiceAvailable}" Click="CheckBox_Click">
+        <CheckBox Content="  :Fan control service enabled" 
+                  HorizontalAlignment="Left" 
+                  Margin="12,53,0,0" 
+                  VerticalAlignment="Top" 
+                  FlowDirection="RightToLeft" 
+                  IsChecked="{Binding IsServiceAvailable}" 
+                  Click="CheckBox_Click">
             <CheckBox.Resources>
                 <Style TargetType="{x:Type Path}">
                     <Setter Property="FlowDirection" Value="LeftToRight"/>
@@ -44,17 +74,21 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <Label Content="{Binding CpuTemperature}" ContentStringFormat="CPU temperature:  {0}°C" 
-               HorizontalAlignment="Left" Margin="8,77,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding CpuTemperature}" 
+               ContentStringFormat="CPU temperature:  {0}°C" 
+               HorizontalAlignment="Left" 
+               Margin="8,77,0,0" 
+               VerticalAlignment="Top"/>
 
         <!--Fan info-->
-        <ScrollViewer Margin="10,117,10,45" DataContext="{Binding FanControllers}" 
+        <ScrollViewer Margin="10,117,10,45" 
+                      DataContext="{Binding FanControllers}" 
                       d:DataContext="{d:DesignData /DesignData/FanControllerCollection.xaml}" >
             <ItemsControl ItemsSource="{Binding}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5,10,5">
-                            <uc:FanController/>
+                            <uc:FanController Background="{Binding}"/>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -62,13 +96,23 @@
         </ScrollViewer>
 
         <!--Settings-->
-        <Button x:Name="settings" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="20" HorizontalAlignment="Right" 
-                Width="20" Click="settings_Click" Padding="2" ToolTip="Settings">
+        <Button x:Name="settings" 
+                Margin="0,0,10,10" 
+                VerticalAlignment="Bottom" 
+                Height="20" 
+                HorizontalAlignment="Right" 
+                Width="20" 
+                Click="settings_Click" 
+                Padding="2" 
+                ToolTip="Settings">
             <Image Source="{StaticResource settings}"/>
         </Button>
 
         <!--Donation-->
-        <TextBlock Margin="10,0,0,14" VerticalAlignment="Bottom" HorizontalAlignment="Left" ToolTip="Please click here if you want to support me with a small donation via PayPal">            
+        <TextBlock Margin="10,0,0,14" 
+                   VerticalAlignment="Bottom" 
+                   HorizontalAlignment="Left" 
+                   ToolTip="Please click here if you want to support me with a small donation via PayPal">            
             <Hyperlink NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=HUALCC9HY9MKC"
                        RequestNavigate="donationLink_RequestNavigate">
                 If you like my work, click here to buy me a beer :)
@@ -76,7 +120,8 @@
         </TextBlock>
 
         <!--Notify icon-->
-        <tb:TaskbarIcon x:Name="notifyIcon" IconSource="/NoteBookFanControl;component/nbfc.ico"
+        <tb:TaskbarIcon x:Name="notifyIcon" 
+                        IconSource="/NoteBookFanControl;component/nbfc.ico"
                         TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>

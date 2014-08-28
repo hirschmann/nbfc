@@ -4,12 +4,20 @@
   <!--Includes-->
   <?include $(var.ProjectDir)Constants.wxi ?>
 
-  <Product Id="*" Name="$(var.ProductName)" Version="$(var.Version)" Language="1033" Codepage="1252"
-           Manufacturer="$(var.Manufacturer)"  UpgradeCode="$(var.UpgradeGuid)">
+  <Product Id="*" Name="$(var.ProductName)" 
+           Version="$(var.Version)" 
+           Language="1033" 
+           Codepage="1252"
+           Manufacturer="$(var.Manufacturer)"  
+           UpgradeCode="$(var.UpgradeGuid)">
 
     <!--Package-->
-    <Package InstallerVersion="300" Compressed="yes"  Id="*" InstallScope="perMachine"
-             Manufacturer="$(var.Manufacturer)" Description="$(var.ProductName) Installer"/>
+    <Package InstallerVersion="300" 
+             Compressed="yes"  
+             Id="*" 
+             InstallScope="perMachine"
+             Manufacturer="$(var.Manufacturer)" 
+             Description="$(var.ProductName) Installer"/>
 
     <!--Upgrade-->
     <MajorUpgrade Schedule="afterInstallInitialize"
@@ -32,17 +40,38 @@
     <Property Id="ARPPRODUCTICON" Value="Nbfc.ico" />
 
     <!--DriverSetupAction-->
-    <Binary Id="DriverSetupWixAction.CA.dll" SourceFile="$(var.DriverSetupWixAction.TargetDir)DriverSetupWixAction.CA.dll"/>
-    <CustomAction Id="InstallDriver" BinaryKey="DriverSetupWixAction.CA.dll" DllEntry="InstallDriver" Execute="deferred"
-                  Impersonate="no" Return="check" HideTarget="no" TerminalServerAware="no"/>
-    <CustomAction Id="UninstallDriver" BinaryKey="DriverSetupWixAction.CA.dll" DllEntry="UninstallDriver" Execute="deferred"
-                  Impersonate="no" Return="ignore" HideTarget="no" TerminalServerAware="no"/>
+    <Binary Id="DriverSetupWixAction.CA.dll" 
+            SourceFile="$(var.DriverSetupWixAction.TargetDir)DriverSetupWixAction.CA.dll"/>
+    <CustomAction Id="InstallDriver" 
+                  BinaryKey="DriverSetupWixAction.CA.dll" 
+                  DllEntry="InstallDriver" 
+                  Execute="deferred"
+                  Impersonate="no" 
+                  Return="check" 
+                  HideTarget="no" 
+                  TerminalServerAware="no"/>
+    
+    <CustomAction Id="UninstallDriver" 
+                  BinaryKey="DriverSetupWixAction.CA.dll" 
+                  DllEntry="UninstallDriver" 
+                  Execute="deferred"
+                  Impersonate="no" 
+                  Return="ignore" 
+                  HideTarget="no" 
+                  TerminalServerAware="no"/>
 
     <!--Set custom action properties-->
-    <CustomAction Id="SetInstallFolderForInstallDriver" Property="InstallDriver" Value="INSTALLFOLDER=[INSTALLFOLDER]"
-                  Return="check" Execute="immediate"/>
-    <CustomAction Id="SetInstallFolderForUninstallDriver" Property="UninstallDriver" Value="INSTALLFOLDER=[INSTALLFOLDER]"
-                  Return="check" Execute="immediate"/>
+    <CustomAction Id="SetInstallFolderForInstallDriver" 
+                  Property="InstallDriver" 
+                  Value="INSTALLFOLDER=[INSTALLFOLDER]"
+                  Return="check" 
+                  Execute="immediate"/>
+    
+    <CustomAction Id="SetInstallFolderForUninstallDriver" 
+                  Property="UninstallDriver" 
+                  Value="INSTALLFOLDER=[INSTALLFOLDER]"
+                  Return="check" 
+                  Execute="immediate"/>
 
     <!--Do actions-->
     <InstallExecuteSequence>

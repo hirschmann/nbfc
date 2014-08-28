@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:NbfcClient.ViewModels"             
              
-             mc:Ignorable="d"  Height="140" d:DesignHeight="140" d:DesignWidth="343" Background="Transparent"
+             mc:Ignorable="d"  
+             Height="140" 
+             Background="White"
+             d:DesignHeight="140" 
+             d:DesignWidth="343"             
              d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
-    
-    <GroupBox Background="Transparent" FontWeight="Bold">
+
+    <GroupBox Background="{Binding}" FontWeight="Bold">
         <GroupBox.Header>
             <MultiBinding Converter="{StaticResource displayNameConverter}">
                 <Binding Path="FanDisplayName"/>
