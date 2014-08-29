@@ -1,23 +1,31 @@
 ﻿using StagWare.FanControl.Plugins;
+using StagWare.Hardware.LPC;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace StagWare.Linux.NbfcPlugins
 {
     [Export(typeof(IEmbeddedController))]
-    [FanControlPluginMetadata("StagWare.Linux.EmbeddedController", PlatformID.Unix, MinOSVersion = "13.0")]
-    public class EmbeddedController : IEmbeddedController
+    [FanControlPluginMetadata("StagWare.Linux.EmbeddedController", PlatformID.Unix, MinOSVersion = "3.10")]
+    public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
     {
-        public bool IsInitialized
-        {
-            get;
-            private set;
-        }
+        #region Constants
+
+        const string PortFilePath = "/dev/port";
+        private const int MaxRetries = 10;
+
+        #endregion
+
+        #region Private Fields
+
+        private FileStream stream;
+
+        #endregion
+
+        #region IEmbeddedController implementation
+
+        public bool IsInitialized { get; private set; }
 
         public void Initialize()
         {
@@ -26,40 +34,115 @@ namespace StagWare.Linux.NbfcPlugins
 
         public void WriteByte(byte register, byte value)
         {
-            Debug.WriteLine(string.Format("WriteByte: {0} => {1}", value, register));
+            int writes = 0;
+
+            while (writes < MaxRetries)
+            {
+                if (TryWriteByte(register, value))
+                {
+                    return;
+                }
+
+                writes++;
+            }
         }
 
         public void WriteWord(byte register, ushort value)
         {
-            Debug.WriteLine(string.Format("WriteWord: {0} => {1}", value, register));
+            int writes = 0;
+
+            while (writes < MaxRetries)
+            {
+                if (TryWriteWord(register, value))
+                {
+                    return;
+                }
+
+                writes++;
+            }
         }
 
         public byte ReadByte(byte register)
         {
-            Debug.WriteLine(string.Format("ReadByte: {0}", register));
-            return 0;
+            byte result = 0;
+            int reads = 0;
+
+            while (reads < MaxRetries)
+            {
+                if (TryReadByte(register, out result))
+                {
+                    return result;
+                }
+
+                reads++;
+            }
+
+            return result;
         }
 
         public ushort ReadWord(byte register)
         {
-            Debug.WriteLine(string.Format("ReadWord: {0}", register));
-            return 0;
+            int result = 0;
+            int reads = 0;
+
+            while (reads < MaxRetries)
+            {
+                if (TryReadWord(register, out result))
+                {
+                    return (ushort)result;
+                }
+
+                reads++;
+            }
+
+            return (ushort)result;
         }
 
         public bool AquireLock(int timeout)
         {
-            Debug.WriteLine("AquireLock");
-            return true;
+            bool success = false;
+
+            try
+            {
+                this.stream = File.Open(PortFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch
+            {
+            }
+
+            return success;
         }
 
         public void ReleaseLock()
         {
-            Debug.WriteLine("ReleaseLock");
+            if (this.stream != null)
+            {
+                this.stream.Dispose();
+                this.stream = null;
+            }
         }
 
         public void Dispose()
         {
-            Debug.WriteLine("Dispose EmbeddedController");
+            ReleaseLock();
         }
+
+        #endregion
+
+        #region EmbeddedControllerBase implementation
+
+        protected override void WritePort(int port, byte value)
+        {
+            this.stream.Seek(port, SeekOrigin.Begin);
+            this.stream.WriteByte(value);
+        }
+
+        protected override byte ReadPort(int port)
+        {
+            this.stream.Seek(port, SeekOrigin.Begin);
+            return (byte)this.stream.ReadByte();
+        }
+
+        #endregion
     }
 }

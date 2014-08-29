@@ -38,7 +38,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.BiosInfo", "Window
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Windows.NbfcPlugins", "Libraries\Plugins\StagWare.Windows.NbfcPlugins\StagWare.Windows.NbfcPlugins.csproj", "{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Linux.NbfcPlugins", "C:\Users\Stefan\Documents\Visual Studio 2012\Projects\Desktop\NoteBookFanControl\Libraries\Plugins\StagWare.Linux.NbfcPlugins\StagWare.Linux.NbfcPlugins.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Linux.NbfcPlugins", "Libraries\Plugins\StagWare.Linux.NbfcPlugins\StagWare.Linux.NbfcPlugins.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

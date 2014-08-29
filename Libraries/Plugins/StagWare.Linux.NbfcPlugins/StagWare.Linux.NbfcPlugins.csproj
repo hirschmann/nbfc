@@ -48,9 +48,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Libraries\StagWare.FanControl\StagWare.FanControl.csproj">
+    <ProjectReference Include="..\..\StagWare.FanControl\StagWare.FanControl.csproj">
       <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
       <Name>StagWare.FanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
+      <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
+      <Name>StagWare.Hardware.LPC</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
