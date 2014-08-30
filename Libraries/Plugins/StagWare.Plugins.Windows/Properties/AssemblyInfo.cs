@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.Windows.NbfcPlugins")]
+[assembly: AssemblyTitle("StagWare.Plugins.Windows")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StagWare")]
-[assembly: AssemblyProduct("StagWare.Windows.NbfcPlugins")]
+[assembly: AssemblyProduct("StagWare.Plugins.Windows")]
 [assembly: AssemblyCopyright("Copyright © 2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

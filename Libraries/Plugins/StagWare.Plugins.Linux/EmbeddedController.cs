@@ -4,7 +4,7 @@ using StagWare.Hardware.LPC;
 using System;
 using System.ComponentModel.Composition;
 
-namespace StagWare.Linux.NbfcPlugins
+namespace StagWare.Plugins.Linux
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(

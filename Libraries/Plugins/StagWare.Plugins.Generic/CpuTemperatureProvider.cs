@@ -1,8 +1,9 @@
 ﻿using StagWare.FanControl.Plugins;
+using StagWare.Hardware;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
-namespace StagWare.Windows.CpuTempProvider
+namespace StagWare.Plugins.Generic
 {
     [Export(typeof(ITemperatureProvider))]
     [FanControlPluginMetadata(

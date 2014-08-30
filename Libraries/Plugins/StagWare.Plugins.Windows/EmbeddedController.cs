@@ -1,8 +1,9 @@
 ﻿using StagWare.FanControl.Plugins;
 using StagWare.Hardware.LPC;
+using StagWare.Hardware;
 using System.ComponentModel.Composition;
 
-namespace StagWare.Windows.EmbeddedController
+namespace StagWare.Plugins.Windows
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(

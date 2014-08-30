@@ -4,14 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}</ProjectGuid>
+    <ProjectGuid>{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StagWare.Linux.NbfcPlugins</RootNamespace>
-    <AssemblyName>StagWare.Linux.NbfcPlugins</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>StagWare.Plugins.Windows</RootNamespace>
+    <AssemblyName>StagWare.Plugins.Windows</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Mono</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,10 +29,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Posix" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -55,6 +52,10 @@
     <ProjectReference Include="..\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
       <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
       <Name>StagWare.Hardware.LPC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Hardware\StagWare.Hardware.csproj">
+      <Project>{66bae497-003d-4f8a-b26e-de5fa3361d38}</Project>
+      <Name>StagWare.Hardware</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

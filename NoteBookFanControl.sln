@@ -36,11 +36,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware.LPC", "Li
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.BiosInfo", "Windows\StagWare.BiosInfo\StagWare.BiosInfo.csproj", "{B45BBD0F-9345-4EC8-B70D-8369659DA3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Windows.NbfcPlugins", "Libraries\Plugins\StagWare.Windows.NbfcPlugins\StagWare.Windows.NbfcPlugins.csproj", "{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Windows", "Libraries\Plugins\StagWare.Plugins.Windows\StagWare.Plugins.Windows.csproj", "{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Linux.NbfcPlugins", "Libraries\Plugins\StagWare.Linux.NbfcPlugins\StagWare.Linux.NbfcPlugins.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Linux", "Libraries\Plugins\StagWare.Plugins.Linux\StagWare.Plugins.Linux.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware", "Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj", "{66BAE497-003D-4F8A-B26E-DE5FA3361D38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Generic", "Libraries\Plugins\StagWare.Plugins.Generic\StagWare.Plugins.Generic.csproj", "{281A8541-1845-44DF-BBB9-3E0934C753A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,7 +302,6 @@ Global
 		{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}.Release|x64.ActiveCfg = Release|Any CPU
 		{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}.Release|x86.ActiveCfg = Release|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -334,6 +335,24 @@ Global
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.Release|x64.ActiveCfg = Release|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.Release|x86.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|Any CPU.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|Any CPU.Build.0 = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|Mixed Platforms.Build.0 = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|x64.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release Mono|x86.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|x64.ActiveCfg = Release|Any CPU
+		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -356,5 +375,6 @@ Global
 		{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
+		{281A8541-1845-44DF-BBB9-3E0934C753A3} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 	EndGlobalSection
 EndGlobal

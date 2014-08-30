@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StagWare.Windows
+namespace StagWare.Hardware
 {
     public sealed class HardwareMonitor
     {
