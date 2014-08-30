@@ -39,6 +39,7 @@ namespace StagWare.Hardware.LPC
         const int RWTimeout = 500;      // spins
         const int IsaBusTimeout = 100;  // ms
         const int WaitReadFailsLimit = 20;
+        const int MaxRetries = 5;
 
         #endregion
 
@@ -51,7 +52,80 @@ namespace StagWare.Hardware.LPC
 
         #region Public Methods
 
-        public bool TryReadByte(byte register, out byte value)
+        public virtual void WriteByte(byte register, byte value)
+        {
+            int writes = 0;
+
+            while (writes < MaxRetries)
+            {
+                if (TryWriteByte(register, value))
+                {
+                    return;
+                }
+
+                writes++;
+            }
+        }
+
+        public virtual void WriteWord(byte register, ushort value)
+        {
+            int writes = 0;
+
+            while (writes < MaxRetries)
+            {
+                if (TryWriteWord(register, value))
+                {
+                    return;
+                }
+
+                writes++;
+            }
+        }
+
+        public virtual byte ReadByte(byte register)
+        {
+            byte result = 0;
+            int reads = 0;
+
+            while (reads < MaxRetries)
+            {
+                if (TryReadByte(register, out result))
+                {
+                    return result;
+                }
+
+                reads++;
+            }
+
+            return result;
+        }
+
+        public virtual ushort ReadWord(byte register)
+        {
+            int result = 0;
+            int reads = 0;
+
+            while (reads < MaxRetries)
+            {
+                if (TryReadWord(register, out result))
+                {
+                    return (ushort)result;
+                }
+
+                reads++;
+            }
+
+            return (ushort)result;
+        }
+
+        #endregion
+
+        #region Protected Methods
+
+        protected abstract void WritePort(int port, byte value);
+        protected abstract byte ReadPort(int port);
+
+        protected bool TryReadByte(byte register, out byte value)
         {
             if (WaitFree())
             {
@@ -73,7 +147,7 @@ namespace StagWare.Hardware.LPC
             return false;
         }
 
-        public bool TryWriteByte(byte register, byte value)
+        protected bool TryWriteByte(byte register, byte value)
         {
             if (WaitFree())
             {
@@ -98,7 +172,7 @@ namespace StagWare.Hardware.LPC
             return false;
         }
 
-        public bool TryReadWord(byte register, out int value)
+        protected bool TryReadWord(byte register, out int value)
         {
             //Byte order: little endian
 
@@ -122,7 +196,7 @@ namespace StagWare.Hardware.LPC
             return true;
         }
 
-        public bool TryWriteWord(byte register, int value)
+        protected bool TryWriteWord(byte register, int value)
         {
             //Byte order: little endian
 
@@ -143,13 +217,6 @@ namespace StagWare.Hardware.LPC
 
             return true;
         }
-
-        #endregion
-
-        #region Protected Methods
-
-        protected abstract void WritePort(int port, byte value);
-        protected abstract byte ReadPort(int port);
 
         #endregion
 

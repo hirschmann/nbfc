@@ -16,10 +16,43 @@ namespace StagWare.FanControl.Plugins
                 if (fanControlPlugin == null)
                 {
                     OperatingSystem os = Environment.OSVersion;
+                    var platform = SupportedPlatforms.None;
+                    var arch = SupportedCpuArchitectures.None;
+
+                    switch (os.Platform)
+                    {
+                        case PlatformID.Win32NT:
+                            platform = SupportedPlatforms.Windows;
+                            break;
+
+                        case PlatformID.Unix:
+                            platform = SupportedPlatforms.Unix;
+                            break;
+
+                        case PlatformID.MacOSX:
+                            platform = SupportedPlatforms.MacOSX;
+                            break;
+                    }
+
+                    switch (IntPtr.Size)
+                    {
+                        case 4:
+                            arch = SupportedCpuArchitectures.x86;
+                            break;
+
+                        case 8:
+                            arch = SupportedCpuArchitectures.x64;
+                            break;
+                    }
 
                     foreach (Lazy<T, IFanControlPluginMetadata> l in this.Plugins)
                     {
-                        if (l.Metadata.PlatformId != os.Platform)
+                        if (!l.Metadata.SupportedPlatforms.HasFlag(platform))
+                        {
+                            continue;
+                        }
+
+                        if (!l.Metadata.SupportedCpuArchitectures.HasFlag(arch))
                         {
                             continue;
                         }
@@ -28,18 +61,12 @@ namespace StagWare.FanControl.Plugins
 
                         if (Version.TryParse(l.Metadata.MinOSVersion, out version)
                             && version > os.Version)
-                        {
+                        {                            
                             continue;
                         }
 
                         if (Version.TryParse(l.Metadata.MaxOSVersion, out version)
                             && version < os.Version)
-                        {
-                            continue;
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(l.Metadata.PlatformString)
-                            && os.VersionString.Contains(l.Metadata.PlatformString))
                         {
                             continue;
                         }

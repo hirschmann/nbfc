@@ -7,15 +7,13 @@ using System.ComponentModel.Composition;
 namespace StagWare.Windows.EmbeddedController
 {
     [Export(typeof(IEmbeddedController))]
-    [FanControlPluginMetadata("StagWare.Windows.EmbeddedController", PlatformID.Win32NT, MinOSVersion = "5.0")]
+    [FanControlPluginMetadata(
+        "StagWare.Windows.EmbeddedController", 
+        SupportedPlatforms.Windows,
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        MinOSVersion = "5.0")]
     public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
     {
-        #region Constants
-
-        private const int MaxRetries = 10;
-
-        #endregion
-
         #region Private Fields
 
         HardwareMonitor hwMon;
@@ -33,72 +31,6 @@ namespace StagWare.Windows.EmbeddedController
                 this.hwMon = HardwareMonitor.Instance;
                 this.IsInitialized = true;
             }
-        }
-
-        public void WriteByte(byte register, byte value)
-        {
-            int writes = 0;
-
-            while (writes < MaxRetries)
-            {
-                if (TryWriteByte(register, value))
-                {
-                    return;
-                }
-
-                writes++;
-            }
-        }
-
-        public void WriteWord(byte register, ushort value)
-        {
-            int writes = 0;
-
-            while (writes < MaxRetries)
-            {
-                if (TryWriteWord(register, value))
-                {
-                    return;
-                }
-
-                writes++;
-            }
-        }
-
-        public byte ReadByte(byte register)
-        {
-            byte result = 0;
-            int reads = 0;
-
-            while (reads < MaxRetries)
-            {
-                if (TryReadByte(register, out result))
-                {
-                    return result;
-                }
-
-                reads++;
-            }
-
-            return result;
-        }
-
-        public ushort ReadWord(byte register)
-        {
-            int result = 0;
-            int reads = 0;
-
-            while (reads < MaxRetries)
-            {
-                if (TryReadWord(register, out result))
-                {
-                    return (ushort)result;
-                }
-
-                reads++;
-            }
-
-            return (ushort)result;
         }
 
         public bool AquireLock(int timeout)

@@ -10,17 +10,20 @@ namespace StagWare.FanControl.Plugins
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class FanControlPluginMetadataAttribute : ExportAttribute
     {
-        public FanControlPluginMetadataAttribute(string uniqueId, PlatformID id)
+        public FanControlPluginMetadataAttribute(
+            string uniqueId, 
+            SupportedPlatforms supportedPlatforms,
+            SupportedCpuArchitectures supportedCpuArchitectures)
             : base(typeof(IFanControlPluginMetadata))
         {
             this.UniqueId = uniqueId;
-            this.PlatformId = id;
+            this.SupportedPlatforms = supportedPlatforms;
         }
 
         public string UniqueId { get; set; }
         public string MinOSVersion { get; set; }
         public string MaxOSVersion { get; set; }
-        public PlatformID PlatformId { get; set; }
-        public string PlatformString { get; set; }
+        public SupportedPlatforms SupportedPlatforms { get; set; }
+        public SupportedCpuArchitectures SupportedCpuArchitectures { get; set; }
     }
 }

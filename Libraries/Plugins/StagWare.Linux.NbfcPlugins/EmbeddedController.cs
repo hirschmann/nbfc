@@ -3,23 +3,27 @@ using StagWare.Hardware.LPC;
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
+using Mono.Unix.Native;
 
 namespace StagWare.Linux.NbfcPlugins
 {
     [Export(typeof(IEmbeddedController))]
-    [FanControlPluginMetadata("StagWare.Linux.EmbeddedController", PlatformID.Unix, MinOSVersion = "3.10")]
+    [FanControlPluginMetadata(
+        "StagWare.Linux.EmbeddedController", 
+        SupportedPlatforms.Unix,
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        MinOSVersion = "3.10")]
     public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
     {
         #region Constants
 
         const string PortFilePath = "/dev/port";
-        private const int MaxRetries = 10;
 
         #endregion
 
         #region Private Fields
 
-        private FileStream stream;
+        private int fileDescriptor;
 
         #endregion
 
@@ -29,96 +33,30 @@ namespace StagWare.Linux.NbfcPlugins
 
         public void Initialize()
         {
-            this.IsInitialized = true;
-        }
-
-        public void WriteByte(byte register, byte value)
-        {
-            int writes = 0;
-
-            while (writes < MaxRetries)
+            if (!this.IsInitialized)
             {
-                if (TryWriteByte(register, value))
-                {
-                    return;
-                }
-
-                writes++;
+                this.fileDescriptor = -1;
+                this.IsInitialized = true;
             }
-        }
-
-        public void WriteWord(byte register, ushort value)
-        {
-            int writes = 0;
-
-            while (writes < MaxRetries)
-            {
-                if (TryWriteWord(register, value))
-                {
-                    return;
-                }
-
-                writes++;
-            }
-        }
-
-        public byte ReadByte(byte register)
-        {
-            byte result = 0;
-            int reads = 0;
-
-            while (reads < MaxRetries)
-            {
-                if (TryReadByte(register, out result))
-                {
-                    return result;
-                }
-
-                reads++;
-            }
-
-            return result;
-        }
-
-        public ushort ReadWord(byte register)
-        {
-            int result = 0;
-            int reads = 0;
-
-            while (reads < MaxRetries)
-            {
-                if (TryReadWord(register, out result))
-                {
-                    return (ushort)result;
-                }
-
-                reads++;
-            }
-
-            return (ushort)result;
         }
 
         public bool AquireLock(int timeout)
         {
-            bool success = false;
-
-            try
+            if (this.fileDescriptor != -1)
             {
-                this.stream = File.Open(PortFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
-            }
-            catch
-            {
+                throw new InvalidOperationException("Lock is already aquired.");
             }
 
-            return success;
+            this.fileDescriptor = Syscall.open(PortFilePath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
+            return this.fileDescriptor != -1;
         }
 
         public void ReleaseLock()
         {
-            if (this.stream != null)
+            if (this.fileDescriptor != -1)
             {
-                this.stream.Dispose();
-                this.stream = null;
+                Syscall.close(this.fileDescriptor);
+                this.fileDescriptor = -1;
             }
         }
 
@@ -133,14 +71,32 @@ namespace StagWare.Linux.NbfcPlugins
 
         protected override void WritePort(int port, byte value)
         {
-            this.stream.Seek(port, SeekOrigin.Begin);
-            this.stream.WriteByte(value);
+            Syscall.lseek(this.fileDescriptor, port, SeekFlags.SEEK_SET);
+            byte[] buffer = new byte[] { value };
+
+            unsafe
+            {
+                fixed (byte* p = buffer)
+                {
+                    Syscall.write(this.fileDescriptor, p, (ulong)buffer.Length);
+                }
+            }
         }
 
         protected override byte ReadPort(int port)
         {
-            this.stream.Seek(port, SeekOrigin.Begin);
-            return (byte)this.stream.ReadByte();
+            Syscall.lseek(this.fileDescriptor, port, SeekFlags.SEEK_SET);
+            byte[] buffer = new byte[1];
+
+            unsafe
+            {
+                fixed (byte* p = buffer)
+                {
+                    Syscall.read(this.fileDescriptor, p, (ulong)buffer.Length);
+                }
+            }
+
+            return buffer[0];
         }
 
         #endregion

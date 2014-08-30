@@ -7,7 +7,11 @@ using System.IO;
 namespace StagWare.Linux.NbfcPlugins
 {
     [Export(typeof(ITemperatureProvider))]
-    [FanControlPluginMetadata("StagWare.Linux.CpuTempProvider", PlatformID.Unix, MinOSVersion = "3.10")]
+    [FanControlPluginMetadata(
+        "StagWare.Linux.CpuTempProvider", 
+        SupportedPlatforms.Unix,
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        MinOSVersion = "3.10")]
     public class CpuTemperatureProvider : ITemperatureProvider
     {
         #region Constants

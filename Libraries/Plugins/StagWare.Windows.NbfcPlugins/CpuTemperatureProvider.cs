@@ -7,7 +7,11 @@ using System.ComponentModel.Composition;
 namespace StagWare.Windows.CpuTempProvider
 {
     [Export(typeof(ITemperatureProvider))]
-    [FanControlPluginMetadata("StagWare.Windows.CpuTempProvider", PlatformID.Win32NT, MinOSVersion = "5.0")]
+    [FanControlPluginMetadata(
+        "StagWare.Windows.CpuTempProvider", 
+        SupportedPlatforms.Windows | SupportedPlatforms.Unix,
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        MinOSVersion = "5.0")]
     public class CpuTemperatureProvider : ITemperatureProvider
     {
         #region Private Fields
