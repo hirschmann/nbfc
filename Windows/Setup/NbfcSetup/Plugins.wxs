@@ -9,18 +9,69 @@
   <Fragment>
     <ComponentGroup Id="Plugins" Directory="PluginsFolder">     
 
-      <Component Id="Plg.StagWare.Windows.NbfcPlugins" 
+      <Component Id="Plg.StagWare.Plugins.Windows" 
                  Guid="379F71BF-D1AC-4A94-BB69-60C93B16BE8C">
-        <File Id="StagWare.Windows.NbfcPlugins.dll" 
-              Name="StagWare.Windows.NbfcPlugins.dll" 
+        <File Id="StagWare.Plugins.Windows.dll" 
+              Name="StagWare.Plugins.Windows.dll" 
               DiskId="1" 
               Vital="yes" 
               KeyPath="yes"
-              Source="$(var.StagWare.Windows.NbfcPlugins.TargetDir)StagWare.Windows.NbfcPlugins.dll">
+              Source="$(var.StagWare.Plugins.Windows.TargetDir)StagWare.Plugins.Windows.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Windows.NbfcPlugins.NativeImage" 
+          <netfx:NativeImage Id="StagWare.Plugins.Windows.NativeImage" 
                              Priority="1" 
+                             Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.StagWare.Plugins.Linux"
+                 Guid="377B8D22-354D-411B-B6A8-2524FA071A5E">
+        <File Id="StagWare.Plugins.Linux.dll"
+              Name="StagWare.Plugins.Linux.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.StagWare.Plugins.Linux.TargetDir)StagWare.Plugins.Linux.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Plugins.Linux.NativeImage"
+                             Priority="1"
+                             Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.StagWare.Plugins.Generic"
+                 Guid="7144B706-1A57-4375-B58D-615E46A12E25">
+        <File Id="StagWare.Plugins.Generic.dll"
+              Name="StagWare.Plugins.Generic.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.StagWare.Plugins.Generic.TargetDir)StagWare.Plugins.Generic.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Plugins.Generic.NativeImage"
+                             Priority="1"
+                             Platform="all"/>
+          <?endif?>
+        </File>
+      </Component>
+
+      <Component Id="Plg.StagWare.Hardware"
+                 Guid="856CCAA5-A7C0-45E0-94BA-7184D8B1C033">
+        <File Id="StagWare.Hardware.dll"
+              Name="StagWare.Hardware.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.StagWare.Hardware.TargetDir)StagWare.Hardware.dll">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="StagWare.Hardware.NativeImage"
+                             Priority="1"
                              Platform="all"/>
           <?endif?>
         </File>
@@ -36,7 +87,7 @@
               Source="$(var.StagWare.Hardware.LPC.TargetDir)StagWare.Hardware.LPC.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Hardware.NativeImage" 
+          <netfx:NativeImage Id="StagWare.Hardware.LPC.NativeImage" 
                              Priority="1" 
                              Platform="all"/>
           <?endif?>
@@ -50,7 +101,7 @@
               DiskId="1" 
               Vital="yes" 
               KeyPath="yes"
-              Source="$(var.StagWare.Windows.NbfcPlugins.TargetDir)OpenHardwareMonitorLib.dll">
+              Source="$(var.StagWare.Plugins.Generic.TargetDir)OpenHardwareMonitorLib.dll">
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="OpenHardwareMonitorLib.NativeImage" 

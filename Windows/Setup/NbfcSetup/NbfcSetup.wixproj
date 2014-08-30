@@ -59,8 +59,32 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Windows.NbfcPlugins\StagWare.Windows.NbfcPlugins.csproj">
-      <Name>StagWare.Windows.NbfcPlugins</Name>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
+      <Name>StagWare.Hardware</Name>
+      <Project>{66bae497-003d-4f8a-b26e-de5fa3361d38}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Generic\StagWare.Plugins.Generic.csproj">
+      <Name>StagWare.Plugins.Generic</Name>
+      <Project>{281a8541-1845-44df-bbb9-3e0934c753a3}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Linux\StagWare.Plugins.Linux.csproj">
+      <Name>StagWare.Plugins.Linux</Name>
+      <Project>{0f5b3d05-7615-4e74-84e6-4f00fad0413c}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Windows\StagWare.Plugins.Windows.csproj">
+      <Name>StagWare.Plugins.Windows</Name>
       <Project>{6c6f4e15-fc36-4298-a7e9-83cd854bdfdb}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
