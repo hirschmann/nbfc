@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}</ProjectGuid>
+    <ProjectGuid>{66BAE497-003D-4F8A-B26E-DE5FA3361D38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StagWare.Windows.NbfcPlugins</RootNamespace>
-    <AssemblyName>StagWare.Windows.NbfcPlugins</AssemblyName>
+    <RootNamespace>StagWare.Hardware</RootNamespace>
+    <AssemblyName>StagWare.Hardware</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,22 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CpuTemperatureProvider.cs" />
-    <Compile Include="EmbeddedController.cs" />
+    <Compile Include="HardwareMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\StagWare.FanControl\StagWare.FanControl.csproj">
-      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
-      <Name>StagWare.FanControl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
-      <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
-      <Name>StagWare.Hardware.LPC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.Hardware\StagWare.Hardware.csproj">
-      <Project>{66bae497-003d-4f8a-b26e-de5fa3361d38}</Project>
-      <Name>StagWare.Hardware</Name>
+    <ProjectReference Include="..\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+      <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
+      <Name>OpenHardwareMonitorLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

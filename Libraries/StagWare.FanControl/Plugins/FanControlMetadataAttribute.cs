@@ -18,6 +18,7 @@ namespace StagWare.FanControl.Plugins
         {
             this.UniqueId = uniqueId;
             this.SupportedPlatforms = supportedPlatforms;
+            this.SupportedCpuArchitectures = supportedCpuArchitectures;
         }
 
         public string UniqueId { get; set; }

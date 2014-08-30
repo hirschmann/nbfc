@@ -1,7 +1,5 @@
-﻿using OpenHardwareMonitor.Hardware;
-using StagWare.FanControl.Plugins;
+﻿using StagWare.FanControl.Plugins;
 using StagWare.Hardware.LPC;
-using System;
 using System.ComponentModel.Composition;
 
 namespace StagWare.Windows.EmbeddedController

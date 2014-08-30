@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CpuTemperatureProvider.cs" />
     <Compile Include="EmbeddedController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

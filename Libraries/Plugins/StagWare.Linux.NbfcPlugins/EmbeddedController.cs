@@ -1,9 +1,8 @@
-﻿using StagWare.FanControl.Plugins;
+﻿using Mono.Unix.Native;
+using StagWare.FanControl.Plugins;
 using StagWare.Hardware.LPC;
 using System;
 using System.ComponentModel.Composition;
-using System.IO;
-using Mono.Unix.Native;
 
 namespace StagWare.Linux.NbfcPlugins
 {

@@ -1,6 +1,4 @@
-﻿using OpenHardwareMonitor.Hardware;
-using StagWare.FanControl.Plugins;
-using System;
+﻿using StagWare.FanControl.Plugins;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 
@@ -10,102 +8,48 @@ namespace StagWare.Windows.CpuTempProvider
     [FanControlPluginMetadata(
         "StagWare.Windows.CpuTempProvider", 
         SupportedPlatforms.Windows | SupportedPlatforms.Unix,
-        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
-        MinOSVersion = "5.0")]
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
     public class CpuTemperatureProvider : ITemperatureProvider
     {
         #region Private Fields
 
-        private IHardware cpu;
-        private ISensor[] cpuTempSensors;
+        private HardwareMonitor hwMon;
 
         #endregion
 
         #region ITemperatureProvider implementation
 
-        public bool IsInitialized { get; private set; }
+        public bool IsInitialized
+        {
+            get;
+            private set;
+        }
 
         public void Initialize()
         {
             if (!this.IsInitialized)
             {
-                this.cpu = HardwareMonitor.Instance.CPU;
-
-                if (this.cpu != null)
-                {
-                    this.cpuTempSensors = GetTemperatureSensors(cpu);
-                }
-
-                if (this.cpuTempSensors == null || this.cpuTempSensors.Length <= 0)
-                {
-                    try
-                    {
-                        Dispose();
-                    }
-                    finally
-                    {
-                        throw new PlatformNotSupportedException("No CPU temperature sensor(s) found.");
-                    }
-                }
-
                 this.IsInitialized = true;
+                this.hwMon = HardwareMonitor.Instance;
             }
         }
 
         public double GetTemperature()
         {
-            double temperatureSum = 0;
-            int count = 0;
-            this.cpu.Update();
+            KeyValuePair<string, double>[] temps = this.hwMon.CpuTemperatures;
 
-            foreach (ISensor sensor in this.cpuTempSensors)
+            double temperature = 0;
+
+            foreach (KeyValuePair<string, double> pair in temps)
             {
-                if (sensor.Value.HasValue)
-                {
-                    temperatureSum += sensor.Value.Value;
-                    count++;
-                }
+                temperature += pair.Value;
             }
 
-            return temperatureSum / count;
+            return temperature / temps.Length;
         }
 
         public void Dispose()
         {
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private static ISensor[] GetTemperatureSensors(IHardware cpu)
-        {
-            if (cpu == null)
-            {
-                throw new PlatformNotSupportedException("Failed to access CPU temperature sensors(s).");
-            }
-
-            var sensors = new List<ISensor>();
-            cpu.Update();
-
-            foreach (ISensor s in cpu.Sensors)
-            {
-                if (s.SensorType == SensorType.Temperature)
-                {
-                    string name = s.Name.ToUpper();
-
-                    if (name.Contains("PACKAGE") || name.Contains("TOTAL"))
-                    {
-                        return new ISensor[] { s };
-                    }
-                    else
-                    {
-                        sensors.Add(s);
-                    }
-                }
-            }
-
-            return sensors.ToArray();
         }
 
         #endregion
