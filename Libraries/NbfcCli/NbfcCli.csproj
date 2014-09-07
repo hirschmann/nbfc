@@ -36,9 +36,6 @@
     <StartupObject>NbfcCli.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine">
-      <HintPath>..\..\Windows\packages\CommandLineParser.1.9.71\lib\net40\CommandLine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -50,8 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineOptions\CommandLineOptions.cs" />
-    <Compile Include="CommandLineOptions\LoadVerbSubOptions.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\NbfcService\Reference.cs">
@@ -59,12 +55,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="CommandLineOptions\SetVerbSubOptions.cs" />
-    <Compile Include="CommandLineOptions\StatusVerbSubOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
     <None Include="Service References\NbfcService\NbfcCli.NbfcService.FanControlInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
