@@ -264,8 +264,6 @@ namespace NbfcClient
                     }
                 }
 
-                // TODO: Dispose unmanaged resources.
-
                 disposed = true;
             }
         }

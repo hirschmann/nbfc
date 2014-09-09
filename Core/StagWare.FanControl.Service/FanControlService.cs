@@ -20,7 +20,7 @@ namespace StagWare.FanControl.Service
 
         #region Private Fields
 
-        private static readonly string configsDirectory = Path.Combine(
+        private static readonly string ConfigsDirectory = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 ConfigsDirectoryName);
 
@@ -150,18 +150,25 @@ namespace StagWare.FanControl.Service
         {
             if (!this.disposed)
             {
-                //TODO: check if config exists
+                var cfgMan = new FanControlConfigManager(ConfigsDirectory);
 
-                Settings.Default.SelectedConfigId = configUniqueId;
-                Settings.Default.Save();
-
-                if (this.fanControl != null)
+                if (!cfgMan.Contains(configUniqueId))
                 {
-                    this.fanControl.Dispose();
-                    this.fanControl = null;
+                    throw new ArgumentException("The specified config does not exist.");
                 }
+                else
+                {
+                    Settings.Default.SelectedConfigId = configUniqueId;
+                    Settings.Default.Save();
 
-                Start();
+                    if (this.fanControl != null)
+                    {
+                        this.fanControl.Dispose();
+                        this.fanControl = null;
+                    }
+
+                    Start();
+                }
             }
         }
 
@@ -265,7 +272,7 @@ namespace StagWare.FanControl.Service
         private bool TryLoadConfig(out FanControlConfigV2 config)
         {
             bool result = false;
-            var configManager = new FanControlConfigManager(FanControlService.configsDirectory);
+            var configManager = new FanControlConfigManager(FanControlService.ConfigsDirectory);
             string id = Settings.Default.SelectedConfigId;
 
             if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
