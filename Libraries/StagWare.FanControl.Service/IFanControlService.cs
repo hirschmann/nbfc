@@ -24,5 +24,7 @@ namespace StagWare.FanControl.Service
 
         [OperationContract(IsOneWay = true)]
         void SetConfig(string uniqueConfigId);
+
+        //TODO: Add GetConfigNames()
     }
 }

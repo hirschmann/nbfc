@@ -55,6 +55,8 @@ namespace StagWare.FanControl.Service
         {
             if (!this.disposed && fanControl != null)
             {
+                //TODO: check if index is valid
+
                 fanControl.SetTargetFanSpeed(value, fanIndex);
             }
         }
@@ -148,6 +150,8 @@ namespace StagWare.FanControl.Service
         {
             if (!this.disposed)
             {
+                //TODO: check if config exists
+
                 Settings.Default.SelectedConfigId = configUniqueId;
                 Settings.Default.Save();
 
