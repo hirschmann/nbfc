@@ -3,12 +3,13 @@ using StagWare.FanControl.Plugins;
 using StagWare.Hardware.LPC;
 using System;
 using System.ComponentModel.Composition;
+using System.Threading;
 
 namespace StagWare.Plugins.Linux
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(
-        "StagWare.Linux.EmbeddedController", 
+        "StagWare.Linux.EmbeddedController",
         SupportedPlatforms.Unix,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
         MinOSVersion = "3.10")]
@@ -22,6 +23,7 @@ namespace StagWare.Plugins.Linux
 
         #region Private Fields
 
+        static readonly object syncRoot = new object();
         private int fileDescriptor;
 
         #endregion
@@ -41,21 +43,41 @@ namespace StagWare.Plugins.Linux
 
         public bool AquireLock(int timeout)
         {
-            if (this.fileDescriptor != -1)
+            bool success = false;
+
+            if (Monitor.TryEnter(syncRoot, timeout))
             {
-                throw new InvalidOperationException("Lock is already aquired.");
+                if (this.fileDescriptor == -1)
+                {
+                    try
+                    {
+                        this.fileDescriptor = Syscall.open(PortFilePath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
+                    }
+                    catch { }
+
+                    success = this.fileDescriptor != -1;
+
+                    if (!success)
+                    {
+                        Monitor.Exit(syncRoot);
+                    }
+                }
             }
 
-            this.fileDescriptor = Syscall.open(PortFilePath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
-            return this.fileDescriptor != -1;
+            return success;
         }
 
         public void ReleaseLock()
         {
-            if (this.fileDescriptor != -1)
+            if (Monitor.IsEntered(syncRoot))
             {
-                Syscall.close(this.fileDescriptor);
-                this.fileDescriptor = -1;
+                if (this.fileDescriptor != -1)
+                {
+                    Syscall.close(this.fileDescriptor);
+                    this.fileDescriptor = -1;
+                }
+
+                Monitor.Exit(syncRoot);
             }
         }
 
