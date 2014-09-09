@@ -223,7 +223,7 @@
     <WCFMetadataStorage Include="Service References\NbfcService\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+    <ProjectReference Include="..\..\Core\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
       <Name>StagWare.FanControl.Configurations</Name>
     </ProjectReference>

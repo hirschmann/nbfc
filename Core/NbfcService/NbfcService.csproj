@@ -106,7 +106,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Libraries\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
+    <ProjectReference Include="..\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Name>StagWare.FanControl.Service</Name>
     </ProjectReference>

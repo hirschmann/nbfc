@@ -46,7 +46,7 @@
     <Content Include="CustomAction.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Name>OpenHardwareMonitorLib</Name>
     </ProjectReference>

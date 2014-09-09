@@ -43,7 +43,23 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+    <ProjectReference Include="..\..\..\Core\NbfcCli\NbfcCli.csproj">
+      <Name>NbfcCli</Name>
+      <Project>{60a11809-e19b-46a2-8e91-bf6ada47bbc6}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\NbfcService\NbfcService.csproj">
+      <Name>NbfcService</Name>
+      <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
       <Name>OpenHardwareMonitorLib</Name>
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Private>True</Private>
@@ -51,7 +67,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Hardware.LPC\StagWare.Hardware.LPC.csproj">
       <Name>StagWare.Hardware.LPC</Name>
       <Project>{1d5d7c81-802f-46e0-913f-8519f157bc3c}</Project>
       <Private>True</Private>
@@ -59,7 +75,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Hardware\StagWare.Hardware.csproj">
       <Name>StagWare.Hardware</Name>
       <Project>{66bae497-003d-4f8a-b26e-de5fa3361d38}</Project>
       <Private>True</Private>
@@ -67,7 +83,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Generic\StagWare.Plugins.Generic.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Plugins.Generic\StagWare.Plugins.Generic.csproj">
       <Name>StagWare.Plugins.Generic</Name>
       <Project>{281a8541-1845-44df-bbb9-3e0934c753a3}</Project>
       <Private>True</Private>
@@ -75,7 +91,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Linux\StagWare.Plugins.Linux.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Plugins.Linux\StagWare.Plugins.Linux.csproj">
       <Name>StagWare.Plugins.Linux</Name>
       <Project>{0f5b3d05-7615-4e74-84e6-4f00fad0413c}</Project>
       <Private>True</Private>
@@ -83,7 +99,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\Plugins\StagWare.Plugins.Windows\StagWare.Plugins.Windows.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Plugins.Windows\StagWare.Plugins.Windows.csproj">
       <Name>StagWare.Plugins.Windows</Name>
       <Project>{6c6f4e15-fc36-4298-a7e9-83cd854bdfdb}</Project>
       <Private>True</Private>
@@ -91,7 +107,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
+    <ProjectReference Include="..\..\..\Core\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Name>StagWare.FanControl.Configurations</Name>
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
       <Private>True</Private>
@@ -99,7 +115,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
+    <ProjectReference Include="..\..\..\Core\StagWare.FanControl.Service\StagWare.FanControl.Service.csproj">
       <Name>StagWare.FanControl.Service</Name>
       <Project>{15b3e0d2-6217-493a-a690-158c497f5318}</Project>
       <Private>True</Private>
@@ -107,7 +123,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Libraries\StagWare.FanControl\StagWare.FanControl.csproj">
+    <ProjectReference Include="..\..\..\Core\StagWare.FanControl\StagWare.FanControl.csproj">
       <Name>StagWare.FanControl</Name>
       <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
       <Private>True</Private>
@@ -126,14 +142,6 @@
     <ProjectReference Include="..\..\NbfcClient\NbfcClient.csproj">
       <Name>NbfcClient</Name>
       <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\NbfcService\NbfcService.csproj">
-      <Name>NbfcService</Name>
-      <Project>{820abb59-7f86-4d7f-89c9-8f7da013d992}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
