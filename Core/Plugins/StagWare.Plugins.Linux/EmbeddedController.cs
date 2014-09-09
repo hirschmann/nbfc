@@ -11,8 +11,7 @@ namespace StagWare.Plugins.Linux
     [FanControlPluginMetadata(
         "StagWare.Linux.EmbeddedController",
         SupportedPlatforms.Unix,
-        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
-        MinOSVersion = "3.10")]
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
     public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
     {
         #region Constants
