@@ -27,7 +27,7 @@ namespace StagWare.Plugins.Linux
 
         #endregion
 
-        #region IEmbeddedController implementation
+        //#region IEmbeddedController implementation
 
         public bool IsInitialized { get; private set; }
 

@@ -27,6 +27,7 @@ namespace StagWare.FanControl.Service
         private FanControl fanControl;
         private string selectedConfig;
         private int[] fanSpeedSteps;
+        int fansCount;
 
         #endregion
 
@@ -55,9 +56,14 @@ namespace StagWare.FanControl.Service
         {
             if (!this.disposed && fanControl != null)
             {
-                //TODO: check if index is valid
-
-                fanControl.SetTargetFanSpeed(value, fanIndex);
+                if (fanIndex < 0 || fanIndex >= this.fansCount)
+                {
+                    throw new ArgumentOutOfRangeException("fanIndex");
+                }
+                else
+                {
+                    this.fanControl.SetTargetFanSpeed(value, fanIndex);
+                }
             }
         }
 
@@ -111,6 +117,7 @@ namespace StagWare.FanControl.Service
 
                         if (TryInitializeFanControl(cfg, out this.fanControl))
                         {
+                            this.fansCount = this.fanControl.FanInformation.Count;
                             this.fanControl.Start();
                             Settings.Default.AutoStart = this.fanControl.Enabled;
                             Settings.Default.Save();
