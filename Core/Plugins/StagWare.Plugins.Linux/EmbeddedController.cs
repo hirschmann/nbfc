@@ -1,8 +1,11 @@
-﻿using Mono.Unix.Native;
+﻿using Mono.Unix;
+using Mono.Unix.Native;
 using StagWare.FanControl.Plugins;
 using StagWare.Hardware.LPC;
-using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace StagWare.Plugins.Linux
@@ -23,11 +26,11 @@ namespace StagWare.Plugins.Linux
         #region Private Fields
 
         static readonly object syncRoot = new object();
-        private int fileDescriptor;
+        private UnixStream stream;
 
         #endregion
 
-        //#region IEmbeddedController implementation
+        #region IEmbeddedController implementation
 
         public bool IsInitialized { get; private set; }
 
@@ -35,7 +38,6 @@ namespace StagWare.Plugins.Linux
         {
             if (!this.IsInitialized)
             {
-                this.fileDescriptor = -1;
                 this.IsInitialized = true;
             }
         }
@@ -46,19 +48,21 @@ namespace StagWare.Plugins.Linux
 
             if (Monitor.TryEnter(syncRoot, timeout))
             {
-                if (this.fileDescriptor == -1)
+                if (this.stream == null)
                 {
-                    try
-                    {
-                        this.fileDescriptor = Syscall.open(PortFilePath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
-                    }
-                    catch { }
+                    int fd = Syscall.open(PortFilePath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
 
-                    success = this.fileDescriptor != -1;
-
-                    if (!success)
+                    if (fd == -1)
                     {
+                        var e = new Win32Exception(Marshal.GetLastWin32Error());
+                        Debug.WriteLine(string.Format("Error opening {0}: {1}", PortFilePath, e.Message));
+
                         Monitor.Exit(syncRoot);
+                    }
+                    else
+                    {
+                        this.stream = new UnixStream(fd);
+                        success = true;
                     }
                 }
             }
@@ -68,14 +72,16 @@ namespace StagWare.Plugins.Linux
 
         public void ReleaseLock()
         {
-            if (Monitor.IsEntered(syncRoot))
+            try
             {
-                if (this.fileDescriptor != -1)
+                if (this.stream != null)
                 {
-                    Syscall.close(this.fileDescriptor);
-                    this.fileDescriptor = -1;
+                    this.stream.Dispose();
+                    this.stream = null;
                 }
-
+            }
+            finally
+            {
                 Monitor.Exit(syncRoot);
             }
         }
@@ -91,30 +97,14 @@ namespace StagWare.Plugins.Linux
 
         protected override void WritePort(int port, byte value)
         {
-            Syscall.lseek(this.fileDescriptor, port, SeekFlags.SEEK_SET);
             byte[] buffer = new byte[] { value };
-
-            unsafe
-            {
-                fixed (byte* p = buffer)
-                {
-                    Syscall.write(this.fileDescriptor, p, (ulong)buffer.Length);
-                }
-            }
+            this.stream.WriteAtOffset(buffer, 0, buffer.Length, port);
         }
 
         protected override byte ReadPort(int port)
         {
-            Syscall.lseek(this.fileDescriptor, port, SeekFlags.SEEK_SET);
             byte[] buffer = new byte[1];
-
-            unsafe
-            {
-                fixed (byte* p = buffer)
-                {
-                    Syscall.read(this.fileDescriptor, p, (ulong)buffer.Length);
-                }
-            }
+            this.stream.ReadAtOffset(buffer, 0, buffer.Length, port);
 
             return buffer[0];
         }
