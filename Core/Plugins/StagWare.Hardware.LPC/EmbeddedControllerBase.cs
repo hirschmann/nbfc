@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace StagWare.Hardware.LPC
 {
@@ -37,16 +36,14 @@ namespace StagWare.Hardware.LPC
         const int DataPort = 0x62;       //EC_DATA
 
         const int RWTimeout = 500;      // spins
-        const int IsaBusTimeout = 100;  // ms
-        const int WaitReadFailsLimit = 20;
+        const int FailuresBeforeSkip = 20;
         const int MaxRetries = 5;
 
         #endregion
 
         #region Private Fields
 
-        int waitReadConsecFails = 0;
-        bool skipWaitRead = false;
+        int waitReadFailures = 0;
 
         #endregion
 
@@ -127,7 +124,7 @@ namespace StagWare.Hardware.LPC
 
         protected bool TryReadByte(byte register, out byte value)
         {
-            if (WaitFree())
+            if (WaitWrite())
             {
                 WritePort(CommandPort, (byte)ECCommand.Read);
 
@@ -135,7 +132,7 @@ namespace StagWare.Hardware.LPC
                 {
                     WritePort(DataPort, register);
 
-                    if (WaitWrite() && (skipWaitRead || WaitRead()))
+                    if (WaitWrite() && WaitRead())
                     {
                         value = ReadPort(DataPort);
                         return true;
@@ -149,7 +146,7 @@ namespace StagWare.Hardware.LPC
 
         protected bool TryWriteByte(byte register, byte value)
         {
-            if (WaitFree())
+            if (WaitWrite())
             {
                 WritePort(CommandPort, (byte)ECCommand.Write);
 
@@ -160,11 +157,7 @@ namespace StagWare.Hardware.LPC
                     if (WaitWrite())
                     {
                         WritePort(DataPort, value);
-
-                        if (WaitWrite())
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
@@ -224,67 +217,45 @@ namespace StagWare.Hardware.LPC
 
         private bool WaitRead()
         {
-            int timeout = RWTimeout;
-
-            while (timeout > 0)
+            if (waitReadFailures > FailuresBeforeSkip)
             {
-                var status = (ECStatus)ReadPort(CommandPort);
-
-                if (status.HasFlag(ECStatus.OutputBufferFull))
-                {
-                    waitReadConsecFails = 0;
-                    return true;
-                }
-
-                timeout--;
-                Thread.SpinWait(5);
+                return true;
             }
-
-            if (waitReadConsecFails > WaitReadFailsLimit)
+            else if (WaitForEcStatus(ECStatus.OutputBufferFull, true))
             {
-                skipWaitRead = true;
+                waitReadFailures = 0;
+                return true;
             }
-
-            waitReadConsecFails++;
-            return false;
+            else
+            {
+                waitReadFailures++;
+                return false;
+            }
         }
 
         private bool WaitWrite()
         {
-            int timeout = RWTimeout;
-
-            while (timeout > 0)
-            {
-                var status = (ECStatus)ReadPort(CommandPort);
-
-                if (!status.HasFlag(ECStatus.InputBufferFull))
-                {
-                    return true;
-                }
-
-                timeout--;
-                Thread.SpinWait(5);
-            }
-
-            return false;
+            return WaitForEcStatus(ECStatus.InputBufferFull, false);
         }
 
-        private bool WaitFree()
+        private bool WaitForEcStatus(ECStatus status, bool isSet)
         {
             int timeout = RWTimeout;
 
             while (timeout > 0)
             {
-                var status = (ECStatus)ReadPort(CommandPort);
+                timeout--;
+                byte value = ReadPort(CommandPort);
 
-                if (!status.HasFlag(ECStatus.InputBufferFull)
-                    && !status.HasFlag(ECStatus.OutputBufferFull))
+                if (isSet)
+                {
+                    value = (byte)~value;
+                }
+
+                if (((byte)status & value) == 0)
                 {
                     return true;
                 }
-
-                timeout--;
-                Thread.SpinWait(5);
             }
 
             return false;
