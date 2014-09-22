@@ -7,15 +7,16 @@ namespace StagWare.Hardware.LPC
         #region Enums
 
         // See ACPI specs ch.12.2
-        [Flags]
         enum ECStatus : byte
         {
             OutputBufferFull = 0x01,    // EC_OBF
             InputBufferFull = 0x02,     // EC_IBF
-            Command = 0x04,             // CMD
-            BurstMode = 0x08,           // BURST
-            SCIEventPending = 0x10,     // SCI_EVT
-            SMIEventPending = 0x20      // SMI_EVT
+            // 0x04 is ignored
+            Command = 0x08,             // CMD
+            BurstMode = 0x10,           // BURST
+            SCIEventPending = 0x20,     // SCI_EVT
+            SMIEventPending = 0x40      // SMI_EVT
+            // 0x80 is ignored
         }
 
         // See ACPI specs ch.12.3
