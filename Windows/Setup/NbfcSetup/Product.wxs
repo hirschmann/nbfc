@@ -31,13 +31,13 @@
     <!--.NET Framework check-->
     <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
 
-    <Condition Message="$(var.ProductName) requires .NET Framework 4.0.">
+    <Condition Message="$(var.ProductName) requires .NET Framework 4.0 Client Profile.">
       <![CDATA[NETFRAMEWORK40CLIENT]]>
     </Condition>
 
     <!--Program Icon-->
-    <Icon Id="Nbfc.ico" SourceFile="$(var.NbfcClient.ProjectDir)nbfc.ico" />
-    <Property Id="ARPPRODUCTICON" Value="Nbfc.ico" />
+    <Icon Id="fan.ico" SourceFile="$(var.NbfcClient.ProjectDir)fan.ico" />
+    <Property Id="ARPPRODUCTICON" Value="fan.ico" />
 
     <!--DriverSetupAction-->
     <Binary Id="DriverSetupWixAction.CA.dll" 

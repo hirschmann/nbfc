@@ -13,7 +13,7 @@
         Width="430" 
         MinWidth="350" 
         MinHeight="355"
-        Icon="/NoteBookFanControl;component/nbfc.ico"
+        Icon="/NoteBookFanControl;component/fan.ico"
         WindowStartupLocation="CenterScreen" 
         StateChanged="window_StateChanged" 
         Closing="Window_Closing"
@@ -121,7 +121,7 @@
 
         <!--Notify icon-->
         <tb:TaskbarIcon x:Name="notifyIcon" 
-                        IconSource="/NoteBookFanControl;component/nbfc.ico"
+                        IconSource="/NoteBookFanControl;component/fan.ico"
                         TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu>

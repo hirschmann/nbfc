@@ -4,7 +4,7 @@
         xmlns:vc="clr-namespace:ConfigEditor.ValueConverters"
         
         Title="Please enter config name" Height="170" Width="280" ResizeMode="NoResize" 
-        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/nbfc.ico">
+        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/fan.ico">
     
     <Window.Resources>
         <vc:BooleanToBrushConverter x:Key="boolToBrushConverter"/>

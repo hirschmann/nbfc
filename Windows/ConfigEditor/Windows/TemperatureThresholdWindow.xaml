@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         
-        Title="Temperature Threshold" Height="254" Width="320" Icon="/ConfigEditor;component/nbfc.ico"
+        Title="Temperature Threshold" Height="254" Width="320" Icon="/ConfigEditor;component/fan.ico"
         WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
 
     <Grid>

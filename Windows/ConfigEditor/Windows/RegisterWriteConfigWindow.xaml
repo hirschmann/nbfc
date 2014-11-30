@@ -6,7 +6,7 @@
         xmlns:cfg="clr-namespace:StagWare.FanControl.Configurations;assembly=StagWare.FanControl.Configurations"
         xmlns:wnd="clr-namespace:ConfigEditor.Windows"
         Title="Register write configuration" Height="370" Width="370"
-        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/nbfc.ico">
+        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/fan.ico">
 
     <wnd:NonModalDialogWindow.Resources>
         <ObjectDataProvider x:Key="registerWriteModeValues"

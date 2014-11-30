@@ -97,7 +97,7 @@
           <Shortcut Id="NbfcClientStartMenuShortcut" 
                     Directory="ProgramMenuProductFolder" 
                     Name="$(var.ProductName)"
-                    Icon="Nbfc.ico" 
+                    Icon="fan.ico" 
                     Advertise="yes" />
 
           <?if $(var.Configuration) = "Release"?>
@@ -136,7 +136,7 @@
           <Shortcut Id="ConfigEditorStartMenuShortcut" 
                     Directory="ProgramMenuProductFolder" 
                     Name="Config Editor"
-                    Icon="Nbfc.ico" 
+                    Icon="fan.ico" 
                     Advertise="yes" />
 
           <?if $(var.Configuration) = "Release"?>

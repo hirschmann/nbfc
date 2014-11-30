@@ -4,7 +4,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:b="clr-namespace:ConfigEditor.Behaviors"
         
-        Title="NoteBook FanControl - Config Editor" Height="420" Width="560" Icon="/ConfigEditor;component/nbfc.ico"
+        Title="NoteBook FanControl - Config Editor" Height="420" Width="560" Icon="/ConfigEditor;component/fan.ico"
         WindowStartupLocation="CenterScreen">
     
     <Window.Resources>

@@ -4,8 +4,11 @@
   <!--Includes-->
   <?include $(var.NbfcSetup.ProjectDir)Constants.wxi ?>
   
-  <Bundle Name="$(var.ProductName)" Version="$(var.Version)" Manufacturer="$(var.Manufacturer)" UpgradeCode="$(var.UpgradeGuid)"
-          IconSourceFile="$(var.NbfcClient.ProjectDir)nbfc.ico">
+  <Bundle Name="$(var.ProductName)" 
+          Version="$(var.Version)" 
+          Manufacturer="$(var.Manufacturer)" 
+          UpgradeCode="$(var.UpgradeGuid)"
+          IconSourceFile="$(var.NbfcClient.ProjectDir)fan.ico">
 
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
       <Payload SourceFile="$(var.ProjectDir)Resources\logoside.png" />

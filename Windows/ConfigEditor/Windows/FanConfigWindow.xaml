@@ -5,7 +5,7 @@
         xmlns:wnd="clr-namespace:ConfigEditor.Windows"
         xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         
-        Title="Fan configuration" Height="370" Width="400" Icon="/ConfigEditor;component/nbfc.ico"
+        Title="Fan configuration" Height="370" Width="400" Icon="/ConfigEditor;component/fan.ico"
         WindowStartupLocation="CenterOwner">
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">

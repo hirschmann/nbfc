@@ -7,7 +7,7 @@
         Width="346" 
         ResizeMode="NoResize" 
         WindowStartupLocation="CenterOwner" 
-        Icon="/NoteBookFanControl;component/nbfc.ico">
+        Icon="/NoteBookFanControl;component/fan.ico">
     <Grid>
         <ComboBox x:Name="configSelector" 
                   Margin="82,14,74,0" 
