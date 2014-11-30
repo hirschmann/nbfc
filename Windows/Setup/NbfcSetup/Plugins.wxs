@@ -9,51 +9,51 @@
   <Fragment>
     <ComponentGroup Id="Plugins" Directory="PluginsFolder">     
 
-      <Component Id="Plg.StagWare.Plugins.Windows" 
+      <Component Id="Plg.StagWare.Plugins.ECWindows" 
                  Guid="379F71BF-D1AC-4A94-BB69-60C93B16BE8C">
-        <File Id="StagWare.Plugins.Windows.dll" 
-              Name="StagWare.Plugins.Windows.dll" 
+        <File Id="StagWare.Plugins.ECWindows.dll" 
+              Name="StagWare.Plugins.ECWindows.dll" 
               DiskId="1" 
               Vital="yes" 
               KeyPath="yes"
-              Source="$(var.StagWare.Plugins.Windows.TargetDir)StagWare.Plugins.Windows.dll">
+              Source="$(var.StagWare.Plugins.ECWindows.TargetDir)StagWare.Plugins.ECWindows.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Plugins.Windows.NativeImage" 
+          <netfx:NativeImage Id="StagWare.Plugins.ECWindows.NativeImage" 
                              Priority="1" 
                              Platform="all"/>
           <?endif?>
         </File>
       </Component>
 
-      <Component Id="Plg.StagWare.Plugins.Linux"
+      <!--<Component Id="Plg.StagWare.Plugins.ECLinux"
                  Guid="377B8D22-354D-411B-B6A8-2524FA071A5E">
-        <File Id="StagWare.Plugins.Linux.dll"
-              Name="StagWare.Plugins.Linux.dll"
+        <File Id="StagWare.Plugins.ECLinux.dll"
+              Name="StagWare.Plugins.ECLinux.dll"
               DiskId="1"
               Vital="yes"
               KeyPath="yes"
-              Source="$(var.StagWare.Plugins.Linux.TargetDir)StagWare.Plugins.Linux.dll">
+              Source="$(var.StagWare.Plugins.ECLinux.TargetDir)StagWare.ECPlugins.Linux.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Plugins.Linux.NativeImage"
+          <netfx:NativeImage Id="StagWare.Plugins.ECLinux.NativeImage"
                              Priority="1"
                              Platform="all"/>
           <?endif?>
         </File>
-      </Component>
+      </Component>-->
 
-      <Component Id="Plg.StagWare.Plugins.Generic"
+      <Component Id="Plg.StagWare.Plugins.CpuTemperatureMonitor"
                  Guid="7144B706-1A57-4375-B58D-615E46A12E25">
-        <File Id="StagWare.Plugins.Generic.dll"
-              Name="StagWare.Plugins.Generic.dll"
+        <File Id="StagWare.Plugins.CpuTemperatureMonitor.dll"
+              Name="StagWare.Plugins.CpuTemperatureMonitor.dll"
               DiskId="1"
               Vital="yes"
               KeyPath="yes"
-              Source="$(var.StagWare.Plugins.Generic.TargetDir)StagWare.Plugins.Generic.dll">
+              Source="$(var.StagWare.Plugins.CpuTemperatureMonitor.TargetDir)StagWare.Plugins.CpuTemperatureMonitor.dll">
 
           <?if $(var.Configuration) = "Release"?>
-          <netfx:NativeImage Id="StagWare.Plugins.Generic.NativeImage"
+          <netfx:NativeImage Id="StagWare.Plugins.CpuTemperatureMonitor.NativeImage"
                              Priority="1"
                              Platform="all"/>
           <?endif?>
@@ -101,7 +101,7 @@
               DiskId="1" 
               Vital="yes" 
               KeyPath="yes"
-              Source="$(var.StagWare.Plugins.Generic.TargetDir)OpenHardwareMonitorLib.dll">
+              Source="$(var.StagWare.Plugins.CpuTemperatureMonitor.TargetDir)OpenHardwareMonitorLib.dll">
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="OpenHardwareMonitorLib.NativeImage" 

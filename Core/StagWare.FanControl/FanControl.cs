@@ -32,7 +32,7 @@ namespace StagWare.FanControl
         private readonly FanControlConfigV2 config;
 
         private readonly ITemperatureFilter tempFilter;
-        private readonly ITemperatureProvider tempProvider;
+        private readonly ITemperatureMonitor tempProvider;
         private readonly IEmbeddedController ec;
         private readonly FanSpeedManager[] fanSpeedManagers;
 
@@ -62,7 +62,7 @@ namespace StagWare.FanControl
         public FanControl(
             FanControlConfigV2 config,
             ITemperatureFilter tempFilter,
-            ITemperatureProvider tempProvider,
+            ITemperatureMonitor tempProvider,
             IEmbeddedController ec)
         {
             if (config == null)
@@ -133,9 +133,9 @@ namespace StagWare.FanControl
             return loader.FanControlPlugin;
         }
 
-        private static ITemperatureProvider LoadTempProviderPlugin(string pluginsPath)
+        private static ITemperatureMonitor LoadTempProviderPlugin(string pluginsPath)
         {
-            var loader = new FanControlPluginLoader<ITemperatureProvider>(pluginsPath);
+            var loader = new FanControlPluginLoader<ITemperatureMonitor>(pluginsPath);
             return loader.FanControlPlugin;
         }
 

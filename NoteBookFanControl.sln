@@ -36,13 +36,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware.LPC", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.BiosInfo", "Windows\StagWare.BiosInfo\StagWare.BiosInfo.csproj", "{B45BBD0F-9345-4EC8-B70D-8369659DA3B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Windows", "Core\Plugins\StagWare.Plugins.Windows\StagWare.Plugins.Windows.csproj", "{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.ECWindows", "Core\Plugins\StagWare.Plugins.ECWindows\StagWare.Plugins.ECWindows.csproj", "{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Linux", "Core\Plugins\StagWare.Plugins.Linux\StagWare.Plugins.Linux.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.ECLinux", "Core\Plugins\StagWare.Plugins.ECLinux\StagWare.Plugins.ECLinux.csproj", "{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Hardware", "Core\Plugins\StagWare.Hardware\StagWare.Hardware.csproj", "{66BAE497-003D-4F8A-B26E-DE5FA3361D38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.Generic", "Core\Plugins\StagWare.Plugins.Generic\StagWare.Plugins.Generic.csproj", "{281A8541-1845-44DF-BBB9-3E0934C753A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.CpuTemperatureMonitor", "Core\Plugins\StagWare.Plugins.CpuTemperatureMonitor\StagWare.Plugins.CpuTemperatureMonitor.csproj", "{281A8541-1845-44DF-BBB9-3E0934C753A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcCli", "Core\NbfcCli\NbfcCli.csproj", "{60A11809-E19B-46A2-8E91-BF6ADA47BBC6}"
 	ProjectSection(ProjectDependencies) = postProject

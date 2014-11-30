@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.Plugins.Generic")]
+[assembly: AssemblyTitle("StagWare.Plugins.ECWindows")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StagWare.Plugins.Generic")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("StagWare")]
+[assembly: AssemblyProduct("StagWare.Plugins.ECWindows")]
+[assembly: AssemblyCopyright("Copyright © 2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3712b354-87bd-4921-9697-171d646d3c49")]
+[assembly: Guid("22834e87-0fce-4972-a43c-f2e2be371cb5")]
 
 // Version information for an assembly consists of the following four values:
 //

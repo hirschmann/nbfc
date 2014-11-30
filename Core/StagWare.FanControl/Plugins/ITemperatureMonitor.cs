@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StagWare.FanControl.Plugins
 {
-    public interface ITemperatureProvider : IDisposable
+    public interface ITemperatureMonitor : IDisposable
     {
         bool IsInitialized { get; }
         void Initialize();

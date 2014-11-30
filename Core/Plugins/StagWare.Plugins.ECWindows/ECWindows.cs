@@ -3,15 +3,15 @@ using StagWare.Hardware.LPC;
 using StagWare.Hardware;
 using System.ComponentModel.Composition;
 
-namespace StagWare.Plugins.Windows
+namespace StagWare.Plugins
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(
-        "StagWare.Windows.EmbeddedController", 
+        "StagWare.Plugins.ECWindows", 
         SupportedPlatforms.Windows,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
         MinOSVersion = "5.0")]
-    public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
+    public class ECWindows : EmbeddedControllerBase, IEmbeddedController
     {
         #region Private Fields
 

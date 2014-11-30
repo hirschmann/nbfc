@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.Plugins.Linux")]
+[assembly: AssemblyTitle("StagWare.Plugins.CpuTemperatureMonitor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StagWare.Plugins.Linux")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyProduct("StagWare.Plugins.CpuTemperatureMonitor")]
+[assembly: AssemblyCopyright("Copyright ©  2014 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("63708e38-2071-446e-b33a-5ef9ef93e52b")]
+[assembly: Guid("3712b354-87bd-4921-9697-171d646d3c49")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -8,14 +8,14 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace StagWare.Plugins.Linux
+namespace StagWare.Plugins
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(
-        "StagWare.Linux.EmbeddedController",
+        "StagWare.Plugins.ECLinux",
         SupportedPlatforms.Unix,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
-    public class EmbeddedController : EmbeddedControllerBase, IEmbeddedController
+    public class ECLinux : EmbeddedControllerBase, IEmbeddedController
     {
         #region Constants
 

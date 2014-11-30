@@ -5,12 +5,12 @@ using System.ComponentModel.Composition;
 
 namespace StagWare.Plugins.Generic
 {
-    [Export(typeof(ITemperatureProvider))]
+    [Export(typeof(ITemperatureMonitor))]
     [FanControlPluginMetadata(
-        "StagWare.Windows.CpuTempProvider", 
+        "StagWare.Plugins.CpuTemperatureMonitor", 
         SupportedPlatforms.Windows | SupportedPlatforms.Unix,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
-    public class CpuTemperatureProvider : ITemperatureProvider
+    public class CpuTemperatureMonitor : ITemperatureMonitor
     {
         #region Private Fields
 
