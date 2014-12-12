@@ -23,9 +23,6 @@ namespace NbfcClient.NbfcService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CpuTemperatureField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EnabledField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -34,6 +31,12 @@ namespace NbfcClient.NbfcService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SelectedConfigField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TemperatureField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TemperatureSourceDisplayNameField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -41,19 +44,6 @@ namespace NbfcClient.NbfcService {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CpuTemperature {
-            get {
-                return this.CpuTemperatureField;
-            }
-            set {
-                if ((this.CpuTemperatureField.Equals(value) != true)) {
-                    this.CpuTemperatureField = value;
-                    this.RaisePropertyChanged("CpuTemperature");
-                }
             }
         }
         
@@ -92,6 +82,32 @@ namespace NbfcClient.NbfcService {
                 if ((object.ReferenceEquals(this.SelectedConfigField, value) != true)) {
                     this.SelectedConfigField = value;
                     this.RaisePropertyChanged("SelectedConfig");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Temperature {
+            get {
+                return this.TemperatureField;
+            }
+            set {
+                if ((this.TemperatureField.Equals(value) != true)) {
+                    this.TemperatureField = value;
+                    this.RaisePropertyChanged("Temperature");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TemperatureSourceDisplayName {
+            get {
+                return this.TemperatureSourceDisplayNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TemperatureSourceDisplayNameField, value) != true)) {
+                    this.TemperatureSourceDisplayNameField = value;
+                    this.RaisePropertyChanged("TemperatureSourceDisplayName");
                 }
             }
         }

@@ -96,7 +96,7 @@ namespace NbfcClient.Windows
         {
             this.renderer.Color = Settings.Default.TrayIconForegroundColor;
 
-            using (var bmp = this.renderer.RenderIcon(viewModel.CpuTemperature.ToString()))
+            using (var bmp = this.renderer.RenderIcon(viewModel.Temperature.ToString()))
             {
                 var tmp = notifyIcon.Icon;
                 notifyIcon.Icon = System.Drawing.Icon.FromHandle(bmp.GetHicon());

@@ -121,6 +121,7 @@
     <Compile Include="ValueConverters\FanDisplayNameToTextConverter.cs" />
     <Compile Include="ValueConverters\FanSpeedSliderValueToTextConverter.cs" />
     <Compile Include="ValueConverters\TargetFanSpeedToTextConverter.cs" />
+    <Compile Include="ValueConverters\TemperatureToTextConverter.cs" />
     <Compile Include="ViewModels\FanControllerViewModel.cs" />
     <Compile Include="Windows\SelectConfigWindow.xaml.cs">
       <DependentUpon>SelectConfigWindow.xaml</DependentUpon>

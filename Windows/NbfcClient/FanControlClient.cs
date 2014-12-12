@@ -155,9 +155,10 @@ namespace NbfcClient
 
                 if (info != null)
                 {
-                    viewModel.CpuTemperature = info.CpuTemperature;
+                    viewModel.Temperature = info.Temperature;
                     viewModel.IsServiceAvailable = info.Enabled;
                     viewModel.SelectedConfig = info.SelectedConfig;
+                    viewModel.TemperatureSourceName = info.TemperatureSourceDisplayName;
 
                     if (info.FanStatus != null)
                     {
@@ -174,7 +175,7 @@ namespace NbfcClient
 
         private void ResetMainViewModel()
         {
-            viewModel.CpuTemperature = 0;
+            viewModel.Temperature = 0;
             viewModel.IsServiceAvailable = false;
             viewModel.SelectedConfig = string.Empty;
             viewModel.FanControllers.Clear();

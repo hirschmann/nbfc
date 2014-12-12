@@ -8,6 +8,7 @@
         <vc:FanSpeedSliderValueToTextConverter x:Key="sliderConverter"/>
         <vc:TargetFanSpeedToTextConverter x:Key="fanSpeedConverter"/>
         <vc:FanDisplayNameToTextConverter x:Key="displayNameConverter"/>
+        <vc:TemperatureToTextConverter x:Key="temperatureConverter"/>
         
         <DrawingImage x:Key="settings">
             <DrawingImage.Drawing>

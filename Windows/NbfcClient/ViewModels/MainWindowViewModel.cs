@@ -11,8 +11,9 @@ namespace NbfcClient.ViewModels
         #region Private Fields
 
         private bool isServiceAvailable;
-        private int cpuTemperature;
+        private int temperature;
         private string selectedConfig;
+        private string temperatureSourceName;
         private ObservableCollection<FanControllerViewModel> fanControllers;
 
         #endregion
@@ -62,22 +63,35 @@ namespace NbfcClient.ViewModels
             }
         }
 
-        public int CpuTemperature
+        public int Temperature
         {
             get
             {
-                return cpuTemperature;
+                return temperature;
             }
 
             set
             {
-                if (cpuTemperature != value)
+                if (temperature != value)
                 {
-                    cpuTemperature = value;
-                    OnPropertyChanged("CpuTemperature");
+                    temperature = value;
+                    OnPropertyChanged("Temperature");
                 }
             }
-        }
+        }       
+
+        public string TemperatureSourceName
+        {
+            get { return temperatureSourceName; }
+            set
+            {
+                if (temperatureSourceName != value)
+                {
+                    temperatureSourceName = value;
+                    OnPropertyChanged("TemperatureSourceName");
+                }
+            }
+        }        
 
         public ObservableCollection<FanControllerViewModel> FanControllers
         {

@@ -74,11 +74,14 @@
             </CheckBox.Resources>
         </CheckBox>
 
-        <Label Content="{Binding CpuTemperature}" 
-               ContentStringFormat="CPU temperature:  {0}°C" 
-               HorizontalAlignment="Left" 
-               Margin="8,77,0,0" 
-               VerticalAlignment="Top"/>
+        <Label HorizontalAlignment="Left" Margin="8,77,0,0" VerticalAlignment="Top">
+            <Label.Content>
+                <MultiBinding Converter="{StaticResource temperatureConverter}">
+                    <Binding Path="Temperature"/>
+                    <Binding Path="TemperatureSourceName"/>
+                </MultiBinding>
+            </Label.Content>
+        </Label>
 
         <!--Fan info-->
         <ScrollViewer Margin="10,117,10,45" 
