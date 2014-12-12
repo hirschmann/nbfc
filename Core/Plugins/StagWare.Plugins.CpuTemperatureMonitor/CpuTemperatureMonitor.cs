@@ -7,23 +7,34 @@ namespace StagWare.Plugins.Generic
 {
     [Export(typeof(ITemperatureMonitor))]
     [FanControlPluginMetadata(
-        "StagWare.Plugins.CpuTemperatureMonitor", 
+        "StagWare.Plugins.CpuTemperatureMonitor",
         SupportedPlatforms.Windows | SupportedPlatforms.Unix,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
     public class CpuTemperatureMonitor : ITemperatureMonitor
     {
+        #region Constants
+
+        const string DisplayName = "CPU";
+
+        #endregion
+
         #region Private Fields
 
         private HardwareMonitor hwMon;
 
         #endregion
 
-        #region ITemperatureProvider implementation
+        #region ITemperatureMonitor implementation
 
         public bool IsInitialized
         {
             get;
             private set;
+        }
+
+        public string TemperatureSourceDisplayName
+        {
+            get { return DisplayName; }
         }
 
         public void Initialize()

@@ -3,7 +3,9 @@ using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 
 namespace StagWare.FanControl
@@ -12,11 +14,20 @@ namespace StagWare.FanControl
     {
         #region Constants
 
+#if DEBUG
+
+        private const int MinPollInterval = 0;
+
+#else
+
+        private const int MinPollInterval = 100;
+
+#endif
+
         private const int EcTimeout = 200;
         private const int MaxWaitHandleTimeout = 500;
-        private const int MinPollInterval = 100;
         private const int DefaultPollInterval = 3000;
-        private const string PluginPath = "Plugins";
+        private const string PluginsFolderDefaultName = "Plugins";
         public const int AutoFanSpeedPercentage = 101;
 
         #endregion
@@ -32,14 +43,14 @@ namespace StagWare.FanControl
         private readonly FanControlConfigV2 config;
 
         private readonly ITemperatureFilter tempFilter;
-        private readonly ITemperatureMonitor tempProvider;
+        private readonly ITemperatureMonitor tempMon;
         private readonly IEmbeddedController ec;
         private readonly FanSpeedManager[] fanSpeedManagers;
 
         private FanInformation[] fanInfo;
         private FanInformation[] fanInfoInternal;
 
-        private volatile float cpuTemperature;
+        private volatile float temperature;
         private volatile float[] requestedSpeeds;
 
         #endregion
@@ -47,23 +58,18 @@ namespace StagWare.FanControl
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(PluginPath, config)
+            : this(config, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PluginsFolderDefaultName))
         {
         }
 
-        public FanControl(string pluginsPath, FanControlConfigV2 config) :
+        public FanControl(FanControlConfigV2 config, string pluginsPath) :
             this(
-             config,
-             new ArithmeticMeanTemperatureFilter(DeliminatePollInterval(config.EcPollInterval)),
-             LoadTempProviderPlugin(pluginsPath),
-             LoadEcPlugin(pluginsPath))
+            config, 
+            new ArithmeticMeanTemperatureFilter(Math.Max(config.EcPollInterval, MinPollInterval)), 
+            pluginsPath)
         { }
 
-        public FanControl(
-            FanControlConfigV2 config,
-            ITemperatureFilter tempFilter,
-            ITemperatureMonitor tempProvider,
-            IEmbeddedController ec)
+        public FanControl(FanControlConfigV2 config, ITemperatureFilter tempFilter, string pluginsPath)
         {
             if (config == null)
             {
@@ -75,19 +81,25 @@ namespace StagWare.FanControl
                 throw new ArgumentNullException("filter");
             }
 
-            if (tempProvider == null)
+            if (pluginsPath == null)
             {
-                throw new ArgumentNullException("tempProvider");
+                throw new ArgumentNullException("pluginsPath");
             }
 
-            if (ec == null)
+            if (!Directory.Exists(pluginsPath))
             {
-                throw new ArgumentNullException("ec");
+                throw new DirectoryNotFoundException(pluginsPath + " could not be found.");
             }
+
+            var ecLoader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
+            this.ec = ecLoader.FanControlPlugin;
+            this.EmbeddedControllerPluginId = ecLoader.FanControlPluginId;
+
+            var tempMonloader = new FanControlPluginLoader<ITemperatureMonitor>(pluginsPath);
+            this.tempMon = tempMonloader.FanControlPlugin;
+            this.TemperatureMonitorPluginId = tempMonloader.FanControlPluginId;
 
             this.tempFilter = tempFilter;
-            this.tempProvider = tempProvider;
-            this.ec = ec;
             this.config = (FanControlConfigV2)config.Clone();
             this.pollInterval = config.EcPollInterval;
             this.waitHandleTimeout = Math.Min(MaxWaitHandleTimeout, config.EcPollInterval);
@@ -107,40 +119,6 @@ namespace StagWare.FanControl
             }
         }
 
-        #region Contruction Helper Methods
-
-        private static int DeliminatePollInterval(int pollInterval)
-        {
-            #region limit poll intervall in release
-
-#if !DEBUG
-
-            if (pollInterval < MinPollInterval)
-            {
-                return DefaultPollInterval;
-            }
-
-#endif
-
-            #endregion
-
-            return pollInterval;
-        }
-
-        private static IEmbeddedController LoadEcPlugin(string pluginsPath)
-        {
-            var loader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
-            return loader.FanControlPlugin;
-        }
-
-        private static ITemperatureMonitor LoadTempProviderPlugin(string pluginsPath)
-        {
-            var loader = new FanControlPluginLoader<ITemperatureMonitor>(pluginsPath);
-            return loader.FanControlPlugin;
-        }
-
-        #endregion
-
         #endregion
 
         #region Events
@@ -151,14 +129,32 @@ namespace StagWare.FanControl
 
         #region Properties
 
-        public float CpuTemperature
+        public string TemperatureMonitorPluginId { get; private set; }
+        public string EmbeddedControllerPluginId { get; private set; }        
+
+        public float Temperature
         {
-            get { return this.cpuTemperature; }
+            get { return this.temperature; }
         }
 
         public bool Enabled
         {
             get { return this.timer != null; }
+        }
+
+        public string TemperatureSourceDisplayName
+        {
+            get
+            {
+                if (this.tempMon == null || !this.tempMon.IsInitialized)
+                {
+                    return null;
+                }
+                else
+                {
+                    return this.tempMon.TemperatureSourceDisplayName;
+                }
+            }
         }
 
         public ReadOnlyCollection<FanInformation> FanInformation
@@ -182,9 +178,9 @@ namespace StagWare.FanControl
 
             if (!this.Enabled)
             {
-                if (!this.tempProvider.IsInitialized)
+                if (!this.tempMon.IsInitialized)
                 {
-                    this.tempProvider.Initialize();
+                    this.tempMon.Initialize();
                 }
 
                 if (!this.ec.IsInitialized)
@@ -266,7 +262,7 @@ namespace StagWare.FanControl
                 {
                     // Read CPU temperature before the call to UpdateEc(),
                     // because both methods try to aquire ISA bus mutex
-                    this.cpuTemperature = (float)GetTemperature();
+                    this.temperature = (float)GetTemperature();
                     UpdateEc();
                 }
                 finally
@@ -325,7 +321,7 @@ namespace StagWare.FanControl
             for (int i = 0; i < this.fanSpeedManagers.Length; i++)
             {
                 float speed = Thread.VolatileRead(ref this.requestedSpeeds[i]);
-                this.fanSpeedManagers[i].UpdateFanSpeed(speed, this.cpuTemperature);
+                this.fanSpeedManagers[i].UpdateFanSpeed(speed, this.temperature);
 
                 WriteValue(
                     this.config.FanConfigurations[i].WriteRegister,
@@ -514,7 +510,7 @@ namespace StagWare.FanControl
 
         private double GetTemperature()
         {
-            return this.tempFilter.FilterTemperature(this.tempProvider.GetTemperature());
+            return this.tempFilter.FilterTemperature(this.tempMon.GetTemperature());
         }
 
         #endregion
@@ -547,9 +543,9 @@ namespace StagWare.FanControl
                     this.ec.Dispose();
                 }
 
-                if (this.tempProvider != null)
+                if (this.tempMon != null)
                 {
-                    this.tempProvider.Dispose();
+                    this.tempMon.Dispose();
                 }
 
                 GC.SuppressFinalize(this);

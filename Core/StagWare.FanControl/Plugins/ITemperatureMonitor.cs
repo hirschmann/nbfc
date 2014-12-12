@@ -8,6 +8,7 @@ namespace StagWare.FanControl.Plugins
     public interface ITemperatureMonitor : IDisposable
     {
         bool IsInitialized { get; }
+        string TemperatureSourceDisplayName { get; }
         void Initialize();
         double GetTemperature();
     }
