@@ -6,6 +6,7 @@ using System.Windows.Data;
 
 namespace ConfigEditor.ValueConverters
 {
+    [ValueConversion(typeof(bool), typeof(bool))]
     public class InvertBooleanConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
