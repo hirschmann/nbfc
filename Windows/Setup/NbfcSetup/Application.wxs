@@ -87,6 +87,31 @@
               Source="$(var.StagWare.BiosInfo.TargetDir)StagWare.BiosInfo.dll"/>
       </Component>
 
+      <Component Id="App.NbfcCli" Guid="80CB8B42-92D4-4BAE-A58C-690E14AEF4AA">
+        <File Id="nbfc.exe"
+              Name="nbfc.exe"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.NbfcCli.TargetDir)nbfc.exe">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="NbfcCli.NativeImage"
+                             Priority="1"
+                             Platform="all" />
+          <?endif?>
+        </File>
+      </Component>
+      
+      <Component Id="App.NbfcCliConfig" Guid="D0495CB2-1555-43FC-BCFF-3A5C4F732BEE">
+        <File Id="nbfc.exe.config" 
+              Name="nbfc.exe.config" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcCli.TargetDir)nbfc.exe.config"/>
+      </Component>
+
       <Component Id="App.NbfcClient" Guid="6CD59558-48F7-4E1E-B4F6-470F8510D57A">
         <File Id="NoteBookFanControl.exe" 
               Name="NoteBookFanControl.exe" 
