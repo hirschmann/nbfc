@@ -1,10 +1,15 @@
-﻿<Window x:Class="ConfigEditor.Windows.RequestConfigNameWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vc="clr-namespace:ConfigEditor.ValueConverters"
+﻿<Window 
+    x:Class="ConfigEditor.Windows.RequestConfigNameWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vc="clr-namespace:ConfigEditor.ValueConverters"
         
-        Title="Please enter config name" Height="170" Width="280" ResizeMode="NoResize" 
-        WindowStartupLocation="CenterOwner" Icon="/ConfigEditor;component/fan.ico">
+    Title="Please enter config name" 
+    Height="170" 
+    Width="280"
+    ResizeMode="NoResize" 
+    WindowStartupLocation="CenterOwner" 
+    Icon="/ConfigEditor;component/fan.ico">
     
     <Window.Resources>
         <vc:BooleanToBrushConverter x:Key="boolToBrushConverter"/>
@@ -18,8 +23,13 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         
-        <TextBox Height="23" Margin="28,41,28,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="3"
+        <TextBox Height="23" 
+                 Margin="28,41,28,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Grid.ColumnSpan="3"
                  Text="{Binding ConfigName, UpdateSourceTrigger=PropertyChanged}">
+            
             <TextBox.Background>
                 <MultiBinding Converter="{StaticResource boolToBrushConverter}">
                     <Binding Path="IsConfigNameUnique" Mode="OneWay"/>
@@ -28,12 +38,34 @@
             </TextBox.Background>
         </TextBox>
                  
-        <Rectangle Grid.ColumnSpan="3" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Height="49" VerticalAlignment="Bottom"/>
+        <Rectangle Grid.ColumnSpan="3" 
+                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+                   Height="49" 
+                   VerticalAlignment="Bottom"/>
+        
         <Button Content="{Binding IsConfigNameUnique, Mode=OneWay, Converter={StaticResource boolToTextConverter}}" 
                 IsEnabled="{Binding IsConfigNameValid, Mode=OneWay}"
-                HorizontalAlignment="Left" Margin="2,0,0,13" Width="86" Grid.Column="1" Height="20" 
-                VerticalAlignment="Bottom" Click="Accept_Click"/>
-        <Button Content="Cancel" HorizontalAlignment="Left" Margin="93,0,0,13" Width="86" Grid.Column="1" Height="20" VerticalAlignment="Bottom" Click="Cancel_Click"/>
-        <Label Content="Please enter a config name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                HorizontalAlignment="Left" 
+                Margin="2,0,0,13"
+                Width="86" 
+                Grid.Column="1"
+                Height="20" 
+                VerticalAlignment="Bottom"
+                Click="Accept_Click"/>
+        
+        <Button Content="Cancel" 
+                HorizontalAlignment="Left" 
+                Margin="93,0,0,13" 
+                Width="86"
+                Grid.Column="1" 
+                Height="20" 
+                VerticalAlignment="Bottom" 
+                Click="Cancel_Click"/>
+        
+        <Label Content="Please enter a config name:"
+               HorizontalAlignment="Left" 
+               Margin="10,10,0,0" 
+               VerticalAlignment="Top"
+               Grid.ColumnSpan="2"/>
     </Grid>
 </Window>
