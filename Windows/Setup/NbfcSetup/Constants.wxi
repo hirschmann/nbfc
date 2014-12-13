@@ -5,5 +5,5 @@
   <?define CompanyName = "StagWare"?>
   <?define ProductName = "NoteBook FanControl"?>
   <?define UpgradeGuid = "5602C3F6-014B-41DD-B89F-14BCB1701B57"?>
-  <?define Version = "1.2.3.35"?>
+  <?define Version = "1.2.4.0"?>
 </Include>
