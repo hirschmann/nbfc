@@ -198,7 +198,7 @@ namespace NbfcClient.Windows
 
         void viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "CpuTemperature")
+            if (e.PropertyName == "Temperature")
             {
                 UpdateNotifyIcon();
             }
