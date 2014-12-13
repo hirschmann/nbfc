@@ -212,7 +212,10 @@ namespace StagWare.FanControl.Service
 
         public void ReInitializeFanControl()
         {
-            this.fanControl.ReInitialize();
+            if (!this.disposed && this.fanControl != null)
+            {
+                this.fanControl.ReInitialize();
+            }
         }
 
         #endregion
@@ -251,9 +254,6 @@ namespace StagWare.FanControl.Service
                     }
                 }
                 success = true;
-            }
-            catch
-            {
             }
             finally
             {
