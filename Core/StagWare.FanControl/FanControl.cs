@@ -34,7 +34,7 @@ namespace StagWare.FanControl
 
         #region Private Fields
 
-        private AutoResetEvent autoEvent = new AutoResetEvent(false);
+        private AutoResetEvent autoEvent;
         private Timer timer;
         private AsyncOperation asyncOp;
 
@@ -90,7 +90,7 @@ namespace StagWare.FanControl
             {
                 throw new DirectoryNotFoundException(pluginsPath + " could not be found.");
             }
-
+            
             var ecLoader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
             this.ec = ecLoader.FanControlPlugin;
             this.EmbeddedControllerPluginId = ecLoader.FanControlPluginId;
@@ -99,6 +99,7 @@ namespace StagWare.FanControl
             this.tempMon = tempMonloader.FanControlPlugin;
             this.TemperatureMonitorPluginId = tempMonloader.FanControlPluginId;
 
+            this.autoEvent = new AutoResetEvent(false);
             this.tempFilter = tempFilter;
             this.config = (FanControlConfigV2)config.Clone();
             this.pollInterval = config.EcPollInterval;
