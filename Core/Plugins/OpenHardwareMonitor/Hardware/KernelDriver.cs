@@ -36,7 +36,7 @@ namespace OpenHardwareMonitor.Hardware {
 
       IntPtr service = NativeMethods.CreateService(manager, id, id,
         ServiceAccessRights.SERVICE_ALL_ACCESS,
-        ServiceType.SERVICE_KERNEL_DRIVER, StartType.SERVICE_DEMAND_START,
+        ServiceType.SERVICE_KERNEL_DRIVER, StartType.SERVICE_SYSTEM_START,
         ErrorControl.SERVICE_ERROR_NORMAL, path, null, null, null, null,
         null);
 
