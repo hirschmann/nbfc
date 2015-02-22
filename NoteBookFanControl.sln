@@ -20,7 +20,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcSetup", "Windows\Setup\
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "NbfcBootstrapper", "Windows\Setup\NbfcBootstrapper\NbfcBootstrapper.wixproj", "{088065D5-99ED-4A8B-9301-3666C5B88718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "Core\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "Core\Plugins\OpenHardwareMonitor\OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DriverSetupWixAction", "Windows\Setup\DriverSetupWixAction\DriverSetupWixAction.csproj", "{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}"
 EndProject
