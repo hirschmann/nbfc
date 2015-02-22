@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>F5SR</NotebookModel>
+  <EcPollInterval>150</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>151</ReadRegister>
+      <WriteRegister>151</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>8</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>9</FanSpeedResetValue>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
+      <Register>160</Register>
+      <Value>10</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>10</ResetValue>
+    </RegisterWriteConfiguration>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
+      <Register>166</Register>
+      <Value>10</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>10</ResetValue>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

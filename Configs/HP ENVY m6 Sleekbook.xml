@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP ENVY m6 Sleekbook</NotebookModel>
+  <EcPollInterval>1000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>85</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>17</ReadRegister>
+      <WriteRegister>20</WriteRegister>
+      <MinSpeedValue>28</MinSpeedValue>
+      <MaxSpeedValue>41</MaxSpeedValue>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>76.923076923076934</FanSpeedPercentage>
+          <FanSpeedValue>39</FanSpeedValue>
+        </FanSpeedPercentageOverride>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>38.461538461538467</FanSpeedPercentage>
+          <FanSpeedValue>34</FanSpeedValue>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Or</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>15</Register>
+      <Value>8</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>5</ResetValue>
+      <Description>Manual Override</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

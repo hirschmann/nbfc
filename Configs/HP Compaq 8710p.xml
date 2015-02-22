@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP Compaq 8710p (GC102EA#ABD)</NotebookModel>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>215</ReadRegister>
+      <WriteRegister>215</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>100</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>30</FanSpeedResetValue>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Aspire 7735</NotebookModel>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>149</ReadRegister>
+      <WriteRegister>148</WriteRegister>
+      <MinSpeedValue>255</MinSpeedValue>
+      <MaxSpeedValue>102</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>196</FanSpeedResetValue>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>99</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>147</Register>
+      <Value>20</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>4</ResetValue>
+      <Description>Set EC to manual control</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

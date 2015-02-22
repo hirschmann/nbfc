@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP ProBook 4720s</NotebookModel>
+  <EcPollInterval>2000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>214</ReadRegister>
+      <WriteRegister>213</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>112</MaxSpeedValue>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>20</FanSpeedResetValue>
+      <FanDisplayName>Fan</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>70</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>80.9090909090909</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>66.363636363636374</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>50</UpThreshold>
+          <DownThreshold>40</DownThreshold>
+          <FanSpeed>56.25</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>40</UpThreshold>
+          <DownThreshold>30</DownThreshold>
+          <FanSpeed>41.071428571428569</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>30</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>20.909090909090907</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

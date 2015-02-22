@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Acer Aspire S7-391</NotebookModel>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>82</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>214</ReadRegister>
+      <WriteRegister>215</WriteRegister>
+      <MinSpeedValue>100</MinSpeedValue>
+      <MaxSpeedValue>1</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>255</FanSpeedResetValue>
+      <FanDisplayName>left </FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>10.1010101010101</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>20.2020202020202</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>65.656565656565661</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+    <FanConfiguration>
+      <ReadRegister>212</ReadRegister>
+      <WriteRegister>213</WriteRegister>
+      <MinSpeedValue>1</MinSpeedValue>
+      <MaxSpeedValue>100</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>255</FanSpeedResetValue>
+      <FanDisplayName>right</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>11.111111111111111</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>21.212121212121211</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>65.656565656565661</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

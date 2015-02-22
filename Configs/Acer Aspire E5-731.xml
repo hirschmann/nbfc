@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NotebookModel>Aspire E5-731</NotebookModel>
+  <EcPollInterval>500</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>85</ReadRegister>
+      <WriteRegister>85</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>7</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>48</DownThreshold>
+          <FanSpeed>10</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>63</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>20</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>66</UpThreshold>
+          <DownThreshold>59</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>68</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <FanSpeed>70</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>71</UpThreshold>
+          <DownThreshold>67</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>147</Register>
+      <Value>20</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>4</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <Description>Set EC to manual control</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>
