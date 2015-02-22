@@ -19,7 +19,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs</DefineConstants>
+    <DefineConstants>ConfigsDir=..\..\..\Configs</DefineConstants>
     <SuppressIces>ICE80</SuppressIces>
     <SuppressValidation>False</SuppressValidation>
     <WixVariables>
@@ -182,9 +182,14 @@
     <Content Include="Constants.wxi" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <Target Name="BeforeBuild">
+    <HeatDirectory Directory="..\..\..\Configs" AutogenerateGuids="true" DirectoryRefId="ConfigsFolder" SuppressRootDirectory="true" ComponentGroupName="Configs" PreprocessorVariable="var.ConfigsDir" OutputFile="$(ProjectDir)Configs.wxs" ToolPath="$(WixToolPath)"/>
+  </Target>
+  <!--
   <PropertyGroup>
     <PreBuildEvent>"C:\Program Files (x86)\WiX Toolset v3.9\bin\heat.exe" dir "D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs" -ag -dr ConfigsFolder -srd -cg Configs -var var.ConfigsDir -out "$(ProjectDir)Configs.wxs"</PreBuildEvent>
   </PropertyGroup>
+  -->
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
