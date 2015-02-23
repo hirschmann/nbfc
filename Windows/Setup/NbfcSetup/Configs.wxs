@@ -197,6 +197,9 @@
             <Component Id="cmpBE686C3253C3CAD8A84460C3DDCB993B" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1E69346F7D09D2718E9DAB63C6038686" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Yoga 13 2191.xml" />
             </Component>
+            <Component Id="cmpF9FCFA89902847E4386F47E15C8AD711" Directory="ConfigsFolder" Guid="*">
+                <File Id="filD0C50735C7648FE83707686325DD8BA1" KeyPath="yes" Source="$(var.ConfigsDir)\Medion Akoya P6612.xml" />
+            </Component>
             <Component Id="cmp1877CB760C998D1476819821CE27F2D0" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil0191C14AD6789B206F5F735DBC7580B7" KeyPath="yes" Source="$(var.ConfigsDir)\Medion Akoya P6630.xml" />
             </Component>
