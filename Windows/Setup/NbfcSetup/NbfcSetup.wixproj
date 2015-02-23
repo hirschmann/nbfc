@@ -14,7 +14,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs</DefineConstants>
+    <DefineConstants>Debug;ConfigsDir=..\..\..\Configs</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -26,12 +26,12 @@
     </WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DefineConstants>Debug;ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs;ResourcesDir=D:\Users\Stefan\Documents\Visual Studio 2012\Projects\Desktop Software Projects\NoteBookFanControl\NbfcSetup\Resources</DefineConstants>
+    <DefineConstants>Debug;ConfigsDir=..\..\..\Configs</DefineConstants>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <DefineConstants>ConfigsDir=D:\Users\Stefan\Skydrive\Öffentlich\NBFC\Configs;</DefineConstants>
+    <DefineConstants>Debug;ConfigsDir=..\..\..\Configs</DefineConstants>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
@@ -59,7 +59,7 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Core\Plugins\OpenHardwareMonitorLib\OpenHardwareMonitorLib.csproj">
+    <ProjectReference Include="..\..\..\Core\Plugins\OpenHardwareMonitor\OpenHardwareMonitorLib.csproj">
       <Name>OpenHardwareMonitorLib</Name>
       <Project>{b0397530-545a-471d-bb74-027ae456df1a}</Project>
       <Private>True</Private>
@@ -183,7 +183,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <Target Name="BeforeBuild">
-    <HeatDirectory Directory="..\..\..\Configs" AutogenerateGuids="true" DirectoryRefId="ConfigsFolder" SuppressRootDirectory="true" ComponentGroupName="Configs" PreprocessorVariable="var.ConfigsDir" OutputFile="$(ProjectDir)Configs.wxs" ToolPath="$(WixToolPath)"/>
+    <HeatDirectory Directory="..\..\..\Configs" AutogenerateGuids="true" DirectoryRefId="ConfigsFolder" SuppressRootDirectory="true" ComponentGroupName="Configs" PreprocessorVariable="var.ConfigsDir" OutputFile="$(ProjectDir)Configs.wxs" ToolPath="$(WixToolPath)" />
   </Target>
   <!--
   <PropertyGroup>
