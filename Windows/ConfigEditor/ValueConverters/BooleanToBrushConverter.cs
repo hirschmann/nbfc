@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
 namespace ConfigEditor.ValueConverters
 {
-    [ValueConversion(typeof(bool), typeof(Brush))]
     public class BooleanToBrushConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
