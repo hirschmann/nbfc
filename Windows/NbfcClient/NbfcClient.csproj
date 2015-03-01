@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification">
-      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net40-client\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+      <HintPath>..\..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net40-client\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
