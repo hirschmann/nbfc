@@ -58,7 +58,7 @@ namespace StagWare.FanControl
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(config, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PluginsFolderDefaultName))
+            : this(config, Path.Combine(AssemblyDirectory, PluginsFolderDefaultName))
         {
         }
 
@@ -129,6 +129,17 @@ namespace StagWare.FanControl
         #endregion
 
         #region Properties
+
+        public static string AssemblyDirectory
+        {
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
 
         public string TemperatureMonitorPluginId { get; private set; }
         public string EmbeddedControllerPluginId { get; private set; }        
