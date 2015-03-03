@@ -166,7 +166,7 @@ namespace NbfcCli
                 sb.AppendLine();
                 sb.AppendFormat("Selected config name\t: {0}", info.SelectedConfig);
                 sb.AppendLine();
-                sb.AppendFormat("Temperature\t\t: {0}", info.CpuTemperature);
+                sb.AppendFormat("Temperature\t\t: {0}", info.Temperature);
                 sb.AppendLine();
 
                 foreach (FanStatus status in info.FanStatus)
