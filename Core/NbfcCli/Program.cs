@@ -79,18 +79,9 @@ namespace NbfcCli
                         break;
 
                     case VerbLoad:
-                        if (args.Length == 3)
+                        if (args.Length == 2)
                         {
-                            string s;
-
-                            if (Parser.TryGetOption(args, LoadConfigOptions, out s))
-                            {
-                                LoadConfig(s);
-                            }
-                            else
-                            {
-                                Console.Error.WriteLine("Arguments could not be parsed");
-                            }
+                            LoadConfig(args[1]);
                         }
                         else
                         {
@@ -100,19 +91,23 @@ namespace NbfcCli
                         break;
 
                     case VerbSet:
-                        if (args.Length == 3 || args.Length == 5)
+                        if (args.Length > 1 && args.Length < 4)
                         {
                             float speed;
                             int index = 0;
 
-                            if (Parser.TryGetOption(args, SetSpeedOptions, out speed))
+                            if (float.TryParse(args[1], out speed))
                             {
-                                Parser.TryGetOption(args, SetIndexOptions, out index);
+                                if ((args.Length == 3) && !int.TryParse(args[2], out index))
+                                {
+                                    Console.Error.WriteLine("Invalid index.");
+                                }
+
                                 SetFanSpeed(speed, index);
                             }
                             else
                             {
-                                Console.Error.WriteLine("Arguments could not be parsed");
+                                Console.Error.WriteLine("Invalid speed value.");
                             }
                         }
                         else
@@ -203,7 +198,7 @@ namespace NbfcCli
         private static void PrintHelp()
         {
             var sb = new StringBuilder();
-            sb.AppendLine("NoteBook FanControl command line client");
+            sb.AppendLine("Usage: nbfc <command>");
             sb.AppendLine();
             sb.AppendLine("Commands:");
             sb.AppendFormat("  {0,-10}Start the fan control service", VerbStart);
@@ -212,27 +207,21 @@ namespace NbfcCli
             sb.AppendLine();
             sb.AppendFormat("  {0,-10}Show the fan control status", VerbStatus);
             sb.AppendLine();
-            sb.AppendLine();            
-            sb.AppendFormat("  {0,-10}{1} [{2}]", VerbSet, string.Join(" | ", SetSpeedOptions), string.Join(" | ", SetIndexOptions));
+            sb.AppendLine();
+            sb.AppendFormat("  {0} <speed> [<fan-index>]", VerbSet);
             sb.AppendLine();
             sb.AppendFormat("  {0,-10}Set the speed for a single fan", "");
             sb.AppendLine();
-            sb.AppendFormat("   {0,-9}Fan speed in percent", SetSpeedOptions[0]);
             sb.AppendLine();
-            sb.AppendFormat("   {0,-9}Fan index (default = 0)", SetIndexOptions[0]);
-            sb.AppendLine();
-            sb.AppendLine();            
-            sb.AppendFormat("  {0,-10}{1}", VerbLoad, string.Join(" | ", LoadConfigOptions));
+            sb.AppendFormat("  {0} <config-name>", VerbLoad);
             sb.AppendLine();
             sb.AppendFormat("  {0,-10}Load and apply a config", "");
             sb.AppendLine();
-            sb.AppendFormat("   {0,-9}Name of the config", LoadConfigOptions[0]);
-            sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine("Examples:");
-            sb.AppendLine("  nbfc start");
-            sb.AppendLine("  nfbc load -c 'HP ProBook 6465b'");
-            sb.AppendLine("  nbfc set -s 12.3");
+            sb.AppendLine("  nfbc load \"HP ProBook 6465b\"");
+            sb.AppendLine("  nbfc set 12.5   # set fan 0 to 12.5%");
+            sb.AppendLine("  nbfc set -1 1   # set fan 1 to 'auto'");
 
             Console.WriteLine(sb.ToString());
         }
