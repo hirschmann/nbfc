@@ -128,7 +128,7 @@
   
   <Target Name="AfterBuild">
     <ItemGroup>
-      <Configs Include="$(ProjectDir)\..\..\Configs\**\*.xml" />
+      <Configs Include="$(ProjectDir)\..\..\Configs\*.xml" />
 	  <ServiceFiles Include="$(TargetDir)\*.dll" />
     </ItemGroup>
     <Copy SourceFiles="@(ServiceFiles);$(TargetPath);$(TargetPath).config" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
