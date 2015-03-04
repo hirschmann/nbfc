@@ -2,7 +2,7 @@ NoteBook FanControl
 ===================
 
 NBFC is a cross-platform fan control service for notebooks.
-It comes with a powerful configuration system, which aloows it to be adjustet to many different notebook models.
+It comes with a powerful configuration system, which aloows it to be adjusted to many different notebook models.
 
 ## How to build
 
