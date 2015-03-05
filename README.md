@@ -39,7 +39,7 @@ To build the solution, first navigate to the cloned repo:<br/>
 Then build the solution:<br/>
 `xbuild /t:Build /p:Configuration=ReleaseLinux NoteBookFanControl.sln`
 
-The result can be found at `nbfc/Linux/bin/Release`<br/>
+The result can be found at `nbfc/Linux/bin/ReleaseLinux`<br/>
 If everything worked well, you may want to start the service:<br/>
 `sudo start-nbfcservice.sh`<br/>
 You can control it via nbfc.exe, e.g. `mono nbfc.exe load 'Name of the config'` to load a config and start the automatic fan control. To learn more about nbfc.exe call `mono nbfc.exe help`.
