@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLinux|AnyCPU'">
+    <OutputPath>bin\ReleaseLinux\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -55,9 +64,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild">
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
     <ItemGroup>
-	  <Libs Include="$(TargetDir)\*.dll" Exclude="$(TargetDir)\StagWare.FanControl.*"/>
+      <Libs Include="$(TargetDir)\*.dll" Exclude="$(TargetDir)\StagWare.FanControl.*" />
     </ItemGroup>
     <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\$(Configuration)\Plugins\" ContinueOnError="true" />
   </Target>
