@@ -2,7 +2,7 @@ NoteBook FanControl
 ===================
 
 NBFC is a cross-platform fan control service for notebooks.
-It comes with a powerful configuration system, which aloows it to be adjusted to many different notebook models.
+It comes with a powerful configuration system, which allows to adjust it to many different notebook models.
 
 ## How to build
 
@@ -16,7 +16,7 @@ Make sure these packages are installed on your machine:
 * [NuGet](https://docs.nuget.org/consume/command-line-reference)
 * [WiX Toolset v3.9](https://wix.codeplex.com/releases/view/610859)
 
-You should also add %windir%\Microsoft.NET\Framework and the folder whichh includes nuget.exe to your PATH.
+You should also add %windir%\Microsoft.NET\Framework and the folder which includes nuget.exe to your PATH.
 
 To build the solution, navigate to the cloned repo:<br/>
 `cd nbfc`<br/>
@@ -42,7 +42,7 @@ Then build the solution:<br/>
 The result can be found at `nbfc/Linux/bin/Release`<br/>
 If everything worked well, you may want to start the service:<br/>
 `sudo start-nbfcservice.sh`<br/>
-IYou can control it via nbfc.exe, e.g. `mono nbfc.exe load 'Name of the config'` to load a config and start the automatic fan control. To learn more about nbfc.exe call `mono nbfc.exe help`.
+You can control it via nbfc.exe, e.g. `mono nbfc.exe load 'Name of the config'` to load a config and start the automatic fan control. To learn more about nbfc.exe call `mono nbfc.exe help`.
 Finally, to stop the serivce use `sudo stop-nbfcservice.sh`.
 
 Have fun :)
