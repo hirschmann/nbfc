@@ -243,8 +243,18 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                fanControl = new FanControl(cfg);
                 float[] speeds = Settings.Default.TargetFanSpeeds;
+                fanControl = new FanControl(cfg);
+
+                if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
+                {
+                    speeds = new float[cfg.FanConfigurations.Count];
+
+                    for (int i = 0; i < speeds.Length; i++)
+                    {
+                        speeds[i] = FanControl.AutoFanSpeedPercentage;
+                    }
+                }
 
                 if (speeds != null && speeds.Length == fanControl.FanInformation.Count)
                 {
