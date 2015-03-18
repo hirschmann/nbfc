@@ -31,7 +31,7 @@ Just start it and follow the instructions :)
 #### Build on Linux
 _Linux support is still experimental!_
 
-If mono is not available on you machine, install the complete package:<br/>
+If mono is not available on your machine, install the complete package:<br/>
 `sudo apt-get install mono-complete`
 
 To build the solution, first navigate to the cloned repo:<br/>
