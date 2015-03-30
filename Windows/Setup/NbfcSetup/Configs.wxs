@@ -80,6 +80,9 @@
             <Component Id="cmpB4BB4E5BC8CB83099B03A0A9027A1C27" Directory="ConfigsFolder" Guid="*">
                 <File Id="filCBB006E4ADC7BAC79366C6E3B864E060" KeyPath="yes" Source="$(var.ConfigsDir)\Asus N56VZ.xml" />
             </Component>
+            <Component Id="cmpFCDD171E92AEE1BA0503733D7EEAE949" Directory="ConfigsFolder" Guid="*">
+                <File Id="filEF60B8DE3BE541D46DBE319B7ACFB4A8" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG G751JY.xml" />
+            </Component>
             <Component Id="cmpD1CD78F32CA7EB898718617CE62DE8B7" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB76CDFC28FB4AE25879922AEC4F71DA0" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Vivobook S400CA.xml" />
             </Component>
@@ -187,6 +190,9 @@
             </Component>
             <Component Id="cmp9D8CFE223E4B932E70A8747CCB70ED82" Directory="ConfigsFolder" Guid="*">
                 <File Id="filAF1294A00A807AD0BB810A1E92159EF6" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo T540p.xml" />
+            </Component>
+            <Component Id="cmp2691517A93ACDB48F58FCD90ACF1B1B5" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil49CAA172015B5963F5CC43D6B9A2326C" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo V580.xml" />
             </Component>
             <Component Id="cmp91F7683F6EBBE9524D7D1499A9FB771E" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8A9293EAE23DE2015E8A2F3F92B8EDBF" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo x121e 30515YG.xml" />
