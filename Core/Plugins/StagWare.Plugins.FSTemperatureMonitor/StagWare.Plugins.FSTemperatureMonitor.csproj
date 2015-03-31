@@ -45,7 +45,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\StagWare.FanControl\StagWare.FanControl.csproj">
+    <ProjectReference Include="..\..\StagWare.FanControl\StagWare.FanControl.csproj">
       <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
       <Name>StagWare.FanControl</Name>
     </ProjectReference>

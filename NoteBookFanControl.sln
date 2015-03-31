@@ -49,7 +49,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcCli", "Core\NbfcCli\Nbf
 		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.FSTemperatureMonitor", "StagWare.Plugins.FSTemperatureMonitor\StagWare.Plugins.FSTemperatureMonitor.csproj", "{11380AFB-D406-4F4E-B260-2C892CD067B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.FSTemperatureMonitor", "Core\Plugins\StagWare.Plugins.FSTemperatureMonitor\StagWare.Plugins.FSTemperatureMonitor.csproj", "{11380AFB-D406-4F4E-B260-2C892CD067B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
