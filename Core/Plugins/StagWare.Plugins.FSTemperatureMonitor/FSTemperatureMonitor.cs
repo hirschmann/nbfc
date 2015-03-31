@@ -44,8 +44,10 @@ namespace StagWare.Plugins.Generic
                 sourcesFile = Path.Combine(sourcesFile, SourcesFileName);
                 var paths = new List<string>();
 
-                foreach (string src in File.ReadAllLines(sourcesFile))
+                foreach (string s in File.ReadAllLines(sourcesFile))
                 {
+                    string src = s.Trim();
+
                     if (File.Exists(src))
                     {
                         GetTemperature(src);
