@@ -10,7 +10,7 @@
     Width="560" 
     Icon="/ConfigEditor;component/fan.ico"
     WindowStartupLocation="CenterScreen">
-    
+
     <Window.Resources>
         <ObjectDataProvider x:Key="sortedDataProvider"/>
     </Window.Resources>
@@ -29,47 +29,47 @@
                     <Image Height="14"
                            Margin="0,0,0,0" 
                            Source="{StaticResource newConfig}"/>
-                    
+
                     <TextBlock Margin="3,0,0,0" 
                                Text="New"/>
                 </StackPanel>
             </Button>
-            
+
             <Button Margin="5,4,0,0" Command="{Binding SaveConfigCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="13" 
                            Source="{StaticResource save}"/>
-                    
+
                     <TextBlock Margin="3,0,0,0" 
                                Text="Save"/>
                 </StackPanel>
             </Button>
-            
+
             <Button Margin="5,4,0,0" Command="{Binding SaveConfigAsCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="13" 
                            Source="{StaticResource save}"/>
-                    
+
                     <TextBlock Margin="3,0,0,0" 
                                Text="Save as"/>
                 </StackPanel>
             </Button>
-            
+
             <Button Margin="5,4,0,0" Command="{Binding DeleteConfigCommand}" >
                 <StackPanel Orientation="Horizontal">
                     <Image Height="15" 
                            Source="{StaticResource delete}"/>
-                    
+
                     <TextBlock Margin="3,0,0,0" 
                                Text="Delete"/>
                 </StackPanel>
             </Button>
-            
+
             <Button Margin="5,4,0,0" Command="{Binding ImportConfigCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Height="15" 
                            Source="{StaticResource importConfig}"/>
-                    
+
                     <TextBlock Margin="3,0,0,0" 
                                Text="Import"/>
                 </StackPanel>
@@ -81,7 +81,7 @@
                HorizontalAlignment="Left"
                Margin="10,42,0,0"
                VerticalAlignment="Top"/>
-        
+
         <ComboBox Margin="136,45,10,0" 
                   VerticalAlignment="Top" 
                   b:SelectionChangedBehaviour.Command="{Binding SelectConfigCommand}"
@@ -94,7 +94,7 @@
                HorizontalAlignment="Left"
                Margin="10,73,0,0" 
                VerticalAlignment="Top"/>
-        
+
         <TextBox x:Name="notebookModel"
                  Height="23"
                  Margin="136,76,66,0" 
@@ -108,15 +108,15 @@
                         <Trigger Property="IsReadOnly" Value="True">
                             <Setter Property="Background" 
                                     Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                         </Trigger>
-                        
+                        </Trigger>
+
                         <Trigger Property="IsReadOnly" Value="False">
                             <Setter Property="Background" 
                                     Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </TextBox.Style>            
+            </TextBox.Style>
         </TextBox>
         <ToggleButton Name="lock"
                       Margin="0,76,10,0" 
@@ -133,7 +133,7 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="ToolTip"
                                     Value="Textbox is unlocked  (Click to lock)"/>
-                            
+
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <Image Source="{StaticResource unlocked}"/>
@@ -143,7 +143,7 @@
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="ToolTip" 
                                     Value="Textbox is locked  (Click to unlock)"/>
-                            
+
                             <Setter Property="Content">
                                 <Setter.Value>
                                     <Image Source="{StaticResource locked}"/>
@@ -154,7 +154,7 @@
                 </Style>
             </ToggleButton.Style>
         </ToggleButton>
-        
+
         <Button HorizontalAlignment="Right" 
                 Margin="0,76,38,0" 
                 VerticalAlignment="Top" 
@@ -164,7 +164,7 @@
         	    ToolTip="Insert notebook model" 
                 IsEnabled="{Binding IsChecked, ElementName=lock}" 
                 Click="insertNotebookModel_Click">
-            
+
             <Image Source="{StaticResource loadDefaults}">
                 <Image.LayoutTransform>
                     <RotateTransform Angle="90"/>
@@ -172,7 +172,19 @@
             </Image>
         </Button>
 
-        <TabControl Margin="0,118,0,0">
+        <Label Content="Config author:" 
+        	   FontWeight="SemiBold"
+        	   HorizontalAlignment="Left"
+        	   Margin="10,105,0,0" 
+        	   VerticalAlignment="Top"/>
+        
+        <TextBox Height="23"
+                 Margin="136,108,66,0" 
+        	     TextWrapping="Wrap"
+        	     VerticalAlignment="Top"
+        	     Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TabControl Margin="0,150,0,0">
             <TabItem Header="Basic configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
 
@@ -187,7 +199,7 @@
                            Height="26" 
                            Width="Auto" 
                            HorizontalAlignment="Right"/>
-                    
+
                     <xctk:IntegerUpDown Value="{Binding EcPollInterval}"
                                         Margin="0,22,0,0"
                                         HorizontalAlignment="Left" 
@@ -204,7 +216,7 @@
                            Height="26"
                            Width="Auto" 
                            HorizontalContentAlignment="Right"/>
-                    
+
                     <xctk:IntegerUpDown Value="{Binding CriticalTemperature}"
                                         Margin="0,54,0,0" 
                                         HorizontalAlignment="Left"
@@ -221,7 +233,7 @@
                            Width="Auto" 
                            Height="26" 
                            HorizontalAlignment="Right"/>
-                    
+
                     <RadioButton Content="Byte" 
                                  HorizontalAlignment="Left" 
                                  Margin="0,94,0,0" 
@@ -230,7 +242,7 @@
                                  Height="15"
                                  Width="42" 
                                  IsChecked="{Binding ReadWriteWords, Converter={StaticResource invertBooleanConverter}}"/>
-                    
+
                     <RadioButton Content="Word"
                                  HorizontalAlignment="Left" 
                                  Margin="0,114,0,0" 
@@ -261,28 +273,28 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding FanDisplayName}" 
                                                 Header="Fan display name"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding ReadRegister}" 
                                                 Header="Read register"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding WriteRegister}" 
                                                 Header="Write register"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding MinSpeedValue}" 
                                                 Header="Min. speed"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding MaxSpeedValue}" 
                                                 Header="Max. speed"/>
-                            
+
                             <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" 
                                                     Header="Reset on exit"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding ResetValue}" 
                                                 Header="Reset value"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding TemperatureThresholds.Count}"
                                                 Header="Temperature thresholds"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding FanSpeedOverrides.Count}" 
                                                 Header="Fan speed overrides"/>
                         </DataGrid.Columns>
@@ -296,7 +308,7 @@
                             Width="23" 
                             ToolTip="Add new fan configuration" 
                             Click="addFanConfig_Click">
-                        
+
                         <Image Source="{StaticResource add}"/>
                     </Button>
                     <Button HorizontalAlignment="Left" 
@@ -308,7 +320,7 @@
                             IsEnabled="{Binding SelectedValue, ElementName=fanConfigsGrid, Converter={StaticResource selectionToBoolConverter}}"
                             ToolTip="Edit selected fan configuration" 
                             Click="editFanConfig_Click">
-                        
+
                         <Image Source="{StaticResource edit}"/>
                     </Button>
                     <Button HorizontalAlignment="Left"
@@ -319,7 +331,7 @@
                             Width="23"
                             IsEnabled="{Binding SelectedValue, ElementName=fanConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             ToolTip="Delete selected fan configuration" Click="removeFanConfig_Click">
-                        
+
                         <Image Source="{StaticResource delete}"/>
                     </Button>
                 </Grid>
@@ -344,25 +356,25 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Description}" 
                                                 Header="Description"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding WriteOccasion}" 
                                                 Header="Write occasion" />
-                            
+
                             <DataGridTextColumn Binding="{Binding WriteMode}" 
-                                                Header="Write mode" />          
-                            
+                                                Header="Write mode" />
+
                             <DataGridTextColumn Binding="{Binding Register}" 
                                                 Header="Register"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding Value}" 
                                                 Header="Value"/>
-                            
+
                             <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" 
-                                                    Header="Reset on exit"/>        
-                            
+                                                    Header="Reset on exit"/>
+
                             <DataGridTextColumn Binding="{Binding ResetWriteMode}" 
                                                 Header="Reset write mode"/>
-                            
+
                             <DataGridTextColumn Binding="{Binding ResetValue}" 
                                                 Header="Reset value"/>
                         </DataGrid.Columns>
@@ -376,7 +388,7 @@
                             Width="23" 
                              ToolTip="Add new register write configuration"
                             Click="addRegisterWriteConfig_Click">
-                        
+
                         <Image Source="{StaticResource add}"/>
                     </Button>
 
@@ -401,7 +413,7 @@
                             IsEnabled="{Binding SelectedValue, ElementName=registerWriteConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             ToolTip="Delete selected register write configuration" 
                             Click="removeRegisterWriteConfig_Click">
-                        
+
                         <Image Source="{StaticResource delete}"/>
                     </Button>
                 </Grid>
