@@ -17,6 +17,7 @@ namespace StagWare.FanControl.Configurations
         #region Properties
 
         public string NotebookModel { get; set; }
+        public string Author { get; set; }
         public int EcPollInterval { get; set; }
         public bool ReadWriteWords { get; set; }
         public int CriticalTemperature { get; set; }
@@ -118,6 +119,7 @@ namespace StagWare.FanControl.Configurations
             return new FanControlConfigV2()
             {
                 NotebookModel = this.NotebookModel,
+                Author = this.Author,
                 EcPollInterval = this.EcPollInterval,
                 ReadWriteWords = this.ReadWriteWords,
                 CriticalTemperature = this.CriticalTemperature,
