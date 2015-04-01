@@ -1,11 +1,11 @@
 ﻿using StagWare.FanControl.Configurations;
-using StagWare.FanControl.Service.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.ServiceModel;
+using StagWare.Settings;
 
 namespace StagWare.FanControl.Service
 {
@@ -15,6 +15,8 @@ namespace StagWare.FanControl.Service
         #region Constants
 
         private const string ConfigsDirectoryName = "Configs";
+        private const string SettingsFileName = "settings.xml";
+        private const string SettingsFolderName = "NbfcService";
 
         #endregion
 
@@ -35,14 +37,14 @@ namespace StagWare.FanControl.Service
 
         public FanControlService()
         {
-            if (Settings.Default.UpgradeRequired)
-            {
-                Settings.Default.Upgrade();
-                Settings.Default.UpgradeRequired = false;
-                Settings.Default.Save();
-            }
+            string settingsFile = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                SettingsFolderName,
+                SettingsFileName);
 
-            if (Settings.Default.AutoStart)
+            AppSettings.SettingsFileName = settingsFile;
+
+            if (AppSettings.Default.Enabled)
             {
                 Start();
             }
@@ -124,20 +126,20 @@ namespace StagWare.FanControl.Service
                         {
                             this.fansCount = this.fanControl.FanInformation.Count;
                             this.fanControl.Start();
-                            Settings.Default.AutoStart = this.fanControl.Enabled;
-                            Settings.Default.Save();
+                            AppSettings.Default.Enabled = this.fanControl.Enabled;
+                            AppSettings.Save();
                         }
                     }
                 }
                 else if (!this.fanControl.Enabled)
                 {
                     this.fanControl.Start();
-                    Settings.Default.AutoStart = this.fanControl.Enabled;
-                    Settings.Default.Save();
+                    AppSettings.Default.Enabled = this.fanControl.Enabled;
+                    AppSettings.Save();
                 }
             }
 
-            return Settings.Default.AutoStart;
+            return AppSettings.Default.Enabled;
         }
 
         public void Stop()
@@ -146,9 +148,9 @@ namespace StagWare.FanControl.Service
             {
                 try
                 {
-                    Settings.Default.AutoStart = false;
-                    Settings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
-                    Settings.Default.Save();
+                    AppSettings.Default.Enabled = false;
+                    AppSettings.Default.FanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
+                    AppSettings.Save();
                 }
                 catch
                 {
@@ -170,8 +172,8 @@ namespace StagWare.FanControl.Service
                 }
                 else
                 {
-                    Settings.Default.SelectedConfigId = configUniqueId;
-                    Settings.Default.Save();
+                    AppSettings.Default.Config = configUniqueId;
+                    AppSettings.Save();
 
                     if (this.fanControl != null)
                     {
@@ -243,7 +245,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = Settings.Default.TargetFanSpeeds;
+                float[] speeds = AppSettings.Default.FanSpeeds;
                 fanControl = new FanControl(cfg);
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
@@ -295,7 +297,7 @@ namespace StagWare.FanControl.Service
         {
             bool result = false;
             var configManager = new FanControlConfigManager(FanControlService.ConfigsDirectory);
-            string id = Settings.Default.SelectedConfigId;
+            string id = AppSettings.Default.Config;
 
             if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
             {
