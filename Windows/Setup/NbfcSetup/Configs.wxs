@@ -128,6 +128,9 @@
             <Component Id="cmpB8A858E0DC8A322952D7843A345E8DC1" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil978148BFFF273492BCA1504D3D3326AC" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 625.xml" />
             </Component>
+            <Component Id="cmp9002130E53009F9B077499280F6A0B5B" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil3E657E7ABDEBA0A1035ABAA2520516B8" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 6735s Turion X2 RM-72.xml" />
+            </Component>
             <Component Id="cmpE4E718FFD9FC2D55063ECCC3C629551C" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8A149CA066C1E8D2CB46FDFFB9DD2209" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 8710p.xml" />
             </Component>
