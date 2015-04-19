@@ -59,8 +59,6 @@
         <CreateFolder Directory="ConfigsFolder">
           <Permission User="Everyone" GenericAll="yes" ChangePermission="yes"/>
         </CreateFolder>
-
-        <RemoveFile Id="RemoveConfigXmlFiles" Name="*.xml" On="uninstall"/>
       </Component>
 
       <!--Plugins folder setup-->
