@@ -164,9 +164,6 @@
             <Component Id="cmpB8EE8A89E707442EFF0A4DC62B405FCE" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1A4340791A638C761ACB554FC3F03520" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 4535s.xml" />
             </Component>
-            <Component Id="cmpFB8D985A0D118B9979FF7286E0495073" Directory="ConfigsFolder" Guid="*">
-                <File Id="fil3518CAB71724E3C488AA810747DDE5C6" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 4540s.xml" />
-            </Component>
             <Component Id="cmp4B3555D5C4D3498BA399D6096969F26F" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1A930649AC14D9B4B870EBD522770FBE" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 4710s.xml" />
             </Component>
