@@ -1,3 +1,3 @@
 #!/bin/bash
 
-kill $(cat /root/nbfcservice-lock)
+pkill -f NbfcService
