@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace StagWare.Settings
 {
-    public sealed partial class AppSettings
+    public sealed partial class ServiceSettings
     {
         #region Nested Types
 
@@ -18,7 +18,7 @@ namespace StagWare.Settings
         {
             #region Private Fields
 
-            internal static readonly AppSettings instance;
+            internal static readonly ServiceSettings instance;
 
             #endregion
 
@@ -31,16 +31,16 @@ namespace StagWare.Settings
             // not to mark type as 'beforefieldinit'.
             static Properties()
             {
-                instance = new AppSettings();
+                instance = new ServiceSettings();
 
-                if (AppSettings.SettingsFileExists)
+                if (ServiceSettings.SettingsFileExists)
                 {
                     try
                     {
                         using (FileStream fs = new FileStream(SettingsFileName, FileMode.Open))
                         {
-                            var serializer = new XmlSerializer(typeof(AppSettings));
-                            Properties.instance = (AppSettings)serializer.Deserialize(fs);
+                            var serializer = new XmlSerializer(typeof(ServiceSettings));
+                            Properties.instance = (ServiceSettings)serializer.Deserialize(fs);
                         }
                     }
                     catch (Exception e)
@@ -78,7 +78,7 @@ namespace StagWare.Settings
         #region Properties
 
         // Singleton instance.
-        public static AppSettings Default
+        public static ServiceSettings Default
         {
             get { return Properties.instance; }
         }
@@ -97,7 +97,7 @@ namespace StagWare.Settings
 
         #region Constructors
 
-        static AppSettings()
+        static ServiceSettings()
         {
             string folderName = GetProductName();
 
@@ -116,7 +116,7 @@ namespace StagWare.Settings
         }
 
         // Hide constructor (Singleton)
-        private AppSettings()
+        private ServiceSettings()
         {
             this.storedValues = new Dictionary<string, object>();
             RestoreDefaults(this, true);
@@ -128,7 +128,7 @@ namespace StagWare.Settings
 
         public static void RestoreDefaults()
         {
-            RestoreDefaults(AppSettings.Default, false);
+            RestoreDefaults(ServiceSettings.Default, false);
         }
 
         public static void Save()
@@ -142,8 +142,8 @@ namespace StagWare.Settings
 
             using (FileStream fs = new FileStream(SettingsFileName, FileMode.Create))
             {
-                var serializer = new XmlSerializer(typeof(AppSettings));
-                serializer.Serialize(fs, AppSettings.Default);
+                var serializer = new XmlSerializer(typeof(ServiceSettings));
+                serializer.Serialize(fs, ServiceSettings.Default);
             }
         }
 
@@ -151,20 +151,20 @@ namespace StagWare.Settings
         {
             Properties.instance.storedValues.Clear();
 
-            foreach (PropertyInfo info in GetNonStaticProperties(typeof(AppSettings)))
+            foreach (PropertyInfo info in GetNonStaticProperties(typeof(ServiceSettings)))
             {
                 object value = info.GetValue(Default, null);
-                AppSettings.Default.storedValues.Add(info.Name, value);
+                ServiceSettings.Default.storedValues.Add(info.Name, value);
             }
         }
 
         public static void LoadStoredSettings()
         {
-            foreach (PropertyInfo info in GetNonStaticProperties(typeof(AppSettings)))
+            foreach (PropertyInfo info in GetNonStaticProperties(typeof(ServiceSettings)))
             {
-                if (AppSettings.Default.storedValues.ContainsKey(info.Name))
+                if (ServiceSettings.Default.storedValues.ContainsKey(info.Name))
                 {
-                    object value = AppSettings.Default.storedValues[info.Name];
+                    object value = ServiceSettings.Default.storedValues[info.Name];
                     info.SetValue(Default, value, null);
                 }
             }
@@ -172,7 +172,7 @@ namespace StagWare.Settings
 
         public static void DeleteSettingsFile()
         {
-            if (AppSettings.SettingsFileExists)
+            if (ServiceSettings.SettingsFileExists)
             {
                 File.Delete(SettingsFileName);
             }
@@ -189,9 +189,9 @@ namespace StagWare.Settings
 
         #region Private Methods
 
-        private static void RestoreDefaults(AppSettings settings, bool force)
+        private static void RestoreDefaults(ServiceSettings settings, bool force)
         {
-            foreach (PropertyInfo pInfo in GetNonStaticProperties(typeof(AppSettings)))
+            foreach (PropertyInfo pInfo in GetNonStaticProperties(typeof(ServiceSettings)))
             {
                 if (force || !HasRestoreDefaultsIgnoreAttribute(pInfo))
                 {
@@ -232,9 +232,9 @@ namespace StagWare.Settings
 
         private static void OnLoadSettingsFailed(Exception e)
         {
-            if (AppSettings.LoadSettingsFailed != null)
+            if (ServiceSettings.LoadSettingsFailed != null)
             {
-                AppSettings.LoadSettingsFailed(null, new LoadSettingsFailedEventArgs(e));
+                ServiceSettings.LoadSettingsFailed(null, new LoadSettingsFailedEventArgs(e));
             }
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StagWare.Settings
 {
-    public sealed partial class AppSettings
+    public sealed partial class ServiceSettings
     {
         public string SelectedConfigId { get; set; }
         public bool Autostart { get; set; }
