@@ -28,10 +28,7 @@
       <!--Main directory setup-->
       <Component Id="Dir.InstallFolderSetup" 
                  Directory="INSTALLFOLDER" 
-                 Guid="48FBA1F6-5A7E-41FF-948F-F891D85B80DC" >
-        <RemoveFolder Id="RemoveConfigsFolder" Directory="ConfigsFolder" On="uninstall" />
-        <RemoveFolder Id="RemovePluginsFolder" Directory="PluginsFolder" On="uninstall" />
-        <RemoveFolder Id="RemoveInstallFolder" Directory="INSTALLFOLDER" On="uninstall" />
+                 Guid="48FBA1F6-5A7E-41FF-948F-F891D85B80DC">
 
         <!--Remove service settings files of older versions-->
         <RemoveFile Id="RemoveServiceSettingsOld" 
@@ -59,19 +56,15 @@
         <CreateFolder Directory="ConfigsFolder">
           <Permission User="Everyone" GenericAll="yes" ChangePermission="yes"/>
         </CreateFolder>
-      </Component>
-
-      <!--Plugins folder setup-->
-      <Component Id="Dir.PluginsFolderSetup" 
-                 Directory="PluginsFolder" 
-                 Guid="4524F641-6D7C-49E2-8643-272BD632C024">
-        <RemoveFile Id="RemovePlugins" Name="*.*" On="uninstall"/>
-      </Component>
+      </Component>      
 
       <!--AppData folder setup-->
       <Component Id="Dir.AppDataFolderSetup" 
                  Directory="CommonAppDataFolder" 
-                 Guid="CB64FBF8-B6B5-460A-B8B3-941E16BA946D" >
+                 Guid="CB64FBF8-B6B5-460A-B8B3-941E16BA946D">
+        
+        <Condition>(REMOVE="ALL") AND (NOT UPGRADINGPRODUCTCODE)</Condition>
+        
         <RemoveFile Id="RemoveServiceSettings" 
                     Directory="ServiceSettingsFolder" 
                     Name="NbfcServiceSettings.xml" 
