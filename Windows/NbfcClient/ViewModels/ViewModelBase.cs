@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 
 namespace NbfcClient.ViewModels
 {
@@ -16,15 +12,9 @@ namespace NbfcClient.ViewModels
         {
             get
             {
-                if (string.IsNullOrEmpty(this.version))
+                if (this.version ==  null)
                 {
-                    this.version = Application.ProductVersion;
-                    int idx = this.version.LastIndexOf('.');
-
-                    if (idx >= 0)
-                    {
-                        this.version = this.version.Remove(idx);
-                    }
+                    this.version = GetInformationalVersionString();
                 }
 
                 return version;
@@ -40,6 +30,26 @@ namespace NbfcClient.ViewModels
             if (this.PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private static string GetInformationalVersionString()
+        {
+            var attribute = (AssemblyInformationalVersionAttribute)Assembly.GetExecutingAssembly()
+                .GetCustomAttributes(typeof(AssemblyInformationalVersionAttribute), false)
+                .FirstOrDefault();
+
+            if (attribute == null)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return attribute.InformationalVersion;
             }
         }
 
