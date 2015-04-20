@@ -37,8 +37,19 @@ namespace StagWare.FanControl.Service
 
         public FanControlService()
         {
+            string dir = "";
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                dir = "/etc/";
+            }
+            else
+            {
+                dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            }
+
             string settingsFile = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                dir,
                 SettingsFolderName,
                 SettingsFileName);
 
