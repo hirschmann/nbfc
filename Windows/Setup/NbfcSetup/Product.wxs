@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <!--Includes-->
   <?include $(var.ProjectDir)Constants.wxi ?>
@@ -72,6 +73,10 @@
                   Value="INSTALLFOLDER=[INSTALLFOLDER]"
                   Return="check" 
                   Execute="immediate"/>
+    
+    <!--Close NbfcClient before installation-->
+    <util:CloseApplication Id="CloseNbfcClient" Target="NoteBookFanControl.exe" EndSessionMessage="yes" />
+    <util:CloseApplication Id="CloseNbfcClientOld" Target="NoteBook FanControl.exe" EndSessionMessage="yes" />
 
     <!--Do actions-->
     <InstallExecuteSequence>
