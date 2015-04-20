@@ -7,8 +7,8 @@ namespace StagWare.Settings
 {
     public sealed partial class AppSettings
     {
-        public string Config { get; set; }
-        public bool Enabled { get; set; }
-        public float[] FanSpeeds { get; set; }
+        public string SelectedConfigId { get; set; }
+        public bool Autostart { get; set; }
+        public float[] TargetFanSpeeds { get; set; }
     }
 }

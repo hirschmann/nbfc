@@ -15,7 +15,7 @@ namespace StagWare.FanControl.Service
         #region Constants
 
         private const string ConfigsDirectoryName = "Configs";
-        private const string SettingsFileName = "settings.xml";
+        private const string SettingsFileName = "NbfcServiceSettings.xml";
         private const string SettingsFolderName = "NbfcService";
 
         #endregion
@@ -44,7 +44,7 @@ namespace StagWare.FanControl.Service
 
             AppSettings.SettingsFileName = settingsFile;
 
-            if (AppSettings.Default.Enabled)
+            if (AppSettings.Default.Autostart)
             {
                 Start();
             }
@@ -126,7 +126,7 @@ namespace StagWare.FanControl.Service
                         {
                             this.fansCount = this.fanControl.FanInformation.Count;
                             this.fanControl.Start();
-                            AppSettings.Default.Enabled = this.fanControl.Enabled;
+                            AppSettings.Default.Autostart = this.fanControl.Enabled;
                             AppSettings.Save();
                         }
                     }
@@ -134,12 +134,12 @@ namespace StagWare.FanControl.Service
                 else if (!this.fanControl.Enabled)
                 {
                     this.fanControl.Start();
-                    AppSettings.Default.Enabled = this.fanControl.Enabled;
+                    AppSettings.Default.Autostart = this.fanControl.Enabled;
                     AppSettings.Save();
                 }
             }
 
-            return AppSettings.Default.Enabled;
+            return AppSettings.Default.Autostart;
         }
 
         public void Stop()
@@ -148,8 +148,8 @@ namespace StagWare.FanControl.Service
             {
                 try
                 {
-                    AppSettings.Default.Enabled = false;
-                    AppSettings.Default.FanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
+                    AppSettings.Default.Autostart = false;
+                    AppSettings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
                     AppSettings.Save();
                 }
                 catch
@@ -172,7 +172,7 @@ namespace StagWare.FanControl.Service
                 }
                 else
                 {
-                    AppSettings.Default.Config = configUniqueId;
+                    AppSettings.Default.SelectedConfigId = configUniqueId;
                     AppSettings.Save();
 
                     if (this.fanControl != null)
@@ -245,7 +245,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = AppSettings.Default.FanSpeeds;
+                float[] speeds = AppSettings.Default.TargetFanSpeeds;
                 fanControl = new FanControl(cfg);
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
@@ -297,7 +297,7 @@ namespace StagWare.FanControl.Service
         {
             bool result = false;
             var configManager = new FanControlConfigManager(FanControlService.ConfigsDirectory);
-            string id = AppSettings.Default.Config;
+            string id = AppSettings.Default.SelectedConfigId;
 
             if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
             {
