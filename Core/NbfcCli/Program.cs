@@ -126,34 +126,24 @@ namespace NbfcCli
             {
                 PrintHelp();
             }
-        }
+        }        
 
         private static void SetFanSpeed(float speed, int index)
         {
-            using (var client = new FanControlServiceClient())
-            {
-                client.Open();
-                client.SetTargetFanSpeed(speed, index);
-                client.Close();
-            }
+            Action<FanControlServiceClient> action = client => client.SetTargetFanSpeed(speed, index);
+            CallServiceMethod(action);
         }
 
         private static void LoadConfig(string configName)
         {
-            using (var client = new FanControlServiceClient())
-            {
-                client.Open();
-                client.SetConfig(configName);
-                client.Close();
-            }
+            Action<FanControlServiceClient> action = client => client.SetConfig(configName);
+            CallServiceMethod(action);
         }
 
         private static void PrintStatus()
         {
-            using (var client = new FanControlServiceClient())
+            Action<FanControlServiceClient> action = client =>
             {
-                client.Open();
-
                 var info = client.GetFanControlInfo();
 
                 var sb = new StringBuilder();
@@ -171,27 +161,44 @@ namespace NbfcCli
                 }
 
                 Console.WriteLine(sb.ToString());
-                client.Close();
-            }
+            };
+
+            CallServiceMethod(action);
         }
 
         private static void StartService()
         {
-            using (var client = new FanControlServiceClient())
-            {
-                client.Open();
-                client.Start();
-                client.Close();
-            }
+            Action<FanControlServiceClient> action = client => client.Start();
+            CallServiceMethod(action);
         }
 
         private static void StopService()
         {
-            using (var client = new FanControlServiceClient())
+            Action<FanControlServiceClient> action = client => client.Stop();
+            CallServiceMethod(action);
+        }
+
+        private static void CallServiceMethod(Action<FanControlServiceClient> action)
+        {
+            try
             {
-                client.Open();
-                client.Stop();
-                client.Close();
+                using (var client = new FanControlServiceClient())
+                {
+                    client.Open();
+                    action(client);
+                    client.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                string msg = "Failed to execute the command";
+
+                if (!string.IsNullOrWhiteSpace(e.Message))
+                {
+                    msg += ": " + e.Message;
+                }
+
+                Console.Error.WriteLine(msg);
             }
         }
 

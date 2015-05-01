@@ -53,6 +53,8 @@ namespace NbfcClient.Windows
             ProcessCommandLineArgs();
             InitializeComponent();
 
+            Application.Current.SessionEnding += Current_SessionEnding;
+
             this.renderer = new TrayIconRenderer();
             this.renderer.Color = Settings.Default.TrayIconForegroundColor;
 
@@ -70,7 +72,7 @@ namespace NbfcClient.Windows
             this.Height = Settings.Default.WindowHeight;
             this.Width = Settings.Default.WindowWidth;
             this.SizeChanged += MainWindow_SizeChanged;
-        }
+        }        
 
         #region Helper Methods
 
@@ -181,6 +183,12 @@ namespace NbfcClient.Windows
             Close();
         }
 
+        void Current_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            close = true;
+            Close();
+        }
+
         private void notifyIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
             if (this.Visibility == Visibility.Visible)
@@ -211,7 +219,7 @@ namespace NbfcClient.Windows
                 e.Cancel = true;
                 WindowState = System.Windows.WindowState.Minimized;
             }
-        }
+        }        
 
         #endregion
 

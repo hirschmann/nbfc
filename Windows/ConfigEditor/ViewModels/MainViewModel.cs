@@ -24,13 +24,14 @@ namespace ConfigEditor.ViewModels
 
         #region Private Fields
 
-        private FanControlConfigManager configManager;        
+        private FanControlConfigManager configManager;
 
         #region Property Backing Fields
 
         private ObservableCollection<string> configNames;
         private string selectedConfigName;
         private string notebookModel;
+        private string author;
         private int ecPollInterval;
         private int criticalTemperature;
         private bool readWriteWords;
@@ -164,6 +165,19 @@ namespace ConfigEditor.ViewModels
                 {
                     notebookModel = value;
                     OnPropertyChanged("NotebookModel");
+                }
+            }
+        }
+
+        public string Author
+        {
+            get { return author; }
+            set
+            {
+                if (author != value)
+                {
+                    author = value;
+                    OnPropertyChanged("Author");
                 }
             }
         }
@@ -404,10 +418,10 @@ namespace ConfigEditor.ViewModels
         #region Constructors
 
         public MainViewModel()
-        {            
+        {
             this.FanConfigs = new ObservableCollection<FanConfigViewModel>();
             this.RegisterWriteConfigs = new ObservableCollection<RegisterWriteConfigViewModel>();
-            this.ActualNotebookModel = GetNotebookModel();            
+            this.ActualNotebookModel = GetNotebookModel();
 
             InitializeConfigManager();
             UpdateViewModel();
@@ -560,6 +574,7 @@ namespace ConfigEditor.ViewModels
                 CriticalTemperature = viewModel.CriticalTemperature,
                 EcPollInterval = viewModel.EcPollInterval,
                 NotebookModel = viewModel.NotebookModel,
+                Author = viewModel.Author,
                 ReadWriteWords = viewModel.ReadWriteWords
             };
 
@@ -658,6 +673,7 @@ namespace ConfigEditor.ViewModels
                 this.CriticalTemperature = cfg.CriticalTemperature;
                 this.EcPollInterval = cfg.EcPollInterval;
                 this.NotebookModel = cfg.NotebookModel;
+                this.Author = cfg.Author;
                 this.ReadWriteWords = cfg.ReadWriteWords;
 
                 if (cfg.RegisterWriteConfigurations != null)
@@ -680,6 +696,7 @@ namespace ConfigEditor.ViewModels
             this.CriticalTemperature = 75;
             this.EcPollInterval = 3000;
             this.NotebookModel = string.Empty;
+            this.Author = string.Empty;
             this.ReadWriteWords = false;
             this.RegisterWriteConfigs.Clear();
             this.FanConfigs.Clear();

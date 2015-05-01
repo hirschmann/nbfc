@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP Compaq 6735s</NotebookModel>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>86</CriticalTemperature>
+  <Author>Rafael Severien</Author>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>215</ReadRegister>
+      <WriteRegister>215</WriteRegister>
+      <MinSpeedValue>20</MinSpeedValue>
+      <MaxSpeedValue>100</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>55</FanSpeedResetValue>
+      <FanDisplayName></FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>40</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>77</UpThreshold>
+          <DownThreshold>72</DownThreshold>
+          <FanSpeed>60</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>85</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>83</UpThreshold>
+          <DownThreshold>80</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>25</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>79</UpThreshold>
+          <DownThreshold>74</DownThreshold>
+          <FanSpeed>72.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>68</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>35</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>45</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>30</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>
