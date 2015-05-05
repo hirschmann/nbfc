@@ -45,6 +45,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clipr, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\clipr.1.4.6.0\lib\net35\clipr.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -56,6 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineOptions\ConfigVerb.cs" />
+    <Compile Include="CommandLineOptions\HelpGenerator.cs" />
+    <Compile Include="CommandLineOptions\SetVerb.cs" />
+    <Compile Include="CommandLineOptions\StatusVerb.cs" />
+    <Compile Include="CommandLineOptions\StartVerb.cs" />
+    <Compile Include="CommandLineOptions\StopVerb.cs" />
+    <Compile Include="CommandLineOptions\Verbs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\NbfcService\Reference.cs">
@@ -68,6 +79,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Service References\NbfcService\NbfcCli.NbfcService.FanControlInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
