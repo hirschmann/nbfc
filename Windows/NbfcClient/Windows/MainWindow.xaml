@@ -50,7 +50,7 @@
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  IsReadOnly="True"/>
-        
+
         <!--Version-->
         <Label Content="{Binding Version}" 
                Margin="0,43,8,0" 
@@ -58,7 +58,7 @@
                Foreground="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" 
                HorizontalAlignment="Right" 
                FontFamily="Segoe UI Light"/>
-        
+
         <!--Service info-->
         <CheckBox Content="  :Fan control service enabled" 
                   HorizontalAlignment="Left" 
@@ -134,6 +134,19 @@
             <tb:TaskbarIcon.TrayToolTip>
                 <uc:TrayToolTip />
             </tb:TaskbarIcon.TrayToolTip>
-        </tb:TaskbarIcon>        
+        </tb:TaskbarIcon>
+        <TextBlock x:Name="wbcd"
+                   Margin="0,74,10,0" 
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Right" 
+                   Foreground="#FFFF0000" 
+                   FontSize="18"
+                   ToolTip="#wbcd - World Blood Cancer Day (28/05)" FontWeight="SemiBold" RenderTransformOrigin="0.215,2.13">
+            <Hyperlink NavigateUri="https://twitter.com/hashtag/wbcd"
+                       RequestNavigate="wbcd_RequestNavigate"
+                       Foreground="Red" TextDecorations="{x:Null}">
+                &amp;
+            </Hyperlink>
+        </TextBlock>
     </Grid>
 </Window>

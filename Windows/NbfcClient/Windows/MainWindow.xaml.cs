@@ -72,6 +72,18 @@ namespace NbfcClient.Windows
             this.Height = Settings.Default.WindowHeight;
             this.Width = Settings.Default.WindowWidth;
             this.SizeChanged += MainWindow_SizeChanged;
+
+            var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
+
+            if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
+                && (DateTime.Today <= wbcd))
+            {
+                this.wbcd.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                this.wbcd.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }        
 
         #region Helper Methods
@@ -248,9 +260,15 @@ namespace NbfcClient.Windows
 
         #endregion
 
-        #region Settings & Donation
+        #region Settings & Links
 
         private void donationLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
+        }
+
+        private void wbcd_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
@@ -281,6 +299,6 @@ namespace NbfcClient.Windows
             GC.SuppressFinalize(this);
         }
 
-        #endregion
+        #endregion        
     }
 }
