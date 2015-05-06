@@ -21,7 +21,7 @@ namespace StagWare.Plugins.Generic
         private const string SettingsFolderName = "NbfcService";
 
         private const string LinuxHwmonDirectory = "/sys/class/hwmon/hwmon{0}/";
-        private const string LinuxTempSensorFileName = "temp{1}_input";
+        private const string LinuxTempSensorFileName = "temp{0}_input";
         private const string LinuxTempSensorNameFileName = "name";
         private static readonly string[] LinuxTempSensorNames = { "coretemp", "k10temp" };
 
@@ -49,9 +49,9 @@ namespace StagWare.Plugins.Generic
             {
                 string settingsFile = GetSettingsFileName();
 
-                if (!File.Exists(settingsFile))
+                if (!File.Exists(settingsFile) && !TryCreateSettingsFile(settingsFile))
                 {
-                    CreateSettingsFile(settingsFile);
+                    throw new PlatformNotSupportedException("No temperature sensors found.");
                 }
 
                 var list = new List<TemperatureSource>();
@@ -87,10 +87,8 @@ namespace StagWare.Plugins.Generic
             }
         }
 
-        private void CreateSettingsFile(string settingsFile)
+        private bool TryCreateSettingsFile(string settingsFile)
         {
-            File.Create(settingsFile);
-
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
                 int i = 0;
@@ -98,10 +96,11 @@ namespace StagWare.Plugins.Generic
 
                 while (Directory.Exists(dir))
                 {
-                    int j = 0;
+                    int j = 1;
                     string file = Path.Combine(dir, LinuxTempSensorNameFileName);
+					string sensorName = File.ReadAllText(file).Trim();
 
-                    if (LinuxTempSensorNames.Contains(File.ReadAllText(file).Trim()))
+                    if (LinuxTempSensorNames.Contains(sensorName))
                     {
                         var lines = new List<string>();
                         file = Path.Combine(dir, string.Format(LinuxTempSensorFileName, j));
@@ -109,22 +108,23 @@ namespace StagWare.Plugins.Generic
                         while (File.Exists(file))
                         {
                             lines.Add(string.Format("{0};{1}", file, 0.001));
-
                             j++;
                             file = Path.Combine(dir, string.Format(LinuxTempSensorFileName, j));
                         }
 
                         if (lines.Count > 0)
                         {
-                            File.AppendAllLines(settingsFile, lines);
-                            return;
+			    File.WriteAllLines (settingsFile, lines);
+                            return true;
                         }
                     }
 
                     i++;
-                    string.Format(LinuxHwmonDirectory, i);
+                    dir = string.Format(LinuxHwmonDirectory, i);
                 }
             }
+
+            return false;
         }
 
         public double GetTemperature()
