@@ -98,7 +98,7 @@ namespace StagWare.Plugins.Generic
                 {
                     int j = 1;
                     string file = Path.Combine(dir, LinuxTempSensorNameFileName);
-					string sensorName = File.ReadAllText(file).Trim();
+                    string sensorName = File.ReadAllText(file).Trim();
 
                     if (LinuxTempSensorNames.Contains(sensorName))
                     {
@@ -114,7 +114,7 @@ namespace StagWare.Plugins.Generic
 
                         if (lines.Count > 0)
                         {
-			    File.WriteAllLines (settingsFile, lines);
+                            File.WriteAllLines(settingsFile, lines);
                             return true;
                         }
                     }
