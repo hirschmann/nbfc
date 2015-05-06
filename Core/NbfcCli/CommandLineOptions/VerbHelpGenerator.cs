@@ -1,12 +1,11 @@
-﻿using clipr.Usage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using clipr;
+﻿using clipr;
 using clipr.Core;
 using clipr.Triggers;
+using clipr.Usage;
+using System;
+using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace NbfcCli.CommandLineOptions
 {
@@ -36,20 +35,46 @@ namespace NbfcCli.CommandLineOptions
             sb.AppendLine();
             sb.AppendLine("commands:");
 
-            foreach (PropertyInfo prop in typeof(Verbs).GetProperties())
+            foreach (PropertyInfo verb in typeof(Verbs).GetProperties())
             {
-                var attrib = prop.GetCustomAttributes(typeof(VerbAttribute), false).FirstOrDefault() as VerbAttribute;
+                var verbAttrib = verb.GetCustomAttributes(typeof(VerbAttribute), false)
+                    .FirstOrDefault() as VerbAttribute;
 
-                if (attrib != null)
+                if (verbAttrib != null)
                 {
-                    string cmd = attrib.Name;
+                    string cmd = verbAttrib.Name;
 
-                    if (prop.PropertyType.GetProperties().Length > 0)
+                    if (verb.PropertyType.GetProperties().Length > 0)
                     {
                         cmd += " [options]";
                     }
 
-                    sb.AppendFormat("  {0,-25}{1}",cmd , attrib.Description);
+                    sb.AppendFormat("  {0,-25}{1}",cmd , verbAttrib.Description);
+                    sb.AppendLine();
+
+                    foreach (PropertyInfo param in verb.PropertyType.GetProperties())
+                    {
+                        var paramAttrib = param.GetCustomAttributes(typeof(NamedArgumentExAttribute), false)
+                            .FirstOrDefault() as NamedArgumentExAttribute;
+
+                        if (paramAttrib != null)
+                        {
+                            cmd = string.Format(
+                                "{0}{1}, {0}{0}{2}", 
+                                config.ArgumentPrefix, 
+                                paramAttrib.ShortName, 
+                                paramAttrib.LongName);
+
+                            if (paramAttrib.ArgumentName != null)
+                            {
+                                cmd += string.Format(" <{0}>", paramAttrib.ArgumentName);
+                            }
+                            
+                            sb.AppendFormat("    {0,-27}{1}", cmd, paramAttrib.Description);
+                            sb.AppendLine();
+                        }
+                    }
+
                     sb.AppendLine();
                 }
             }

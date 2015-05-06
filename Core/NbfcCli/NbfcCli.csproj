@@ -61,7 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandLineOptions\ConfigVerb.cs" />
-    <Compile Include="CommandLineOptions\HelpGenerator.cs" />
+    <Compile Include="CommandLineOptions\NamedArgumentExAttribute.cs" />
+    <Compile Include="CommandLineOptions\VerbHelpGenerator.cs" />
     <Compile Include="CommandLineOptions\SetVerb.cs" />
     <Compile Include="CommandLineOptions\StatusVerb.cs" />
     <Compile Include="CommandLineOptions\StartVerb.cs" />

@@ -5,7 +5,12 @@ namespace NbfcCli.CommandLineOptions
     public class ConfigVerb
     {
         [MutuallyExclusiveGroup("option")]
-        [NamedArgument('a', "apply", Action = ParseAction.Store, Description = "Apply a config.")]
+        [NamedArgumentEx(
+            'a', 
+            "apply", 
+            ArgumentName = "cfg-name", 
+            Action = ParseAction.Store, 
+            Description = "Load and apply a config")]
         public string Apply { get; set; }
     }
 }
