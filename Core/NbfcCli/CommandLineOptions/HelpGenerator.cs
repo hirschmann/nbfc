@@ -6,6 +6,7 @@ using System.Text;
 using clipr;
 using clipr.Core;
 using clipr.Triggers;
+using System.Reflection;
 
 namespace NbfcCli.CommandLineOptions
 {
@@ -29,7 +30,31 @@ namespace NbfcCli.CommandLineOptions
 
         public string GetHelp(IParserConfig<T> config)
         {
-            return "";
+            var sb = new StringBuilder();
+            sb.Append(GetUsage());
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine("commands:");
+
+            foreach (PropertyInfo prop in typeof(T).GetProperties())
+            {
+                var attrib = prop.GetCustomAttributes(typeof(VerbAttribute), false).FirstOrDefault() as VerbAttribute;
+
+                if (attrib != null)
+                {
+                    string cmd = attrib.Name;
+
+                    if (prop.PropertyType.GetProperties().Length > 0)
+                    {
+                        cmd += " [options]";
+                    }
+
+                    sb.AppendFormat("  {0,-25}{1}",cmd , attrib.Description);
+                    sb.AppendLine();
+                }
+            }
+
+            return sb.ToString();
         }
 
         public string GetUsage()
@@ -42,7 +67,7 @@ namespace NbfcCli.CommandLineOptions
 
         public void OnParse(IParserConfig<T> config)
         {
-            Console.WriteLine(GetUsage());
+            Console.WriteLine(GetHelp(config));
         }
 
         public string PluginName
