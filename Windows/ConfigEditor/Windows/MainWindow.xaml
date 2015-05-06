@@ -101,21 +101,6 @@
                  TextWrapping="Wrap"
                  VerticalAlignment="Top" 
                  Text="{Binding NotebookModel}">
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Style.Triggers>
-                        <Trigger Property="IsReadOnly" Value="True">
-                            <Setter Property="Background" 
-                                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                        </Trigger>
-
-                        <Trigger Property="IsReadOnly" Value="False">
-                            <Setter Property="Background" 
-                                    Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
         </TextBox>
 
         <Button HorizontalAlignment="Right" 
