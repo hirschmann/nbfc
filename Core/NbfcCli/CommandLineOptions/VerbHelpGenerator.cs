@@ -10,9 +10,9 @@ using System.Reflection;
 
 namespace NbfcCli.CommandLineOptions
 {
-    public class HelpGenerator<T> : TriggerBase, IHelpGenerator<T> where T : class
+    public class VerbsHelpGenerator : TriggerBase, IHelpGenerator<Verbs>
     {
-        public HelpGenerator()
+        public VerbsHelpGenerator()
         {
             this.ShortName = 'h';
             this.LongName = "help";
@@ -28,7 +28,7 @@ namespace NbfcCli.CommandLineOptions
             get { return "Help"; }
         }
 
-        public string GetHelp(IParserConfig<T> config)
+        public string GetHelp(IParserConfig<Verbs> config)
         {
             var sb = new StringBuilder();
             sb.Append(GetUsage());
@@ -36,7 +36,7 @@ namespace NbfcCli.CommandLineOptions
             sb.AppendLine();
             sb.AppendLine("commands:");
 
-            foreach (PropertyInfo prop in typeof(T).GetProperties())
+            foreach (PropertyInfo prop in typeof(Verbs).GetProperties())
             {
                 var attrib = prop.GetCustomAttributes(typeof(VerbAttribute), false).FirstOrDefault() as VerbAttribute;
 
@@ -59,13 +59,13 @@ namespace NbfcCli.CommandLineOptions
 
         public string GetUsage()
         {
-            var attrib = typeof(T).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
+            var attrib = typeof(Verbs).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
                 .FirstOrDefault() as ApplicationInfoAttribute;
 
             return string.Format("usage: {0} [--version] [--help] <command> [<args>]", attrib.Name);
         }
 
-        public void OnParse(IParserConfig<T> config)
+        public void OnParse(IParserConfig<Verbs> config)
         {
             Console.WriteLine(GetHelp(config));
         }

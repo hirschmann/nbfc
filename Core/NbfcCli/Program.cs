@@ -46,7 +46,7 @@ namespace NbfcCli
         private static void ParseArgs(string[] args)
         {
             var opt = new Verbs();
-            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, new HelpGenerator<Verbs>());
+            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, new VerbsHelpGenerator());
             parser.StrictParse(args);
 
             if (opt.Start != null)
