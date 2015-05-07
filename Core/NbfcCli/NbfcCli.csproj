@@ -43,6 +43,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	<appConfig>App.Linux.config</appConfig>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -65,6 +66,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Linux.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
