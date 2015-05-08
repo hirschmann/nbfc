@@ -1,5 +1,9 @@
-﻿using NbfcCli.NbfcService;
+﻿using clipr;
+using clipr.Core;
+using NbfcCli.CommandLineOptions;
+using NbfcCli.NbfcService;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
@@ -41,92 +45,85 @@ namespace NbfcCli
 
         private static void ParseArgs(string[] args)
         {
-            if (args.Length > 0)
+            var opt = new Verbs();
+            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, new VerbsHelpGenerator());
+            parser.StrictParse(args);
+
+            if (opt.Start != null)
             {
-                switch (args[0].ToLower())
+                StartService();
+            }
+            else if (opt.Stop != null)
+            {
+                StopService();
+            }
+            else if (opt.Set != null)
+            {
+                float speed = -1;
+                List<int> indices = opt.Set.Fan;
+
+                if (indices == null)
                 {
-                    case VerbStart:
-                        if (args.Length == 1)
-                        {
-                            StartService();
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid number of arguments");
-                        }
-                        break;
+                    indices = new List<int>();
+                    indices.Add(0);
+                }
 
-                    case VerbStop:
-                        if (args.Length == 1)
-                        {
-                            StopService();
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid number of arguments");
-                        }
-                        break;
-
-                    case VerbStatus:
-                        if (args.Length == 1)
-                        {
-                            PrintStatus();
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid number of arguments");
-                        }
-                        break;
-
-                    case VerbLoad:
-                        if (args.Length == 2)
-                        {
-                            LoadConfig(args[1]);
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid number of arguments");
-                        }
-
-                        break;
-
-                    case VerbSet:
-                        if (args.Length > 1 && args.Length < 4)
-                        {
-                            float speed;
-                            int index = 0;
-
-                            if (float.TryParse(args[1], out speed))
-                            {
-                                if ((args.Length == 3) && !int.TryParse(args[2], out index))
-                                {
-                                    Console.Error.WriteLine("Invalid index.");
-                                }
-
-                                SetFanSpeed(speed, index);
-                            }
-                            else
-                            {
-                                Console.Error.WriteLine("Invalid speed value.");
-                            }
-                        }
-                        else
-                        {
-                            Console.Error.WriteLine("Invalid number of arguments");
-                        }
-
-                        break;
-
-                    default:
-                        PrintHelp();
-                        break;
+                if (opt.Set.Auto || float.TryParse(opt.Set.Speed, out speed))
+                {
+                    foreach (int idx in indices)
+                    {
+                        SetFanSpeed(speed, idx);
+                    }
+                }
+                else
+                {
+                    Console.Error.WriteLine("Invalid speed value.");
                 }
             }
-            else
+            else if (opt.Config != null)
             {
-                PrintHelp();
+                if (string.IsNullOrEmpty(opt.Config.Apply))
+                {
+                    LoadConfig(opt.Config.Apply);
+                }
+                else
+                {
+                    Console.Error.WriteLine("Invalid config name.");
+                }
             }
-        }        
+            else if (opt.Status != null)
+            {
+                FanControlInfo info = GetFanControlInfo();
+
+                if (opt.Status.Service)
+                {
+                    PrintServiceStatus(info);
+                }
+                else if (opt.Status.Fan != null)
+                {
+                    foreach (int idx in opt.Status.Fan)
+                    {
+                        if (idx < info.FanStatus.Length)
+                        {
+                            PrintFanStatus(info.FanStatus[idx]);
+                        }
+                        else
+                        {
+                            Console.Error.WriteLine(string.Format("A fan with index {0} does not exist.", idx));
+                        }
+                    }
+                }
+                else
+                {
+                    PrintServiceStatus(info);
+
+                    foreach (FanStatus status in info.FanStatus)
+                    {
+                        PrintFanStatus(status);
+                    }
+                }
+            }
+        }
 
         private static void SetFanSpeed(float speed, int index)
         {
@@ -140,30 +137,50 @@ namespace NbfcCli
             CallServiceMethod(action);
         }
 
-        private static void PrintStatus()
+        private static FanControlInfo GetFanControlInfo()
         {
+            FanControlInfo info = null;
+
             Action<FanControlServiceClient> action = client =>
             {
-                var info = client.GetFanControlInfo();
-
-                var sb = new StringBuilder();
-                sb.AppendFormat("Service enabled\t\t: {0}", info.Enabled);
-                sb.AppendLine();
-                sb.AppendFormat("Selected config name\t: {0}", info.SelectedConfig);
-                sb.AppendLine();
-                sb.AppendFormat("Temperature\t\t: {0}", info.Temperature);
-                sb.AppendLine();
-
-                foreach (FanStatus status in info.FanStatus)
-                {
-                    sb.AppendLine();
-                    sb.Append(FanStatusToString(status));
-                }
-
-                Console.WriteLine(sb.ToString());
+                info = client.GetFanControlInfo();
             };
 
             CallServiceMethod(action);
+
+            return info;
+        }
+
+        private static void PrintServiceStatus(FanControlInfo info)
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat("Service enabled\t\t: {0}", info.Enabled);
+            sb.AppendLine();
+            sb.AppendFormat("Selected config name\t: {0}", info.SelectedConfig);
+            sb.AppendLine();
+            sb.AppendFormat("Temperature\t\t: {0}", info.Temperature);
+            sb.AppendLine();
+
+            Console.WriteLine(sb.ToString());
+        }
+
+        private static void PrintFanStatus(FanStatus status)
+        {
+            var sb = new StringBuilder();
+            sb.AppendFormat("Fan display name\t: {0}", status.FanDisplayName);
+            sb.AppendLine();
+            sb.AppendFormat("Auto control enabled\t: {0}", status.AutoControlEnabled);
+            sb.AppendLine();
+            sb.AppendFormat("Critical mode enabled\t: {0}", status.CriticalModeEnabled);
+            sb.AppendLine();
+            sb.AppendFormat(CultureInfo.InvariantCulture, "Current fan speed\t: {0:0.00}", status.CurrentFanSpeed);
+            sb.AppendLine();
+            sb.AppendFormat(CultureInfo.InvariantCulture, "Target fan speed\t: {0:0.00}", status.TargetFanSpeed);
+            sb.AppendLine();
+            sb.AppendFormat("Fan speed steps\t\t: {0}", status.FanSpeedSteps);
+            sb.AppendLine();
+
+            Console.WriteLine(sb.ToString());
         }
 
         private static void StartService()
@@ -200,55 +217,6 @@ namespace NbfcCli
 
                 Console.Error.WriteLine(msg);
             }
-        }
-
-        private static void PrintHelp()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine("Usage: nbfc <command>");
-            sb.AppendLine();
-            sb.AppendLine("Commands:");
-            sb.AppendFormat("  {0,-10}Start the fan control service", VerbStart);
-            sb.AppendLine();
-            sb.AppendFormat("  {0,-10}Stop the fan control service", VerbStop);
-            sb.AppendLine();
-            sb.AppendFormat("  {0,-10}Show the fan control status", VerbStatus);
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendFormat("  {0} <speed> [<fan-index>]", VerbSet);
-            sb.AppendLine();
-            sb.AppendFormat("  {0,-10}Set the speed for a single fan", "");
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendFormat("  {0} <config-name>", VerbLoad);
-            sb.AppendLine();
-            sb.AppendFormat("  {0,-10}Load and apply a config", "");
-            sb.AppendLine();
-            sb.AppendLine();
-            sb.AppendLine("Examples:");
-            sb.AppendLine("  nfbc load \"HP ProBook 6465b\"");
-            sb.AppendLine("  nbfc set 12.5   # set fan 0 to 12.5%");
-            sb.AppendLine("  nbfc set -1 1   # set fan 1 to 'auto'");
-
-            Console.WriteLine(sb.ToString());
-        }
-
-        private static string FanStatusToString(FanStatus status)
-        {
-            var sb = new StringBuilder();
-            sb.AppendFormat("Fan display name\t: {0}", status.FanDisplayName);
-            sb.AppendLine();
-            sb.AppendFormat("Auto control enabled\t: {0}", status.AutoControlEnabled);
-            sb.AppendLine();
-            sb.AppendFormat("Critical mode enabled\t: {0}", status.CriticalModeEnabled);
-            sb.AppendLine();
-            sb.AppendFormat(CultureInfo.InvariantCulture, "Current fan speed\t: {0:0.00}", status.CurrentFanSpeed);
-            sb.AppendLine();
-            sb.AppendFormat(CultureInfo.InvariantCulture, "Target fan speed\t: {0:0.00}", status.TargetFanSpeed);
-            sb.AppendLine();
-            sb.AppendFormat("Fan speed steps\t\t: {0}", status.FanSpeedSteps);
-
-            return sb.ToString();
         }
 
         #endregion
