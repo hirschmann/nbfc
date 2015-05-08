@@ -20,7 +20,8 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>ConfigsDir=..\..\..\Configs</DefineConstants>
-    <SuppressIces>ICE80</SuppressIces>
+    <SuppressIces>
+    </SuppressIces>
     <SuppressValidation>False</SuppressValidation>
     <WixVariables>
     </WixVariables>
