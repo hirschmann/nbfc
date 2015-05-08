@@ -59,49 +59,31 @@ namespace NbfcCli
             }
             else if (opt.Set != null)
             {
-                float speed = -1;
-                List<int> indices = opt.Set.Fan;
-
-                if (indices == null)
-                {
-                    indices = new List<int>();
-                    indices.Add(0);
-                }
-
-                if (opt.Set.Auto || float.TryParse(opt.Set.Speed, out speed))
-                {
-                    foreach (int idx in indices)
-                    {
-                        SetFanSpeed(speed, idx);
-                    }
-                }
-                else
-                {
-                    Console.Error.WriteLine("Invalid speed value.");
-                }
+                SetFanSpeed(opt.Set);
             }
             else if (opt.Config != null)
             {
-                if (string.IsNullOrEmpty(opt.Config.Apply))
-                {
-                    LoadConfig(opt.Config.Apply);
-                }
-                else
-                {
-                    Console.Error.WriteLine("Invalid config name.");
-                }
+                ConfigureService(opt.Config);
             }
             else if (opt.Status != null)
             {
-                FanControlInfo info = GetFanControlInfo();
+                PrintStatus(opt.Status);
+            }
+        }
 
-                if (opt.Status.Service)
+        private static void PrintStatus(StatusVerb verb)
+        {
+            FanControlInfo info = GetFanControlInfo();
+
+            if (verb.Service)
+            {
+                PrintServiceStatus(info);
+            }
+            else if (verb.Fan != null)
+            {
+                if (verb.Fan.Count > 0)
                 {
-                    PrintServiceStatus(info);
-                }
-                else if (opt.Status.Fan != null)
-                {
-                    foreach (int idx in opt.Status.Fan)
+                    foreach (int idx in verb.Fan)
                     {
                         if (idx < info.FanStatus.Length)
                         {
@@ -115,13 +97,56 @@ namespace NbfcCli
                 }
                 else
                 {
-                    PrintServiceStatus(info);
-
                     foreach (FanStatus status in info.FanStatus)
                     {
                         PrintFanStatus(status);
                     }
                 }
+            }
+            else
+            {
+                PrintServiceStatus(info);
+
+                foreach (FanStatus status in info.FanStatus)
+                {
+                    PrintFanStatus(status);
+                }
+            }
+        }
+
+        private static void ConfigureService(ConfigVerb verb)
+        {
+            if (string.IsNullOrEmpty(verb.Apply))
+            {
+                ApplyConfig(verb.Apply);
+            }
+            else
+            {
+                Console.Error.WriteLine("Invalid config name.");
+            }
+        }
+
+        private static void SetFanSpeed(SetVerb verb)
+        {
+            float speed = -1;
+            List<int> indices = verb.Fan;
+
+            if (indices == null)
+            {
+                indices = new List<int>();
+                indices.Add(0);
+            }
+
+            if (verb.Auto || float.TryParse(verb.Speed, out speed))
+            {
+                foreach (int idx in indices)
+                {
+                    SetFanSpeed(speed, idx);
+                }
+            }
+            else
+            {
+                Console.Error.WriteLine("Invalid speed value.");
             }
         }
 
@@ -131,7 +156,7 @@ namespace NbfcCli
             CallServiceMethod(action);
         }
 
-        private static void LoadConfig(string configName)
+        private static void ApplyConfig(string configName)
         {
             Action<FanControlServiceClient> action = client => client.SetConfig(configName);
             CallServiceMethod(action);

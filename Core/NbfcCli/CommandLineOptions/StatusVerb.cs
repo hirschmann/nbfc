@@ -28,7 +28,9 @@ namespace NbfcCli.CommandLineOptions
             "fan",
             ArgumentName = "index",
             Action = ParseAction.Append,
-            Description = "Show fan status")]
+            NumArgs = 0,
+            Constraint = NumArgsConstraint.AtLeast,
+            Description = "Show fan(s) status")]
         public List<int> Fan { get; set; }
     }
 }
