@@ -98,6 +98,16 @@
           <?endif?>
         </File>
       </Component>
+
+      <Component Id="App.clipr" Guid="3B8127A0-5155-4919-8BEE-AE0608C15934">
+        <File Id="clipr.dll"
+              Name="clipr.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.NbfcCli.TargetDir)clipr.dll">
+        </File>
+      </Component>
       
       <Component Id="App.NbfcCliConfig" Guid="D0495CB2-1555-43FC-BCFF-3A5C4F732BEE">
         <File Id="nbfc.exe.config" 
