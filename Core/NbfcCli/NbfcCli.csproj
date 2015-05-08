@@ -43,6 +43,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+	<appConfig>App.Linux.config</appConfig>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="clipr, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
@@ -77,6 +78,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Linux.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
