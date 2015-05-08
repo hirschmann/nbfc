@@ -3,7 +3,7 @@
 pushd $(dirname "${0}")
 
 # download nuget if necessary
-if [ -f ./nuget.exe ]
+if [ ! -f ./nuget.exe ]
 then
 	wget http://nuget.org/nuget.exe
 fi
