@@ -7,7 +7,7 @@
         
     Title="NoteBook FanControl - Config Editor" 
     Height="420" 
-    Width="560" 
+    Width="550" 
     Icon="/ConfigEditor;component/fan.ico"
     WindowStartupLocation="CenterScreen">
 
@@ -97,79 +97,29 @@
 
         <TextBox x:Name="notebookModel"
                  Height="23"
-                 Margin="136,76,66,0" 
+                 Margin="136,76,114,0" 
                  TextWrapping="Wrap"
                  VerticalAlignment="Top" 
-                 IsReadOnly="{Binding IsChecked, ElementName=lock, Converter={StaticResource invertBooleanConverter}}" 
                  Text="{Binding NotebookModel}">
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}">
-                    <Style.Triggers>
-                        <Trigger Property="IsReadOnly" Value="True">
-                            <Setter Property="Background" 
-                                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                        </Trigger>
-
-                        <Trigger Property="IsReadOnly" Value="False">
-                            <Setter Property="Background" 
-                                    Value="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
         </TextBox>
-        <ToggleButton Name="lock"
-                      Margin="0,76,10,0" 
-                      VerticalAlignment="Top" 
-                      Padding="3" 
-                      Height="23"
-        	          HorizontalAlignment="Right" 
-                      Width="23" 
-                      Checked="lock_Checked">
-
-            <ToggleButton.Style>
-                <Style TargetType="{x:Type ToggleButton}">
-                    <Style.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="ToolTip"
-                                    Value="Textbox is unlocked  (Click to lock)"/>
-
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <Image Source="{StaticResource unlocked}"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="ToolTip" 
-                                    Value="Textbox is locked  (Click to unlock)"/>
-
-                            <Setter Property="Content">
-                                <Setter.Value>
-                                    <Image Source="{StaticResource locked}"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ToggleButton.Style>
-        </ToggleButton>
 
         <Button HorizontalAlignment="Right" 
-                Margin="0,76,38,0" 
+                Margin="0,76,10,0" 
                 VerticalAlignment="Top" 
                 Padding="3" 
                 Height="23"
-                Width="23" 
-        	    ToolTip="Insert notebook model" 
-                IsEnabled="{Binding IsChecked, ElementName=lock}" 
+        	    ToolTip="Insert notebook model"
                 Click="insertNotebookModel_Click">
 
-            <Image Source="{StaticResource loadDefaults}">
-                <Image.LayoutTransform>
-                    <RotateTransform Angle="90"/>
-                </Image.LayoutTransform>
-            </Image>
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource loadDefaults}"
+                       Margin="2,1,0,1">
+                    <Image.LayoutTransform>
+                        <RotateTransform Angle="90"/>
+                    </Image.LayoutTransform>
+                </Image>
+                <TextBlock Text="insert model" Margin="5,0,5,0"/>
+            </StackPanel>
         </Button>
 
         <Label Content="Config author:" 
@@ -177,9 +127,9 @@
         	   HorizontalAlignment="Left"
         	   Margin="10,105,0,0" 
         	   VerticalAlignment="Top"/>
-        
+
         <TextBox Height="23"
-                 Margin="136,108,66,0" 
+                 Margin="136,108,114,0" 
         	     TextWrapping="Wrap"
         	     VerticalAlignment="Top"
         	     Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}"/>
@@ -300,40 +250,45 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button HorizontalAlignment="Left" 
-                            Margin="6,5,0,0"
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35">
+                        <Button HorizontalAlignment="Left" 
+                            Margin="2,6,0,0"
                             VerticalAlignment="Top"
-                            Padding="3"
                             Height="23"
-                            Width="23" 
                             ToolTip="Add new fan configuration" 
                             Click="addFanConfig_Click">
 
-                        <Image Source="{StaticResource add}"/>
-                    </Button>
-                    <Button HorizontalAlignment="Left" 
-                            Margin="34,5,0,0" 
-                            VerticalAlignment="Top" 
-                            Padding="3"
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource add}" Margin="2,2,0,2"/>
+                                <TextBlock Text="new" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0" 
+                            VerticalAlignment="Top"
                             Height="23"
-                            Width="23"
                             IsEnabled="{Binding SelectedValue, ElementName=fanConfigsGrid, Converter={StaticResource selectionToBoolConverter}}"
                             ToolTip="Edit selected fan configuration" 
                             Click="editFanConfig_Click">
 
-                        <Image Source="{StaticResource edit}"/>
-                    </Button>
-                    <Button HorizontalAlignment="Left"
-                            Margin="62,5,0,0"
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource edit}" Margin="2,2,0,2"/>
+                                <TextBlock Text="edit" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Left"
+                            Margin="6,6,0,0"
                             VerticalAlignment="Top"
-                            Padding="3"
-                            Height="23" 
-                            Width="23"
+                            Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=fanConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             ToolTip="Delete selected fan configuration" Click="removeFanConfig_Click">
 
-                        <Image Source="{StaticResource delete}"/>
-                    </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource delete}" Margin="2,2,0,2"/>
+                                <TextBlock Text="delete" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </TabItem>
 
@@ -380,44 +335,48 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button HorizontalAlignment="Left"
-                            Margin="6,5,0,0" 
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35">
+                        <Button HorizontalAlignment="Left" 
+                            Margin="2,6,0,0"
                             VerticalAlignment="Top"
-                            Padding="3"
-                            Height="23" 
-                            Width="23" 
-                             ToolTip="Add new register write configuration"
+                            Height="23"
+                            ToolTip="Add new register write configuration"
                             Click="addRegisterWriteConfig_Click">
 
-                        <Image Source="{StaticResource add}"/>
-                    </Button>
-
-                    <Button HorizontalAlignment="Left" 
-                            Margin="34,5,0,0"
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource add}" Margin="2,2,0,2"/>
+                                <TextBlock Text="new" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0" 
                             VerticalAlignment="Top"
-                            Padding="3"
-                            Height="23" 
-                            Width="23"
+                            Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=registerWriteConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             ToolTip="Edit selected register write configuration" 
                             Click="editRegisterWriteConfig_Click">
-                        <Image Source="{StaticResource edit}"/>
-                    </Button>
 
-                    <Button HorizontalAlignment="Left"
-                            Margin="62,5,0,0" 
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource edit}" Margin="2,2,0,2"/>
+                                <TextBlock Text="edit" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button HorizontalAlignment="Left"
+                            Margin="6,6,0,0"
                             VerticalAlignment="Top"
-                            Padding="3" 
-                            Height="23" 
-                            Width="23"
+                            Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=registerWriteConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             ToolTip="Delete selected register write configuration" 
                             Click="removeRegisterWriteConfig_Click">
 
-                        <Image Source="{StaticResource delete}"/>
-                    </Button>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource delete}" Margin="2,2,0,2"/>
+                                <TextBlock Text="delete" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </TabItem>
-        </TabControl>        
+        </TabControl>
     </Grid>
 </Window>

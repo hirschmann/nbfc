@@ -281,22 +281,6 @@ namespace ConfigEditor.Windows
             }
         }
 
-        private void lock_Checked(object sender, RoutedEventArgs e)
-        {
-            var style = new Style(typeof(Xceed.Wpf.Toolkit.MessageBox));
-            style.Setters.Add(new Setter()
-            {
-                Property = Xceed.Wpf.Toolkit.MessageBox.ImageSourceProperty,
-                Value = SystemIcons.Warning.ToImageSource()
-            });
-
-            Xceed.Wpf.Toolkit.MessageBox.Show(
-                this,
-                "A valid notebook model string is required in order that automatic config selection works correctly."
-                    + "\nPlease make sure you enter a valid model sting.",
-                "Warning", MessageBoxButton.OK, style);
-        }
-
         #endregion
 
         #region Fan Configs

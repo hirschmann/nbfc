@@ -18,7 +18,7 @@
             <ColumnDefinition Width="160"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        
+
         <TabControl Margin="0,0,0,48" Grid.ColumnSpan="3">
             <TabItem Header="Basic configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
@@ -28,87 +28,97 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="Fan display name:" 
-                           HorizontalAlignment="Right" 
-                           Margin="0,10,10,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="104"/>
+                    <Label 
+                        Content="Fan display name:" 
+                        HorizontalAlignment="Right" 
+                        Margin="0,10,10,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="104"/>
 
-                    <TextBox Text="{Binding FanDisplayName}" 
-                             Height="23" 
-                             Margin="0,13,14,0" 
-                             TextWrapping="Wrap"                              
-                             VerticalAlignment="Top" 
-                             Grid.Column="1"/>
+                    <TextBox 
+                        Text="{Binding FanDisplayName}" 
+                        Height="23" 
+                        Margin="0,13,14,0" 
+                        TextWrapping="Wrap"                              
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"/>
 
-                    <Label Content="Read register:" 
-                           HorizontalAlignment="Right"
-                           Margin="0,40,10,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="83"/>
+                    <Label 
+                        Content="Read register:" 
+                        HorizontalAlignment="Right"
+                        Margin="0,40,10,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="83"/>
 
-                    <xctk:IntegerUpDown Value="{Binding ReadRegister}" 
-                                        HorizontalAlignment="Left"  
-                                        Margin="0,43,0,0" 
-                                        Width="70" 
-                                        Height="23" 
-                                        VerticalAlignment="Top"
-                                        Grid.Column="1"
-                                        Minimum="0" 
-                                        Maximum="255"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding ReadRegister}" 
+                        HorizontalAlignment="Left"  
+                        Margin="0,43,0,0" 
+                        Width="70" 
+                        Height="23" 
+                        VerticalAlignment="Top"
+                        Grid.Column="1"
+                        Minimum="0" 
+                        Maximum="255"/>
 
-                    <Label Content="Write register:" 
-                           HorizontalAlignment="Right" 
-                           Margin="0,70,10,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="85"/>
+                    <Label 
+                        Content="Write register:" 
+                        HorizontalAlignment="Right" 
+                        Margin="0,70,10,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="85"/>
 
-                    <xctk:IntegerUpDown Value="{Binding WriteRegister}"
-                                        HorizontalAlignment="Left"  
-                                        Margin="0,73,0,0" 
-                                        Width="70"
-                                        Height="23" 
-                                        VerticalAlignment="Top" 
-                                        Grid.Column="1"
-                                        Minimum="0" 
-                                        Maximum="255"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding WriteRegister}"
+                        HorizontalAlignment="Left"  
+                        Margin="0,73,0,0" 
+                        Width="70"
+                        Height="23" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"
+                        Minimum="0" 
+                        Maximum="255"/>
 
-                    <Label Content="Min. fan speed:"
-                           HorizontalAlignment="Right"
-                           Margin="0,100,10,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="91"/>
+                    <Label 
+                        Content="Min. fan speed:"
+                        HorizontalAlignment="Right"
+                        Margin="0,100,10,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="91"/>
 
-                    <xctk:IntegerUpDown Value="{Binding MinSpeedValue}" 
-                                        HorizontalAlignment="Left"  
-                                        Margin="0,103,0,0" 
-                                        Width="70" 
-                                        Height="23" 
-                                        VerticalAlignment="Top" 
-                                        Grid.Column="1"
-                                        Minimum="0" 
-                                        Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding MinSpeedValue}" 
+                        HorizontalAlignment="Left"  
+                        Margin="0,103,0,0" 
+                        Width="70" 
+                        Height="23" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"
+                        Minimum="0" 
+                        Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
 
-                    <Label Content="Max. fan speed:" 
-                           HorizontalAlignment="Right" 
-                           Margin="0,130,10,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="93"/>
+                    <Label 
+                        Content="Max. fan speed:" 
+                        HorizontalAlignment="Right" 
+                        Margin="0,130,10,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="93"/>
 
-                    <xctk:IntegerUpDown Value="{Binding MaxSpeedValue}" 
-                                        HorizontalAlignment="Left"  
-                                        Margin="0,133,0,0" 
-                                        Width="70" 
-                                        Height="23"
-                                        VerticalAlignment="Top" 
-                                        Grid.Column="1"
-                                        Minimum="0" 
-                                        Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding MaxSpeedValue}" 
+                        HorizontalAlignment="Left"  
+                        Margin="0,133,0,0" 
+                        Width="70" 
+                        Height="23"
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"
+                        Minimum="0" 
+                        Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
 
                     <GroupBox Margin="10,161,10,10" Grid.ColumnSpan="2">
                         <GroupBox.Header>
@@ -124,23 +134,25 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Content="Reset value:" 
-                                   HorizontalAlignment="Right"
-                                   Margin="0,7,10,0" 
-                                   VerticalAlignment="Top" 
-                                   Height="26" 
-                                   Width="Auto"/>
+                            <Label 
+                                Content="Reset value:" 
+                                HorizontalAlignment="Right"
+                                Margin="0,7,10,0" 
+                                VerticalAlignment="Top" 
+                                Height="26" 
+                                Width="Auto"/>
 
-                            <xctk:IntegerUpDown Value="{Binding ResetValue}" 
-                                                HorizontalAlignment="Left" 
-                                                Margin="0,10,0,0" 
-                                                Grid.Column="1"
-                                                Width="70" 
-                                                Height="23" 
-                                                VerticalAlignment="Top" 
-                                                IsEnabled="{Binding IsChecked, ElementName=resetRequired}"
-                                                Minimum="0" 
-                                                Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
+                            <xctk:IntegerUpDown 
+                                Value="{Binding ResetValue}" 
+                                HorizontalAlignment="Left" 
+                                Margin="0,10,0,0" 
+                                Grid.Column="1"
+                                Width="70" 
+                                Height="23" 
+                                VerticalAlignment="Top" 
+                                IsEnabled="{Binding IsChecked, ElementName=resetRequired}"
+                                Minimum="0" 
+                                Maximum="{Binding Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
 
                         </Grid>
                     </GroupBox>
@@ -175,66 +187,75 @@
                         MouseDoubleClick="thresholdsGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding UpThreshold, StringFormat={}{0:0}°C}"
-                                                Header="Up threshold"/>
-                            
-                            <DataGridTextColumn Binding="{Binding DownThreshold, StringFormat={}{0:0}°C}" 
-                                                Header="Down threshold"/>
-                            
-                            <DataGridTextColumn Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" 
-                                                Header="Fan speed"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding UpThreshold, StringFormat={}{0:0}°C}"
+                                Header="Up threshold"/>
+
+                            <DataGridTextColumn 
+                                Binding="{Binding DownThreshold, StringFormat={}{0:0}°C}" 
+                                Header="Down threshold"/>
+
+                            <DataGridTextColumn 
+                                Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" 
+                                Header="Fan speed"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button HorizontalAlignment="Left" 
-                            Margin="6,5,0,0" 
-                            VerticalAlignment="Top" 
-                            Padding="3" 
-                            Height="23" 
-                            Width="23" 
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Top" 
+                        Height="35">
+                        <Button
+                            Margin="2,6,0,0"
+                            VerticalAlignment="Top"
+                            Height="23"
                             Click="addThreshold_Click" 
                             ToolTip="Add new temperature threshold">
-                        
-                        <Image Source="{StaticResource add}"/>
-                    </Button>
-                    
-                    <Button HorizontalAlignment="Left" 
-                            Margin="34,5,0,0"
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource add}" Margin="2,2,0,2"/>
+                                <TextBlock Text="new" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0" 
                             VerticalAlignment="Top"
-                            Padding="3" 
-                            IsEnabled="{Binding SelectedValue, ElementName=thresholdsGrid, Converter={StaticResource selectionToBoolConverter}}" 
-                            Height="23" 
-                            Width="23" 
+                            Height="23"
+                             IsEnabled="{Binding SelectedValue, ElementName=thresholdsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             Click="editThreshold_Click" 
                             ToolTip="Edit selected temperature threshold">
-                        
-                        <Image Source="{StaticResource edit}"/>
-                    </Button>
-                    
-                    <Button HorizontalAlignment="Left"
-                            Margin="62,5,0,0" 
-                            VerticalAlignment="Top" 
-                            Padding="3" 
-                            Height="23" 
-                            Width="23"
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource edit}" Margin="2,2,0,2"/>
+                                <TextBlock Text="edit" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0"
+                            VerticalAlignment="Top"
+                            Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=thresholdsGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             Click="removeThreshold_Click" 
                             ToolTip="Delete selected temperature threshold">
-                        
-                        <Image Source="{StaticResource delete}"/>
-                    </Button>
-                    
-                    <Button HorizontalAlignment="Right" 
-                            Margin="0,5,6,0" 
-                            VerticalAlignment="Top" 
-                            Padding="4,3" 
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource delete}" Margin="2,2,0,2"/>
+                                <TextBlock Text="delete" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button 
+                            Margin="6,6,0,0"
+                            VerticalAlignment="Top"
                             Height="23"
-                            Width="23" 
-                            ToolTip="Load default thresholds (template)" 
+                            ToolTip="Insert default thresholds" 
                             Click="loadDefaultThresholds_Click">
-                        
-                        <Image Source="{StaticResource loadDefaults}"/>
-                    </Button>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource loadDefaults}" Margin="2,3,0,2"/>
+                                <TextBlock Text="insert defaults" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Fan speed overrides">
@@ -255,70 +276,82 @@
                         MouseDoubleClick="overridesGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding FanSpeedValue, StringFormat={}{0:0}}" 
-                                                ClipboardContentBinding="{x:Null}" 
-                                                Header="Fan speed value"/>
-                            
-                            <DataGridTextColumn Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" 
-                                                ClipboardContentBinding="{x:Null}" 
-                                                Header="Fan speed percentage"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding FanSpeedValue, StringFormat={}{0:0}}" 
+                                ClipboardContentBinding="{x:Null}" 
+                                Header="Fan speed value"/>
+
+                            <DataGridTextColumn 
+                                Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" 
+                                ClipboardContentBinding="{x:Null}" 
+                                Header="Fan speed percentage"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <Button HorizontalAlignment="Left" 
-                            Margin="6,5,0,0" 
-                            VerticalAlignment="Top" 
-                            Padding="3" 
-                            Height="23" 
-                            Width="23" 
+                    <StackPanel 
+                        Orientation="Horizontal" 
+                        VerticalAlignment="Top" 
+                        Height="35">
+                        <Button
+                            Margin="2,6,0,0"
+                            VerticalAlignment="Top"
+                            Height="23"
                             Click="addOverride_Click" 
                             ToolTip="Add new fan speed override">
-                        
-                        <Image Source="{StaticResource add}"/>
-                    </Button>
-                    <Button HorizontalAlignment="Left" 
-                            Margin="34,5,0,0" 
-                            VerticalAlignment="Top" 
-                            Padding="3" 
-                            Height="23" 
-                            Width="23"
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource add}" Margin="2,2,0,2"/>
+                                <TextBlock Text="new" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0" 
+                            VerticalAlignment="Top"
+                            Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=overridesGrid, Converter={StaticResource selectionToBoolConverter}}" 
                             Click="editOverride_Click" 
                             ToolTip="Edit selected fan speed override">
-                        
-                        <Image Source="{StaticResource edit}"/>
-                    </Button>
-                    <Button HorizontalAlignment="Left" 
-                            Margin="62,5,0,0" 
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource edit}" Margin="2,2,0,2"/>
+                                <TextBlock Text="edit" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            Margin="6,6,0,0"
                             VerticalAlignment="Top"
-                            Padding="3"
                             Height="23"
-                            Width="23"
                             IsEnabled="{Binding SelectedValue, ElementName=overridesGrid, Converter={StaticResource selectionToBoolConverter}}" 
-                            Click="removeOverride_Click" 
-                            ToolTip="Delete selected fan speed override">
-                        
-                        <Image Source="{StaticResource delete}"/>
-                    </Button>
+                        Click="removeOverride_Click" 
+                        ToolTip="Delete selected fan speed override">
+
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource delete}" Margin="2,2,0,2"/>
+                                <TextBlock Text="delete" Margin="5,0,5,0"/>
+                            </StackPanel>
+                        </Button>                       
+                    </StackPanel>
                 </Grid>
             </TabItem>
         </TabControl>
 
-        <Button Content="OK" 
-                HorizontalAlignment="Left"
-                Margin="3,0,0,14" 
-                VerticalAlignment="Bottom" 
-                Width="75" Grid.Column="1" 
-                Height="20" 
-                Click="OK_Click"/>
-        
-        <Button Content="Cancel" 
-                HorizontalAlignment="Left"
-                Margin="83,0,0,14" 
-                VerticalAlignment="Bottom"
-                Width="75" 
-                Grid.Column="1"
-                Height="20"
-                Click="Cancel_Click"/>
+        <Button 
+            Content="OK" 
+            HorizontalAlignment="Left"
+            Margin="3,0,0,14" 
+            VerticalAlignment="Bottom" 
+            Width="75" Grid.Column="1" 
+            Height="20" 
+            Click="OK_Click"/>
+
+        <Button
+            Content="Cancel" 
+            HorizontalAlignment="Left"
+            Margin="83,0,0,14" 
+            VerticalAlignment="Bottom"
+            Width="75" 
+            Grid.Column="1"
+            Height="20"
+            Click="Cancel_Click"/>
     </Grid>
 </wnd:NonModalDialogWindow>
