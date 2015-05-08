@@ -119,7 +119,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-    <Copy SourceFiles="$(TargetPath);$(TargetPath).config" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
+    <Copy SourceFiles="$(TargetPath);$(TargetPath).config;$(TargetDir)clipr.dll" 
+          DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" 
+          ContinueOnError="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
