@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcCli", "Core\NbfcCli\Nbf
 		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.FSTemperatureMonitor", "Core\Plugins\StagWare.Plugins.FSTemperatureMonitor\StagWare.Plugins.FSTemperatureMonitor.csproj", "{11380AFB-D406-4F4E-B260-2C892CD067B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,7 +105,6 @@ Global
 		{B0397530-545A-471D-BB74-027AE456DF1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.ReleaseLinux|Any CPU.ActiveCfg = Release|Any CPU
-		{B0397530-545A-471D-BB74-027AE456DF1A}.ReleaseLinux|Any CPU.Build.0 = Release|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{B0397530-545A-471D-BB74-027AE456DF1A}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 		{98EE4668-8F55-43B7-B2F9-A8C4B0DAFA79}.Debug|Any CPU.ActiveCfg = Debug|x86
@@ -128,19 +129,18 @@ Global
 		{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{6C6F4E15-FC36-4298-A7E9-83CD854BDFDB}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseLinux|Any CPU.ActiveCfg = ReleaseLinux|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.ReleaseLinux|Any CPU.ActiveCfg = Release|Any CPU
-		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.ReleaseLinux|Any CPU.Build.0 = Release|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{281A8541-1845-44DF-BBB9-3E0934C753A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{281A8541-1845-44DF-BBB9-3E0934C753A3}.ReleaseLinux|Any CPU.ActiveCfg = ReleaseLinux|Any CPU
-		{281A8541-1845-44DF-BBB9-3E0934C753A3}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
 		{281A8541-1845-44DF-BBB9-3E0934C753A3}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{281A8541-1845-44DF-BBB9-3E0934C753A3}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 		{60A11809-E19B-46A2-8E91-BF6ADA47BBC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -149,6 +149,12 @@ Global
 		{60A11809-E19B-46A2-8E91-BF6ADA47BBC6}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
 		{60A11809-E19B-46A2-8E91-BF6ADA47BBC6}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{60A11809-E19B-46A2-8E91-BF6ADA47BBC6}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.ReleaseLinux|Any CPU.ActiveCfg = ReleaseLinux|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
+		{11380AFB-D406-4F4E-B260-2C892CD067B4}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,5 +179,6 @@ Global
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 		{66BAE497-003D-4F8A-B26E-DE5FA3361D38} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 		{281A8541-1845-44DF-BBB9-3E0934C753A3} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
+		{11380AFB-D406-4F4E-B260-2C892CD067B4} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 	EndGlobalSection
 EndGlobal
