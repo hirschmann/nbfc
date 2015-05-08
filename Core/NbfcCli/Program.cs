@@ -116,7 +116,7 @@ namespace NbfcCli
 
         private static void ConfigureService(ConfigVerb verb)
         {
-            if (string.IsNullOrEmpty(verb.Apply))
+            if (!string.IsNullOrEmpty(verb.Apply))
             {
                 ApplyConfig(verb.Apply);
             }
