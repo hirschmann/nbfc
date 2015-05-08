@@ -23,7 +23,7 @@
     <!--Upgrade-->
     <MajorUpgrade Schedule="afterInstallInitialize"
                   AllowDowngrades="no"
-                  AllowSameVersionUpgrades="yes"
+                  AllowSameVersionUpgrades="no"
                   DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
 
     <!--Media-->
