@@ -30,7 +30,8 @@ To build the solution, run the `build.sh` script (which is included in the clone
 The result can be found at `nbfc/Linux/bin/ReleaseLinux`
 
 If everything worked well, you may want to start the service: `sudo start-nbfcservice.sh`
-You can control it via nbfc.exe, e.g. `mono nbfc.exe load 'Name of the config'` to load a config and start the automatic fan control. To learn more about nbfc.exe call `mono nbfc.exe help`.
+You can control it via nbfc.exe, e.g. `mono nbfc.exe config --apply 'Name of the config'` to load a config, `mono nbfc.exe start` to start the service and `mono nbfc.exe set --auto` to start automatic fan control.  
+To learn more about nbfc.exe use `mono nbfc.exe --help`.  
 Finally, to stop the serivce use `sudo stop-nbfcservice.sh`.
 
 Have fun :)
