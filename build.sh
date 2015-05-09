@@ -6,10 +6,10 @@ pushd $(dirname "${0}")
 if [ ! -f ./nuget.exe ]
 then
 	wget http://nuget.org/nuget.exe
+	
+	# import Mozilla trusted root certificates into mono certificates store
+	mozroots --import --sync
 fi
-
-# import Mozilla trusted root certificates into mono certificates store
-mozroots --import --sync
 
 # restore nuget packages for solution
 mono nuget.exe restore
