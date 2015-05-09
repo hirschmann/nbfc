@@ -4,6 +4,7 @@
   <EcPollInterval>500</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>100</CriticalTemperature>
+  <Author>NitroX</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>

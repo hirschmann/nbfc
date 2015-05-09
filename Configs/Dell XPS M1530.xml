@@ -4,6 +4,7 @@
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>70</CriticalTemperature>
+  <Author>lembi</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>

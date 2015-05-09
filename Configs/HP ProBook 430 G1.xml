@@ -4,6 +4,7 @@
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>75</CriticalTemperature>
+  <Author>Stefan Hirschmann</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>
@@ -12,6 +13,7 @@
       <MaxSpeedValue>48</MaxSpeedValue>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
+      <FanDisplayName>CPU fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>

@@ -4,6 +4,7 @@
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>82</CriticalTemperature>
+  <Author>Dean Edwards</Author>  
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>214</ReadRegister>

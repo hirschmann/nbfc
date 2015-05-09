@@ -4,6 +4,7 @@
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>75</CriticalTemperature>
+  <Author>Stefan Hirschmann</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>

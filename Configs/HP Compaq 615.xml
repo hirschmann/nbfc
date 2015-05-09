@@ -4,6 +4,7 @@
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>75</CriticalTemperature>
+  <Author>Ltownwriter</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>214</ReadRegister>

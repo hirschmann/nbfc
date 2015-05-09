@@ -4,6 +4,7 @@
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>77</CriticalTemperature>
+  <Author>Benjamin Wetzel</Author>  
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>214</ReadRegister>
