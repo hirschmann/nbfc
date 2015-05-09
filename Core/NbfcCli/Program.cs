@@ -1,10 +1,10 @@
 ﻿using clipr;
-using clipr.Core;
 using NbfcCli.CommandLineOptions;
 using NbfcCli.NbfcService;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.ServiceModel;
 using System.Text;
 
 namespace NbfcCli
@@ -75,13 +75,25 @@ namespace NbfcCli
         {
             FanControlInfo info = GetFanControlInfo();
 
-            if (verb.Service)
+            if (info == null)
+            {
+                return;
+            }
+
+            bool printAll = verb.All || (!verb.Service && (verb.Fan == null));
+
+            if (printAll || verb.Service)
             {
                 PrintServiceStatus(info);
             }
-            else if (verb.Fan != null)
+            
+            if (printAll || verb.Fan != null)
             {
-                if (verb.Fan.Count > 0)
+                if (info.FanStatus == null)
+                {
+                    Console.Error.WriteLine("Could not get fan info because the service is disabled");
+                }
+                else if (verb.Fan != null && verb.Fan.Count > 0)
                 {
                     foreach (int idx in verb.Fan)
                     {
@@ -91,7 +103,7 @@ namespace NbfcCli
                         }
                         else
                         {
-                            Console.Error.WriteLine(string.Format("A fan with index {0} does not exist.", idx));
+                            Console.Error.WriteLine(string.Format("A fan with index {0} does not exist", idx));
                         }
                     }
                 }
@@ -101,15 +113,6 @@ namespace NbfcCli
                     {
                         PrintFanStatus(status);
                     }
-                }
-            }
-            else
-            {
-                PrintServiceStatus(info);
-
-                foreach (FanStatus status in info.FanStatus)
-                {
-                    PrintFanStatus(status);
                 }
             }
         }
@@ -122,7 +125,7 @@ namespace NbfcCli
             }
             else
             {
-                Console.Error.WriteLine("Invalid config name.");
+                Console.Error.WriteLine("Invalid config name");
             }
         }
 
@@ -146,7 +149,7 @@ namespace NbfcCli
             }
             else
             {
-                Console.Error.WriteLine("Invalid speed value.");
+                Console.Error.WriteLine("Invalid speed value");
             }
         }
 
@@ -231,16 +234,17 @@ namespace NbfcCli
                     client.Close();
                 }
             }
+            catch (CommunicationObjectFaultedException)
+            {
+                Console.Error.WriteLine("The service is unavailable");
+            }
+            catch (TimeoutException)
+            {
+                Console.Error.WriteLine("The connection to the service timed out");
+            }
             catch (Exception e)
             {
-                string msg = "Failed to execute the command";
-
-                if (!string.IsNullOrWhiteSpace(e.Message))
-                {
-                    msg += ": " + e.Message;
-                }
-
-                Console.Error.WriteLine(msg);
+                Console.Error.WriteLine(e.Message);
             }
         }
 
