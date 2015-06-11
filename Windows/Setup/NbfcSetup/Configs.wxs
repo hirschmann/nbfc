@@ -65,6 +65,9 @@
             <Component Id="cmp5083A82F29D735262C5B602AAF287A59" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil956D1FB76F62BABED977CDC539924BED" KeyPath="yes" Source="$(var.ConfigsDir)\Acer TravelMate 7730G.xml" />
             </Component>
+            <Component Id="cmpC539468C7A557AB10D86F00E44D8DB76" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil781E76FCC4396934F169E8E43E63D264" KeyPath="yes" Source="$(var.ConfigsDir)\Aspire VN7 591 V15 Nitro.xml" />
+            </Component>
             <Component Id="cmp2216068707718E5CFD76BD4031A29367" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil746BC3C1B52C92384B0434FE90A0B3DB" KeyPath="yes" Source="$(var.ConfigsDir)\Asus F5SR.xml" />
             </Component>
