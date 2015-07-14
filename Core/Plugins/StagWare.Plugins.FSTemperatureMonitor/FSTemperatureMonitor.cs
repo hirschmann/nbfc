@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -20,9 +21,9 @@ namespace StagWare.Plugins.Generic
         private const string SettingsFileName = "StagWare.Plugins.FSTemperatureMonitor.sources";
         private const string SettingsFolderName = "NbfcService";
 
-        private const string LinuxHwmonDirectory = "/sys/class/hwmon/hwmon{0}/";
-        private const string LinuxTempSensorFileName = "temp{0}_input";
-        private const string LinuxTempSensorNameFileName = "name";
+        private readonly string[] LinuxHwmonDirs = { "/sys/class/hwmon/hwmon{0}/", "/sys/class/hwmon/hwmon{0}/device/" };
+        private const string LinuxTempSensorFile = "temp{0}_input";
+        private const string LinuxTempSensorNameFile = "name";
         private static readonly string[] LinuxTempSensorNames = { "coretemp", "k10temp" };
 
         #endregion
@@ -75,7 +76,7 @@ namespace StagWare.Plugins.Generic
 
                         if (arr.Length > 1)
                         {
-                            double.TryParse(arr[1], out multi);
+                            double.TryParse(arr[1], NumberStyles.Number, CultureInfo.InvariantCulture, out multi);
                         }
 
                         list.Add(new TemperatureSource(arr[0], multi));
@@ -91,36 +92,48 @@ namespace StagWare.Plugins.Generic
         {
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
-                int i = 0;
-                string dir = string.Format(LinuxHwmonDirectory, i);
-
-                while (Directory.Exists(dir))
+                for (int i = 0; i < 10; i++)
                 {
-                    int j = 1;
-                    string file = Path.Combine(dir, LinuxTempSensorNameFileName);
-                    string sensorName = File.ReadAllText(file).Trim();
-
-                    if (LinuxTempSensorNames.Contains(sensorName))
+                    foreach (string s in LinuxHwmonDirs)
                     {
-                        var lines = new List<string>();
-                        file = Path.Combine(dir, string.Format(LinuxTempSensorFileName, j));
+                        string dir = string.Format(s, i);
+                        string sensorNameFile = Path.Combine(dir, LinuxTempSensorNameFile);
 
-                        while (File.Exists(file))
+                        if (!Directory.Exists(dir) || !File.Exists(sensorNameFile))
                         {
-                            lines.Add(string.Format("{0};{1}", file, 0.001));
-                            j++;
-                            file = Path.Combine(dir, string.Format(LinuxTempSensorFileName, j));
+                            continue;
                         }
+                        
+                        string sensorName = File.ReadAllText(sensorNameFile).Trim();
 
-                        if (lines.Count > 0)
+                        if (LinuxTempSensorNames.Contains(sensorName))
                         {
-                            File.WriteAllLines(settingsFile, lines);
-                            return true;
+                            var lines = new List<string>();
+
+                            for (int j = 0; j < 10; j++)
+                            {
+                                string sensorFile = Path.Combine(dir, string.Format(LinuxTempSensorFile, j));
+
+                                if (File.Exists(sensorFile))
+                                {
+                                    try
+                                    {
+                                        GetTemperature(sensorFile, 0.001);
+                                        lines.Add(string.Format("{0};{1}", sensorFile, 0.001));
+                                    }
+                                    catch (Exception)
+                                    {
+                                    }
+                                }
+                            }
+
+                            if (lines.Count > 0)
+                            {
+                                File.WriteAllLines(settingsFile, lines);
+                                return true;
+                            }
                         }
                     }
-
-                    i++;
-                    dir = string.Format(LinuxHwmonDirectory, i);
                 }
             }
 
@@ -150,13 +163,19 @@ namespace StagWare.Plugins.Generic
         private static double GetTemperature(string sourceFilePath, double multiplier)
         {
             double? temp = null;
-            IOException lastException = null;
+            Exception lastException = null;
 
             for (int i = 0; i < 3; i++)
             {
                 try
                 {
-                    temp = double.Parse(File.ReadAllText(sourceFilePath)) * multiplier;
+                    string src = File.ReadAllText(sourceFilePath);
+                    temp = double.Parse(src, NumberStyles.Number, CultureInfo.InvariantCulture) * multiplier;
+                    break;
+                }
+                catch (FormatException e)
+                {
+                    lastException = e;
                     break;
                 }
                 catch (IOException e)
