@@ -119,7 +119,7 @@ namespace StagWare.Plugins.Generic
                                     try
                                     {
                                         GetTemperature(sensorFile, 0.001);
-                                        lines.Add(string.Format("{0};{1}", sensorFile, 0.001));
+                                        lines.Add(string.Format(CultureInfo.InvariantCulture, "{0};{1}", sensorFile, 0.001));
                                     }
                                     catch (Exception)
                                     {
