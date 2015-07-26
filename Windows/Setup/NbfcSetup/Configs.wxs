@@ -107,6 +107,9 @@
             <Component Id="cmp429C6058BF28DDC66DFADB66DC09C658" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil844A6443945ED3062EADE36C012DB31E" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX51VZA.xml" />
             </Component>
+            <Component Id="cmp9101C144566E04BE2B9C17D4177F96C4" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil655D4CC2CC8E3E2E1417DB447781C001" KeyPath="yes" Source="$(var.ConfigsDir)\Dell Inspiron 7348.xml" />
+            </Component>
             <Component Id="cmp93FC49641E75A24B596C895CFE56EA7F" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB752BC064D7C9754434C96D972694C19" KeyPath="yes" Source="$(var.ConfigsDir)\Dell Vostro 3350.xml" />
             </Component>
