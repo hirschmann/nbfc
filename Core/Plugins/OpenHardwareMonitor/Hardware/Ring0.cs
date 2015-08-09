@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Security.AccessControl;
 using System.Threading;
 using System.Text;
+using System.Diagnostics;
 
 namespace OpenHardwareMonitor.Hardware
 {
@@ -117,10 +118,29 @@ namespace OpenHardwareMonitor.Hardware
 
         public static void Open()
         {
-            // no implementation for unix systems
-            int p = (int)Environment.OSVersion.Platform;
-            if ((p == 4) || (p == 128))
-                return;
+			System.PlatformID p = Environment.OSVersion.Platform;
+
+            // try loading shipped kernel drivers on Unix
+			// (will probably only work on Linux through)
+			if (p == PlatformID.Unix) {
+				// try loading the `msr` kernel module on Linux (required on ost kernels)
+				Process modprobe = new Process();
+				try {
+					modprobe.StartInfo.FileName  = "modprobe";
+					modprobe.StartInfo.Arguments = "msr";
+					modprobe.Start();
+					modprobe.WaitForExit();
+				} catch(Exception e) {
+					report.AppendLine(string.Format("Failed to load `msr` kernel driver: {0}", e.Message));
+				}
+
+				return;
+			}
+
+			// following code is Windows NT only
+			if ((p != PlatformID.Win32NT) && (p != PlatformID.WinCE)) {
+				return;
+			}
 
             if (driver != null)
                 return;
@@ -309,34 +329,128 @@ namespace OpenHardwareMonitor.Hardware
             isaBusMutex.ReleaseMutex();
         }
 
+		private static bool rdmsrLinux(uint index, out ulong value, uint cpuNumber=0U)
+		{
+			// Load mono's posix assembly
+			Assembly posix = Assembly.Load("Mono.Posix");
+			if (posix.EntryPoint != null) {
+				posix.EntryPoint.Invoke(posix, new object[] {});
+			}
+
+			// Acquire references to stuff required to create and open block devices
+			Type FilePermissions = posix.GetType("Mono.Unix.Native.FilePermissions");
+			Type OpenFlags       = posix.GetType("Mono.Unix.Native.OpenFlags");
+			Type Syscall         = posix.GetType("Mono.Unix.Native.Syscall");
+			MethodInfo mknod = Syscall.GetMethod("mknod", new Type[] { typeof(string), FilePermissions, typeof(ulong) });
+			MethodInfo open  = Syscall.GetMethod("open",  new Type[] { typeof(string), OpenFlags });
+
+			// Acquire references to stuff required to interact with a file descriptor
+			Type UnixStream         = posix.GetType("Mono.Unix.UnixStream");
+			MethodInfo readAtOffset = UnixStream.GetMethod("ReadAtOffset", new Type[] { typeof(byte[]), typeof(int), typeof(int), typeof(long) });
+			MethodInfo dispose      = UnixStream.GetMethod("Dispose",      new Type[] {});
+
+			// Determine file path of the MSR block device node for the requested CPU core
+			string msrFile = String.Format("/dev/cpu/{0}/msr", cpuNumber);
+
+			// Open the MSR block device node for the requested CPU core
+			int fd = (int)open.Invoke(null, new object[] {msrFile, 0});
+			if (fd < 0)
+			{
+				if (Marshal.GetLastWin32Error() == 2) { // ENOENT (No such file or directory)
+					// Device node might be missing (broken udev)
+					if ((int)mknod.Invoke(null, new object[] {msrFile, (uint)(0600 | 0x0100), (ulong)(202 << 8 | (cpuNumber & 0xFF))}) >= 0) {
+						// Node successfully created, retry opening it
+						fd = (int)open.Invoke(null, new object[] {msrFile, 0});
+					}
+				}
+			}
+
+			if (fd >= 0) {
+				byte[] buffer = new byte[8];
+
+				// Read requested data from file descriptor
+				object stream = Activator.CreateInstance(UnixStream, new object[] { fd });
+				readAtOffset.Invoke(stream, new object[] { buffer, 0, buffer.Length, index });
+				dispose.Invoke(stream, new object[] {}); // This also closes the file descriptor
+
+				// Convert byte stream to number (byte-order should not be an issue)
+				value = BitConverter.ToUInt64(buffer, 0);
+				return true;
+			}
+
+			value = 0;
+			return false;
+		}
+
+		private static bool rdmsrWindows(uint index, out ulong value, ulong threadAffinityMask=0) {
+			value = 0;
+			if (driver == null)
+			{
+				return false;
+			}
+
+			// Force current thread to run on the requested CPU core
+			// This probably works because the kernel processes short running requests on
+			// the CPU thread where they originated from to improve efficiency. While this
+			// is probably a likely hack, changing this behavior would require significant
+			// changes to the kernel driver. 
+			ulong mask = 0xFFFFFFFFFFFFFFFF;
+			if (threadAffinityMask != 0) {
+				mask = ThreadAffinity.Set(threadAffinityMask);
+			}
+
+			try {
+				// Communicate with WinRing0 driver
+				return driver.DeviceIOControl(IOCTL_OLS_READ_MSR, index, ref value);
+			} finally {
+				if (threadAffinityMask != 0) {
+					ThreadAffinity.Set(mask);
+				}
+			}
+		}
+
+		/**
+		 * Read MSR value from any CPU core
+		 * 
+		 * On Linux this will read the MSR value from the first core of
+		 * the first CPU, on Windows the used CPU and core are not defined.
+		 * 
+		 * @param index The index of the MSR value to read
+		 * @param eax   Upper 32-bits of MSR value at the given index
+		 * @param edx   Lower 32-bits of MSR value at the given index
+		 */
         public static bool Rdmsr(uint index, out uint eax, out uint edx)
         {
-            if (driver == null)
-            {
-                eax = 0;
-                edx = 0;
-                return false;
-            }
-
-            ulong buffer = 0;
-            bool result = driver.DeviceIOControl(IOCTL_OLS_READ_MSR, index,
-              ref buffer);
-
-            edx = (uint)((buffer >> 32) & 0xFFFFFFFF);
-            eax = (uint)(buffer & 0xFFFFFFFF);
-            return result;
+			return Rdmsr(index, out eax, out edx, -1);
         }
 
-        public static bool RdmsrTx(uint index, out uint eax, out uint edx,
-          ulong threadAffinityMask)
-        {
-            ulong mask = ThreadAffinity.Set(threadAffinityMask);
+		/**
+		 * Read MSR value from the given CPU core
+		 * 
+		 * @param index The index of the MSR value to read
+		 * @param eax   Upper 32-bits of MSR value at the given index
+		 * @param edx   Lower 32-bits of MSR value at the given index
+		 * @param cpuNum The CPU thread number to read the MSR value from
+		 */
+		public static bool Rdmsr(uint index, out uint eax, out uint edx, int cpuNum)
+		{
+			bool result = false;
+			ulong value = 0UL;
 
-            bool result = Rdmsr(index, out eax, out edx);
+			if (Environment.OSVersion.Platform == PlatformID.Unix) {
+				// Use first CPU thread (0) if no specific CPU thread number was given under Linux
+				result = rdmsrLinux(index, out value, (cpuNum >= 0) ? ((uint)cpuNum) : 0U);
+			} else {
+				// Switch current process thread to the given CPU thread number and hope we get
+				// the right result
+				result = rdmsrWindows(index, out value, (cpuNum >= 0) ? (1UL << cpuNum) : 0UL);
+			}
 
-            ThreadAffinity.Set(mask);
-            return result;
-        }
+			// Split result into the different registers
+			edx = (uint)((value >> 32) & 0xFFFFFFFF);
+			eax = (uint)((value >>  0) & 0xFFFFFFFF);
+			return result;
+		}
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         private struct WrmsrInput
