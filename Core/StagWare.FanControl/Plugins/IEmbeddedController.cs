@@ -13,7 +13,7 @@ namespace StagWare.FanControl.Plugins
         void WriteWord(byte register, ushort value);
         byte ReadByte(byte register);
         ushort ReadWord(byte register);
-        bool AquireLock(int timeout);
+        bool AcquireLock(int timeout);
         void ReleaseLock();
     }
 }

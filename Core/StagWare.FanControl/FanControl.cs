@@ -286,7 +286,7 @@ namespace StagWare.FanControl
 
         private void UpdateEc()
         {
-            if (this.ec.AquireLock(EcTimeout))
+            if (this.ec.AcquireLock(EcTimeout))
             {
                 try
                 {
@@ -367,7 +367,7 @@ namespace StagWare.FanControl
         {
             try
             {
-                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AquireLock(EcTimeout))
+                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AcquireLock(EcTimeout))
                 {
                     try
                     {
@@ -449,7 +449,7 @@ namespace StagWare.FanControl
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                bool mutexAquired = this.ec.AquireLock(EcTimeout * 2);
+                bool mutexAquired = this.ec.AcquireLock(EcTimeout * 2);
 
                 //try to reset the EC even if AquireLock failed
                 try

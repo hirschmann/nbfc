@@ -42,7 +42,7 @@ namespace StagWare.Plugins
             }
         }
 
-        public bool AquireLock(int timeout)
+        public bool AcquireLock(int timeout)
         {
             bool success = false;
 

@@ -32,7 +32,7 @@ namespace StagWare.Plugins
             }
         }
 
-        public bool AquireLock(int timeout)
+        public bool AcquireLock(int timeout)
         {
             return this.hwMon.WaitIsaBusMutex(timeout);
         }
