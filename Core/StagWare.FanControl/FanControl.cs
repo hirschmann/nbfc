@@ -24,10 +24,10 @@ namespace StagWare.FanControl
 
 #endif
 
-        private const int EcTimeout = 200;
-        private const int MaxWaitHandleTimeout = 500;
-        private const int DefaultPollInterval = 3000;
-        private const string PluginsFolderDefaultName = "Plugins";
+        public const int EcTimeout = 200;
+        public const int MaxWaitHandleTimeout = 500;
+        public const int DefaultPollInterval = 3000;
+        public const string PluginsFolderDefaultName = "Plugins";
         public const int AutoFanSpeedPercentage = 101;
 
         #endregion
@@ -58,7 +58,7 @@ namespace StagWare.FanControl
         #region Constructor
 
         public FanControl(FanControlConfigV2 config)
-            : this(config, Path.Combine(AssemblyDirectory, PluginsFolderDefaultName))
+            : this(config, PluginsDirectory)
         {
         }
 
@@ -129,6 +129,13 @@ namespace StagWare.FanControl
         #endregion
 
         #region Properties
+
+        public static string PluginsDirectory
+        {
+            get {
+                return Path.Combine(AssemblyDirectory, PluginsFolderDefaultName);
+            }
+        }
 
         public static string AssemblyDirectory
         {
@@ -286,7 +293,7 @@ namespace StagWare.FanControl
 
         private void UpdateEc()
         {
-            if (this.ec.AquireLock(EcTimeout))
+            if (this.ec.AcquireLock(EcTimeout))
             {
                 try
                 {
@@ -367,7 +374,7 @@ namespace StagWare.FanControl
         {
             try
             {
-                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AquireLock(EcTimeout))
+                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AcquireLock(EcTimeout))
                 {
                     try
                     {
@@ -449,7 +456,7 @@ namespace StagWare.FanControl
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                bool mutexAquired = this.ec.AquireLock(EcTimeout * 2);
+                bool mutexAquired = this.ec.AcquireLock(EcTimeout * 2);
 
                 //try to reset the EC even if AquireLock failed
                 try

@@ -68,8 +68,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       uint eax, edx;
       float[] result = new float[coreCount];
       for (int i = 0; i < coreCount; i++) {
-        if (Ring0.RdmsrTx(IA32_TEMPERATURE_TARGET, out eax,
-          out edx, 1UL << cpuid[i][0].Thread)) {
+        if (Ring0.Rdmsr(IA32_TEMPERATURE_TARGET, out eax,
+          out edx, cpuid[i][0].Thread)) {
           result[i] = (eax >> 16) & 0xFF;
         } else {
           result[i] = 100;
@@ -336,8 +336,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       for (int i = 0; i < coreTemperatures.Length; i++) {
         uint eax, edx;
         // if reading is valid
-        if (Ring0.RdmsrTx(IA32_THERM_STATUS_MSR, out eax, out edx,
-            1UL << cpuid[i][0].Thread) && (eax & 0x80000000) != 0) 
+        if (Ring0.Rdmsr(IA32_THERM_STATUS_MSR, out eax, out edx,
+            cpuid[i][0].Thread) && (eax & 0x80000000) != 0) 
         {
           // get the dist from tjMax from bits 22:16
           float deltaT = ((eax & 0x007F0000) >> 16);
@@ -352,8 +352,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       if (packageTemperature != null) {
         uint eax, edx;
         // if reading is valid
-        if (Ring0.RdmsrTx(IA32_PACKAGE_THERM_STATUS, out eax, out edx,
-            1UL << cpuid[0][0].Thread) && (eax & 0x80000000) != 0) 
+        if (Ring0.Rdmsr(IA32_PACKAGE_THERM_STATUS, out eax, out edx,
+            cpuid[0][0].Thread) && (eax & 0x80000000) != 0) 
         {
           // get the dist from tjMax from bits 22:16
           float deltaT = ((eax & 0x007F0000) >> 16);
@@ -370,8 +370,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         uint eax, edx;
         for (int i = 0; i < coreClocks.Length; i++) {
           System.Threading.Thread.Sleep(1);
-          if (Ring0.RdmsrTx(IA32_PERF_STATUS, out eax, out edx,
-            1UL << cpuid[i][0].Thread)) {
+          if (Ring0.Rdmsr(IA32_PERF_STATUS, out eax, out edx,
+            cpuid[i][0].Thread)) {
             newBusClock =
               TimeStampCounterFrequency / timeStampCounterMultiplier;
             switch (microarchitecture) {

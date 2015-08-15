@@ -187,7 +187,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
 
     private static void AppendMSRData(StringBuilder r, uint msr, int thread) {
       uint eax, edx;
-      if (Ring0.RdmsrTx(msr, out eax, out edx, 1UL << thread)) {
+      if (Ring0.Rdmsr(msr, out eax, out edx, thread)) {
         r.Append(" ");
         r.Append((msr).ToString("X8", CultureInfo.InvariantCulture));
         r.Append("  ");
