@@ -101,14 +101,7 @@ namespace NbfcProbe
 		{
 			return this.withEC(delegate {
 				// Write something
-				Console.WriteLine("Writing at {0}: {1} (0x{1:X2})", register, value);
 				this.ec.WriteByte(register, value);
-
-				// Read back the value to check if it was written successfully
-				byte b = this.ec.ReadByte(register);
-				Console.WriteLine("Value: {0:D3} (0x{0:X2})", b); 
-
-				Console.WriteLine();
 
 				return 0;
 			});
@@ -119,7 +112,7 @@ namespace NbfcProbe
 			return this.withEC(delegate {
 				// Read the requested value
 				byte b = this.ec.ReadByte(register);
-				Console.WriteLine("Value: {0:D3} (0x{0:X2})", b);
+				Console.WriteLine("{0} (0x{0:X2})", b);
 
 				return 0;
 			});
