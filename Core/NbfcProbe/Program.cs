@@ -4,6 +4,7 @@ using StagWare.FanControl.Plugins;
 using System.IO;
 using System.Diagnostics;
 using System.Globalization;
+using System.Text;
 
 namespace NbfcProbe
 {
@@ -127,18 +128,23 @@ namespace NbfcProbe
 		public int ECDump()
 		{
 			return this.withEC(delegate {
+                StringBuilder sb = new StringBuilder(16 * 54);
+
 				// Read all register bytes
-				for (byte i_1 = 0; i_1 < 32; i_1++) {
-					Console.Write("{0:D3}: ", i_1 * 8);
+                for (int i = 0; i <= 0xF0; i += 0x10)
+                {
+                    sb.AppendFormat("{0:X2}: ", i);
 
-					for (byte i_2 = 0; i_2 < 8; i_2++) {
-						byte b = this.ec.ReadByte((byte)(i_1 * i_2));
-						Console.Write("{0:X2} ", b);
-					}
+                    for (int j = 0; j <= 0xF; j++)
+                    {
+                        byte b = this.ec.ReadByte((byte)(i + j));
+                        sb.AppendFormat("{0:X2} ", b);
+                    }
 
-					Console.WriteLine();
-				}
+                    sb.AppendLine();
+                }
 
+                Console.WriteLine(sb);
 				return 0;
 			});
 		}
