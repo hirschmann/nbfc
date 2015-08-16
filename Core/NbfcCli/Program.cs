@@ -11,20 +11,6 @@ namespace NbfcCli
 {
     public class Program
     {
-        #region Constants
-
-        const string VerbStart = "start";
-        const string VerbStop = "stop";
-        const string VerbStatus = "status";
-        const string VerbLoad = "load";
-        const string VerbSet = "set";
-
-        static readonly string[] LoadConfigOptions = { "-c", "--config" };
-        static readonly string[] SetSpeedOptions = { "-s", "--speed" };
-        static readonly string[] SetIndexOptions = { "-i", "--index" };
-
-        #endregion
-
         #region Main
 
         static void Main(string[] args)
