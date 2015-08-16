@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -40,22 +40,32 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clipr, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\clipr.1.4.6.0\lib\net35\clipr.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineOptions\ECWriteVerb.cs" />
+    <Compile Include="CommandLineOptions\ECReadVerb.cs" />
+    <Compile Include="CommandLineOptions\ECDumpVerb.cs" />
+    <Compile Include="CommandLineOptions\CustomHelpGenerator.cs" />
+    <Compile Include="CommandLineOptions\Verbs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-    <Copy SourceFiles="$(TargetPath)" 
-          DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" 
-          ContinueOnError="true" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
   </Target>
   <ItemGroup>
     <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
       <Project>{12084B38-C1A2-414C-80A7-B8D02D6F5B84}</Project>
       <Name>StagWare.FanControl</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
