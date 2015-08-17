@@ -126,27 +126,6 @@ namespace NbfcProbe
             }
         }
 
-        private static void PrintHelp()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("Usage: nbfc-probe [-h|--help] <command> [<args>]");
-            sb.AppendLine();
-            sb.AppendLine("Commands:");
-            sb.AppendLine(" * ec-dump");
-            sb.AppendLine("    Dump all registers that are present in EC memory as hexadecimal table.");
-            sb.AppendLine(" * ec-read <register>");
-            sb.AppendLine("    Print the value of the given EC register number.");
-            sb.AppendLine(" * ec-write <register> <value> [-v|--verbose]");
-            sb.AppendLine("    Write the given value to the given EC register number.");
-            sb.AppendLine("    If the verbose option is set, read and print the updated value.");
-            sb.AppendLine();
-            sb.AppendLine("Input values are interpreted as decimal numbers by default.");
-            sb.AppendLine("Hexadecimal values may be entered by prefixing them with \"0x\".");
-
-            Console.WriteLine(sb);
-        }
-
         #endregion
     }
 }
