@@ -32,6 +32,9 @@
             <Component Id="cmp94327A857BB8B3C0EC05A74305F6FF05" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil2BE9EC856A15A6F81B7F43CC5BEE2CC0" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7741G.xml" />
             </Component>
+            <Component Id="cmpA5D5700E9EF32D169F2EEE3887845263" Directory="ConfigsFolder" Guid="*">
+                <File Id="filC258543E23B186FEC5E721A737FAEABA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-522.xml" />
+            </Component>
             <Component Id="cmpBA75A32F5591C9DF1246E9BFC9C805C7" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil187D4C6DF34C21AD73CEA9A254C4AA24" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-731.xml" />
             </Component>
@@ -91,6 +94,9 @@
             </Component>
             <Component Id="cmp263D719CF20BAC188000A77D7ECF1A1E" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1E6993524556085E8372314BD987D137" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX21E.xml" />
+            </Component>
+            <Component Id="cmp72980E268A7EFB80CD2F07DF1358AF87" Directory="ConfigsFolder" Guid="*">
+                <File Id="filDD291E61FB603BCFBC083BE9603CE865" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX302LA.xml" />
             </Component>
             <Component Id="cmp122D46526CD6479BE692C22F51A321C3" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil64F256409010B9AECEAE03A8815E7473" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX31A.xml" />
@@ -253,6 +259,9 @@
             </Component>
             <Component Id="cmp6945C93B7B7B5007E4E6AFF561F792D0" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF3F2135D38CD734F793030D075BC2314" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVT1312M1ES.xml" />
+            </Component>
+            <Component Id="cmp6D7AB4DAF82484F0A8842CADA57D9C80" Directory="ConfigsFolder" Guid="*">
+                <File Id="filEB80A764CD7C2BE0E430AB31ABDB68B3" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio VPCF12S1E.xml" />
             </Component>
         </ComponentGroup>
     </Fragment>
