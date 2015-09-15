@@ -3,7 +3,7 @@
   <NotebookModel>UX32LN</NotebookModel>
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
@@ -15,7 +15,7 @@
       <FanDisplayName>GPU FAN</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>55</UpThreshold>
+          <UpThreshold>p</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
@@ -31,7 +31,7 @@
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
-          <DownThreshold>70</DownThreshold>
+          <DownThreshold>65</DownThreshold>
           <FanSpeed>57.142857142857139</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
@@ -52,7 +52,7 @@
       <FanDisplayName>CPU FAN</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>55</UpThreshold>
+          <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
@@ -68,7 +68,7 @@
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
-          <DownThreshold>70</DownThreshold>
+          <DownThreshold>65</DownThreshold>
           <FanSpeed>57.142857142857139</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
