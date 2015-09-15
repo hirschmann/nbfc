@@ -15,7 +15,7 @@
       <FanDisplayName>GPU FAN</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>p</UpThreshold>
+          <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
