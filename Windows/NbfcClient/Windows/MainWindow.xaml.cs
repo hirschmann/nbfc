@@ -156,9 +156,9 @@ namespace NbfcClient.Windows
             window.ShowDialog();
         }
 
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        private void FanControlEnabled_StateChanged(object sender, RoutedEventArgs e)
         {
-            try
+           try
             {
                 Mouse.OverrideCursor = Cursors.Wait;
 
@@ -299,6 +299,7 @@ namespace NbfcClient.Windows
             GC.SuppressFinalize(this);
         }
 
-        #endregion        
+        #endregion
     }
+
 }
