@@ -20,8 +20,8 @@ namespace StagWare.FanControl
         private readonly int criticalTemperature;
         private TemperatureThresholdManager threshMan;
         private FanConfiguration fanConfig;
-        private Dictionary<float, int> overriddenPercentages;
-        private Dictionary<int, float> overriddenValues;
+        private Dictionary<float, FanSpeedPercentageOverride> overriddenPercentages;
+        private Dictionary<int, FanSpeedPercentageOverride> overriddenValues;
 
         private float fanSpeedPercentage;
         private int fanSpeedValue;
@@ -51,6 +51,12 @@ namespace StagWare.FanControl
 
         public bool AutoControlEnabled { get; private set; }
         public bool CriticalModeEnabled { get; private set; }
+        public int MinSpeedValueWrite { get; private set; }
+        public int MaxSpeedValueWrite { get; private set; }
+        public int MinSpeedValueRead { get; private set; }
+        public int MaxSpeedValueRead { get; private set; }
+        public int MinSpeedValueReadAbs { get; private set; }
+        public int MaxSpeedValueReadAbs { get; private set; }
 
         #endregion
 
@@ -60,8 +66,25 @@ namespace StagWare.FanControl
         {
             this.fanConfig = config;
             this.criticalTemperature = criticalTemperature;
-            this.overriddenPercentages = new Dictionary<float, int>();
-            this.overriddenValues = new Dictionary<int, float>();
+            this.overriddenPercentages = new Dictionary<float, FanSpeedPercentageOverride>();
+            this.overriddenValues = new Dictionary<int, FanSpeedPercentageOverride>();
+
+            this.MinSpeedValueWrite = config.MinSpeedValue;
+            this.MaxSpeedValueWrite = config.MaxSpeedValue;
+
+            if (config.IndependentReadMinMaxValues)
+            {
+                this.MinSpeedValueRead = config.MinSpeedValueRead;
+                this.MaxSpeedValueRead = config.MaxSpeedValueRead;
+            }
+            else
+            {
+                this.MinSpeedValueRead = this.MinSpeedValueWrite;
+                this.MaxSpeedValueRead = this.MaxSpeedValueWrite;
+            }
+
+            this.MinSpeedValueReadAbs = Math.Min(this.MinSpeedValueRead, this.MaxSpeedValueRead);
+            this.MinSpeedValueReadAbs = Math.Max(this.MinSpeedValueRead, this.MaxSpeedValueRead);
 
             if (config.TemperatureThresholds != null
                 && config.TemperatureThresholds.Count > 0)
@@ -77,12 +100,12 @@ namespace StagWare.FanControl
             {
                 if (!this.overriddenPercentages.ContainsKey(o.FanSpeedPercentage))
                 {
-                    this.overriddenPercentages.Add(o.FanSpeedPercentage, o.FanSpeedValue);
+                    this.overriddenPercentages.Add(o.FanSpeedPercentage, o);
                 }
 
                 if (!this.overriddenValues.ContainsKey(o.FanSpeedValue))
                 {
-                    this.overriddenValues.Add(o.FanSpeedValue, o.FanSpeedPercentage);
+                    this.overriddenValues.Add(o.FanSpeedValue, o);
                 }
             }
         }
@@ -135,35 +158,36 @@ namespace StagWare.FanControl
                     "Percentage must be greater or equal 0 and less or equal 100");
             }
 
-            if (this.overriddenPercentages.ContainsKey(percentage))
+            if (this.overriddenPercentages.ContainsKey(percentage)
+                && this.overriddenPercentages[percentage].TargetOperation.HasFlag(OverrideTargetOperation.Write))
             {
-                return this.overriddenPercentages[percentage];
+                return this.overriddenPercentages[percentage].FanSpeedValue;
             }
             else
             {
                 return (int)Math.Round(
-                    ((percentage / 100.0)
-                    * (this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue))
-                    + this.fanConfig.MinSpeedValue);
+                    ((percentage / 100.0) * (MaxSpeedValueWrite - MinSpeedValueWrite))
+                    + MinSpeedValueWrite);
             }
         }
 
         public float FanSpeedToPercentage(int fanSpeed)
         {
-            if (this.overriddenValues.ContainsKey(fanSpeed))
+            if (this.overriddenValues.ContainsKey(fanSpeed)
+                && this.overriddenPercentages[fanSpeed].TargetOperation.HasFlag(OverrideTargetOperation.Read))
             {
-                return this.overriddenValues[fanSpeed];
+                return this.overriddenValues[fanSpeed].FanSpeedPercentage;
             }
             else
             {
-                if (this.fanConfig.MinSpeedValue == this.fanConfig.MaxSpeedValue)
+                if (MinSpeedValueRead == MaxSpeedValueRead)
                 {
                     return 0;
                 }
                 else
                 {
-                    return (float)(fanSpeed - this.fanConfig.MinSpeedValue)
-                        / (float)(this.fanConfig.MaxSpeedValue - this.fanConfig.MinSpeedValue) * 100;
+                    return (float)(fanSpeed - MinSpeedValueRead)
+                        / (float)(MaxSpeedValueRead - MinSpeedValueRead) * 100;
                 }
             }
         }

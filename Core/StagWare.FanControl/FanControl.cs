@@ -64,8 +64,8 @@ namespace StagWare.FanControl
 
         public FanControl(FanControlConfigV2 config, string pluginsPath) :
             this(
-            config, 
-            new ArithmeticMeanTemperatureFilter(Math.Max(config.EcPollInterval, MinPollInterval)), 
+            config,
+            new ArithmeticMeanTemperatureFilter(Math.Max(config.EcPollInterval, MinPollInterval)),
             pluginsPath)
         { }
 
@@ -90,7 +90,7 @@ namespace StagWare.FanControl
             {
                 throw new DirectoryNotFoundException(pluginsPath + " could not be found.");
             }
-            
+
             var ecLoader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
             this.ec = ecLoader.FanControlPlugin;
             this.EmbeddedControllerPluginId = ecLoader.FanControlPluginId;
@@ -132,7 +132,8 @@ namespace StagWare.FanControl
 
         public static string PluginsDirectory
         {
-            get {
+            get
+            {
                 return Path.Combine(AssemblyDirectory, PluginsFolderDefaultName);
             }
         }
@@ -149,7 +150,7 @@ namespace StagWare.FanControl
         }
 
         public string TemperatureMonitorPluginId { get; private set; }
-        public string EmbeddedControllerPluginId { get; private set; }        
+        public string EmbeddedControllerPluginId { get; private set; }
 
         public float Temperature
         {
@@ -356,15 +357,20 @@ namespace StagWare.FanControl
             for (int i = 0; i < this.fanSpeedManagers.Length; i++)
             {
                 FanSpeedManager speedMan = this.fanSpeedManagers[i];
-                FanConfiguration cfg = this.config.FanConfigurations[i];
-                int speedVal = GetFanSpeedValue(cfg, this.config.ReadWriteWords);
+                FanConfiguration fanCfg = this.config.FanConfigurations[i];
+               
+                int speedVal = GetFanSpeedValue(
+                    fanCfg.ReadRegister, 
+                    speedMan.MinSpeedValueReadAbs, 
+                    speedMan.MaxSpeedValueReadAbs, 
+                    this.config.ReadWriteWords);
 
                 this.fanInfoInternal[i] = new FanInformation(
                     speedMan.FanSpeedPercentage,
                     speedMan.FanSpeedToPercentage(speedVal),
                     speedMan.AutoControlEnabled,
                     speedMan.CriticalModeEnabled,
-                    cfg.FanDisplayName);
+                    fanCfg.FanDisplayName);
             }
 
             this.fanInfoInternal = Interlocked.Exchange(ref this.fanInfo, this.fanInfoInternal);
@@ -506,19 +512,18 @@ namespace StagWare.FanControl
 
         #region Get Hardware Infos
 
-        private int GetFanSpeedValue(FanConfiguration cfg, bool readWriteWords)
+        private int GetFanSpeedValue(int readRegister, int minReadValue, int maxReadValue, bool readWriteWords)
         {
             int fanSpeed = 0;
-            int min = Math.Min(cfg.MinSpeedValue, cfg.MaxSpeedValue);
-            int max = Math.Max(cfg.MinSpeedValue, cfg.MaxSpeedValue);
+
 
             // If the value is out of range 3 or more times,
             // minFanSpeed and/or maxFanSpeed are probably wrong.
             for (int i = 0; i <= 2; i++)
             {
-                fanSpeed = ReadValue(cfg.ReadRegister, readWriteWords);
+                fanSpeed = ReadValue(readRegister, readWriteWords);
 
-                if ((fanSpeed >= min) && (fanSpeed <= max))
+                if ((fanSpeed >= minReadValue) && (fanSpeed <= maxReadValue))
                 {
                     break;
                 }
