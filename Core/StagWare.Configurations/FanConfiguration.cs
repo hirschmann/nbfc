@@ -26,6 +26,9 @@ namespace StagWare.FanControl.Configurations
         public int WriteRegister { get; set; }
         public int MinSpeedValue { get; set; }
         public int MaxSpeedValue { get; set; }
+        public bool IndependentReadMinMaxValues { get; set; }
+        public int MinSpeedValueRead { get; set; }
+        public int MaxSpeedValueRead { get; set; }
         public bool ResetRequired { get; set; }
         public int FanSpeedResetValue { get; set; }
         public string FanDisplayName { get; set; }
@@ -67,14 +70,18 @@ namespace StagWare.FanControl.Configurations
                 MinSpeedValue = this.MinSpeedValue,
                 MaxSpeedValue = this.MaxSpeedValue,
                 ResetRequired = this.ResetRequired,
+                IndependentReadMinMaxValues = this.IndependentReadMinMaxValues,
+                MinSpeedValueRead = this.MinSpeedValueRead,
+                MaxSpeedValueRead = this.MaxSpeedValueRead,
                 FanSpeedResetValue = this.FanSpeedResetValue,
                 FanDisplayName = this.FanDisplayName,
                 TemperatureThresholds = this.TemperatureThresholds
-                .Select(x => x.Clone() as TemperatureThreshold).ToList(),
+                    .Select(x => x.Clone() as TemperatureThreshold).ToList(),
                 FanSpeedPercentageOverrides = this.FanSpeedPercentageOverrides
-                .Select(x => x.Clone() as FanSpeedPercentageOverride).ToList()
+                    .Select(x => x.Clone() as FanSpeedPercentageOverride).ToList()
             };
         }
+
         #endregion
     }
 }
