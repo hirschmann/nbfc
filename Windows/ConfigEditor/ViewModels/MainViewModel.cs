@@ -279,7 +279,7 @@ namespace ConfigEditor.ViewModels
 
                                 if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
                                 {
-                                    AddNewConfig(new FanControlConfigV2(cfg), cfgName);
+                                    AddOrUpdateConfig(new FanControlConfigV2(cfg), cfgName);
                                     UpdateViewModel();
                                 }
                             }
@@ -330,7 +330,7 @@ namespace ConfigEditor.ViewModels
 
                             if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
                             {
-                                AddNewConfig(ConvertViewModelToConfig(this), cfgName);
+                                AddOrUpdateConfig(ConvertViewModelToConfig(this), cfgName);
                                 UpdateViewModel();
 
                                 OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
@@ -519,16 +519,11 @@ namespace ConfigEditor.ViewModels
                     || this.configManager.ConfigFileExists(configName));
         }
 
-        private void AddNewConfig(FanControlConfigV2 config, string configName)
+        private void AddOrUpdateConfig(FanControlConfigV2 config, string configName)
         {
             if (config == null)
             {
                 throw new ArgumentNullException("config");
-            }
-
-            if (!IsConfigNameValid(configName))
-            {
-                throw new ArgumentException("Invalid config name", "configName");
             }
 
             if (string.IsNullOrWhiteSpace(config.NotebookModel))
