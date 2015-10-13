@@ -372,12 +372,12 @@ namespace ConfigEditor.ViewModels
                                 {
                                     var cfg = ConvertViewModelToConfig(this);
                                     this.configManager.UpdateConfig(this.SelectedConfigName, cfg);
-                                }
 
-                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
-                                {
-                                    Success = true
-                                });
+                                    OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                                    {
+                                        Success = true
+                                    });
+                                }
                             }
                             catch (Exception e)
                             {
