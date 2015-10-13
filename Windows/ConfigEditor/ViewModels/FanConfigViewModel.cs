@@ -16,6 +16,9 @@ namespace ConfigEditor.ViewModels
         private int writeRegister;
         private int minSpeedValue;
         private int maxSpeedValue;
+        private bool independentReadMinMaxValues;
+        private int minSpeedValueRead;
+        private int maxSpeedValueRead;
         private bool resetRequired;
         private int resetValue;
         private ObservableCollection<TemperatureThresholdViewModel> temperatureThreshold;
@@ -147,6 +150,45 @@ namespace ConfigEditor.ViewModels
             }
         }
 
+        public bool IndependentReadMinMaxValues
+        {
+            get { return independentReadMinMaxValues; }
+            set
+            {
+                if (independentReadMinMaxValues != value)
+                {
+                    independentReadMinMaxValues = value;
+                    OnPropertyChanged("IndependentReadMinMaxValues");
+                }
+            }
+        }
+
+        public int MaxSpeedValueRead
+        {
+            get { return maxSpeedValueRead; }
+            set
+            {
+                if (maxSpeedValueRead != value)
+                {
+                    maxSpeedValueRead = value;
+                    OnPropertyChanged("MaxSpeedValueRead");
+                }
+            }
+        }
+
+        public int MinSpeedValueRead
+        {
+            get { return minSpeedValueRead; }
+            set
+            {
+                if (minSpeedValueRead != value)
+                {
+                    minSpeedValueRead = value;
+                    OnPropertyChanged("MinSpeedValueRead");
+                }
+            }
+        }
+
         public int WriteRegister
         {
             get
@@ -231,6 +273,9 @@ namespace ConfigEditor.ViewModels
                 WriteRegister = this.WriteRegister,
                 MinSpeedValue = this.MinSpeedValue,
                 MaxSpeedValue = this.MaxSpeedValue,
+                IndependentReadMinMaxValues = this.IndependentReadMinMaxValues,
+                MinSpeedValueRead = this.MinSpeedValueRead,
+                MaxSpeedValueRead = this.MaxSpeedValueRead,
                 ResetRequired = this.ResetRequired,
                 ResetValue = this.ResetValue,
 
