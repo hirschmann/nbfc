@@ -714,6 +714,9 @@ namespace ConfigEditor.ViewModels
                     WriteRegister = cfg.WriteRegister,
                     MinSpeedValue = cfg.MinSpeedValue,
                     MaxSpeedValue = cfg.MaxSpeedValue,
+                    IndependentReadMinMaxValues = cfg.IndependentReadMinMaxValues,
+                    MinSpeedValueRead = cfg.MinSpeedValueRead,
+                    MaxSpeedValueRead = cfg.MaxSpeedValueRead,
                     ResetRequired = cfg.ResetRequired,
                     ResetValue = cfg.FanSpeedResetValue
                 };
