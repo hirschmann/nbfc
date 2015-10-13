@@ -230,7 +230,6 @@ namespace StagWare.FanControl
             }
             else
             {
-                this.Dispose();
                 throw new IndexOutOfRangeException("fanIndex");
             }
         }
