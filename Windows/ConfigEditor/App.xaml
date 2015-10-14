@@ -12,6 +12,16 @@
         <vc:InvertBooleanConverter x:Key="invertBooleanConverter"/>
         <vc:ReadWriteWordsToMaximumConverter x:Key="rwWordsToMaxConverter"/>
 
+        <Style x:Key="FocusedDataGridCellStyle"  TargetType="DataGridCell">
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter
+                        Property="BorderBrush" 
+                        Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <DrawingImage x:Key="add">
             <DrawingImage.Drawing>
                 <GeometryDrawing Brush="#FF343434" Geometry="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z "/>

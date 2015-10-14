@@ -11,6 +11,16 @@
     Width="400" 
     Icon="/ConfigEditor;component/fan.ico"
     WindowStartupLocation="CenterOwner">
+    
+    <Window.Resources>
+        <Style x:Key="SelectedTabItemStyle" TargetType="TabItem">
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Margin" Value="-3,-2,-3,0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <Grid.ColumnDefinitions>
@@ -19,7 +29,10 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl Margin="0,0,0,48" Grid.ColumnSpan="3">
+        <TabControl Margin="0,0,0,48" 
+                    Grid.ColumnSpan="3" 
+                    BorderThickness="0,0,0,1"
+                    ItemContainerStyle="{StaticResource SelectedTabItemStyle}">
             <TabItem Header="Basic configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
 
@@ -227,6 +240,7 @@
                 		HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" AutoGenerateColumns="False"
+                        CellStyle="{StaticResource FocusedDataGridCellStyle}"
                         SelectionMode="Single"
                         HeadersVisibility="Column" 
                         CanUserResizeRows="False"
@@ -314,6 +328,7 @@
                 		HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
                 		Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"                         
+                        CellStyle="{StaticResource FocusedDataGridCellStyle}"
                         ItemsSource="{Binding FanSpeedOverrides}" 
                         AutoGenerateColumns="False"
                         CanUserSortColumns="False"

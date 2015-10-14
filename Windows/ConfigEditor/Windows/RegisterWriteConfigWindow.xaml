@@ -31,12 +31,14 @@
         </ObjectDataProvider>
     </wnd:NonModalDialogWindow.Resources>
 
+    
     <Grid Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
+        <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}">
         <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" 
               Grid.Row="0">
 
@@ -182,8 +184,9 @@
                               Grid.Column="1"                               
                               Width="125"/>
                 </Grid>
-            </GroupBox>
+            </GroupBox>            
         </Grid>
+        </Border>
 
         <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
               Grid.Row="1" >
