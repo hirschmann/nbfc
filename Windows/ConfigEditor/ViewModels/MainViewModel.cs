@@ -279,7 +279,7 @@ namespace ConfigEditor.ViewModels
 
                                 if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
                                 {
-                                    AddNewConfig(new FanControlConfigV2(cfg), cfgName);
+                                    AddOrUpdateConfig(new FanControlConfigV2(cfg), cfgName);
                                     UpdateViewModel();
                                 }
                             }
@@ -330,7 +330,7 @@ namespace ConfigEditor.ViewModels
 
                             if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
                             {
-                                AddNewConfig(ConvertViewModelToConfig(this), cfgName);
+                                AddOrUpdateConfig(ConvertViewModelToConfig(this), cfgName);
                                 UpdateViewModel();
 
                                 OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
@@ -372,12 +372,12 @@ namespace ConfigEditor.ViewModels
                                 {
                                     var cfg = ConvertViewModelToConfig(this);
                                     this.configManager.UpdateConfig(this.SelectedConfigName, cfg);
-                                }
 
-                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
-                                {
-                                    Success = true
-                                });
+                                    OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                                    {
+                                        Success = true
+                                    });
+                                }
                             }
                             catch (Exception e)
                             {
@@ -519,16 +519,11 @@ namespace ConfigEditor.ViewModels
                     || this.configManager.ConfigFileExists(configName));
         }
 
-        private void AddNewConfig(FanControlConfigV2 config, string configName)
+        private void AddOrUpdateConfig(FanControlConfigV2 config, string configName)
         {
             if (config == null)
             {
                 throw new ArgumentNullException("config");
-            }
-
-            if (!IsConfigNameValid(configName))
-            {
-                throw new ArgumentException("Invalid config name", "configName");
             }
 
             if (string.IsNullOrWhiteSpace(config.NotebookModel))
@@ -605,6 +600,9 @@ namespace ConfigEditor.ViewModels
                     WriteRegister = vm.WriteRegister,
                     MinSpeedValue = vm.MinSpeedValue,
                     MaxSpeedValue = vm.MaxSpeedValue,
+                    IndependentReadMinMaxValues = vm.IndependentReadMinMaxValues,
+                    MinSpeedValueRead = vm.MinSpeedValueRead,
+                    MaxSpeedValueRead = vm.MaxSpeedValueRead,
                     ResetRequired = vm.ResetRequired,
                     FanSpeedResetValue = vm.ResetValue
                 };
@@ -716,6 +714,9 @@ namespace ConfigEditor.ViewModels
                     WriteRegister = cfg.WriteRegister,
                     MinSpeedValue = cfg.MinSpeedValue,
                     MaxSpeedValue = cfg.MaxSpeedValue,
+                    IndependentReadMinMaxValues = cfg.IndependentReadMinMaxValues,
+                    MinSpeedValueRead = cfg.MinSpeedValueRead,
+                    MaxSpeedValueRead = cfg.MaxSpeedValueRead,
                     ResetRequired = cfg.ResetRequired,
                     ResetValue = cfg.FanSpeedResetValue
                 };

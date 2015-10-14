@@ -2,6 +2,19 @@
 
 namespace StagWare.FanControl.Configurations
 {
+    public enum RegisterWriteMode
+    {
+        Set,
+        And,
+        Or
+    }
+
+    public enum RegisterWriteOccasion
+    {
+        OnWriteFanSpeed,
+        OnInitialization
+    }
+
     public class RegisterWriteConfiguration : ICloneable
     {
         #region Properties
