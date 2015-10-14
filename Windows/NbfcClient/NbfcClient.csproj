@@ -109,6 +109,7 @@
     <Compile Include="UserControls\TrayToolTip.xaml.cs">
       <DependentUpon>TrayToolTip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\BooleanToInverseConverter.cs" />
     <Compile Include="ValueConverters\FanDisplayNameToTextConverter.cs" />
     <Compile Include="ValueConverters\FanSpeedSliderValueToTextConverter.cs" />
     <Compile Include="ValueConverters\TargetFanSpeedToTextConverter.cs" />

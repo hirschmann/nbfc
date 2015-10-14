@@ -12,7 +12,7 @@
              d:DesignWidth="343"             
              d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
 
-    <GroupBox Background="{Binding}" FontWeight="Bold">
+    <GroupBox Background="{Binding}" FontWeight="SemiBold">
         <GroupBox.Header>
             <MultiBinding Converter="{StaticResource displayNameConverter}">
                 <Binding Path="FanDisplayName"/>

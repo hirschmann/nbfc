@@ -2,7 +2,7 @@
                         xmlns:dd="clr-namespace:NbfcClient.DesignData"
                         
                         Temperature="50"
-                        TemperatureSourceName="CPU"
+                        TemperatureSourceName="CPU/HDD"
                         IsServiceAvailable="True" 
                         SelectedConfig="HP ProBook 6465b" 
                         Version="1.1.11"/>

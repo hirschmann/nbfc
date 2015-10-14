@@ -9,6 +9,7 @@
         <vc:TargetFanSpeedToTextConverter x:Key="fanSpeedConverter"/>
         <vc:FanDisplayNameToTextConverter x:Key="displayNameConverter"/>
         <vc:TemperatureToTextConverter x:Key="temperatureConverter"/>
+        <vc:BooleanToInverseConverter x:Key="boolToInverse"/>
         
         <DrawingImage x:Key="settings">
             <DrawingImage.Drawing>
