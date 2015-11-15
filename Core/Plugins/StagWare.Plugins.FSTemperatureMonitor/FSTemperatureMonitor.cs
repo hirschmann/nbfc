@@ -30,7 +30,7 @@ namespace StagWare.Plugins.Generic
 
         #region Private Fields
 
-        private TemperatureSource[] sources;
+        private List<TemperatureSource> sources;
 
         #endregion
 
@@ -50,41 +50,27 @@ namespace StagWare.Plugins.Generic
             {
                 string settingsFile = GetSettingsFileName();
 
-                if (!File.Exists(settingsFile) && !TryCreateSettingsFile(settingsFile))
+                if (File.Exists(settingsFile))
+                {
+                    this.sources = ReadSettingsFile(settingsFile);
+
+                    if (this.sources.Count > 0)
+                    {
+                        this.IsInitialized = true;
+                        return;
+                    }            
+                }
+
+                this.sources = FindTemperatureSources();
+
+                if (this.sources == null || this.sources.Count <= 0)
                 {
                     throw new PlatformNotSupportedException("No temperature sensors found.");
                 }
-
-                var list = new List<TemperatureSource>();
-
-                foreach (string s in File.ReadAllLines(settingsFile))
+                else
                 {
-                    string[] arr = s.Split(';');
-
-                    if (arr.Length > 0 && !string.IsNullOrWhiteSpace(arr[0]) && File.Exists(arr[0]))
-                    {
-                        try
-                        {
-                            GetTemperature(arr[0], 1);
-                        }
-                        catch
-                        {
-                            continue;
-                        }
-
-                        double multi = 1;
-
-                        if (arr.Length > 1)
-                        {
-                            double.TryParse(arr[1], NumberStyles.Number, CultureInfo.InvariantCulture, out multi);
-                        }
-
-                        list.Add(new TemperatureSource(arr[0], multi));
-                    }
+                    this.IsInitialized = true;
                 }
-
-                this.sources = list.ToArray();
-                this.IsInitialized = true;
             }
         }        
 
@@ -97,7 +83,7 @@ namespace StagWare.Plugins.Generic
                 temp += GetTemperature(src.FilePath, src.Multiplier);
             }
 
-            return temp / this.sources.Length;
+            return temp / this.sources.Count;
         }
 
         public void Dispose()
@@ -107,6 +93,39 @@ namespace StagWare.Plugins.Generic
         #endregion
 
         #region Private Methods
+
+        private static List<TemperatureSource> ReadSettingsFile(string settingsFilePath)
+        {
+            var list = new List<TemperatureSource>();
+
+            foreach (string s in File.ReadAllLines(settingsFilePath))
+            {
+                string[] arr = s.Split(';');
+
+                if (arr.Length > 0 && !string.IsNullOrWhiteSpace(arr[0]) && File.Exists(arr[0]))
+                {
+                    try
+                    {
+                        GetTemperature(arr[0], 1);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    double multi = 1;
+
+                    if (arr.Length > 1)
+                    {
+                        double.TryParse(arr[1], NumberStyles.Number, CultureInfo.InvariantCulture, out multi);
+                    }
+
+                    list.Add(new TemperatureSource(arr[0], multi));
+                }
+            }
+
+            return list;
+        }
 
         private static double GetTemperature(string sourceFilePath, double multiplier)
         {
@@ -165,8 +184,10 @@ namespace StagWare.Plugins.Generic
             return settingsFile;
         }
 
-        private static bool TryCreateSettingsFile(string settingsFile)
+        private static List<TemperatureSource> FindTemperatureSources()
         {
+            List<TemperatureSource> sources = new List<TemperatureSource>();
+
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
                 for (int i = 0; i < 10; i++)
@@ -196,7 +217,8 @@ namespace StagWare.Plugins.Generic
                                     try
                                     {
                                         GetTemperature(sensorFile, 0.001);
-                                        lines.Add(string.Format(CultureInfo.InvariantCulture, "{0};{1}", sensorFile, 0.001));
+                                        var src = new TemperatureSource(sensorFile, 0.001);
+                                        sources.Add(src);
                                     }
                                     catch (Exception)
                                     {
@@ -204,17 +226,16 @@ namespace StagWare.Plugins.Generic
                                 }
                             }
 
-                            if (lines.Count > 0)
+                            if (sources.Count > 0)
                             {
-                                File.WriteAllLines(settingsFile, lines);
-                                return true;
+                                return sources;
                             }
                         }
                     }
                 }
             }
 
-            return false;
+            return sources;
         }
 
         #endregion
