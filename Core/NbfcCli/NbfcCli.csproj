@@ -43,11 +43,11 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<appConfig>App.Linux.config</appConfig>
+    <appConfig>App.Linux.config</appConfig>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="clipr, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\clipr.1.4.6.0\lib\net35\clipr.dll</HintPath>
+    <Reference Include="clipr, Version=1.4.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\clipr.1.4.7.0\lib\net35\clipr.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -119,9 +119,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-    <Copy SourceFiles="$(TargetPath);$(TargetPath).config;$(TargetDir)clipr.dll" 
-          DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" 
-          ContinueOnError="true" />
+    <Copy SourceFiles="$(TargetPath);$(TargetPath).config;$(TargetDir)clipr.dll" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
