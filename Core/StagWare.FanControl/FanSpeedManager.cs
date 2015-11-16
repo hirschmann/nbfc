@@ -174,7 +174,7 @@ namespace StagWare.FanControl
         public float FanSpeedToPercentage(int fanSpeed)
         {
             if (this.overriddenValues.ContainsKey(fanSpeed)
-                && this.overriddenPercentages[fanSpeed].TargetOperation.HasFlag(OverrideTargetOperation.Read))
+                && this.overriddenValues[fanSpeed].TargetOperation.HasFlag(OverrideTargetOperation.Read))
             {
                 return this.overriddenValues[fanSpeed].FanSpeedPercentage;
             }
