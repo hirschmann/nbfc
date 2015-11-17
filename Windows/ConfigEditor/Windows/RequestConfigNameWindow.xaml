@@ -23,12 +23,13 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         
-        <TextBox Height="23" 
-                 Margin="28,41,28,0" 
-                 TextWrapping="Wrap" 
-                 VerticalAlignment="Top" 
-                 Grid.ColumnSpan="3"
-                 Text="{Binding ConfigName, UpdateSourceTrigger=PropertyChanged}">
+        <TextBox
+            Height="23" 
+            Margin="28,41,28,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Grid.ColumnSpan="3"
+            Text="{Binding ConfigName, UpdateSourceTrigger=PropertyChanged}">
             
             <TextBox.Background>
                 <MultiBinding Converter="{StaticResource boolToBrushConverter}">
@@ -38,34 +39,38 @@
             </TextBox.Background>
         </TextBox>
                  
-        <Rectangle Grid.ColumnSpan="3" 
-                   Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                   Height="49" 
-                   VerticalAlignment="Bottom"/>
+        <Rectangle
+            Grid.ColumnSpan="3" 
+            Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+            Height="49" 
+            VerticalAlignment="Bottom"/>
         
-        <Button Content="{Binding IsConfigNameUnique, Mode=OneWay, Converter={StaticResource boolToTextConverter}}" 
-                IsEnabled="{Binding IsConfigNameValid, Mode=OneWay}"
-                HorizontalAlignment="Left" 
-                Margin="2,0,0,13"
-                Width="86" 
-                Grid.Column="1"
-                Height="20" 
-                VerticalAlignment="Bottom"
-                Click="Accept_Click"/>
+        <Button
+            Content="{Binding IsConfigNameUnique, Mode=OneWay, Converter={StaticResource boolToTextConverter}}" 
+            IsEnabled="{Binding IsConfigNameValid, Mode=OneWay}"
+            HorizontalAlignment="Left" 
+            Margin="2,0,0,13"
+            Width="86" 
+            Grid.Column="1"
+            Height="20" 
+            VerticalAlignment="Bottom"
+            Click="Accept_Click"/>
         
-        <Button Content="Cancel" 
-                HorizontalAlignment="Left" 
-                Margin="93,0,0,13" 
-                Width="86"
-                Grid.Column="1" 
-                Height="20" 
-                VerticalAlignment="Bottom" 
-                Click="Cancel_Click"/>
+        <Button 
+            Content="Cancel" 
+            HorizontalAlignment="Left" 
+            Margin="93,0,0,13" 
+            Width="86"
+            Grid.Column="1" 
+            Height="20" 
+            VerticalAlignment="Bottom" 
+            Click="Cancel_Click"/>
         
-        <Label Content="Please enter a config name:"
-               HorizontalAlignment="Left" 
-               Margin="10,10,0,0" 
-               VerticalAlignment="Top"
-               Grid.ColumnSpan="2"/>
+        <Label 
+            Content="Please enter a config name:"
+            HorizontalAlignment="Left" 
+            Margin="10,10,0,0" 
+            VerticalAlignment="Top"
+            Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

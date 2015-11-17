@@ -16,104 +16,122 @@
     </Window.Resources>
 
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
-        <ToolBar ToolBarTray.IsLocked="True"
-                 Height="34"
-                 Margin="-8,-4,-12,0"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Top" 
-                 Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
-                 IsEnabled="{Binding IsEditing, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource invertBooleanConverter}}">
+        <ToolBar 
+            ToolBarTray.IsLocked="True"
+            Height="34"
+            Margin="-8,-4,-12,0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top" 
+            Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"
+            IsEnabled="{Binding IsEditing, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Converter={StaticResource invertBooleanConverter}}">
 
             <Button Margin="10,4,0,0" Command="{Binding CreateNewConfigCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="14"
-                           Margin="0,0,0,0" 
-                           Source="{StaticResource newConfig}"/>
+                    <Image 
+                        Height="14"
+                        Margin="0,0,0,0" 
+                        Source="{StaticResource newConfig}"/>
 
-                    <TextBlock Margin="3,0,0,0" 
-                               Text="New"/>
+                    <TextBlock
+                        Margin="3,0,0,0" 
+                        Text="New"/>
                 </StackPanel>
             </Button>
 
             <Button Margin="5,4,0,0" Command="{Binding SaveConfigCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="13" 
-                           Source="{StaticResource save}"/>
+                    <Image
+                        Height="13" 
+                        Source="{StaticResource save}"/>
 
-                    <TextBlock Margin="3,0,0,0" 
-                               Text="Save"/>
+                    <TextBlock 
+                        Margin="3,0,0,0" 
+                        Text="Save"/>
                 </StackPanel>
             </Button>
 
             <Button Margin="5,4,0,0" Command="{Binding SaveConfigAsCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="13" 
-                           Source="{StaticResource save}"/>
+                    <Image
+                        Height="13" 
+                        Source="{StaticResource save}"/>
 
-                    <TextBlock Margin="3,0,0,0" 
-                               Text="Save as"/>
+                    <TextBlock 
+                        Margin="3,0,0,0" 
+                        Text="Save as"/>
                 </StackPanel>
             </Button>
 
             <Button Margin="5,4,0,0" Command="{Binding DeleteConfigCommand}" >
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="15" 
-                           Source="{StaticResource delete}"/>
+                    <Image
+                        Height="15" 
+                        Source="{StaticResource delete}"/>
 
-                    <TextBlock Margin="3,0,0,0" 
-                               Text="Delete"/>
+                    <TextBlock 
+                        Margin="3,0,0,0" 
+                        Text="Delete"/>
                 </StackPanel>
             </Button>
 
             <Button Margin="5,4,0,0" Command="{Binding ImportConfigCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Height="15" 
-                           Source="{StaticResource importConfig}"/>
+                    <Image 
+                        Height="15" 
+                        Source="{StaticResource importConfig}"/>
 
-                    <TextBlock Margin="3,0,0,0" 
-                               Text="Import"/>
+                    <TextBlock 
+                        Margin="3,0,0,0" 
+                        Text="Import"/>
                 </StackPanel>
             </Button>
         </ToolBar>
 
-        <Label Content="Config name:" 
-               FontWeight="SemiBold" 
-               HorizontalAlignment="Left"
-               Margin="10,42,0,0"
-               VerticalAlignment="Top"/>
+        <Label 
+            Content="Config name:" 
+            FontWeight="SemiBold" 
+            HorizontalAlignment="Left"
+            Margin="10,42,0,0"
+            VerticalAlignment="Top"/>
 
-        <ComboBox Margin="136,45,10,0" 
-                  VerticalAlignment="Top" 
-                  b:SelectionChangedBehaviour.Command="{Binding SelectConfigCommand}"
-                  SelectedValue="{Binding SelectedConfigName}" 
-                  ItemsSource="{Binding ConfigNames}">
+        <ComboBox 
+            Margin="136,45,10,0" 
+            VerticalAlignment="Top" 
+            b:SelectionChangedBehaviour.Command="{Binding SelectConfigCommand}"
+            SelectedValue="{Binding SelectedConfigName}" 
+            ItemsSource="{Binding ConfigNames}">
         </ComboBox>
 
-        <Label Content="Notebook model:" 
-               FontWeight="SemiBold"
-               HorizontalAlignment="Left"
-               Margin="10,73,0,0" 
-               VerticalAlignment="Top"/>
+        <Label 
+            Content="Notebook model:" 
+            FontWeight="SemiBold"
+            HorizontalAlignment="Left"
+            Margin="10,73,0,0" 
+            VerticalAlignment="Top"/>
 
-        <TextBox x:Name="notebookModel"
-                 Height="23"
-                 Margin="136,76,114,0" 
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Top" 
-                 Text="{Binding NotebookModel}">
+        <TextBox 
+            x:Name="notebookModel"
+            Height="23"
+            Margin="136,76,114,0" 
+            TextWrapping="Wrap"
+            VerticalAlignment="Top" 
+            Text="{Binding NotebookModel}">
         </TextBox>
 
-        <Button HorizontalAlignment="Right" 
-                Margin="0,76,10,0" 
-                VerticalAlignment="Top" 
-                Padding="3" 
-                Height="23"
-        	    ToolTip="Insert notebook model"
-                Click="insertNotebookModel_Click">
+        <Button 
+            HorizontalAlignment="Right" 
+            Margin="0,76,10,0" 
+            VerticalAlignment="Top" 
+            Padding="3" 
+            Height="23"
+        	ToolTip="Insert notebook model"
+            Click="insertNotebookModel_Click">
 
             <StackPanel Orientation="Horizontal">
-                <Image Source="{StaticResource loadDefaults}"
-                       Margin="2,1,0,1">
+                <Image 
+                    Source="{StaticResource loadDefaults}"
+                    Margin="2,1,0,1">
+                    
                     <Image.LayoutTransform>
                         <RotateTransform Angle="90"/>
                     </Image.LayoutTransform>
@@ -122,17 +140,19 @@
             </StackPanel>
         </Button>
 
-        <Label Content="Config author:" 
-        	   FontWeight="SemiBold"
-        	   HorizontalAlignment="Left"
-        	   Margin="10,105,0,0" 
-        	   VerticalAlignment="Top"/>
+        <Label 
+            Content="Config author:" 
+        	FontWeight="SemiBold"
+        	HorizontalAlignment="Left"
+        	Margin="10,105,0,0" 
+        	VerticalAlignment="Top"/>
 
-        <TextBox Height="23"
-                 Margin="136,108,114,0" 
-        	     TextWrapping="Wrap"
-        	     VerticalAlignment="Top"
-        	     Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox 
+            Height="23"
+            Margin="136,108,114,0" 
+        	TextWrapping="Wrap"
+        	VerticalAlignment="Top"
+        	Text="{Binding Author, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TabControl Margin="0,150,0,0">
             <TabItem Header="Basic configuration">
@@ -143,116 +163,134 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Content="EC poll interval (ms):" 
-                           Margin="0,19,8,0" 
-                           VerticalAlignment="Top" 
-                           Height="26" 
-                           Width="Auto" 
-                           HorizontalAlignment="Right"/>
+                    <Label 
+                        Content="EC poll interval (ms):" 
+                        Margin="0,19,8,0" 
+                        VerticalAlignment="Top" 
+                        Height="26" 
+                        Width="Auto" 
+                        HorizontalAlignment="Right"/>
 
-                    <xctk:IntegerUpDown Value="{Binding EcPollInterval}"
-                                        Margin="0,22,0,0"
-                                        HorizontalAlignment="Left" 
-                                        Width="70" 
-                                        Height="23" 
-                                        VerticalAlignment="Top" 
-                                        Grid.Column="1"
-                                        Minimum="100" 
-                                        Maximum="6000"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding EcPollInterval}"
+                        Margin="0,22,0,0"
+                        HorizontalAlignment="Left" 
+                        Width="70" 
+                        Height="23" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"
+                        Minimum="100" 
+                        Maximum="6000"/>
 
-                    <Label Content="Critical temperature (°C):"
-                           Margin="0,51,8,0" 
-                           VerticalAlignment="Top" 
-                           Height="26"
-                           Width="Auto" 
-                           HorizontalContentAlignment="Right"/>
+                    <Label
+                        Content="Critical temperature (°C):"
+                        Margin="0,51,8,0" 
+                        VerticalAlignment="Top" 
+                        Height="26"
+                        Width="Auto" 
+                        HorizontalContentAlignment="Right"/>
 
-                    <xctk:IntegerUpDown Value="{Binding CriticalTemperature}"
-                                        Margin="0,54,0,0" 
-                                        HorizontalAlignment="Left"
-                                        Width="70" 
-                                        Height="23" 
-                                        VerticalAlignment="Top" 
-                                        Grid.Column="1" 
-                                        Minimum="0" 
-                                        Maximum="100"/>
+                    <xctk:IntegerUpDown 
+                        Value="{Binding CriticalTemperature}"
+                        Margin="0,54,0,0" 
+                        HorizontalAlignment="Left"
+                        Width="70" 
+                        Height="23" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1" 
+                        Minimum="0" 
+                        Maximum="100"/>
 
-                    <Label Content="Read/write mode:" 
-                           Margin="0,86,8,0" 
-                           VerticalAlignment="Top" 
-                           Width="Auto" 
-                           Height="26" 
-                           HorizontalAlignment="Right"/>
+                    <Label
+                        Content="Read/write mode:" 
+                        Margin="0,86,8,0" 
+                        VerticalAlignment="Top" 
+                        Width="Auto" 
+                        Height="26" 
+                        HorizontalAlignment="Right"/>
 
-                    <RadioButton Content="Byte" 
-                                 HorizontalAlignment="Left" 
-                                 Margin="0,94,0,0" 
-                                 VerticalAlignment="Top" 
-                                  Grid.Column="1" 
-                                 Height="15"
-                                 Width="42" 
-                                 IsChecked="{Binding ReadWriteWords, Converter={StaticResource invertBooleanConverter}}"/>
+                    <RadioButton 
+                        Content="Byte" 
+                        HorizontalAlignment="Left" 
+                        Margin="0,94,0,0" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1" 
+                        Height="15"
+                        Width="42" 
+                        IsChecked="{Binding ReadWriteWords, Converter={StaticResource invertBooleanConverter}}"/>
 
-                    <RadioButton Content="Word"
-                                 HorizontalAlignment="Left" 
-                                 Margin="0,114,0,0" 
-                                 VerticalAlignment="Top" 
-                                 Grid.Column="1"
-                                 Height="15" 
-                                 Width="48" 
-                                 IsChecked="{Binding ReadWriteWords}"/>
+                    <RadioButton 
+                        Content="Word"
+                        HorizontalAlignment="Left" 
+                        Margin="0,114,0,0" 
+                        VerticalAlignment="Top" 
+                        Grid.Column="1"
+                        Height="15" 
+                        Width="48" 
+                        IsChecked="{Binding ReadWriteWords}"/>
                 </Grid>
             </TabItem>
 
             <TabItem Header="Fan configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
-                    <DataGrid Name="fanConfigsGrid" 
-                              Margin="0,35,0,0" 
-                              HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                              VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                              Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
-                              CellStyle="{StaticResource FocusedDataGridCellStyle}"
-                              AutoGenerateColumns="False" 
-                              ItemsSource="{Binding FanConfigs}" 
-                              CanUserSortColumns="False"
-                              SelectionMode="Single" 
-                              HeadersVisibility="Column"
-                              CanUserResizeRows="False" 
-                              IsReadOnly="True" 
-                              MouseDoubleClick="fanConfigsGrid_MouseDoubleClick">
+                    <DataGrid
+                        Name="fanConfigsGrid" 
+                        Margin="0,35,0,0" 
+                        HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+                        VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+                        Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}"
+                        CellStyle="{StaticResource FocusedDataGridCellStyle}"
+                        AutoGenerateColumns="False" 
+                        ItemsSource="{Binding FanConfigs}" 
+                        CanUserSortColumns="False"
+                        SelectionMode="Single" 
+                        HeadersVisibility="Column"
+                        CanUserResizeRows="False" 
+                        IsReadOnly="True" 
+                        MouseDoubleClick="fanConfigsGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding FanDisplayName}" 
-                                                Header="Fan display name"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding FanDisplayName}" 
+                                Header="Fan display name"/>
 
-                            <DataGridTextColumn Binding="{Binding ReadRegister}" 
-                                                Header="Read register"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding ReadRegister}" 
+                                Header="Read register"/>
 
-                            <DataGridTextColumn Binding="{Binding WriteRegister}" 
-                                                Header="Write register"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding WriteRegister}" 
+                                Header="Write register"/>
 
-                            <DataGridTextColumn Binding="{Binding MinSpeedValue}" 
-                                                Header="Min. speed"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding MinSpeedValue}" 
+                                Header="Min. speed"/>
 
-                            <DataGridTextColumn Binding="{Binding MaxSpeedValue}" 
-                                                Header="Max. speed"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding MaxSpeedValue}" 
+                                Header="Max. speed"/>
 
-                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" 
-                                                    Header="Reset on exit"/>
+                            <DataGridCheckBoxColumn 
+                                Binding="{Binding ResetRequired}" 
+                                Header="Reset on exit"/>
 
-                            <DataGridTextColumn Binding="{Binding ResetValue}" 
-                                                Header="Reset value"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding ResetValue}" 
+                                Header="Reset value"/>
 
-                            <DataGridTextColumn Binding="{Binding TemperatureThresholds.Count}"
-                                                Header="Temperature thresholds"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding TemperatureThresholds.Count}"
+                                Header="Temperature thresholds"/>
 
-                            <DataGridTextColumn Binding="{Binding FanSpeedOverrides.Count}" 
-                                                Header="Fan speed overrides"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding FanSpeedOverrides.Count}" 
+                                Header="Fan speed overrides"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35">
-                        <Button HorizontalAlignment="Left" 
+                        <Button 
+                            HorizontalAlignment="Left" 
                             Margin="2,6,0,0"
                             VerticalAlignment="Top"
                             Height="23"
@@ -277,12 +315,14 @@
                                 <TextBlock Text="edit" Margin="5,0,5,0"/>
                             </StackPanel>
                         </Button>
-                        <Button HorizontalAlignment="Left"
+                        <Button 
+                            HorizontalAlignment="Left"
                             Margin="6,6,0,0"
                             VerticalAlignment="Top"
                             Height="23"
                             IsEnabled="{Binding SelectedValue, ElementName=fanConfigsGrid, Converter={StaticResource selectionToBoolConverter}}" 
-                            ToolTip="Delete selected fan configuration" Click="removeFanConfig_Click">
+                            ToolTip="Delete selected fan configuration" 
+                            Click="removeFanConfig_Click">
 
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource delete}" Margin="2,2,0,2"/>
@@ -295,50 +335,60 @@
 
             <TabItem Header="Register write configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
-                    <DataGrid Name="registerWriteConfigsGrid"
-                              Margin="0,35,0,0"
-                              HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                              VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
-                              Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" 
-                              CellStyle="{StaticResource FocusedDataGridCellStyle}"
-                              AutoGenerateColumns="False"
-                              ItemsSource="{Binding RegisterWriteConfigs}"
-                              CanUserSortColumns="False"
-                              SelectionMode="Single" 
-                              HeadersVisibility="Column"
-                              CanUserResizeRows="False" 
-                              IsReadOnly="True" 
-                              MouseDoubleClick="registerWriteConfigsGrid_MouseDoubleClick">
+                    <DataGrid 
+                        Name="registerWriteConfigsGrid"
+                        Margin="0,35,0,0"
+                        HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+                        VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+                        Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}" 
+                        CellStyle="{StaticResource FocusedDataGridCellStyle}"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding RegisterWriteConfigs}"
+                        CanUserSortColumns="False"
+                        SelectionMode="Single" 
+                        HeadersVisibility="Column"
+                        CanUserResizeRows="False" 
+                        IsReadOnly="True" 
+                        MouseDoubleClick="registerWriteConfigsGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Description}" 
-                                                Header="Description"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding Description}" 
+                                Header="Description"/>
 
-                            <DataGridTextColumn Binding="{Binding WriteOccasion}" 
-                                                Header="Write occasion" />
+                            <DataGridTextColumn 
+                                Binding="{Binding WriteOccasion}" 
+                                Header="Write occasion" />
 
-                            <DataGridTextColumn Binding="{Binding WriteMode}" 
-                                                Header="Write mode" />
+                            <DataGridTextColumn 
+                                Binding="{Binding WriteMode}" 
+                                Header="Write mode" />
 
-                            <DataGridTextColumn Binding="{Binding Register}" 
-                                                Header="Register"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding Register}" 
+                                Header="Register"/>
 
-                            <DataGridTextColumn Binding="{Binding Value}" 
-                                                Header="Value"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding Value}" 
+                                Header="Value"/>
 
-                            <DataGridCheckBoxColumn Binding="{Binding ResetRequired}" 
-                                                    Header="Reset on exit"/>
+                            <DataGridCheckBoxColumn 
+                                Binding="{Binding ResetRequired}" 
+                                Header="Reset on exit"/>
 
-                            <DataGridTextColumn Binding="{Binding ResetWriteMode}" 
-                                                Header="Reset write mode"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding ResetWriteMode}" 
+                                Header="Reset write mode"/>
 
-                            <DataGridTextColumn Binding="{Binding ResetValue}" 
-                                                Header="Reset value"/>
+                            <DataGridTextColumn 
+                                Binding="{Binding ResetValue}" 
+                                Header="Reset value"/>
                         </DataGrid.Columns>
                     </DataGrid>
 
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35">
-                        <Button HorizontalAlignment="Left" 
+                        <Button 
+                            HorizontalAlignment="Left" 
                             Margin="2,6,0,0"
                             VerticalAlignment="Top"
                             Height="23"
@@ -363,7 +413,8 @@
                                 <TextBlock Text="edit" Margin="5,0,5,0"/>
                             </StackPanel>
                         </Button>
-                        <Button HorizontalAlignment="Left"
+                        <Button 
+                            HorizontalAlignment="Left"
                             Margin="6,6,0,0"
                             VerticalAlignment="Top"
                             Height="23"

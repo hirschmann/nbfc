@@ -29,10 +29,11 @@
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
-        <TabControl Margin="0,0,0,48" 
-                    Grid.ColumnSpan="3" 
-                    BorderThickness="0,0,0,1"
-                    ItemContainerStyle="{StaticResource SelectedTabItemStyle}">
+        <TabControl 
+            Margin="0,0,0,48" 
+            Grid.ColumnSpan="3" 
+            BorderThickness="0,0,0,1"
+            ItemContainerStyle="{StaticResource SelectedTabItemStyle}">
             <TabItem Header="Basic configuration">
                 <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightLightBrushKey}}">
 

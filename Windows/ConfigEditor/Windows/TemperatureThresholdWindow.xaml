@@ -18,59 +18,66 @@
         </Grid.RowDefinitions>
 
         <!--Fan speed-->
-        <Slider Value="{Binding SliderValue}"
-                Minimum="0" 
-                Maximum="{Binding Parent.FanSpeedSteps}"                     
-                Margin="10,10,10,0" 
-                VerticalAlignment="Top" 
-                Grid.ColumnSpan="2" 
-                Height="18"                     
-                SmallChange="1" 
-                IsSnapToTickEnabled="True"
-                IsMoveToPointEnabled="True"/>
+        <Slider
+            Value="{Binding SliderValue}"
+            Minimum="0" 
+            Maximum="{Binding Parent.FanSpeedSteps}"                     
+            Margin="10,10,10,0" 
+            VerticalAlignment="Top" 
+            Grid.ColumnSpan="2" 
+            Height="18"                     
+            SmallChange="1" 
+            IsSnapToTickEnabled="True"
+            IsMoveToPointEnabled="True"/>
         
-        <Label Content="{Binding FanSpeedPercentage}" 
-               ContentStringFormat="Fan speed:  {0:0.0}%"
-               Margin="10,30,10,0"
-               VerticalAlignment="Top"
-               Height="26"/>
+        <Label 
+            Content="{Binding FanSpeedPercentage}" 
+            ContentStringFormat="Fan speed:  {0:0.0}%"
+            Margin="10,30,10,0"
+            VerticalAlignment="Top"
+            Height="26"/>
 
         <!--UpThreshold-->
-        <Slider Value="{Binding UpThreshold}"
-                Minimum="0"
-                Maximum="100"
-                Margin="10,61,10,0" 
-                VerticalAlignment="Top"
-                Height="18"                     
-                SmallChange="1" 
-                IsSnapToTickEnabled="True"
-                IsMoveToPointEnabled="True"/>
+        <Slider 
+            Value="{Binding UpThreshold}"
+            Minimum="0"
+            Maximum="100"
+            Margin="10,61,10,0" 
+            VerticalAlignment="Top"
+            Height="18"                     
+            SmallChange="1" 
+            IsSnapToTickEnabled="True"
+            IsMoveToPointEnabled="True"/>
         
-        <Label Content="{Binding UpThreshold}"
-               ContentStringFormat="Up threshold:  {0:0}°C"
-               Margin="10,81,10,0"
-               VerticalAlignment="Top" 
-               Height="26"/>
+        <Label 
+            Content="{Binding UpThreshold}"
+            ContentStringFormat="Up threshold:  {0:0}°C"
+            Margin="10,81,10,0"
+            VerticalAlignment="Top" 
+            Height="26"/>
 
         <!--DownThreshold-->
-        <Slider Value="{Binding DownThreshold}"
-                Minimum="0" 
-                Maximum="{Binding UpThreshold}"
-                Margin="10,115,10,0" 
-                VerticalAlignment="Top"
-                Height="18"
-                SmallChange="1" 
-                IsSnapToTickEnabled="True"
-                IsMoveToPointEnabled="True"/>
+        <Slider
+            Value="{Binding DownThreshold}"
+            Minimum="0" 
+            Maximum="{Binding UpThreshold}"
+            Margin="10,115,10,0" 
+            VerticalAlignment="Top"
+            Height="18"
+            SmallChange="1" 
+            IsSnapToTickEnabled="True"
+            IsMoveToPointEnabled="True"/>
         
-        <Label Content="{Binding DownThreshold}" 
-               ContentStringFormat="Down threshold:  {0:0}°C"
-               Margin="10,135,10,0"
-               VerticalAlignment="Top"
-               Height="26"/>
+        <Label 
+            Content="{Binding DownThreshold}" 
+            ContentStringFormat="Down threshold:  {0:0}°C"
+            Margin="10,135,10,0"
+            VerticalAlignment="Top"
+            Height="26"/>
 
-
-        <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1">
+        <Grid 
+            Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" 
+            Grid.Row="1">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -78,23 +85,25 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="OK" 
-                    HorizontalAlignment="Right"
-                    Margin="0,0,82,14"                
-                    VerticalAlignment="Bottom"
-                    Width="75" 
-                    Grid.Column="1"
-                    Height="20" 
-                    Click="OK_Click"/>
+            <Button 
+                Content="OK" 
+                HorizontalAlignment="Right"
+                Margin="0,0,82,14"                
+                VerticalAlignment="Bottom"
+                Width="75" 
+                Grid.Column="1"
+                Height="20" 
+                Click="OK_Click"/>
             
-            <Button Content="Cancel"
-                    HorizontalAlignment="Left"
-                    Margin="83,0,0,14"                 
-                    VerticalAlignment="Bottom" 
-                    Width="75" 
-                    Grid.Column="1"
-                    Height="20" 
-                    Click="Cancel_Click"/>
+            <Button 
+                Content="Cancel"
+                HorizontalAlignment="Left"
+                Margin="83,0,0,14"                 
+                VerticalAlignment="Bottom" 
+                Width="75" 
+                Grid.Column="1"
+                Height="20" 
+                Click="Cancel_Click"/>
         </Grid>
     </Grid>
 </Window>

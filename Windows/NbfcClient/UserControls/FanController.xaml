@@ -1,16 +1,17 @@
-﻿<UserControl x:Class="NbfcClient.UserControls.FanController"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:vm="clr-namespace:NbfcClient.ViewModels"             
+﻿<UserControl 
+    x:Class="NbfcClient.UserControls.FanController"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:vm="clr-namespace:NbfcClient.ViewModels"             
              
-             mc:Ignorable="d"  
-             Height="140" 
-             Background="White"
-             d:DesignHeight="140" 
-             d:DesignWidth="343"             
-             d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
+    mc:Ignorable="d"  
+    Height="140" 
+    Background="White"
+    d:DesignHeight="140" 
+    d:DesignWidth="343"             
+    d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
 
     <GroupBox Background="{Binding}" FontWeight="SemiBold">
         <GroupBox.Header>
@@ -19,26 +20,57 @@
                 <Binding Path="FanIndex"/>
             </MultiBinding>
         </GroupBox.Header>
-            <Grid>
-            <Slider Name="slider" Height="31" VerticalAlignment="Top" Margin="10,12,65,0" IsSnapToTickEnabled="True"
-                    IsMoveToPointEnabled="True"
-                    Value="{Binding FanSpeedSliderValue}" Maximum="{Binding FanSpeedSteps}" SmallChange="1"/>
-            <Label HorizontalAlignment="Right" FontWeight="Normal" Margin="0,9,0,0" VerticalAlignment="Top" Width="60">
+        
+        <Grid>
+            <Slider 
+                Name="slider" 
+                Height="31" 
+                VerticalAlignment="Top" 
+                Margin="10,12,65,0" 
+                IsSnapToTickEnabled="True"
+                IsMoveToPointEnabled="True"
+                SmallChange="1"
+                Value="{Binding FanSpeedSliderValue}" 
+                Maximum="{Binding FanSpeedSteps}"/>
+            
+            <Label 
+                HorizontalAlignment="Right" 
+                FontWeight="Normal" 
+                Margin="0,9,0,0" 
+                VerticalAlignment="Top" 
+                Width="60">
+                
                 <MultiBinding Converter="{StaticResource sliderConverter}">
                     <Binding Path="Value" ElementName="slider"/>
                     <Binding Path="FanSpeedSteps"/>
                 </MultiBinding>
             </Label>
-            <Label ContentStringFormat="Target fan speed:  {0}" FontWeight="Normal" Margin="6,30,0,0" VerticalAlignment="Top">
+            
+            <Label 
+                ContentStringFormat="Target fan speed:  {0}"
+                FontWeight="Normal"
+                Margin="6,30,0,0"
+                VerticalAlignment="Top">
+                
                 <MultiBinding Converter="{StaticResource fanSpeedConverter}">
                     <Binding Path="TargetFanSpeed"/>
                     <Binding Path="IsAutoFanControlEnabled"/>
                     <Binding Path="IsCriticalModeEnabled"/>
                 </MultiBinding>
             </Label>
-            <ProgressBar Value="{Binding CurrentFanSpeed}" Height="6" Margin="10,79,65,0" VerticalAlignment="Top" />
-            <Label Content="{Binding CurrentFanSpeed}" ContentStringFormat="Current fan speed:  {0:0.0}%"
-                   FontWeight="Normal" Margin="6,85,0,0" VerticalAlignment="Top"/>
+            
+            <ProgressBar 
+                Value="{Binding CurrentFanSpeed}" 
+                Height="6"
+                Margin="10,79,65,0" 
+                VerticalAlignment="Top" />
+            
+            <Label 
+                Content="{Binding CurrentFanSpeed}"
+                ContentStringFormat="Current fan speed:  {0:0.0}%"
+                FontWeight="Normal"
+                Margin="6,85,0,0"
+                VerticalAlignment="Top"/>
         </Grid>
     </GroupBox>
 </UserControl>
