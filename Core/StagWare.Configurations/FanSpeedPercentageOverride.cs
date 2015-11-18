@@ -28,7 +28,8 @@ namespace StagWare.FanControl.Configurations
             return new FanSpeedPercentageOverride()
             {
                 FanSpeedPercentage = this.FanSpeedPercentage,
-                FanSpeedValue = this.FanSpeedValue
+                FanSpeedValue = this.FanSpeedValue,
+                TargetOperation = this.TargetOperation
             };
         } 
 
