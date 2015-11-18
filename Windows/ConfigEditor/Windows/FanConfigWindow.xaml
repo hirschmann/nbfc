@@ -349,6 +349,10 @@
                                 Binding="{Binding FanSpeedPercentage, StringFormat={}{0:0.0}%}" 
                                 ClipboardContentBinding="{x:Null}" 
                                 Header="Fan speed percentage"/>
+
+                            <DataGridTextColumn 
+                                Binding="{Binding TargetOperation}" 
+                                Header="Applied to"/>
                         </DataGrid.Columns>
                     </DataGrid>
 

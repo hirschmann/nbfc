@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StagWare.FanControl.Configurations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,15 @@ namespace ConfigEditor.ViewModels
 
         private int fanSpeedValue;
         private float fanSpeedPercentage;
+        private OverrideTargetOperation targetOperation;
         private FanConfigViewModel parent;
 
         #endregion
+
+        public FanSpeedOverrideViewModel()
+        {
+            this.TargetOperation = OverrideTargetOperation.ReadWrite;
+        }
 
         #region Properties
 
@@ -52,6 +59,19 @@ namespace ConfigEditor.ViewModels
             }
         }
 
+        public OverrideTargetOperation TargetOperation
+        {
+            get { return targetOperation; }
+            set
+            {
+                if (targetOperation != value)
+                {
+                    targetOperation = value;
+                    OnPropertyChanged("TargetOperation");
+                }
+            }
+        }        
+
         public FanConfigViewModel Parent
         {
             get
@@ -85,6 +105,7 @@ namespace ConfigEditor.ViewModels
             {
                 FanSpeedPercentage = this.FanSpeedPercentage,
                 FanSpeedValue = this.FanSpeedValue,
+                TargetOperation = this.TargetOperation,
                 Parent = this.Parent
             };
         }

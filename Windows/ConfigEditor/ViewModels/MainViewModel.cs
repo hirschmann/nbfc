@@ -613,7 +613,8 @@ namespace ConfigEditor.ViewModels
                         x => new FanSpeedPercentageOverride()
                         {
                             FanSpeedPercentage = x.FanSpeedPercentage,
-                            FanSpeedValue = x.FanSpeedValue
+                            FanSpeedValue = x.FanSpeedValue,
+                            TargetOperation = x.TargetOperation
                         }).ToList();
                 }
 
@@ -727,7 +728,8 @@ namespace ConfigEditor.ViewModels
                         cfg.FanSpeedPercentageOverrides.Select(x => new FanSpeedOverrideViewModel()
                         {
                             FanSpeedPercentage = x.FanSpeedPercentage,
-                            FanSpeedValue = x.FanSpeedValue
+                            FanSpeedValue = x.FanSpeedValue,
+                            TargetOperation = x.TargetOperation
                         }));
                 }
 

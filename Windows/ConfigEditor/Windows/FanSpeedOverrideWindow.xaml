@@ -2,15 +2,29 @@
     x:Class="ConfigEditor.Windows.FanSpeedOverrideWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:cfg="clr-namespace:StagWare.FanControl.Configurations;assembly=StagWare.FanControl.Configurations"
     xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         
     Title="Fan speed override"
-    Height="190"
+    Height="219"
     Width="260" 
     Icon="/ConfigEditor;component/fan.ico"
     WindowStartupLocation="CenterOwner"
     ResizeMode="NoResize">
-    
+
+    <Window.Resources>
+        <ObjectDataProvider 
+            x:Key="overrideTargetOperationValues" 
+            MethodName="GetValues" 
+            ObjectType="{x:Type sys:Enum}">
+
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="cfg:OverrideTargetOperation"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -19,7 +33,7 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="148"/>
+                <ColumnDefinition Width="130"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -34,7 +48,7 @@
                 SmallChange="1"
                 IsSnapToTickEnabled="True"
                 IsMoveToPointEnabled="True"/>
-            
+
             <Label
                 Content="{Binding FanSpeedPercentage}" 
                 ContentStringFormat="Fan speed percentage:  {0:0.0}%"
@@ -49,17 +63,33 @@
                 Margin="0,64,8,0" 
                 Width="98" Height="26" 
                 VerticalAlignment="Top"/>
-            
+
             <xctk:IntegerUpDown
                 Value="{Binding FanSpeedValue}" 
                 Margin="0,67,0,0"
                 HorizontalAlignment="Left" 
-                Width="70" 
+                Width="85" 
                 Grid.Column="1" 
                 Height="23" 
                 VerticalAlignment="Top" 
                 Minimum="0"
                 Maximum="{Binding Parent.Parent.ReadWriteWords, Converter={StaticResource rwWordsToMaxConverter}}"/>
+
+            <ComboBox
+                SelectedValue="{Binding TargetOperation}"
+                ItemsSource="{Binding Source={StaticResource overrideTargetOperationValues}}"
+                HorizontalAlignment="Left" 
+                Margin="0,95,0,0" 
+                VerticalAlignment="Top"
+                Width="85" 
+                Grid.Column="1" Height="22"/>
+
+            <Label
+            	Content="Applied to:" 
+            	HorizontalAlignment="Right" 
+            	Margin="0,91,10,0" 
+            	Height="26" 
+            	VerticalAlignment="Top"/>
         </Grid>
         <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
               Grid.Row="1">
@@ -79,7 +109,7 @@
                 Grid.Column="1"
                 Height="20" 
                 Click="OK_Click"/>
-            
+
             <Button
                 Content="Cancel" 
                 HorizontalAlignment="Left"
