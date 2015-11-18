@@ -98,12 +98,14 @@ namespace StagWare.FanControl
 
             foreach (FanSpeedPercentageOverride o in config.FanSpeedPercentageOverrides)
             {
-                if (!this.overriddenPercentages.ContainsKey(o.FanSpeedPercentage))
+                if (o.TargetOperation.HasFlag(OverrideTargetOperation.Write) 
+                    && !this.overriddenPercentages.ContainsKey(o.FanSpeedPercentage))
                 {
                     this.overriddenPercentages.Add(o.FanSpeedPercentage, o);
                 }
 
-                if (!this.overriddenValues.ContainsKey(o.FanSpeedValue))
+                if (o.TargetOperation.HasFlag(OverrideTargetOperation.Read) 
+                    && !this.overriddenValues.ContainsKey(o.FanSpeedValue))
                 {
                     this.overriddenValues.Add(o.FanSpeedValue, o);
                 }
@@ -158,8 +160,7 @@ namespace StagWare.FanControl
                     "Percentage must be greater or equal 0 and less or equal 100");
             }
 
-            if (this.overriddenPercentages.ContainsKey(percentage)
-                && this.overriddenPercentages[percentage].TargetOperation.HasFlag(OverrideTargetOperation.Write))
+            if (this.overriddenPercentages.ContainsKey(percentage))
             {
                 return this.overriddenPercentages[percentage].FanSpeedValue;
             }
@@ -173,8 +174,7 @@ namespace StagWare.FanControl
 
         public float FanSpeedToPercentage(int fanSpeed)
         {
-            if (this.overriddenValues.ContainsKey(fanSpeed)
-                && this.overriddenValues[fanSpeed].TargetOperation.HasFlag(OverrideTargetOperation.Read))
+            if (this.overriddenValues.ContainsKey(fanSpeed))
             {
                 return this.overriddenValues[fanSpeed].FanSpeedPercentage;
             }
