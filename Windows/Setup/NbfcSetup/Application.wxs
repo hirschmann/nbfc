@@ -84,6 +84,20 @@
               KeyPath="yes"
               Source="$(var.StagWare.BiosInfo.TargetDir)StagWare.BiosInfo.dll"/>
       </Component>
+      
+      <Component Id="App.NbfcProbe" Guid="96351E80-C0DD-4845-BAC5-065EA49114BC">
+        <File Id="nbfc_probe.exe"
+              Name="nbfc_probe.exe"
+              DiskId="1"
+              Vital="no"
+              KeyPath="yes"
+              Source="$(var.NbfcProbe.TargetDir)nbfc-probe.exe">
+
+          <?if $(var.Configuration) = "Release"?>
+          <netfx:NativeImage Id="NbfcProbe.NativeImage" Platform="all" />
+          <?endif?>
+        </File>
+      </Component>
 
       <Component Id="App.NbfcCli" Guid="80CB8B42-92D4-4BAE-A58C-690E14AEF4AA">
         <File Id="nbfc.exe"
