@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2013 Michael Möller <mmoeller@openhardwaremonitor.org>
+  Copyright (C) 2009-2015 Michael Möller <mmoeller@openhardwaremonitor.org>
 	
 */
 
@@ -222,6 +222,14 @@ namespace OpenHardwareMonitor.Hardware.LPC {
               logicalDeviceNumber = WINBOND_NUVOTON_HARDWARE_MONITOR_LDN;
               break;
           } break;
+        case 0xC4:
+            switch (revision & 0xF0)
+            {
+                case 0x50:
+                    chip = Chip.NCT610X;
+                    logicalDeviceNumber = WINBOND_NUVOTON_HARDWARE_MONITOR_LDN;
+                    break;
+            } break;
         case 0xC5:
           switch (revision & 0xF0) {
             case 0x60:
@@ -307,6 +315,7 @@ namespace OpenHardwareMonitor.Hardware.LPC {
           case Chip.W83687THF:
             superIOs.Add(new W836XX(chip, revision, address));
             break;
+          case Chip.NCT610X:
           case Chip.NCT6771F:
           case Chip.NCT6776F:
           case Chip.NCT6779D:

@@ -25,7 +25,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       IvyBridge,
       Haswell,
       Broadwell,
-      Silvermont
+      Silvermont,
+      Skylake
     }
 
     private readonly Sensor[] coreTemperatures;
@@ -55,7 +56,6 @@ namespace OpenHardwareMonitor.Hardware.CPU {
     private float energyUnitMultiplier = 0;
     private DateTime[] lastEnergyTime;
     private uint[] lastEnergyConsumed;
-
 
     private float[] Floats(float f) {
       float[] result = new float[coreCount];
@@ -163,6 +163,11 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 microarchitecture = Microarchitecture.Silvermont;
                 tjMax = GetTjMaxFromMSR();
                 break;
+              case 0x4E:
+              case 0x5E: // Intel Core i5, i7 6xxxx LGA1151 (14nm)
+                microarchitecture = Microarchitecture.Skylake;
+                tjMax = GetTjMaxFromMSR();
+                break;
               default:
                 microarchitecture = Microarchitecture.Unknown;
                 tjMax = Floats(100);
@@ -208,7 +213,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         case Microarchitecture.IvyBridge:
         case Microarchitecture.Haswell: 
         case Microarchitecture.Broadwell:
-        case Microarchitecture.Silvermont: {
+        case Microarchitecture.Silvermont:
+        case Microarchitecture.Skylake: {
             uint eax, edx;
             if (Ring0.Rdmsr(MSR_PLATFORM_INFO, out eax, out edx)) {
               timeStampCounterMultiplier = (eax >> 8) & 0xff;
@@ -269,6 +275,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           microarchitecture == Microarchitecture.IvyBridge ||
           microarchitecture == Microarchitecture.Haswell ||
           microarchitecture == Microarchitecture.Broadwell || 
+          microarchitecture == Microarchitecture.Skylake ||
           microarchitecture == Microarchitecture.Silvermont) 
       {
         powerSensors = new Sensor[energyStatusMSRs.Length];
@@ -372,7 +379,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         for (int i = 0; i < coreClocks.Length; i++) {
           System.Threading.Thread.Sleep(1);
           if (Ring0.Rdmsr(IA32_PERF_STATUS, out eax, out edx,
-            cpuid[i][0].Thread)) {
+              cpuid[i][0].Thread)) {
             newBusClock =
               TimeStampCounterFrequency / timeStampCounterMultiplier;
             switch (microarchitecture) {
@@ -384,7 +391,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case Microarchitecture.IvyBridge:
               case Microarchitecture.Haswell: 
               case Microarchitecture.Broadwell:
-              case Microarchitecture.Silvermont: {
+              case Microarchitecture.Silvermont:
+              case Microarchitecture.Skylake: {
                   uint multiplier = (eax >> 8) & 0xff;
                   coreClocks[i].Value = (float)(multiplier * newBusClock);
                 } break;
