@@ -86,12 +86,12 @@
       </Component>
       
       <Component Id="App.NbfcProbe" Guid="96351E80-C0DD-4845-BAC5-065EA49114BC">
-        <File Id="nbfc_probe.exe"
-              Name="nbfc_probe.exe"
+        <File Id="ec_probe.exe"
+              Name="ec-probe.exe"
               DiskId="1"
-              Vital="no"
+              Vital="yes"
               KeyPath="yes"
-              Source="$(var.NbfcProbe.TargetDir)nbfc-probe.exe">
+              Source="$(var.NbfcProbe.TargetDir)ec-probe.exe">
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="NbfcProbe.NativeImage" Platform="all" />

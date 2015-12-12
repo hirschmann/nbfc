@@ -44,11 +44,13 @@ namespace NbfcProbe.CommandLineOptions
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine("commands:");
-            sb.AppendLine(" * ec-dump");
+            sb.AppendLine("  dump");
             sb.AppendLine("    Dump all registers that are present in EC memory as hexadecimal table.");
-            sb.AppendLine(" * ec-read <register>");
+            sb.AppendLine();
+            sb.AppendLine("  read <register>");
             sb.AppendLine("    Print the value of the given EC register number.");
-            sb.AppendLine(" * ec-write <register> <value> [-v|--verbose]");
+            sb.AppendLine();
+            sb.AppendLine("  write <register> <value> [-v|--verbose]");
             sb.AppendLine("    Write the given value to the given EC register number.");
             sb.AppendLine("    If the verbose option is set, read and print the updated value.");
             sb.AppendLine();

@@ -8,7 +8,7 @@
     <ProjectGuid>{F6104868-81A7-4D09-8AD2-8CF261D58319}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>NbfcProbe</RootNamespace>
-    <AssemblyName>nbfc-probe</AssemblyName>
+    <AssemblyName>ec-probe</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
