@@ -9,8 +9,11 @@
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>
       <WriteRegister>47</WriteRegister>
--     <MinSpeedValue>255</MinSpeedValue>
--     <MaxSpeedValue>20</MaxSpeedValue>
+      <MinSpeedValue>255</MinSpeedValue>
+      <MaxSpeedValue>20</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
       <FanDisplayName>CPU fan</FanDisplayName>
@@ -21,24 +24,24 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>63</UpThreshold>
+          <UpThreshold>60</UpThreshold>
           <DownThreshold>48</DownThreshold>
           <FanSpeed>10</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>65</UpThreshold>
+          <UpThreshold>63</UpThreshold>
           <DownThreshold>55</DownThreshold>
-          <FanSpeed>22.5</FanSpeed>
+          <FanSpeed>20</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>67</UpThreshold>
+          <UpThreshold>66</UpThreshold>
           <DownThreshold>59</DownThreshold>
-          <FanSpeed>40</FanSpeed>
+          <FanSpeed>50</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>69</UpThreshold>
-          <DownThreshold>65</DownThreshold>
-          <FanSpeed>65</FanSpeed>
+          <UpThreshold>68</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <FanSpeed>70</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>71</UpThreshold>
@@ -50,6 +53,7 @@
         <FanSpeedPercentageOverride>
           <FanSpeedPercentage>0</FanSpeedPercentage>
           <FanSpeedValue>255</FanSpeedValue>
+          <TargetOperation>ReadWrite</TargetOperation>
         </FanSpeedPercentageOverride>
       </FanSpeedPercentageOverrides>
     </FanConfiguration>
@@ -62,6 +66,7 @@
       <Value>1</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>1</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
       <Description>Select thermal zone</Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
@@ -71,6 +76,7 @@
       <Value>28</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>0</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
       <Description>Fake thermal zone temperature</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
