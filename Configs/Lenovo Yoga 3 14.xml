@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <NotebookModel>80JH</NotebookModel>
+    <Author />
+    <EcPollInterval>1000</EcPollInterval>
+    <ReadWriteWords>false</ReadWriteWords>
+    <CriticalTemperature>75</CriticalTemperature>
+    <FanConfigurations>
+        <FanConfiguration>
+            <ReadRegister>6</ReadRegister>
+            <WriteRegister>86</WriteRegister>
+            <MinSpeedValue>0</MinSpeedValue>
+            <MaxSpeedValue>80</MaxSpeedValue>
+            <ResetRequired>true</ResetRequired>
+            <FanSpeedResetValue>0</FanSpeedResetValue>
+            <FanDisplayName>Fan1</FanDisplayName>
+            <TemperatureThresholds />
+            <FanSpeedPercentageOverrides>
+                <FanSpeedPercentageOverride>
+                    <FanSpeedPercentage>100</FanSpeedPercentage>
+                    <FanSpeedValue>50</FanSpeedValue>
+                </FanSpeedPercentageOverride>
+            </FanSpeedPercentageOverrides>
+        </FanConfiguration>
+    </FanConfigurations>
+    <RegisterWriteConfigurations />
+</FanControlConfigV2>
