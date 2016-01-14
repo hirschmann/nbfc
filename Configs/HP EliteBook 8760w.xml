@@ -9,8 +9,8 @@
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>
       <WriteRegister>47</WriteRegister>
-      <MinSpeedValue>88</MinSpeedValue>
-      <MaxSpeedValue>48</MaxSpeedValue>
+      <MinSpeedValue>134</MinSpeedValue>
+      <MaxSpeedValue>64</MaxSpeedValue>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
       <FanDisplayName>CPU fan</FanDisplayName>
