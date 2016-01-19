@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NbfcCli", "Core\NbfcCli\Nbf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.FSTemperatureMonitor", "Core\Plugins\StagWare.Plugins.FSTemperatureMonitor\StagWare.Plugins.FSTemperatureMonitor.csproj", "{11380AFB-D406-4F4E-B260-2C892CD067B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.ECSysLinux", "StagWare.Plugins.ECSysLinux\StagWare.Plugins.ECSysLinux.csproj", "{D92D1F2A-8B4F-4946-9385-74EA13DF86AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.ECSysLinux", "Core\Plugins\StagWare.Plugins.ECSysLinux\StagWare.Plugins.ECSysLinux.csproj", "{D92D1F2A-8B4F-4946-9385-74EA13DF86AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
