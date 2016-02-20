@@ -3,97 +3,58 @@
   <NotebookModel>Lenovo u330p</NotebookModel>
   <EcPollInterval>2000</EcPollInterval>
   <ReadWriteWords>true</ReadWriteWords>
-  <CriticalTemperature>95</CriticalTemperature>
+  <CriticalTemperature>80</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>146</ReadRegister>
       <WriteRegister>146</WriteRegister>
-      <MinSpeedValue>255</MinSpeedValue>
-      <MaxSpeedValue>1</MaxSpeedValue>
+      <MinSpeedValue>768</MinSpeedValue>
+      <MaxSpeedValue>257</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>255</FanSpeedResetValue>
-      <FanDisplayName>146</FanDisplayName>
+      <FanSpeedResetValue>65535</FanSpeedResetValue>
+      <FanDisplayName>System Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>57</UpThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
           <DownThreshold>55</DownThreshold>
-          <FanSpeed>0</FanSpeed>
+          <FanSpeed>3</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>62</UpThreshold>
-          <DownThreshold>60</DownThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>58</DownThreshold>
+          <FanSpeed>25</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>63</DownThreshold>
           <FanSpeed>50</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
-          <UpThreshold>67</UpThreshold>
-          <DownThreshold>65</DownThreshold>
-          <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
           <DownThreshold>68</DownThreshold>
-          <FanSpeed>50</FanSpeed>
+          <FanSpeed>75</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>72</UpThreshold>
-          <DownThreshold>70</DownThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>73</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
-      <FanSpeedPercentageOverrides />
-    </FanConfiguration>
-    <FanConfiguration>
-      <ReadRegister>147</ReadRegister>
-      <WriteRegister>147</WriteRegister>
-      <MinSpeedValue>255</MinSpeedValue>
-      <MaxSpeedValue>1</MaxSpeedValue>
-      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
-      <MinSpeedValueRead>0</MinSpeedValueRead>
-      <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>255</FanSpeedResetValue>
-      <FanDisplayName>147</FanDisplayName>
-      <TemperatureThresholds>
-        <TemperatureThreshold>
-          <UpThreshold>0</UpThreshold>
-          <DownThreshold>0</DownThreshold>
-          <FanSpeed>0</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
-          <UpThreshold>57</UpThreshold>
-          <DownThreshold>55</DownThreshold>
-          <FanSpeed>99.6063</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
-          <UpThreshold>67</UpThreshold>
-          <DownThreshold>65</DownThreshold>
-          <FanSpeed>100</FanSpeed>
-        </TemperatureThreshold>
-      </TemperatureThresholds>
-      <FanSpeedPercentageOverrides />
-    </FanConfiguration>
-    <FanConfiguration>
-      <ReadRegister>144</ReadRegister>
-      <WriteRegister>144</WriteRegister>
-      <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>255</MaxSpeedValue>
-      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
-      <MinSpeedValueRead>0</MinSpeedValueRead>
-      <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>false</ResetRequired>
-      <FanSpeedResetValue>0</FanSpeedResetValue>
-      <FanDisplayName>144</FanDisplayName>
-      <TemperatureThresholds>
-        <TemperatureThreshold>
-          <UpThreshold>0</UpThreshold>
-          <DownThreshold>0</DownThreshold>
-          <FanSpeed>0</FanSpeed>
-        </TemperatureThreshold>
-      </TemperatureThresholds>
-      <FanSpeedPercentageOverrides />
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>0</FanSpeedPercentage>
+          <FanSpeedValue>65535</FanSpeedValue>
+          <TargetOperation>ReadWrite</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
     </FanConfiguration>
   </FanConfigurations>
   <RegisterWriteConfigurations>
@@ -102,10 +63,10 @@
       <WriteOccasion>OnInitialization</WriteOccasion>
       <Register>144</Register>
       <Value>0</Value>
-      <ResetRequired>false</ResetRequired>
-      <ResetValue>0</ResetValue>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>128</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>144</Description>
+      <Description>Turn Off Auto Control</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
