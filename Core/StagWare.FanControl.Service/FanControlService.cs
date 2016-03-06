@@ -76,6 +76,9 @@ namespace StagWare.FanControl.Service
                 else
                 {
                     this.fanControl.SetTargetFanSpeed(value, fanIndex);
+
+                    ServiceSettings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
+                    ServiceSettings.Save();
                 }
             }
         }
