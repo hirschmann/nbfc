@@ -11,9 +11,9 @@
     <AssemblyName>StagWare.Plugins.ECSysLinux</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-    <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Mono</TargetFrameworkProfile>
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,14 +62,12 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
     <ItemGroup>
       <Libs Include="$(TargetDir)\*.dll" Exclude="$(TargetDir)\StagWare.FanControl.*" />
     </ItemGroup>
     <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\$(Configuration)\Plugins\" ContinueOnError="true" />
   </Target>
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
