@@ -100,14 +100,6 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Plugins.ECLinux\StagWare.Plugins.ECLinux.csproj">
-      <Name>StagWare.Plugins.ECLinux</Name>
-      <Project>{0f5b3d05-7615-4e74-84e6-4f00fad0413c}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Core\Plugins\StagWare.Plugins.ECWindows\StagWare.Plugins.ECWindows.csproj">
       <Name>StagWare.Plugins.ECWindows</Name>
       <Project>{6c6f4e15-fc36-4298-a7e9-83cd854bdfdb}</Project>
