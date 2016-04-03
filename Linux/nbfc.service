@@ -1,0 +1,12 @@
+[Unit]
+Description=NoteBook FanControl service
+
+[Service]
+ExecStart=/opt/nbfc/start-nbfcservice.sh
+Type=forking
+PIDFile=/run/nbfc.pid
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target
+
