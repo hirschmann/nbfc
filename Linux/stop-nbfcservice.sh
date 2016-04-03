@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pkill -f NbfcService
+kill $(cat /run/nbfc.pid)
