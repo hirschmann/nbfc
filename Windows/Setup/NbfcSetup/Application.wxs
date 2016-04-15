@@ -142,7 +142,8 @@
           <Shortcut Id="NbfcClientStartMenuShortcut" 
                     Directory="ProgramMenuProductFolder" 
                     Name="$(var.ProductName)"
-                    Icon="fan.ico" />
+                    Icon="fan.ico" 
+                    Advertise="yes" />
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="NbfcClient.NativeImage" Platform="all" />
@@ -178,7 +179,8 @@
           <Shortcut Id="ConfigEditorStartMenuShortcut" 
                     Directory="ProgramMenuProductFolder" 
                     Name="Config Editor"
-                    Icon="fan.ico" />
+                    Icon="fan.ico" 
+                    Advertise="yes" />
 
           <?if $(var.Configuration) = "Release"?>
           <netfx:NativeImage Id="ConfigEditor.NativeImage" Platform="all"/>

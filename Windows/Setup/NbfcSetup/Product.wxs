@@ -28,6 +28,9 @@
 
     <!--Media-->
     <Media Id="1" Cabinet="NBFC.cab" EmbedCab="yes" CompressionLevel="high"/>
+    
+    <!--Replace advertised shortcuts with normal ones-->
+    <Property Id="DISABLEADVTSHORTCUTS" Value="1" />
 
     <!--.NET Framework check-->
     <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
