@@ -50,9 +50,12 @@
     <OutputPath>bin\ReleaseLinux\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<appConfig>App.Linux.config</appConfig>
+    <appConfig>App.Linux.config</appConfig>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -95,6 +98,7 @@
     <None Include="App.Linux.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="App.manifest" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

@@ -44,6 +44,9 @@
   <PropertyGroup>
     <StartupObject>NbfcProbe.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>App.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="clipr, Version=1.4.7.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\clipr.1.4.7.0\lib\net35\clipr.dll</HintPath>
@@ -72,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="App.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
 </Project>
