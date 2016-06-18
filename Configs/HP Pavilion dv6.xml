@@ -3,16 +3,51 @@
   <NotebookModel>HP Pavilion dv6 Notebook PC</NotebookModel>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>177</ReadRegister>
       <WriteRegister>177</WriteRegister>
       <MinSpeedValue>9</MinSpeedValue>
-      <MaxSpeedValue>17</MaxSpeedValue>
+      <MaxSpeedValue>23</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>9</MinSpeedValueRead>
+      <MaxSpeedValueRead>20</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>0</FanSpeedResetValue>
-      <TemperatureThresholds />
+      <FanDisplayName />
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>45</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <FanSpeed>10</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>57</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>20</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>59</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>85</UpThreshold>
+          <DownThreshold>76</DownThreshold>
+          <FanSpeed>70</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>88</UpThreshold>
+          <DownThreshold>85</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
     </FanConfiguration>
   </FanConfigurations>
