@@ -1,5 +1,6 @@
 ﻿using NbfcClient.Properties;
 using StagWare.Windows;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,8 @@ namespace NbfcClient.Windows
 
         private const string RegistryAutorunValueName = "NBFC-ClientApplication";
         private const string StartInTrayParameter = "-tray";
+        private static readonly Brush Black = new SolidColorBrush(Colors.Black);
+        private static readonly Brush White = new SolidColorBrush(Colors.White);
 
         #endregion
 
@@ -35,10 +38,12 @@ namespace NbfcClient.Windows
             int idx = -1;
             Color current = Settings.Default.TrayIconForegroundColor;
 
+            // Fill ComboBox
             colorPicker.ItemsSource = typeof(Colors).GetProperties().Select(propInfo =>
             {
                 var c = (Color)propInfo.GetValue(null, null);
 
+                // Get index of currently selected tray icon color
                 if (c.GetHashCode() == current.GetHashCode())
                 {
                     idx = count;
@@ -46,9 +51,23 @@ namespace NbfcClient.Windows
 
                 count++;
 
+                // Make sure each color's name is readable
+                Brush foreground;
+                double lightness = (Math.Max(c.R, Math.Max(c.G, c.B)) + Math.Min(c.R, Math.Min(c.G, c.B))) / 2.0;
+
+                if (lightness > 255 * 0.45)
+                {
+                    foreground = Black;
+                }
+                else
+                {
+                    foreground = White;
+                }
+                var cb = new ComboBoxItem();
                 return new ComboBoxItem()
                 {
                     Background = new SolidColorBrush(c),
+                    Foreground = foreground,
                     Content = propInfo.Name
                 };
             });
@@ -80,7 +99,7 @@ namespace NbfcClient.Windows
         {
             Settings.Default.CloseToTray = true;
             Settings.Default.Save();
-        }        
+        }
 
         private void closeToTray_Unchecked(object sender, RoutedEventArgs e)
         {
