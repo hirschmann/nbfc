@@ -35,8 +35,8 @@
     <!--.NET Framework check-->
     <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
 
-    <Condition Message="$(var.ProductName) requires .NET Framework 4.0 Client Profile.">
-      <![CDATA[NETFRAMEWORK40CLIENT]]>
+    <Condition Message="$(var.ProductName) requires .NET Framework 4.5.">
+      <![CDATA[NETFRAMEWORK45]]>
     </Condition>
 
     <!--Program Icon-->
