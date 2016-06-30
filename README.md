@@ -11,8 +11,8 @@ First you have to clone the latest revision of this repo:
 
 #### Build on Windows
 Make sure these packages are installed on your machine:
-- [.NET Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=17851)
-- [WiX Toolset v3.9](https://wix.codeplex.com/releases/view/610859)
+- at least: [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=42643)
+- at least: [WiX Toolset v3.9](http://wixtoolset.org/releases/)
 
 To build the solution, run the `build.ps1` script (which is included in the cloned repo) via Windows Powershell.
 
