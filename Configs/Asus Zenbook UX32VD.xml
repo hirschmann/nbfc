@@ -4,7 +4,7 @@
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>75</CriticalTemperature>
-  <Author>xant1; jws</Author>
+  <Author>xant1, jws</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
