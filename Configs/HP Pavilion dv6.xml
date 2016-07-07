@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>HP Pavilion dv6 Notebook PC</NotebookModel>
-  <Author>Rany H. & Stefan Hirschmann</Author>
+  <Author>unknown, Rany H.</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>90</CriticalTemperature>
