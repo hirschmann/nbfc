@@ -206,8 +206,6 @@ namespace StagWare.Plugins.Generic
 
                         if (LinuxTempSensorNames.Contains(sensorName))
                         {
-                            var lines = new List<string>();
-
                             for (int j = 0; j < 10; j++)
                             {
                                 string sensorFile = Path.Combine(dir, string.Format(LinuxTempSensorFile, j));
