@@ -10,6 +10,7 @@
     <RootNamespace>StagWare.Plugins.ECSysLinux</RootNamespace>
     <AssemblyName>StagWare.Plugins.ECSysLinux</AssemblyName>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -44,6 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Posix" />
@@ -61,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\StagWare.FanControl\StagWare.FanControl.csproj">
-      <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
+      <Project>{12084B38-C1A2-414C-80A7-B8D02D6F5B84}</Project>
       <Name>StagWare.FanControl</Name>
     </ProjectReference>
   </ItemGroup>
