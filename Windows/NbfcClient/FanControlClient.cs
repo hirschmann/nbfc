@@ -205,7 +205,7 @@ namespace NbfcClient
                     }
                     else
                     {
-                        vm.FanSpeedSliderValue = (int)Math.Round((fs.TargetFanSpeed / 100.0) * fs.FanSpeedSteps);
+                        vm.FanSpeedSliderValue = (int)Math.Round((fs.TargetFanSpeed / 100.0) * (fs.FanSpeedSteps - 1));
                     }
 
                     viewModel.FanControllers.Add(vm);
