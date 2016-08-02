@@ -1,11 +1,10 @@
 ﻿using StagWare.FanControl.Configurations;
+using StagWare.Settings;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.ServiceModel;
-using StagWare.Settings;
 
 namespace StagWare.FanControl.Service
 {
@@ -77,7 +76,7 @@ namespace StagWare.FanControl.Service
                 {
                     this.fanControl.SetTargetFanSpeed(value, fanIndex);
 
-                    ServiceSettings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
+                    ServiceSettings.Default.TargetFanSpeeds[fanIndex] = value;
                     ServiceSettings.Save();
                 }
             }
@@ -163,7 +162,6 @@ namespace StagWare.FanControl.Service
                 try
                 {
                     ServiceSettings.Default.Autostart = false;
-                    ServiceSettings.Default.TargetFanSpeeds = GetTargetFanSpeeds(this.fanControl.FanInformation);
                     ServiceSettings.Save();
                 }
                 catch
@@ -238,20 +236,6 @@ namespace StagWare.FanControl.Service
 
         #region Private Methods
 
-        private static float[] GetTargetFanSpeeds(IList<FanInformation> fanInfos)
-        {
-            float[] speeds = new float[fanInfos.Count];
-
-            for (int i = 0; i < speeds.Length; i++)
-            {
-                speeds[i] = fanInfos[i].AutoFanControlEnabled
-                    ? FanControl.AutoFanSpeedPercentage
-                    : fanInfos[i].TargetFanSpeed;
-            }
-
-            return speeds;
-        }
-
         private static bool TryInitializeFanControl(FanControlConfigV2 cfg, out FanControl fanControl)
         {
             bool success = false;
@@ -259,8 +243,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;
-                fanControl = new FanControl(cfg);
+                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;                
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
                 {
@@ -272,13 +255,13 @@ namespace StagWare.FanControl.Service
                     }
                 }
 
-                if (speeds != null && speeds.Length == fanControl.FanInformation.Count)
+                fanControl = new FanControl(cfg);
+
+                for (int i = 0; i < speeds.Length; i++)
                 {
-                    for (int i = 0; i < speeds.Length; i++)
-                    {
-                        fanControl.SetTargetFanSpeed(speeds[i], i);
-                    }
+                    fanControl.SetTargetFanSpeed(speeds[i], i);
                 }
+                
                 success = true;
             }
             finally
