@@ -35,6 +35,9 @@
             <Component Id="cmpA5D5700E9EF32D169F2EEE3887845263" Directory="ConfigsFolder" Guid="*">
                 <File Id="filC258543E23B186FEC5E721A737FAEABA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-522.xml" />
             </Component>
+            <Component Id="cmp546CA263041C9F4A1DA1350AEC3EA502" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil0422E2226C205BE517BC2E09D9393F0F" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-471G.xml" />
+            </Component>
             <Component Id="cmpBA75A32F5591C9DF1246E9BFC9C805C7" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil187D4C6DF34C21AD73CEA9A254C4AA24" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-731.xml" />
             </Component>
@@ -74,6 +77,9 @@
             <Component Id="cmp118250EDE7C6CECD602C31103ABA27CC" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil5A926D948CA9771165DA8A992297AEB9" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-591 V15 Nitro.xml" />
             </Component>
+            <Component Id="cmp5C25A07B5A5BC87DBE84EB35EAD7ADCC" Directory="ConfigsFolder" Guid="*">
+                <File Id="filA8A16B1603D94B444A8CEE92349D1681" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-791G V17 Nitro Black Edition.xml" />
+            </Component>
             <Component Id="cmpEA06644CE7017C8E41291E55F4105805" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil065697B36A35FCBBD49A2A833495EC83" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-792G V17 Nitro.xml" />
             </Component>
@@ -100,6 +106,9 @@
             </Component>
             <Component Id="cmpB4BB4E5BC8CB83099B03A0A9027A1C27" Directory="ConfigsFolder" Guid="*">
                 <File Id="filCBB006E4ADC7BAC79366C6E3B864E060" KeyPath="yes" Source="$(var.ConfigsDir)\Asus N56VZ.xml" />
+            </Component>
+            <Component Id="cmpAEEA893749B1EFC2738F7B0A6CF95D48" Directory="ConfigsFolder" Guid="*">
+                <File Id="filB15F08FE7FBE418926A58D959BC79F86" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG G751JL.xml" />
             </Component>
             <Component Id="cmpFCDD171E92AEE1BA0503733D7EEAE949" Directory="ConfigsFolder" Guid="*">
                 <File Id="filEF60B8DE3BE541D46DBE319B7ACFB4A8" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG G751JY.xml" />
