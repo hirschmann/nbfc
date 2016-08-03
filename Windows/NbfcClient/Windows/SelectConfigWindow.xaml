@@ -5,51 +5,66 @@
         
     Title="Select Config" 
     Height="140" 
-    Width="346" 
+    Width="350" 
     ResizeMode="NoResize" 
     WindowStartupLocation="CenterOwner" 
     Icon="/NoteBookFanControl;component/fan.ico">
-    
+
     <Grid>
-        <ComboBox 
-            x:Name="configSelector" 
-            Margin="82,14,74,0" 
-            VerticalAlignment="Top"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.ColumnSpan="2">
+            <Label
+                DockPanel.Dock="Left"                
+                Content="Config:"
+                VerticalAlignment="Center"
+                Margin="10,-2,0,0"/>
+
+            <Button
+                x:Name="edit" 
+                Content="Edit" 
+                DockPanel.Dock="Right"
+        	    Margin="0,0,10,0"
+                Width="60" 
+                Height="22"                
+                Click="edit_Click"/>
+
+            <ComboBox 
+                x:Name="configSelector"
+                DockPanel.Dock="Right"
+                Height="22"
+                Margin="10,0,10,0"/>
+        </DockPanel>
 
         <Button
             x:Name="cancel" 
             Content="Cancel" 
-            HorizontalAlignment="Left" 
-            Margin="169,71,0,0" 
-            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center" 
+            Margin="3,0,0,0"            
             Width="75" 
-            Height="22" 
-            Click="cancel_Click"/>
+            Height="22"             
+            Grid.Row="1" 
+            Grid.Column="1"
+            Click="cancel_Click" />
 
         <Button
             x:Name="apply" 
-            Content="Apply" 
-            Margin="89,71,0,0" 
-            VerticalAlignment="Top" 
-            HorizontalAlignment="Left" 
+            Content="Apply"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Right"
+            Margin="0,0,3,0"
             Width="75" 
-            Height="22" 
-            Click="apply_Click"/>
-
-        <Label
-            Content="Config:" 
-            HorizontalAlignment="Left" 
-            Margin="10,10,0,0" 
-            VerticalAlignment="Top"/>
-        
-        <Button
-            x:Name="edit" 
-            Content="Edit" 
-            HorizontalAlignment="Left" 
-        	Margin="271,14,0,0" 
-            VerticalAlignment="Top" 
-            Width="59" 
-            Height="22" 
-            Click="edit_Click"  />
+            Height="22"             
+            Grid.Row="1" 
+            Grid.Column="0"
+            Click="apply_Click" />
     </Grid>
 </Window>
