@@ -3,6 +3,12 @@
 NBFC is a cross-platform fan control service for notebooks.
 It comes with a powerful configuration system, which allows to adjust it to many different notebook models.
 
+## Build status
+| CI service | Build configuration | Status |
+|------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Travis | ReleaseLinux | [![Build Status](https://travis-ci.org/hirschmann/nbfc.svg?branch=master)](https://travis-ci.org/hirschmann/nbfc) |
+| AppVeyor | ReleaseWindows | [![Build status](https://ci.appveyor.com/api/projects/status/lcjon7cw3o0lslu3?svg=true)](https://ci.appveyor.com/project/hirschmann/nbfc) |
+
 ## How to build
 
 First you have to clone the latest revision of this repo:  
