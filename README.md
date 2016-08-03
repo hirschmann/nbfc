@@ -16,7 +16,7 @@ Currently there are no pre-built releases for Linux, but you can easily build NB
 ## Getting started
 - [First steps](https://github.com/hirschmann/nbfc/wiki/First-steps)
 - [FAQ](https://github.com/hirschmann/nbfc/wiki/FAQ) (please read this before you submit a new issue)
-- [Structure of a NBFC config file](https://github.com/hirschmann/nbfc/wiki/Structure-of-a-NBFC-config-file) (if you want to edit or create a NBFC config)
+- [Structure of a NBFC config file](https://github.com/hirschmann/nbfc/wiki/Structure-of-a-NBFC-config-file) (in case you want to edit or create a NBFC config)
 
 ## Credits
 Many thanks to everyone who submitted pull requests, created config files, donated, or in any other way contributed to this project. :)
