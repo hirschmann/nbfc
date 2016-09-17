@@ -3,35 +3,20 @@
 NBFC is a cross-platform fan control service for notebooks.
 It comes with a powerful configuration system, which allows to adjust it to many different notebook models.
 
-## How to build
+## Build status
+| CI service | Build configuration | Status |
+|------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Travis | ReleaseLinux | [![Build Status](https://travis-ci.org/hirschmann/nbfc.svg?branch=master)](https://travis-ci.org/hirschmann/nbfc) |
+| AppVeyor | ReleaseWindows | [![Build status](https://ci.appveyor.com/api/projects/status/lcjon7cw3o0lslu3?svg=true)](https://ci.appveyor.com/project/hirschmann/nbfc) |
 
-First you have to clone the latest revision of this repo:  
-`git clone --depth 1 https://github.com/hirschmann/nbfc.git`
+## Downloads
+For Windows you can download the latest release here: [Releases](https://github.com/hirschmann/nbfc/releases)  
+Currently there are no pre-built releases for Linux, but you can easily build NBFC yourself: [How to build NBFC](https://github.com/hirschmann/nbfc/wiki/How-to-build-NBFC)
 
+## Getting started
+- [First steps](https://github.com/hirschmann/nbfc/wiki/First-steps)
+- [FAQ](https://github.com/hirschmann/nbfc/wiki/FAQ) (please read this before you submit a new issue)
+- [Structure of a NBFC config file](https://github.com/hirschmann/nbfc/wiki/Structure-of-a-NBFC-config-file) (in case you want to edit or create a NBFC config)
 
-#### Build on Windows
-Make sure these packages are installed on your machine:
-- at least: [.NET Framework 4.5](https://www.microsoft.com/en-US/download/details.aspx?id=42643)
-- at least: [WiX Toolset v3.9](http://wixtoolset.org/releases/)
-
-To build the solution, run the `build.ps1` script (which is included in the cloned repo) via Windows Powershell.
-
-If the build was successful there should be a setup file (NbfcBootstrapper.exe) at `nbfc\Windows\Setup\NbfcBootstrapper\bin\Release\`.  
-Just start it and follow the instructions :)
-
-#### Build on Linux
-_Linux support is still experimental!_
-
-If mono is not available on your machine, install the complete package:  
-`sudo apt-get install mono-complete`
-
-To build the solution, run the `build.sh` script (which is included in the cloned repo).
-The result can be found at `nbfc/Linux/bin/ReleaseLinux`
-
-If everything worked well, you may want to start the service: `sudo start-nbfcservice.sh`
-You can control it via nbfc.exe, e.g. `mono nbfc.exe config --apply 'Name of the config'` to load a config, `mono nbfc.exe start` to start the service and `mono nbfc.exe set --auto` to start automatic fan control.  
-To learn more about nbfc.exe use `mono nbfc.exe --help`.  
-Finally, to stop the serivce use `sudo stop-nbfcservice.sh`.
-
-Have fun :)
-
+## Credits
+Many thanks to everyone who submitted pull requests, created config files, donated, or in any other way contributed to this project. :)
