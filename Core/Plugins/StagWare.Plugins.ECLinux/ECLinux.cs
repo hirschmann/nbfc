@@ -38,7 +38,18 @@ namespace StagWare.Plugins
         {
             if (!this.IsInitialized)
             {
-                this.IsInitialized = true;
+                try
+                {
+                    this.IsInitialized = AcquireLock(500);
+                }
+                catch
+                {
+                }
+
+                if (this.IsInitialized)
+                {
+                    ReleaseLock();
+                }                
             }
         }
 
