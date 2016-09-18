@@ -63,15 +63,7 @@ namespace StagWare.Plugins.Generic
                 }
 
                 this.sources = FindTemperatureSources();
-
-                if (this.sources == null || this.sources.Count <= 0)
-                {
-                    throw new PlatformNotSupportedException("No temperature sensors found.");
-                }
-                else
-                {
-                    this.IsInitialized = true;
-                }
+                this.IsInitialized = (this.sources != null) && (this.sources.Count > 0);
             }
         }        
 
