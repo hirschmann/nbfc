@@ -14,7 +14,8 @@ namespace StagWare.Plugins.ECSysLinux
     [FanControlPluginMetadata(
         "StagWare.Plugins.ECSysLinux",
         SupportedPlatforms.Unix,
-        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        FanControlPluginMetadataAttribute.DefaultPriority + 10)]
     public class ECSysLinux : IEmbeddedController
     {
         #region Constants
