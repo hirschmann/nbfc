@@ -95,9 +95,19 @@ namespace StagWare.FanControl
             this.ec = ecLoader.FanControlPlugin;
             this.EmbeddedControllerPluginId = ecLoader.FanControlPluginId;
 
+            if (this.ec == null)
+            {
+                throw new PlatformNotSupportedException("Could not load a compatible EC plugin.");
+            }
+
             var tempMonloader = new FanControlPluginLoader<ITemperatureMonitor>(pluginsPath);
             this.tempMon = tempMonloader.FanControlPlugin;
             this.TemperatureMonitorPluginId = tempMonloader.FanControlPluginId;
+
+            if (this.tempMon == null)
+            {
+                throw new PlatformNotSupportedException("Could not load a  compatible temperature monitoring plugin");
+            }
 
             this.autoEvent = new AutoResetEvent(false);
             this.tempFilter = tempFilter;
