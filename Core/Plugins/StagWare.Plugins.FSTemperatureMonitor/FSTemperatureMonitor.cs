@@ -13,7 +13,8 @@ namespace StagWare.Plugins.Generic
     [FanControlPluginMetadata(
         "StagWare.Plugins.FSTemperatureMonitor",
         SupportedPlatforms.Windows | SupportedPlatforms.Unix,
-        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64)]
+        SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
+        FanControlPluginMetadataAttribute.DefaultPriority + 10)]
     public class FSTemperatureMonitor : ITemperatureMonitor
     {
         #region Constants
