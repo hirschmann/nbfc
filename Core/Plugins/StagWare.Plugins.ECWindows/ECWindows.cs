@@ -27,8 +27,8 @@ namespace StagWare.Plugins
         {
             if (!this.IsInitialized)
             {
-                this.hwMon = HardwareMonitor.Instance;
-                this.IsInitialized = true;
+                this.hwMon = HardwareMonitor.Instance;                
+                this.IsInitialized = this.hwMon != null;
             }
         }
 
