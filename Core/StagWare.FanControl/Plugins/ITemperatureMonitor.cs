@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StagWare.FanControl.Plugins
+﻿namespace StagWare.FanControl.Plugins
 {
-    public interface ITemperatureMonitor : IDisposable
+    public interface ITemperatureMonitor : IFanControlPlugin
     {
-        bool IsInitialized { get; }
         string TemperatureSourceDisplayName { get; }
-        void Initialize();
         double GetTemperature();
     }
 }

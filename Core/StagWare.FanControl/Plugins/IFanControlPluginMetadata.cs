@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace StagWare.FanControl.Plugins
 {
@@ -29,5 +26,6 @@ namespace StagWare.FanControl.Plugins
         string MaxOSVersion { get; }
         SupportedPlatforms SupportedPlatforms { get; }
         SupportedCpuArchitectures SupportedCpuArchitectures { get; }
+        int Priority { get; }
     }
 }

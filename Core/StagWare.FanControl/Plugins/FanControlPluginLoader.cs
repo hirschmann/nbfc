@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
 
 namespace StagWare.FanControl.Plugins
 {
-    public class FanControlPluginLoader<T>
+    public class FanControlPluginLoader<T> where T : IFanControlPlugin
     {
         T fanControlPlugin;
         string fanControlPluginId;
@@ -81,36 +82,80 @@ namespace StagWare.FanControl.Plugins
                     break;
             }
 
-            foreach (Lazy<T, IFanControlPluginMetadata> l in this.Plugins)
+            var orderedPlugins = this.Plugins.OrderByDescending(x => x.Metadata.Priority);
+
+            foreach (Lazy<T, IFanControlPluginMetadata> l in orderedPlugins)
             {
-                if (!l.Metadata.SupportedPlatforms.HasFlag(platform))
+                if (!IsPluginCompatible(l.Metadata, platform, os.Version, arch))
                 {
                     continue;
                 }
 
-                if (!l.Metadata.SupportedCpuArchitectures.HasFlag(arch))
+                if (TryInitPlugin(l.Value))
                 {
-                    continue;
+                    this.fanControlPlugin = l.Value;
+                    this.fanControlPluginId = l.Metadata.UniqueId;
+                    break;
                 }
-
-                Version version;
-
-                if (Version.TryParse(l.Metadata.MinOSVersion, out version)
-                    && version > os.Version)
-                {
-                    continue;
-                }
-
-                if (Version.TryParse(l.Metadata.MaxOSVersion, out version)
-                    && version < os.Version)
-                {
-                    continue;
-                }
-
-                this.fanControlPlugin = l.Value;
-                this.fanControlPluginId = l.Metadata.UniqueId;
-                break;
             }
+        }
+
+        private static bool TryInitPlugin(T plugin)
+        {
+            bool isPluginInitialized = false;
+
+            try
+            {
+                plugin.Initialize();
+                isPluginInitialized = plugin.IsInitialized;
+            }
+            catch
+            {
+            }
+
+            if (!isPluginInitialized)
+            {
+                try
+                {
+                    plugin.Dispose();
+                }
+                catch { }
+            }
+
+            return isPluginInitialized;
+        }
+
+        private static bool IsPluginCompatible(
+            IFanControlPluginMetadata metadata,
+            SupportedPlatforms platform,
+            Version platformVersion,
+            SupportedCpuArchitectures arch)
+        {
+            if (!metadata.SupportedPlatforms.HasFlag(platform))
+            {
+                return false;
+            }
+
+            if (!metadata.SupportedCpuArchitectures.HasFlag(arch))
+            {
+                return false;
+            }
+
+            Version version;
+
+            if (Version.TryParse(metadata.MinOSVersion, out version)
+                && version > platformVersion)
+            {
+                return false;
+            }
+
+            if (Version.TryParse(metadata.MaxOSVersion, out version)
+                && version < platformVersion)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
