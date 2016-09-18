@@ -37,19 +37,21 @@ namespace StagWare.Plugins.ECSysLinux
 
         public void Initialize()
         {
-            try
+            if (!this.IsInitialized)
             {
-                Process modprobe = new Process();
-                modprobe.StartInfo.FileName = "modprobe";
-                modprobe.StartInfo.Arguments = "ec_sys write_support=1";
-                modprobe.Start();
-                modprobe.WaitForExit();
+                try
+                {
+                    Process modprobe = new Process();
+                    modprobe.StartInfo.FileName = "modprobe";
+                    modprobe.StartInfo.Arguments = "ec_sys write_support=1";
+                    modprobe.Start();
+                    modprobe.WaitForExit();
 
-                IsInitialized = modprobe.ExitCode == 0 && File.Exists(EC0IOPath);
-            }
-            catch
-            {
-                IsInitialized = false;
+                    IsInitialized = modprobe.ExitCode == 0 && File.Exists(EC0IOPath);
+                }
+                catch
+                {
+                }
             }
         }
 
