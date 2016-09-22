@@ -20,6 +20,9 @@
             <Component Id="cmpF2436A76A839C909128306AC4FAEFEEE" Directory="ConfigsFolder" Guid="*">
                 <File Id="filBE4E8D0EDF44EC2A6895D37B37BB816C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 5738G.xml" />
             </Component>
+            <Component Id="cmpEFE3098BD4945305F33136391F2AD57E" Directory="ConfigsFolder" Guid="*">
+                <File Id="filFA7C18A26FAEC1F7C46B41A208FE481C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 5745G.xml" />
+            </Component>
             <Component Id="cmp321D5E037EF2B8D66A1FB700FC4445EA" Directory="ConfigsFolder" Guid="*">
                 <File Id="filFFB2CE3FDEF0CC461BEE063A1CB7C18A" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 5930.xml" />
             </Component>
@@ -28,6 +31,9 @@
             </Component>
             <Component Id="cmp1D6DA1A5FDBF72A8896C7D8D64DA34ED" Directory="ConfigsFolder" Guid="*">
                 <File Id="filDC316DDFD8CB297D1297BD53D83BCF1A" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7735.xml" />
+            </Component>
+            <Component Id="cmp30A1D3840BAFE0023703102FFBF04406" Directory="ConfigsFolder" Guid="*">
+                <File Id="filFE2789752C533B7315BA409897E41E3C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7740G.xml" />
             </Component>
             <Component Id="cmp94327A857BB8B3C0EC05A74305F6FF05" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil2BE9EC856A15A6F81B7F43CC5BEE2CC0" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire 7741G.xml" />
@@ -175,6 +181,9 @@
             </Component>
             <Component Id="cmpE4E718FFD9FC2D55063ECCC3C629551C" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8A149CA066C1E8D2CB46FDFFB9DD2209" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 8710p.xml" />
+            </Component>
+            <Component Id="cmp08C4A3E46E43BDE2362957AC783D5EE5" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil534C8CF1539136E7E9F2CE9C0FDEF63D" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2560p.xml" />
             </Component>
             <Component Id="cmp76213BADC175F968C00B834141CFAB3B" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF26D022153DE38ADE96D9EB6BB9A06D3" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2760p.xml" />
