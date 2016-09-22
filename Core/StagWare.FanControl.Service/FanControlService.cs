@@ -253,6 +253,9 @@ namespace StagWare.FanControl.Service
                     {
                         speeds[i] = FanControl.AutoFanSpeedPercentage;
                     }
+
+                    ServiceSettings.Default.TargetFanSpeeds = speeds;
+                    ServiceSettings.Save();
                 }
 
                 fanControl = new FanControl(cfg);
