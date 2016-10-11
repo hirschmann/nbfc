@@ -1,10 +1,10 @@
-﻿/*
+/*
  
   This Source Code Form is subject to the terms of the Mozilla Public
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2014 Michael Möller <mmoeller@openhardwaremonitor.org>
+  Copyright (C) 2009-2016 Michael Möller <mmoeller@openhardwaremonitor.org>
 	
 */
 
@@ -25,7 +25,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       IvyBridge,
       Haswell,
       Broadwell,
-      Silvermont
+      Silvermont,
+      Skylake
     }
 
     private readonly Sensor[] coreTemperatures;
@@ -147,6 +148,9 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 tjMax = GetTjMaxFromMSR();
                 break;
               case 0x3D: // Intel Core M-5xxx (14nm)
+              case 0x47: // Intel i5, i7 5xxx, Xeon E3-1200 v4 (14nm)
+              case 0x4F: // Intel Xeon E5-26xx v4
+              case 0x56: // Intel Xeon D-15xx
                 microarchitecture = Microarchitecture.Broadwell;
                 tjMax = GetTjMaxFromMSR();
                 break;
@@ -160,6 +164,11 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case 0x5A:
               case 0x5D:
                 microarchitecture = Microarchitecture.Silvermont;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x4E:
+              case 0x5E: // Intel Core i5, i7 6xxxx LGA1151 (14nm)
+                microarchitecture = Microarchitecture.Skylake;
                 tjMax = GetTjMaxFromMSR();
                 break;
               default:
@@ -207,7 +216,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         case Microarchitecture.IvyBridge:
         case Microarchitecture.Haswell: 
         case Microarchitecture.Broadwell:
-        case Microarchitecture.Silvermont: {
+        case Microarchitecture.Silvermont:
+        case Microarchitecture.Skylake: {
             uint eax, edx;
             if (Ring0.Rdmsr(MSR_PLATFORM_INFO, out eax, out edx)) {
               timeStampCounterMultiplier = (eax >> 8) & 0xff;
@@ -268,6 +278,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           microarchitecture == Microarchitecture.IvyBridge ||
           microarchitecture == Microarchitecture.Haswell ||
           microarchitecture == Microarchitecture.Broadwell || 
+          microarchitecture == Microarchitecture.Skylake ||
           microarchitecture == Microarchitecture.Silvermont) 
       {
         powerSensors = new Sensor[energyStatusMSRs.Length];
@@ -383,7 +394,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case Microarchitecture.IvyBridge:
               case Microarchitecture.Haswell: 
               case Microarchitecture.Broadwell:
-              case Microarchitecture.Silvermont: {
+              case Microarchitecture.Silvermont:
+              case Microarchitecture.Skylake: {
                   uint multiplier = (eax >> 8) & 0xff;
                   coreClocks[i].Value = (float)(multiplier * newBusClock);
                 } break;
