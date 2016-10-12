@@ -89,6 +89,9 @@
             <Component Id="cmpEA06644CE7017C8E41291E55F4105805" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil065697B36A35FCBBD49A2A833495EC83" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-792G V17 Nitro.xml" />
             </Component>
+            <Component Id="cmpF221075C8F48F060A7D6FD557F40D8A1" Directory="ConfigsFolder" Guid="*">
+                <File Id="filAC40B425A9D97AB6920197591096776B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Extensa 5220.xml" />
+            </Component>
             <Component Id="cmp70459DCB1319EED2BDDF79ABA31E23CF" Directory="ConfigsFolder" Guid="*">
                 <File Id="filE0D8B8B54ACEC48F250622548F93B828" KeyPath="yes" Source="$(var.ConfigsDir)\Acer LT-10Q.xml" />
             </Component>
@@ -197,11 +200,17 @@
             <Component Id="cmpC42DA9F2530419E9B7F55CE7A134689F" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF786D3E0580A3B7BADD608ED9560E0D8" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook Folio 9470m.xml" />
             </Component>
+            <Component Id="cmp3549BAAF275648A110DD3AE2CC23AABC" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil40F01FC568B50BFBCD8AFB54D053D3A5" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6 1206dx.xml" />
+            </Component>
             <Component Id="cmp1B273B9270D77B1670BBDD1D937A1896" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB09FC25ABFC031BCBB535E1F0A537742" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6 Sleekbook.xml" />
             </Component>
             <Component Id="cmp2BD610C894C8593B672B535D14C5C517" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil91223EEF3BB04527921C230C43D5CC61" KeyPath="yes" Source="$(var.ConfigsDir)\HP OMEN Notebook PC 15.xml" />
+            </Component>
+            <Component Id="cmpE9A0042F8ACCD0783A87349402283971" Directory="ConfigsFolder" Guid="*">
+                <File Id="filA65C00051115509D0FBC1F644A406278" KeyPath="yes" Source="$(var.ConfigsDir)\HP Pavilion dv6 6190.xml" />
             </Component>
             <Component Id="cmp73E9EC995B79202D0A899EE1F9F1EE9D" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil3205A86165CB2AEF0E2DE98893CB2F0B" KeyPath="yes" Source="$(var.ConfigsDir)\HP Pavilion dv6.xml" />
