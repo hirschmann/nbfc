@@ -34,6 +34,14 @@
         <RemoveFile Id="RemoveServiceSettingsOld" 
                     Name="NbfcServiceSettings.xml" 
                     On="uninstall" />
+
+        <Environment Id="PATH" 
+                     Name="PATH" 
+                     Value="[INSTALLFOLDER]" 
+                     Permanent="no" 
+                     Part="last" 
+                     Action="set" 
+                     System="yes" />
       </Component>
 
       <!--Start menu folder setup-->
