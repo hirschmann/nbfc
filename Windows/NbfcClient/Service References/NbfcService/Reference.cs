@@ -265,6 +265,9 @@ namespace NbfcClient.NbfcService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFanControlService/SetConfig")]
         void SetConfig(string uniqueConfigId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetConfigNames", ReplyAction="http://tempuri.org/IFanControlService/GetConfigNamesResponse")]
+        string[] GetConfigNames();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -312,6 +315,10 @@ namespace NbfcClient.NbfcService {
         
         public void SetConfig(string uniqueConfigId) {
             base.Channel.SetConfig(uniqueConfigId);
+        }
+        
+        public string[] GetConfigNames() {
+            return base.Channel.GetConfigNames();
         }
     }
 }

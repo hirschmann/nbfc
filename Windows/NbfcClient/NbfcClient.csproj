@@ -191,6 +191,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\NbfcService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\NbfcService\NbfcClient.NbfcService.FanControlInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
