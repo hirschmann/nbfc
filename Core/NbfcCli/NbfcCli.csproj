@@ -93,6 +93,9 @@
     </None>
     <None Include="App.manifest" />
     <None Include="packages.config" />
+    <None Include="Service References\NbfcService\Arrays.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\NbfcService\NbfcCli.NbfcService.FanControlInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
