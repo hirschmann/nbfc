@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.ServiceModel;
+using System.Linq;
 
 namespace StagWare.FanControl.Service
 {
@@ -196,6 +197,12 @@ namespace StagWare.FanControl.Service
                     Start();
                 }
             }
+        }
+
+        public string[] GetConfigNames()
+        {
+            var cfgMan = new FanControlConfigManager(ConfigsDirectory);
+            return cfgMan.ConfigNames.ToArray();
         }
 
         #endregion
