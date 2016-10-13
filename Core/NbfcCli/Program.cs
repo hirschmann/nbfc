@@ -72,7 +72,7 @@ namespace NbfcCli
             {
                 PrintServiceStatus(info);
             }
-            
+
             if (printAll || verb.Fan != null)
             {
                 if (info.FanStatus == null)
@@ -105,13 +105,13 @@ namespace NbfcCli
 
         private static void ConfigureService(ConfigVerb verb)
         {
-            if (!string.IsNullOrEmpty(verb.Apply))
+            if (!string.IsNullOrWhiteSpace(verb.Apply))
             {
                 ApplyConfig(verb.Apply);
             }
             else
             {
-                Console.Error.WriteLine("Invalid config name");
+                PrintConfigNames(GetConfigNames());
             }
         }
 
@@ -163,6 +163,28 @@ namespace NbfcCli
             CallServiceMethod(action);
 
             return info;
+        }
+
+        private static string[] GetConfigNames()
+        {
+            string[] cfgNames = null;
+
+            Action<FanControlServiceClient> action = client =>
+            {
+                cfgNames = client.GetConfigNames();
+            };
+
+            CallServiceMethod(action);
+
+            return cfgNames;
+        }
+
+        private static void PrintConfigNames(string[] cfgNames)
+        {
+            foreach (string s in cfgNames)
+            {
+                Console.WriteLine(s);
+            }
         }
 
         private static void PrintServiceStatus(FanControlInfo info)
