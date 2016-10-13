@@ -3,7 +3,7 @@
   <NotebookModel>Aspire V3-371</NotebookModel>
   <Author>h</Author>
   <EcPollInterval>6000</EcPollInterval>
-  <ReadWriteWords>true</ReadWriteWords>
+  <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>94</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
