@@ -429,14 +429,14 @@ namespace StagWare.FanControl
         {
             if (mode == RegisterWriteMode.And)
             {
-                value &= ReadValue(register, config.ReadWriteWords);
+                value &= ReadValue(register, false);
             }
             else if (mode == RegisterWriteMode.Or)
             {
-                value |= ReadValue(register, config.ReadWriteWords);
+                value |= ReadValue(register, false);
             }
 
-            WriteValue(register, value, config.ReadWriteWords);
+            WriteValue(register, value, false);
         }
 
         #endregion
