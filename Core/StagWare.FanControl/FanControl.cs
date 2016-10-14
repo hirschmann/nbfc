@@ -50,6 +50,7 @@ namespace StagWare.FanControl
         private FanInformation[] fanInfo;
         private FanInformation[] fanInfoInternal;
 
+        private volatile bool readOnly;
         private volatile float temperature;
         private volatile float[] requestedSpeeds;
 
@@ -178,6 +179,11 @@ namespace StagWare.FanControl
             get { return this.timer != null; }
         }
 
+        public bool ReadOnly
+        {
+            get { return this.readOnly; }
+        }
+
         public string TemperatureSourceDisplayName
         {
             get
@@ -212,14 +218,30 @@ namespace StagWare.FanControl
 
         #region Public Methods
 
-        public void Start(int delay = 0)
+        public void Start(bool readOnly = true)
         {
             if (this.disposed)
             {
                 throw new ObjectDisposedException(null);
             }
 
-            if (!this.Enabled)
+            if (this.Enabled)
+            {
+                if (this.readOnly != readOnly)
+                {
+                    if (readOnly)
+                    {
+                        this.readOnly = readOnly;
+                        ResetEc();
+                    }
+                    else
+                    {
+                        InitializeRegisterWriteConfigurations();
+                        this.readOnly = readOnly;
+                    }
+                }
+            }
+            else
             {
                 if (!this.tempMon.IsInitialized)
                 {
@@ -231,12 +253,17 @@ namespace StagWare.FanControl
                     this.ec.Initialize();
                 }
 
+                this.readOnly = readOnly;
                 this.autoEvent.Set();
-                InitializeRegisterWriteConfigurations();
+
+                if (!readOnly)
+                {
+                    InitializeRegisterWriteConfigurations();
+                }
 
                 if (this.timer == null)
                 {
-                    this.timer = new Timer(new TimerCallback(TimerCallback), null, delay, this.pollInterval);
+                    this.timer = new Timer(new TimerCallback(TimerCallback), null, 0, this.pollInterval);
                 }
             }
         }
@@ -320,8 +347,12 @@ namespace StagWare.FanControl
             {
                 try
                 {
-                    ApplyRegisterWriteConfigurations();
-                    UpdateAndApplyFanSpeeds();
+                    if (!readOnly)
+                    {
+                        ApplyRegisterWriteConfigurations();
+                    }
+
+                    UpdateFanSpeeds();
                 }
                 finally
                 {
@@ -354,21 +385,24 @@ namespace StagWare.FanControl
                     }
                 }
 
-                ResetEc();
+                ResetEc(true);
             }
         }
 
-        private void UpdateAndApplyFanSpeeds()
+        private void UpdateFanSpeeds()
         {
             for (int i = 0; i < this.fanSpeedManagers.Length; i++)
             {
                 float speed = Thread.VolatileRead(ref this.requestedSpeeds[i]);
                 this.fanSpeedManagers[i].UpdateFanSpeed(speed, this.temperature);
 
-                WriteValue(
-                    this.config.FanConfigurations[i].WriteRegister,
-                    this.fanSpeedManagers[i].FanSpeedValue,
-                    this.config.ReadWriteWords);
+                if (!readOnly)
+                {
+                    WriteValue(
+                        this.config.FanConfigurations[i].WriteRegister,
+                        this.fanSpeedManagers[i].FanSpeedValue,
+                        this.config.ReadWriteWords);
+                }
             }
 
             UpdateFanInformation();
@@ -479,19 +513,31 @@ namespace StagWare.FanControl
 
         #region Reset EC
 
-        private void ResetEc()
+        private void ResetEc(bool force = false)
         {
             if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
                 || this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                bool mutexAquired = this.ec.AcquireLock(EcTimeout * 2);
+                if ((this.autoEvent != null) && !this.autoEvent.WaitOne(MaxWaitHandleTimeout * 2) && !force)
+                {
+                    throw new TimeoutException("EC reset failed: waiting for AutoResetEvent timed out");
+                }
 
-                //try to reset the EC even if AquireLock failed
+                bool lockAcquired = this.ec.AcquireLock(EcTimeout * 2);
+
+                if (!lockAcquired && !force)
+                {
+                    throw new TimeoutException("EC reset failed: could not acquire EC lock");
+                }
+
+                // If force = true, try to reset the EC even if AquireLock failed
                 try
                 {
                     if (config != null)
                     {
-                        for (int i = 0; i < 3; i++)
+                        int tries = force ? 3 : 1;
+
+                        for (int i = 0; i < tries; i++)
                         {
                             ResetRegisterWriteConfigs();
                             ResetFans();
@@ -500,7 +546,7 @@ namespace StagWare.FanControl
                 }
                 finally
                 {
-                    if (mutexAquired)
+                    if (lockAcquired)
                     {
                         this.ec.ReleaseLock();
                     }
