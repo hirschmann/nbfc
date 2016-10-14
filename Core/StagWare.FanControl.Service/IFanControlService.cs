@@ -5,19 +5,19 @@ namespace StagWare.FanControl.Service
     [ServiceContract]
     public interface IFanControlService
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void SetTargetFanSpeed(float value, int fanIndex);
 
         [OperationContract]
         FanControlInfo GetFanControlInfo();
 
         [OperationContract]
-        bool Start();
+        void Start(bool readOnly);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void Stop();
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void SetConfig(string uniqueConfigId);
 
         [OperationContract]

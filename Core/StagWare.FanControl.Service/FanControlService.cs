@@ -57,7 +57,7 @@ namespace StagWare.FanControl.Service
 
             if (ServiceSettings.Default.Autostart)
             {
-                Start();
+                Start(ServiceSettings.Default.ReadOnly);
             }
         }
 
@@ -124,36 +124,37 @@ namespace StagWare.FanControl.Service
             return info;
         }
 
-        public bool Start()
+        public void Start(bool readOnly = true)
         {
-            if (!this.disposed)
+            if (this.disposed)
             {
-                if (this.fanControl == null)
-                {
-                    FanControlConfigV2 cfg;
+                return;
+            }
 
-                    if (TryLoadConfig(out cfg))
+            if (this.fanControl == null)
+            {
+                FanControlConfigV2 cfg;
+
+                if (TryLoadConfig(out cfg))
+                {
+                    InitializeFanSpeedSteps(cfg);
+
+                    if (TryInitializeFanControl(cfg, out this.fanControl))
                     {
-                        InitializeFanSpeedSteps(cfg);
-
-                        if (TryInitializeFanControl(cfg, out this.fanControl))
-                        {
-                            this.fansCount = this.fanControl.FanInformation.Count;
-                            this.fanControl.Start();
-                            ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                            ServiceSettings.Save();
-                        }
+                        this.fansCount = this.fanControl.FanInformation.Count;
+                        ServiceSettings.Default.Autostart = this.fanControl.Enabled;
+                        ServiceSettings.Save();
                     }
-                }
-                else if (!this.fanControl.Enabled)
-                {
-                    this.fanControl.Start();
-                    ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                    ServiceSettings.Save();
                 }
             }
 
-            return ServiceSettings.Default.Autostart;
+            if (this.fanControl != null)
+            {
+                this.fanControl.Start(readOnly);
+                ServiceSettings.Default.Autostart = this.fanControl.Enabled;
+                ServiceSettings.Default.ReadOnly = this.fanControl.ReadOnly;
+                ServiceSettings.Save();
+            }
         }
 
         public void Stop()
@@ -250,7 +251,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;                
+                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
                 {
@@ -271,7 +272,7 @@ namespace StagWare.FanControl.Service
                 {
                     fanControl.SetTargetFanSpeed(speeds[i], i);
                 }
-                
+
                 success = true;
             }
             finally
