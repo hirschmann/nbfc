@@ -222,7 +222,7 @@ namespace StagWare.FanControl
         {
             if (this.disposed)
             {
-                throw new ObjectDisposedException(null);
+                throw new ObjectDisposedException(nameof(FanControl));
             }
 
             if (this.Enabled)
@@ -289,7 +289,7 @@ namespace StagWare.FanControl
         {
             if (this.disposed)
             {
-                throw new ObjectDisposedException(null);
+                throw new ObjectDisposedException(nameof(FanControl));
             }
             else
             {
