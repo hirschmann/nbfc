@@ -123,10 +123,16 @@ namespace StagWare.FanControl
             for (int i = 0; i < config.FanConfigurations.Count; i++)
             {
                 var cfg = config.FanConfigurations[i];
+                string fanName = cfg.FanDisplayName;
 
+                if (string.IsNullOrWhiteSpace(fanName))
+                {
+                    fanName = "Fan #" + (i + 1);
+                }
+
+                this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);
                 this.fanSpeedManagers[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
                 this.requestedSpeeds[i] = AutoFanSpeedPercentage;
-                this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);
             }
         }
 
@@ -182,7 +188,14 @@ namespace StagWare.FanControl
                 }
                 else
                 {
-                    return this.tempMon.TemperatureSourceDisplayName;
+                    if (string.IsNullOrWhiteSpace(this.tempMon.TemperatureSourceDisplayName))
+                    {
+                        return this.TemperatureMonitorPluginId;
+                    }
+                    else
+                    {
+                        return this.tempMon.TemperatureSourceDisplayName;
+                    }
                 }
             }
         }
