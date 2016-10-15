@@ -77,7 +77,7 @@ namespace NbfcClient
         {
             try
             {
-                client.Start();
+                client.Start(false);
                 ResetMainViewModel();
                 UpdateMainViewModel();
             }

@@ -40,6 +40,9 @@
   <wsdl:message name="IFanControlService_SetTargetFanSpeed_InputMessage">
     <wsdl:part name="parameters" element="tns:SetTargetFanSpeed" />
   </wsdl:message>
+  <wsdl:message name="IFanControlService_SetTargetFanSpeed_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetTargetFanSpeedResponse" />
+  </wsdl:message>
   <wsdl:message name="IFanControlService_GetFanControlInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFanControlInfo" />
   </wsdl:message>
@@ -55,8 +58,14 @@
   <wsdl:message name="IFanControlService_Stop_InputMessage">
     <wsdl:part name="parameters" element="tns:Stop" />
   </wsdl:message>
+  <wsdl:message name="IFanControlService_Stop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopResponse" />
+  </wsdl:message>
   <wsdl:message name="IFanControlService_SetConfig_InputMessage">
     <wsdl:part name="parameters" element="tns:SetConfig" />
+  </wsdl:message>
+  <wsdl:message name="IFanControlService_SetConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetConfigResponse" />
   </wsdl:message>
   <wsdl:message name="IFanControlService_GetConfigNames_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConfigNames" />
@@ -67,6 +76,7 @@
   <wsdl:portType name="IFanControlService">
     <wsdl:operation name="SetTargetFanSpeed">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/SetTargetFanSpeed" message="tns:IFanControlService_SetTargetFanSpeed_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/SetTargetFanSpeedResponse" message="tns:IFanControlService_SetTargetFanSpeed_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetFanControlInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/GetFanControlInfo" message="tns:IFanControlService_GetFanControlInfo_InputMessage" />
@@ -78,9 +88,11 @@
     </wsdl:operation>
     <wsdl:operation name="Stop">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/Stop" message="tns:IFanControlService_Stop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/StopResponse" message="tns:IFanControlService_Stop_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SetConfig">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/SetConfig" message="tns:IFanControlService_SetConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/SetConfigResponse" message="tns:IFanControlService_SetConfig_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetConfigNames">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/GetConfigNames" message="tns:IFanControlService_GetConfigNames_InputMessage" />
@@ -95,6 +107,9 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetFanControlInfo">
       <soap12:operation soapAction="http://tempuri.org/IFanControlService/GetFanControlInfo" style="document" />
@@ -119,12 +134,18 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="SetConfig">
       <soap12:operation soapAction="http://tempuri.org/IFanControlService/SetConfig" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GetConfigNames">
       <soap12:operation soapAction="http://tempuri.org/IFanControlService/GetConfigNames" style="document" />

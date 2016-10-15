@@ -10,6 +10,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="SetTargetFanSpeedResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetFanControlInfo">
     <xs:complexType>
       <xs:sequence />
@@ -24,17 +29,22 @@
   </xs:element>
   <xs:element name="Start">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="readOnly" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="StartResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="StartResult" type="xs:boolean" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="Stop">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
@@ -44,6 +54,11 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="uniqueConfigId" nillable="true" type="xs:string" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetConfigResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="GetConfigNames">

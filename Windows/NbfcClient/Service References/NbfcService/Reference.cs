@@ -29,6 +29,9 @@ namespace NbfcClient.NbfcService {
         private NbfcClient.NbfcService.FanStatus[] FanStatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ReadOnlyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SelectedConfigField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -69,6 +72,19 @@ namespace NbfcClient.NbfcService {
                 if ((object.ReferenceEquals(this.FanStatusField, value) != true)) {
                     this.FanStatusField = value;
                     this.RaisePropertyChanged("FanStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ReadOnly {
+            get {
+                return this.ReadOnlyField;
+            }
+            set {
+                if ((this.ReadOnlyField.Equals(value) != true)) {
+                    this.ReadOnlyField = value;
+                    this.RaisePropertyChanged("ReadOnly");
                 }
             }
         }
@@ -251,19 +267,19 @@ namespace NbfcClient.NbfcService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="NbfcService.IFanControlService")]
     public interface IFanControlService {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFanControlService/SetTargetFanSpeed")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/SetTargetFanSpeed", ReplyAction="http://tempuri.org/IFanControlService/SetTargetFanSpeedResponse")]
         void SetTargetFanSpeed(float value, int fanIndex);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetFanControlInfo", ReplyAction="http://tempuri.org/IFanControlService/GetFanControlInfoResponse")]
         NbfcClient.NbfcService.FanControlInfo GetFanControlInfo();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/Start", ReplyAction="http://tempuri.org/IFanControlService/StartResponse")]
-        bool Start();
+        void Start(bool readOnly);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFanControlService/Stop")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/Stop", ReplyAction="http://tempuri.org/IFanControlService/StopResponse")]
         void Stop();
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFanControlService/SetConfig")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/SetConfig", ReplyAction="http://tempuri.org/IFanControlService/SetConfigResponse")]
         void SetConfig(string uniqueConfigId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetConfigNames", ReplyAction="http://tempuri.org/IFanControlService/GetConfigNamesResponse")]
@@ -305,8 +321,8 @@ namespace NbfcClient.NbfcService {
             return base.Channel.GetFanControlInfo();
         }
         
-        public bool Start() {
-            return base.Channel.Start();
+        public void Start(bool readOnly) {
+            base.Channel.Start(readOnly);
         }
         
         public void Stop() {
