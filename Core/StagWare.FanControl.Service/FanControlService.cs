@@ -86,21 +86,24 @@ namespace StagWare.FanControl.Service
         public FanControlInfo GetFanControlInfo()
         {
             bool initialized = !this.disposed && this.fanControl != null;
-            bool enabled = initialized && this.fanControl.Enabled;
-
             var info = new FanControlInfo()
             {
-                Enabled = enabled,
-                SelectedConfig = selectedConfig,
+                SelectedConfig = this.selectedConfig,
                 Temperature = 0
             };
+
+            if (initialized)
+            {
+                info.Enabled = this.fanControl.Enabled;
+                info.ReadOnly = this.fanControl.ReadOnly;
+            }
 
             if (initialized)
             {
                 info.TemperatureSourceDisplayName = this.fanControl.TemperatureSourceDisplayName;
             }
 
-            if (enabled)
+            if (this.fanControl.Enabled)
             {
                 info.Temperature = (int)Math.Round(fanControl.Temperature);
 

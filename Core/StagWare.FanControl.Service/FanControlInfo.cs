@@ -9,6 +9,9 @@ namespace StagWare.FanControl.Service
         public bool Enabled { get; set; }
 
         [DataMember]
+        public bool ReadOnly { get; set; }
+
+        [DataMember]
         public FanStatus[] FanStatus { get; set; }
 
         [DataMember]
