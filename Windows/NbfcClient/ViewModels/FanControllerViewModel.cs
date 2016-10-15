@@ -1,9 +1,5 @@
-﻿using NbfcClient.NbfcService;
+﻿using GalaSoft.MvvmLight;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Threading;
 
 namespace NbfcClient.ViewModels
@@ -50,144 +46,58 @@ namespace NbfcClient.ViewModels
 
         #endregion
 
-        #region Properties
+        #region Properties        
+
+        public float FanSpeedSliderValue
+        {
+            get { return this.fanSpeedSliderValue; }
+            set
+            {
+                this.Set(ref this.fanSpeedSliderValue, value);
+                SetSpeedDelayed();
+            }
+        }
 
         public int FanIndex
         {
-            get
-            {
-                return fanIndex;
-            }
-
-            set
-            {
-                if (fanIndex != value)
-                {
-                    fanIndex = value;
-                    OnPropertyChanged("FanIndex");
-                }
-            }
+            get { return this.fanIndex; }
+            set { this.Set(ref this.fanIndex, value); }
         }
 
         public string FanDisplayName
         {
-            get
-            {
-                return
-                    fanDisplayName;
-            }
-
-            set
-            {
-                if (fanDisplayName != value)
-                {
-                    fanDisplayName = value;
-                    OnPropertyChanged("FanDisplayName");
-                }
-            }
-        }
-
-        public float FanSpeedSliderValue
-        {
-            get
-            {
-                return fanSpeedSliderValue;
-            }
-
-            set
-            {
-                if (fanSpeedSliderValue != value)
-                {
-                    fanSpeedSliderValue = value;
-                    OnPropertyChanged("FanSpeed");
-                    SetSpeedDelayed();
-                }
-            }
-        }
+            get { return this.fanDisplayName; }
+            set { this.Set(ref this.fanDisplayName, value); }
+        }        
 
         public float TargetFanSpeed
         {
-            get
-            {
-                return targetFanSpeed;
-            }
-
-            set
-            {
-                if (targetFanSpeed != value)
-                {
-                    targetFanSpeed = value;
-                    OnPropertyChanged("TargetFanSpeed");
-                }
-            }
+            get { return this.targetFanSpeed; }
+            set { this.Set(ref this.targetFanSpeed, value); }
         }
 
         public float CurrentFanSpeed
         {
-            get
-            {
-                return currentFanSpeed;
-            }
-
-            set
-            {
-                if (currentFanSpeed != value)
-                {
-                    currentFanSpeed = value;
-                    OnPropertyChanged("CurrentFanSpeed");
-                }
-            }
+            get { return this.currentFanSpeed; }
+            set { this.Set(ref this.currentFanSpeed, value); }
         }
-
+        
         public bool IsAutoFanControlEnabled
         {
-            get
-            {
-                return isAutoFanControlEnabled;
-            }
-
-            set
-            {
-                if (isAutoFanControlEnabled != value)
-                {
-                    isAutoFanControlEnabled = value;
-                    OnPropertyChanged("IsAutoFanControlEnabled");
-                }
-            }
+            get { return this.isAutoFanControlEnabled; }
+            set { this.Set(ref this.isAutoFanControlEnabled, value); }
         }
 
         public bool IsCriticalModeEnabled
         {
-            get
-            {
-                return isCriticalModeEnabled;
-            }
-
-            set
-            {
-                if (isCriticalModeEnabled != value)
-                {
-                    isCriticalModeEnabled = value;
-                    OnPropertyChanged("IsCriticalModeEnabled");
-                }
-            }
+            get { return this.isCriticalModeEnabled; }
+            set { this.Set(ref this.isCriticalModeEnabled, value); }
         }
-
+        
         public int FanSpeedSteps
         {
-            get
-            {
-                return fanSpeedSteps;
-            }
-
-            set
-            {
-                if (fanSpeedSteps != value)
-                {
-                    fanSpeedSteps = value;
-                    OnPropertyChanged("FanSpeedSteps");
-                }
-            }
+            get { return this.fanSpeedSteps; }
+            set { this.Set(ref this.fanSpeedSteps, value); }
         }
 
         #endregion
