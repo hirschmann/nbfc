@@ -37,7 +37,7 @@ namespace NbfcCli
 
             if (opt.Start != null)
             {
-                StartService();
+                StartService(opt.Start.ReadOnly);
             }
             else if (opt.Stop != null)
             {
@@ -192,6 +192,8 @@ namespace NbfcCli
             var sb = new StringBuilder();
             sb.AppendFormat("Service enabled\t\t: {0}", info.Enabled);
             sb.AppendLine();
+            sb.AppendFormat("Read-only\t\t: {0}", info.ReadOnly);
+            sb.AppendLine();
             sb.AppendFormat("Selected config name\t: {0}", info.SelectedConfig);
             sb.AppendLine();
             sb.AppendFormat("Temperature\t\t: {0}", info.Temperature);
@@ -219,9 +221,9 @@ namespace NbfcCli
             Console.WriteLine(sb.ToString());
         }
 
-        private static void StartService()
+        private static void StartService(bool readOnly)
         {
-            Action<FanControlServiceClient> action = client => client.Start();
+            Action<FanControlServiceClient> action = client => client.Start(readOnly);
             CallServiceMethod(action);
         }
 
