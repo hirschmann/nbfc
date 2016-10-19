@@ -165,7 +165,6 @@ Global
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.DebugLinux|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.DebugLinux|Any CPU.Build.0 = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.DebugWindows|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.DebugWindows|Any CPU.Build.0 = Debug|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseLinux|Any CPU.ActiveCfg = ReleaseLinux|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseLinux|Any CPU.Build.0 = ReleaseLinux|Any CPU
 		{0F5B3D05-7615-4E74-84E6-4F00FAD0413C}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
