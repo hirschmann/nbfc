@@ -236,8 +236,8 @@ namespace StagWare.FanControl
                     }
                     else
                     {
-                        InitializeRegisterWriteConfigurations();
                         this.readOnly = readOnly;
+                        InitializeRegisterWriteConfigurations();                        
                     }
                 }
             }
@@ -385,7 +385,10 @@ namespace StagWare.FanControl
                     }
                 }
 
-                ResetEc(true);
+                if (!readOnly)
+                {
+                    ResetEc(true);
+                }
             }
         }
 
@@ -414,11 +417,11 @@ namespace StagWare.FanControl
             {
                 FanSpeedManager speedMan = this.fanSpeedManagers[i];
                 FanConfiguration fanCfg = this.config.FanConfigurations[i];
-               
+
                 int speedVal = GetFanSpeedValue(
-                    fanCfg.ReadRegister, 
-                    speedMan.MinSpeedValueReadAbs, 
-                    speedMan.MaxSpeedValueReadAbs, 
+                    fanCfg.ReadRegister,
+                    speedMan.MinSpeedValueReadAbs,
+                    speedMan.MaxSpeedValueReadAbs,
                     this.config.ReadWriteWords);
 
                 this.fanInfoInternal[i] = new FanInformation(
@@ -434,22 +437,25 @@ namespace StagWare.FanControl
 
         private void InitializeRegisterWriteConfigurations()
         {
+            if (!this.autoEvent.WaitOne(waitHandleTimeout))
+            {
+                throw new TimeoutException("EC initialization failed: Waiting for AutoResetEvent timed out");
+            }
+
             try
             {
-                if (this.autoEvent.WaitOne(waitHandleTimeout) && this.ec.AcquireLock(EcTimeout))
+                if (!this.ec.AcquireLock(EcTimeout))
                 {
-                    try
-                    {
-                        ApplyRegisterWriteConfigurations(true);
-                    }
-                    finally
-                    {
-                        this.ec.ReleaseLock();
-                    }
+                    throw new TimeoutException("EC initialization failed: Could not acquire EC lock");
                 }
-                else
+
+                try
                 {
-                    throw new TimeoutException("EC initialization timed out.");
+                    ApplyRegisterWriteConfigurations(true);
+                }
+                finally
+                {
+                    this.ec.ReleaseLock();
                 }
             }
             finally
@@ -515,41 +521,52 @@ namespace StagWare.FanControl
 
         private void ResetEc(bool force = false)
         {
-            if (this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
-                || this.config.FanConfigurations.Any(x => x.ResetRequired))
+            if (!this.config.RegisterWriteConfigurations.Any(x => x.ResetRequired)
+                && !this.config.FanConfigurations.Any(x => x.ResetRequired))
             {
-                if ((this.autoEvent != null) && !this.autoEvent.WaitOne(MaxWaitHandleTimeout * 2) && !force)
+                return;
+            }
+
+            bool fanControlLockAcquired = this.autoEvent.WaitOne(MaxWaitHandleTimeout * 2);
+
+            if (!fanControlLockAcquired && !force)
+            {
+                throw new TimeoutException("EC reset failed: Waiting for AutoResetEvent timed out");
+            }
+
+            try
+            {
+                bool ecLockAcquired = this.ec.AcquireLock(EcTimeout * 2);
+
+                if (!ecLockAcquired && !force)
                 {
-                    throw new TimeoutException("EC reset failed: waiting for AutoResetEvent timed out");
+                    throw new TimeoutException("EC reset failed: Could not acquire EC lock");
                 }
 
-                bool lockAcquired = this.ec.AcquireLock(EcTimeout * 2);
-
-                if (!lockAcquired && !force)
-                {
-                    throw new TimeoutException("EC reset failed: could not acquire EC lock");
-                }
-
-                // If force = true, try to reset the EC even if AquireLock failed
+                // If force is true, try to reset the EC even if AquireLock failed
                 try
                 {
-                    if (config != null)
-                    {
-                        int tries = force ? 3 : 1;
+                    int tries = force ? 3 : 1;
 
-                        for (int i = 0; i < tries; i++)
-                        {
-                            ResetRegisterWriteConfigs();
-                            ResetFans();
-                        }
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ResetRegisterWriteConfigs();
+                        ResetFans();
                     }
                 }
                 finally
                 {
-                    if (lockAcquired)
+                    if (ecLockAcquired)
                     {
                         this.ec.ReleaseLock();
                     }
+                }
+            }
+            finally
+            {
+                if (fanControlLockAcquired)
+                {
+                    this.autoEvent.Set();
                 }
             }
         }
