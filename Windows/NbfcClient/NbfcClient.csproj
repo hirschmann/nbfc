@@ -256,16 +256,6 @@
     <WCFMetadataStorage Include="Service References\NbfcService\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
-      <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
-      <Name>StagWare.FanControl.Configurations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
-      <Project>{b45bbd0f-9345-4ec8-b70d-8369659da3b4}</Project>
-      <Name>StagWare.BiosInfo</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
