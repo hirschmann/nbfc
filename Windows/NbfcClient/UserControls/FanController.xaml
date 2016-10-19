@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:vm="clr-namespace:NbfcClient.ViewModels"             
-             
+    xmlns:vm="clr-namespace:NbfcClient.ViewModels"
+    
     mc:Ignorable="d"  
     Height="140" 
     Background="White"
@@ -13,24 +13,21 @@
     d:DesignWidth="343"             
     d:DataContext="{d:DesignData Source=../DesignData/FanControllerViewModelData.xaml}">
 
-    <GroupBox Background="{Binding}" FontWeight="SemiBold">
-        <GroupBox.Header>
-            <MultiBinding Converter="{StaticResource displayNameConverter}">
-                <Binding Path="FanDisplayName"/>
-                <Binding Path="FanIndex"/>
-            </MultiBinding>
-        </GroupBox.Header>
+    <GroupBox 
+        
+        Header="{Binding FanDisplayName}"
+        FontWeight="SemiBold">       
         
         <Grid>
             <Slider 
-                Name="slider" 
+                Name="FanSpeedSlider" 
                 Height="31" 
                 VerticalAlignment="Top" 
                 Margin="10,12,65,0" 
                 IsSnapToTickEnabled="True"
                 IsMoveToPointEnabled="True"
                 SmallChange="1"
-                Value="{Binding FanSpeedSliderValue}" 
+                Value="{Binding FanSpeedSliderValue, Delay=500}" 
                 Maximum="{Binding FanSpeedSteps}"/>
             
             <Label 
@@ -40,8 +37,8 @@
                 VerticalAlignment="Top" 
                 Width="60">
                 
-                <MultiBinding Converter="{StaticResource sliderConverter}">
-                    <Binding Path="Value" ElementName="slider"/>
+                <MultiBinding Converter="{StaticResource SliderValueToString}">
+                    <Binding Path="Value" ElementName="FanSpeedSlider"/>
                     <Binding Path="FanSpeedSteps"/>
                 </MultiBinding>
             </Label>
@@ -52,7 +49,7 @@
                 Margin="6,30,0,0"
                 VerticalAlignment="Top">
                 
-                <MultiBinding Converter="{StaticResource fanSpeedConverter}">
+                <MultiBinding Converter="{StaticResource FanSpeedToString}">
                     <Binding Path="TargetFanSpeed"/>
                     <Binding Path="IsAutoFanControlEnabled"/>
                     <Binding Path="IsCriticalModeEnabled"/>

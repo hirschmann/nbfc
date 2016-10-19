@@ -1,0 +1,107 @@
+﻿<Window 
+    x:Class="NbfcClient.Windows.SettingsWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+    Title="Settings" 
+    Height="175" 
+    Width="260" 
+    ResizeMode="NoResize" 
+    WindowStartupLocation="CenterOwner"
+    
+    DataContext="{Binding Settings, Source={StaticResource ViewModelLocator}}">
+
+    <Grid>
+        <CheckBox
+            IsChecked="{Binding Autostart}"
+            Content="Start with Windows" 
+            HorizontalAlignment="Left" 
+            Margin="23,10,0,0" 
+            VerticalAlignment="Top" />
+
+        <CheckBox
+            IsChecked="{Binding CloseToTray}"
+            Content="Close to tray" 
+            HorizontalAlignment="Left" Margin="23,35,0,0" 
+            VerticalAlignment="Top" />
+
+        <Label
+            Content="Tray icon color:" 
+            HorizontalAlignment="Left" 
+            Margin="20,65,0,0" 
+            VerticalAlignment="Top"/>
+
+        <ComboBox
+            x:Name="combo"
+            ItemsSource="{Binding AvailableColors}"
+            SelectedItem="{Binding TrayIconColor}"
+            Margin="48,96,28,0" 
+            VerticalAlignment="Top" Height="29">
+
+            <ComboBox.Resources>
+                <SolidColorBrush x:Key="BorderBrush" Color="Black" Opacity="0.1"/>
+                <SolidColorBrush x:Key="BorderHighlightBrush" Color="Black" Opacity="0.4"/>
+                <SolidColorBrush x:Key="BorderBackgroundBrush" Color="White" Opacity="0.15"/>
+            </ComboBox.Resources>
+
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="{Binding Converter={StaticResource ColorToBrush}}">
+                        <Border 
+                            Name="BackgroundOverlay"
+                            BorderBrush="{StaticResource BorderBrush}"
+                            BorderThickness="1"
+                            Padding="2">
+                            
+                            <TextBlock 
+                                Text="{Binding Converter={StaticResource ColorToString}}" 
+                                Foreground="{Binding Converter={StaticResource ColorToContrasting}}"
+                                FontSize="12"
+                                Margin="4,0,4,0"/>
+                        </Border>
+                    </Grid>
+
+                    <DataTemplate.Triggers>
+                        <DataTrigger 
+                            Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}"
+                            Value="True">
+
+                            <Setter 
+                                Property="BorderBrush"
+                                TargetName="BackgroundOverlay"
+                                Value="{StaticResource BorderHighlightBrush}" />
+                            
+                            <Setter 
+                                Property="Background"
+                                TargetName="BackgroundOverlay"
+                                Value="{StaticResource BorderBackgroundBrush}" />
+
+                            <Setter 
+                                Property="BorderThickness"
+                                TargetName="BackgroundOverlay"
+                                Value="2" />
+
+                            <Setter 
+                                Property="Padding"
+                                TargetName="BackgroundOverlay"
+                                Value="1" />
+
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ComboBoxItem">
+                                <ContentPresenter/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
+    </Grid>
+</Window>

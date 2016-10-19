@@ -1,17 +1,14 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using NbfcClient.Messages;
+using NbfcClient.NbfcService;
+using NbfcClient.Services;
 using System;
-using System.Windows.Threading;
 
 namespace NbfcClient.ViewModels
 {
     public class FanControllerViewModel : ViewModelBase
     {
-        #region Constants
-
-        private const int SetFanSpeedDelay = 500; // milliseconds
-
-        #endregion
-
         #region Private Fields
 
         private float currentFanSpeed;
@@ -22,27 +19,22 @@ namespace NbfcClient.ViewModels
         private string fanDisplayName;
         private bool isCriticalModeEnabled;
 
-        private FanControlClient client;
+        private IFanControlClient client;
         private int fanIndex;
-        private DispatcherTimer timer;
 
         #endregion
 
         #region Constructors
 
-        public FanControllerViewModel()
+        public FanControllerViewModel(IFanControlClient client, int fanIndex)
         {
-            this.timer = new DispatcherTimer();
-            this.timer.Interval = TimeSpan.FromMilliseconds(SetFanSpeedDelay);
-            timer.Tick += timer_Tick;
-        }
-
-        public FanControllerViewModel(FanControlClient client, int fanIndex)
-            : this()
-        {
-            this.client = client;
             this.fanIndex = fanIndex;
-        }
+            this.client = client;
+            this.client.FanControlStatusChanged += Client_FanControlStatusChanged;
+            Messenger.Default.Register<ReloadFanControlInfoMessage>(this, Refresh);
+
+            Refresh(true);
+        }        
 
         #endregion
 
@@ -53,8 +45,10 @@ namespace NbfcClient.ViewModels
             get { return this.fanSpeedSliderValue; }
             set
             {
-                this.Set(ref this.fanSpeedSliderValue, value);
-                SetSpeedDelayed();
+                if (Set(ref this.fanSpeedSliderValue, value))
+                {
+                    client.SetTargetFanSpeed(GetFanSpeedPercentage(value), fanIndex);
+                }
             }
         }
 
@@ -68,7 +62,7 @@ namespace NbfcClient.ViewModels
         {
             get { return this.fanDisplayName; }
             set { this.Set(ref this.fanDisplayName, value); }
-        }        
+        }
 
         public float TargetFanSpeed
         {
@@ -81,7 +75,7 @@ namespace NbfcClient.ViewModels
             get { return this.currentFanSpeed; }
             set { this.Set(ref this.currentFanSpeed, value); }
         }
-        
+
         public bool IsAutoFanControlEnabled
         {
             get { return this.isAutoFanControlEnabled; }
@@ -93,7 +87,7 @@ namespace NbfcClient.ViewModels
             get { return this.isCriticalModeEnabled; }
             set { this.Set(ref this.isCriticalModeEnabled, value); }
         }
-        
+
         public int FanSpeedSteps
         {
             get { return this.fanSpeedSteps; }
@@ -104,36 +98,71 @@ namespace NbfcClient.ViewModels
 
         #region Private Methods
 
-        private void SetSpeedDelayed()
+        private void Refresh(ReloadFanControlInfoMessage msg)
         {
-            if (this.timer != null)
+            Refresh(msg.IgnoreCache);
+        }
+
+        private void Refresh(bool ignoreCache)
+        {
+            FanControlInfo info = ignoreCache
+                ? client.GetFanControlInfo()
+                : client.FanControlInfo;
+
+            UpdateProperties(info);
+        }
+
+        private void UpdateProperties(FanControlInfo info)
+        {
+            FanStatus status = null;
+
+            if ((info.FanStatus == null) || (info.FanStatus.Length <= fanIndex))
             {
-                this.timer.Stop();
-                this.timer.Start();
+                status = new FanStatus();
+            }
+            else
+            {
+                status = info.FanStatus[fanIndex];
+            }
+
+            Set(ref currentFanSpeed, status.CurrentFanSpeed, nameof(CurrentFanSpeed));
+            Set(ref targetFanSpeed, status.TargetFanSpeed, nameof(TargetFanSpeed));
+            Set(ref fanDisplayName, status.FanDisplayName, nameof(FanDisplayName));
+            Set(ref fanSpeedSteps, status.FanSpeedSteps, nameof(FanSpeedSteps));
+            Set(ref isAutoFanControlEnabled, status.AutoControlEnabled, nameof(IsAutoFanControlEnabled));
+            Set(ref isCriticalModeEnabled, status.CriticalModeEnabled, nameof(IsCriticalModeEnabled));
+
+            if (status.AutoControlEnabled)
+            {
+                Set(ref fanSpeedSliderValue, status.FanSpeedSteps, nameof(FanSpeedSliderValue));
+            }
+            else
+            {
+                int sliderValue = (int)Math.Round((status.TargetFanSpeed / 100.0) * (status.FanSpeedSteps - 1));
+                Set(ref fanSpeedSliderValue, sliderValue, nameof(FanSpeedSliderValue));
             }
         }
 
-        private float GetFanSpeedPercentage()
+        private float GetFanSpeedPercentage(float sliderValue)
         {
-            if (this.fanSpeedSteps == 1)
+            if (this.fanSpeedSteps <= 1)
             {
                 return 0;
             }
             else
             {
                 // subtract 1 from steps, because last step is reserved for "auto control" setting
-                return (this.fanSpeedSliderValue / (this.fanSpeedSteps - 1)) * 100.0f;
+                return (sliderValue / (this.fanSpeedSteps - 1)) * 100.0f;
             }
         }
 
         #endregion
 
-        #region Event Handlers
+        #region EventHandlers
 
-        void timer_Tick(object sender, EventArgs e)
+        private void Client_FanControlStatusChanged(object sender, FanControlStatusChangedEventArgs e)
         {
-            this.timer.Stop();
-            this.client.SetFanSpeed(GetFanSpeedPercentage(), this.fanIndex);
+            Refresh(false);
         }
 
         #endregion

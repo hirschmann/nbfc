@@ -19,7 +19,8 @@
     WindowStartupLocation="CenterScreen" 
     StateChanged="window_StateChanged" 
     Closing="Window_Closing"
-    d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}">
+    d:DataContext="{d:DesignData Source=../DesignData/MainWindowViewModelData.xaml}"
+    DataContext="{Binding Main, Source={StaticResource ViewModelLocator}}">
 
     <Window.Resources>
         <SolidColorBrush x:Key="HeaderBrush" Color="#FF191919"/>
@@ -63,16 +64,16 @@
         </DockPanel>
 
         <Button 
-            x:Name="selectConfig"
+            Command="{Binding SelectConfigCommand}"
             Content="..."        	
             VerticalAlignment="Top"        
             Width="23"        
-            Height="23" 
-            Click="selectConfig_Click" 
+            Height="23"
             ToolTip="Select a config" 
             DockPanel.Dock="Left" 
             VerticalContentAlignment="Center" 
-            Margin="0,8,10,0" HorizontalAlignment="Right"/>
+            Margin="0,8,10,0" 
+            HorizontalAlignment="Right"/>
 
         <!--Version-->
         <Label 
@@ -123,16 +124,21 @@
                 Content="Disabled" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top"
-                IsChecked="{Binding IsServiceAvailable, Mode=OneWay, Converter={StaticResource boolToInverse}}"
-                Margin="0,0,7,0"
-                Click="FanControlEnabled_StateChanged"/>
+                IsChecked="{Binding IsServiceDisabled}"
+                Margin="0,0,7,0"/>
 
+            <RadioButton 
+                Content="Read-only" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                IsChecked="{Binding IsServiceReadOnly}" 
+                Margin="0,0,7,0" />
+            
             <RadioButton 
                 Content="Enabled" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Top"
-                IsChecked="{Binding IsServiceAvailable}" 
-                Click="FanControlEnabled_StateChanged"/>
+                IsChecked="{Binding IsServiceEnabled}" />
         </StackPanel>
 
         <!--Temperature-->
@@ -158,7 +164,7 @@
 
         <!--Fan info-->
         <ScrollViewer 
-            Margin="10,126,10,45" 
+            Margin="10,126,10,45"
             DataContext="{Binding FanControllers}" 
             d:DataContext="{d:DesignData /DesignData/FanControllerCollection.xaml}">
 
@@ -166,7 +172,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0,5,10,5">
-                            <uc:FanController Background="{Binding}"/>
+                            <uc:FanController />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -174,14 +180,13 @@
         </ScrollViewer>
 
         <!--Settings-->
-        <Button 
-            x:Name="settings" 
+        <Button
+            Command="{Binding SettingsCommand}"
             Margin="0,0,10,10" 
             VerticalAlignment="Bottom" 
             Height="20" 
             HorizontalAlignment="Right" 
-            Width="20" 
-            Click="settings_Click" 
+            Width="20"
             Padding="2" 
             ToolTip="Settings">
 

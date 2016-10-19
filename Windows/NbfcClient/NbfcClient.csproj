@@ -112,7 +112,13 @@
     </ApplicationDefinition>
     <Compile Include="AutorunEntry.cs" />
     <Compile Include="DesignData\FanControllerViewModelCollection.cs" />
-    <Compile Include="FanControlClient.cs" />
+    <Compile Include="Messages\CloseSelectConfigDialogMessage.cs" />
+    <Compile Include="Messages\OpenSettingsDialogMessage.cs" />
+    <Compile Include="Messages\ReloadFanControlInfoMessage.cs" />
+    <Compile Include="Services\FanControlClient.cs" />
+    <Compile Include="Services\FanControlStatusChangedEventArgs.cs" />
+    <Compile Include="Services\IFanControlClient.cs" />
+    <Compile Include="Messages\OpenSelectConfigDialogMessage.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="TrayIconRenderer.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
@@ -134,12 +140,18 @@
       <DependentUpon>TrayToolTip.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValueConverters\BooleanToInverseConverter.cs" />
-    <Compile Include="ValueConverters\FanDisplayNameToTextConverter.cs" />
+    <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ValueConverters\ColorToBrushConverter.cs" />
+    <Compile Include="ValueConverters\ColorToContrastingBrushConverter.cs" />
+    <Compile Include="ValueConverters\ColorToStringConverter.cs" />
     <Compile Include="ValueConverters\FanSpeedSliderValueToTextConverter.cs" />
     <Compile Include="ValueConverters\TargetFanSpeedToTextConverter.cs" />
     <Compile Include="ValueConverters\TemperatureToTextConverter.cs" />
     <Compile Include="ViewModels\FanControllerViewModel.cs" />
-    <Compile Include="Windows\SelectConfigWindow.xaml.cs">
+    <Compile Include="ViewModels\SelectConfigViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\SelectConfigWindow.xaml.cs">
       <DependentUpon>SelectConfigWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service References\NbfcService\Reference.cs">
@@ -147,7 +159,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Windows\SettingsWindow.xaml.cs">
+    <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\FanController.xaml">
@@ -162,7 +174,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -170,21 +182,21 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\SelectConfigWindow.xaml">
+    <Page Include="Views\SelectConfigWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\SettingsWindow.xaml">
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -203,7 +215,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
-    <None Include="App.manifest" />
+    <None Include="App.manifest">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
