@@ -43,11 +43,12 @@ namespace NbfcClient.ViewModels
         public SelectConfigViewModel(IFanControlClient client)
         {
             this.client = client;
-            string directory = Assembly.GetExecutingAssembly()?.Location;
+            string path = Assembly.GetExecutingAssembly()?.Location;
 
-            if (directory != null)
+            if (path != null)
             {
-                ConfigEditorPath = Path.Combine(directory, ConfigEditorExecutableName);
+                path = Path.GetDirectoryName(path);
+                ConfigEditorPath = Path.Combine(path, ConfigEditorExecutableName);
             }
         }
 
@@ -155,7 +156,7 @@ namespace NbfcClient.ViewModels
         private void EditConfig()
         {
             Process.Start(
-                ConfigEditorExecutableName,
+                ConfigEditorPath,
                 SelectConfigArgumentPrefix + "\"" + selectedConfig + "\"");
         }
 
