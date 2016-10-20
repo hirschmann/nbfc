@@ -65,6 +65,11 @@ namespace NbfcClient.Windows
             if (vm != null)
             {
                 vm.PropertyChanged += Vm_PropertyChanged;
+
+                if(vm.TrayIcon != null)
+                {
+                    notifyIcon.Icon = vm.TrayIcon;
+                }
             }
 
             Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
