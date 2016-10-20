@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\SelectConfigViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="Views\SelectConfigWindow.xaml.cs">
       <DependentUpon>SelectConfigWindow.xaml</DependentUpon>
     </Compile>
