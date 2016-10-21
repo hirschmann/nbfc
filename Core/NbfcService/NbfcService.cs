@@ -50,13 +50,30 @@ namespace NbfcService
             StopServiceHost();
         }
 
+        protected override void OnContinue()
+        {
+            this.service.Continue();
+        }
+
+        protected override void OnPause()
+        {
+            this.service.Pause();
+        }
+
         protected override bool OnPowerEvent(PowerBroadcastStatus powerStatus)
         {
-            if (powerStatus == PowerBroadcastStatus.ResumeSuspend
-                || powerStatus == PowerBroadcastStatus.ResumeAutomatic
-                || powerStatus == PowerBroadcastStatus.ResumeCritical)
+            switch (powerStatus)
             {
-                this.service.ReInitializeFanControl();
+                case PowerBroadcastStatus.ResumeAutomatic:
+                case PowerBroadcastStatus.ResumeCritical:
+                case PowerBroadcastStatus.ResumeSuspend:
+                case PowerBroadcastStatus.QuerySuspendFailed:
+                    this.service.Continue();
+                    break;
+                case PowerBroadcastStatus.QuerySuspend:
+                case PowerBroadcastStatus.Suspend:
+                    this.service.Pause();
+                    break;
             }
 
             return true;
