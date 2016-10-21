@@ -235,11 +235,19 @@ namespace StagWare.FanControl.Service
 
         #region Public Methods
 
-        public void ReInitializeFanControl()
+        public void Pause()
         {
-            if (!this.disposed && this.fanControl != null)
+            if ((this.fanControl != null) && (this.fanControl.Enabled))
             {
-                this.fanControl.ReInitialize();
+                this.fanControl.Start(true);
+            }
+        }
+
+        public void Continue()
+        {
+            if ((this.fanControl != null) && (this.fanControl.Enabled))
+            {
+                this.fanControl.Start(ServiceSettings.Default.ReadOnly);
             }
         }
 
