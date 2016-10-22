@@ -548,7 +548,7 @@ namespace StagWare.FanControl
                 {
                     int tries = force ? 3 : 1;
 
-                    for (int i = 0; i < 3; i++)
+                    for (int i = 0; i < tries; i++)
                     {
                         ResetRegisterWriteConfigs();
                         ResetFans();
