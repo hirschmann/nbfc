@@ -120,7 +120,6 @@
     <Compile Include="Services\FanControlStatusChangedEventArgs.cs" />
     <Compile Include="Services\IFanControlClient.cs" />
     <Compile Include="Messages\OpenSelectConfigDialogMessage.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="TrayIconRenderer.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
       <DependentUpon>FanController.xaml</DependentUpon>
