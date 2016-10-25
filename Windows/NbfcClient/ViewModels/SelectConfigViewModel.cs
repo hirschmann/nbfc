@@ -3,8 +3,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
 using NbfcClient.Services;
-using NbfcClient.Windows;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -17,6 +15,7 @@ namespace NbfcClient.ViewModels
     {
         #region Constants
 
+        private const string ConfigsDirectoryName = "Configs";
         private const string ConfigEditorExecutableName = "ConfigEditor.exe";
         private const string SelectConfigArgumentPrefix = "-s:";
 
@@ -26,11 +25,12 @@ namespace NbfcClient.ViewModels
 
         private readonly string ConfigEditorPath;
         private IFanControlClient client;
+        private FileSystemWatcher configWatcher;
 
-        private ObservableCollection<string> availableConfigs;
         private string selectedConfig;
         private bool dialogResult;
         private bool isBusy;
+        private ObservableCollection<string> availableConfigs;
 
         private RelayCommand editConfigCommand;
         private RelayCommand applyConfigCommand;
@@ -49,6 +49,17 @@ namespace NbfcClient.ViewModels
             {
                 path = Path.GetDirectoryName(path);
                 ConfigEditorPath = Path.Combine(path, ConfigEditorExecutableName);
+
+                string configsDirPath = Path.Combine(path, ConfigsDirectoryName);
+
+                if (Directory.Exists(configsDirPath))
+                {
+                    configWatcher = new FileSystemWatcher(configsDirPath);
+                    configWatcher.Created += ConfigWatcher_Changed;
+                    configWatcher.Deleted += ConfigWatcher_Changed;
+                    configWatcher.Renamed += ConfigWatcher_Changed;
+                    configWatcher.EnableRaisingEvents = true;
+                }
             }
         }
 
@@ -60,6 +71,20 @@ namespace NbfcClient.ViewModels
         {
             get { return this.dialogResult; }
             set { this.Set(ref this.dialogResult, value); }
+        }
+
+        public ObservableCollection<string> AvailableConfigs
+        {
+            get
+            {
+                if (this.availableConfigs == null)
+                {
+                    this.availableConfigs = new ObservableCollection<string>(client.GetConfigNames());
+                }
+
+                return this.availableConfigs;
+            }
+            private set { this.Set(ref this.availableConfigs, value); }
         }
 
         public bool IsBusy
@@ -90,20 +115,6 @@ namespace NbfcClient.ViewModels
             set { this.Set(ref this.selectedConfig, value); }
         }
 
-        public ObservableCollection<string> AvailableConfigs
-        {
-            get
-            {
-                if (this.availableConfigs == null)
-                {
-                    this.availableConfigs = new ObservableCollection<string>(client.GetConfigNames());
-                }
-
-                return this.availableConfigs;
-            }
-            private set { this.Set(ref this.availableConfigs, value); }
-        }
-
         #endregion
 
         #region Commands
@@ -119,7 +130,7 @@ namespace NbfcClient.ViewModels
 
                 return this.editConfigCommand;
             }
-        }       
+        }
 
         public RelayCommand ApplyConfigCommand
         {
@@ -132,7 +143,7 @@ namespace NbfcClient.ViewModels
 
                 return this.applyConfigCommand;
             }
-        }        
+        }
 
         public RelayCommand CancelCommand
         {
@@ -155,9 +166,8 @@ namespace NbfcClient.ViewModels
         // support closures (see https://mvvmlight.codeplex.com/workitem/7721)
         private void EditConfig()
         {
-            Process.Start(
-                ConfigEditorPath,
-                SelectConfigArgumentPrefix + "\"" + selectedConfig + "\"");
+            string args = SelectConfigArgumentPrefix + "\"" + selectedConfig + "\"";
+            Process.Start(ConfigEditorPath, args);
         }
 
         private bool CanExecuteEditConfig()
@@ -201,6 +211,15 @@ namespace NbfcClient.ViewModels
         private bool CanExecuteCancel()
         {
             return !IsBusy;
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private void ConfigWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            AvailableConfigs = new ObservableCollection<string>(client.GetConfigNames());
         }
 
         #endregion
