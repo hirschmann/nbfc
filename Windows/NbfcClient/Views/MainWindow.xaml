@@ -208,19 +208,20 @@
         </TextBlock>
 
         <!--Notify icon-->
-        <tb:TaskbarIcon
+        <uc:BindableTaskbarIcon
             x:Name="notifyIcon" 
             IconSource="/NoteBookFanControl;component/fan.ico"
+            IconBitmapSource="{Binding TrayIcon}"
             TrayLeftMouseDown="notifyIcon_TrayLeftMouseDown">
 
-            <tb:TaskbarIcon.ContextMenu>
+            <uc:BindableTaskbarIcon.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Close"  Click="close_Click"/>
                 </ContextMenu>
-            </tb:TaskbarIcon.ContextMenu>
-            <tb:TaskbarIcon.TrayToolTip>
+            </uc:BindableTaskbarIcon.ContextMenu>
+            <uc:BindableTaskbarIcon.TrayToolTip>
                 <uc:TrayToolTip />
-            </tb:TaskbarIcon.TrayToolTip>
-        </tb:TaskbarIcon>
+            </uc:BindableTaskbarIcon.TrayToolTip>
+        </uc:BindableTaskbarIcon>
     </Grid>
 </Window>

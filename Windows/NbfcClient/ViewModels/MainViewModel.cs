@@ -5,31 +5,19 @@ using NbfcClient.Messages;
 using NbfcClient.NbfcService;
 using NbfcClient.Properties;
 using NbfcClient.Services;
-using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
+using System.Windows.Media.Imaging;
 
 namespace NbfcClient.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        #region Nested Types
-
-        private static class NativeMethods
-        {
-            [DllImport("user32.dll", SetLastError = true)]
-            public static extern bool DestroyIcon(IntPtr hIcon);
-        }
-
-        #endregion
-
         #region Private Fields
 
         private TrayIconRenderer renderer;
-        private Icon trayIcon;
+        private BitmapSource trayIcon;
         private IFanControlClient client;
 
         private string version;
@@ -145,7 +133,7 @@ namespace NbfcClient.ViewModels
             private set { this.Set(ref this.fanControllers, value); }
         }
 
-        public Icon TrayIcon
+        public BitmapSource TrayIcon
         {
             get { return this.trayIcon; }
             private set { this.Set(ref this.trayIcon, value); }
@@ -203,18 +191,7 @@ namespace NbfcClient.ViewModels
         private void UpdateNotifyIcon(int temperature)
         {
             this.renderer.Color = Settings.Default.TrayIconForegroundColor;
-
-            using (var bmp = this.renderer.RenderIcon(temperature.ToString()))
-            {
-                var tmp = TrayIcon;
-                TrayIcon = Icon.FromHandle(bmp.GetHicon());
-
-                if (tmp != null)
-                {
-                    NativeMethods.DestroyIcon(tmp.Handle);
-                    tmp.Dispose();
-                }
-            }
+            TrayIcon = this.renderer.RenderIcon(temperature.ToString());
         }
 
         private void UpdateProperties(FanControlInfo info)

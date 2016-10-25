@@ -121,6 +121,7 @@
     <Compile Include="Services\IFanControlClient.cs" />
     <Compile Include="Messages\OpenSelectConfigDialogMessage.cs" />
     <Compile Include="TrayIconRenderer.cs" />
+    <Compile Include="UserControls\BindableTaskbarIcon.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
       <DependentUpon>FanController.xaml</DependentUpon>
     </Compile>
@@ -281,6 +282,7 @@
   <ItemGroup>
     <Resource Include="fan.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

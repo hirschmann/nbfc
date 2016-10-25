@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
 using NbfcClient.Properties;
-using NbfcClient.ViewModels;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -60,18 +59,6 @@ namespace NbfcClient.Windows
                 this.wbcd.Visibility = Visibility.Collapsed;
             }
 
-            var vm = DataContext as MainViewModel;
-
-            if (vm != null)
-            {
-                vm.PropertyChanged += Vm_PropertyChanged;
-
-                if(vm.TrayIcon != null)
-                {
-                    notifyIcon.Icon = vm.TrayIcon;
-                }
-            }
-
             Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
             Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
         }
@@ -109,15 +96,6 @@ namespace NbfcClient.Windows
         #region EventHandlers
 
         #region NotifyIcon
-
-        private void Vm_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(MainViewModel.TrayIcon))
-            {
-                var vm = sender as MainViewModel;
-                notifyIcon.Icon = vm?.TrayIcon;
-            }
-        }
 
         private void window_StateChanged(object sender, EventArgs e)
         {
