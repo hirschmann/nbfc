@@ -61,6 +61,8 @@ namespace NbfcClient.ViewModels
                     configWatcher.EnableRaisingEvents = true;
                 }
             }
+
+            SelectedConfig = this.client.FanControlInfo?.SelectedConfig;
         }
 
         #endregion
@@ -103,16 +105,15 @@ namespace NbfcClient.ViewModels
 
         public string SelectedConfig
         {
-            get
+            get { return this.selectedConfig; }
+            set
             {
-                if (this.selectedConfig == null)
+                if (this.Set(ref this.selectedConfig, value))
                 {
-                    this.selectedConfig = this.client.FanControlInfo?.SelectedConfig;
+                    applyConfigCommand.RaiseCanExecuteChanged();
+                    editConfigCommand.RaiseCanExecuteChanged();
                 }
-
-                return this.selectedConfig;
             }
-            set { this.Set(ref this.selectedConfig, value); }
         }
 
         #endregion
