@@ -27,8 +27,8 @@
                 IsSnapToTickEnabled="True"
                 IsMoveToPointEnabled="True"
                 SmallChange="1"
-                Value="{Binding FanSpeedSliderValue, Delay=500}" 
-                Maximum="{Binding FanSpeedSteps}"/>
+                Value="{Binding CurrentFanSpeedLevel, Delay=500}" 
+                Maximum="{Binding FanSpeedSteps, Converter={StaticResource AddOne}}"/>
             
             <Label 
                 HorizontalAlignment="Right" 

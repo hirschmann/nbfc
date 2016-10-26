@@ -140,6 +140,7 @@
     <Compile Include="UserControls\TrayToolTip.xaml.cs">
       <DependentUpon>TrayToolTip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ValueConverters\AddOneConverter.cs" />
     <Compile Include="ValueConverters\BooleanToInverseConverter.cs" />
     <Compile Include="ValueConverters\BooleanToVisibilityConverter.cs" />
     <Compile Include="ValueConverters\ColorToBrushConverter.cs" />

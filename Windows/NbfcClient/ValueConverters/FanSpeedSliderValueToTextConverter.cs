@@ -21,23 +21,16 @@ namespace NbfcClient.ValueConverters
             double sliderValue = (double)values[0];
             int fanSpeedSteps = (int)values[1];
 
-            if (fanSpeedSteps == 1)
-            {
-                return string.Format(StringFormat, 0);
-            }
-            else
-            {
-                double speed = (sliderValue / (fanSpeedSteps - 1)) * 100;
+            double speed = 0;
 
-                if (speed >= 0 && speed <= 100)
-                {
-                    return string.Format(StringFormat, speed);
-                }
-                else
-                {
-                    return AutoControlledText;
-                }
+            if (fanSpeedSteps != 0)
+            {
+                speed = (sliderValue / fanSpeedSteps) * 100;
             }
+
+            return (speed >= 0 && speed <= 100)
+                ? string.Format(StringFormat, speed)
+                : AutoControlledText;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

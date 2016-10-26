@@ -13,7 +13,7 @@ namespace NbfcClient.ViewModels
 
         private float currentFanSpeed;
         private float targetFanSpeed;
-        private float fanSpeedSliderValue;
+        private float currentFanSpeedLevel;
         private int fanSpeedSteps;
         private bool isAutoFanControlEnabled;
         private string fanDisplayName;
@@ -40,12 +40,12 @@ namespace NbfcClient.ViewModels
 
         #region Properties        
 
-        public float FanSpeedSliderValue
+        public float CurrentFanSpeedLevel
         {
-            get { return this.fanSpeedSliderValue; }
+            get { return this.currentFanSpeedLevel; }
             set
             {
-                if (Set(ref this.fanSpeedSliderValue, value))
+                if (Set(ref this.currentFanSpeedLevel, value))
                 {
                     client.SetTargetFanSpeed(GetFanSpeedPercentage(value), fanIndex);
                 }
@@ -134,25 +134,25 @@ namespace NbfcClient.ViewModels
 
             if (status.AutoControlEnabled)
             {
-                Set(ref fanSpeedSliderValue, status.FanSpeedSteps, nameof(FanSpeedSliderValue));
+                // set the current speed level to (highest possible value) + 1 to indicate autmatic control
+                Set(ref currentFanSpeedLevel, status.FanSpeedSteps + 1, nameof(CurrentFanSpeedLevel));
             }
             else
             {
-                int sliderValue = (int)Math.Round((status.TargetFanSpeed / 100.0) * (status.FanSpeedSteps - 1));
-                Set(ref fanSpeedSliderValue, sliderValue, nameof(FanSpeedSliderValue));
+                int level = (int)Math.Round((status.TargetFanSpeed / 100.0) * status.FanSpeedSteps);
+                Set(ref currentFanSpeedLevel, level, nameof(CurrentFanSpeedLevel));
             }
         }
 
         private float GetFanSpeedPercentage(float sliderValue)
         {
-            if (this.fanSpeedSteps <= 1)
+            if (this.fanSpeedSteps == 0)
             {
                 return 0;
             }
             else
             {
-                // subtract 1 from steps, because last step is reserved for "auto control" setting
-                return (sliderValue / (this.fanSpeedSteps - 1)) * 100.0f;
+                return (sliderValue / this.fanSpeedSteps) * 100.0f;
             }
         }
 

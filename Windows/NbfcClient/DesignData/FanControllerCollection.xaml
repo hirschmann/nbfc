@@ -7,7 +7,7 @@
         TargetFanSpeed="100.0"
         FanSpeedSteps="41" 
         IsAutoFanControlEnabled="True" 
-        FanSpeedSliderValue="41" 
+        CurrentFanSpeedLevel="41" 
         FanDisplayName="CPU fan"/>
 
     <vm:FanControllerViewModel 
@@ -15,7 +15,7 @@
         TargetFanSpeed="0.0" 
         FanSpeedSteps="41" 
         IsAutoFanControlEnabled="True" 
-        FanSpeedSliderValue="41" 
+        CurrentFanSpeedLevel="41" 
         FanDisplayName="GPU fan"/>
      
 </dd:FanControllerViewModelCollection>
