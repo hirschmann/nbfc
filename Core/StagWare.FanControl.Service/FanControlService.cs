@@ -305,10 +305,9 @@ namespace StagWare.FanControl.Service
             for (int i = 0; i < this.fanSpeedSteps.Length; i++)
             {
                 var fanConfig = cfg.FanConfigurations[i];
-
-                // Add 1 extra step for "auto control"
-                this.fanSpeedSteps[i] = 1 + (Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
-                    - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue));
+                
+                this.fanSpeedSteps[i] = Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
+                    - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue);
             }
         }
 
