@@ -55,43 +55,43 @@ namespace NbfcClient.ViewModels
         public int FanIndex
         {
             get { return this.fanIndex; }
-            set { this.Set(ref this.fanIndex, value); }
+            private set { this.Set(ref this.fanIndex, value); }
         }
 
         public string FanDisplayName
         {
             get { return this.fanDisplayName; }
-            set { this.Set(ref this.fanDisplayName, value); }
+            private set { this.Set(ref this.fanDisplayName, value); }
         }
 
         public float TargetFanSpeed
         {
             get { return this.targetFanSpeed; }
-            set { this.Set(ref this.targetFanSpeed, value); }
+            private set { this.Set(ref this.targetFanSpeed, value); }
         }
 
         public float CurrentFanSpeed
         {
             get { return this.currentFanSpeed; }
-            set { this.Set(ref this.currentFanSpeed, value); }
+            private set { this.Set(ref this.currentFanSpeed, value); }
         }
 
         public bool IsAutoFanControlEnabled
         {
             get { return this.isAutoFanControlEnabled; }
-            set { this.Set(ref this.isAutoFanControlEnabled, value); }
+            private set { this.Set(ref this.isAutoFanControlEnabled, value); }
         }
 
         public bool IsCriticalModeEnabled
         {
             get { return this.isCriticalModeEnabled; }
-            set { this.Set(ref this.isCriticalModeEnabled, value); }
+            private set { this.Set(ref this.isCriticalModeEnabled, value); }
         }
 
         public int FanSpeedSteps
         {
             get { return this.fanSpeedSteps; }
-            set { this.Set(ref this.fanSpeedSteps, value); }
+            private set { this.Set(ref this.fanSpeedSteps, value); }
         }
 
         #endregion
