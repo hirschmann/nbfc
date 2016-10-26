@@ -96,9 +96,9 @@ namespace NbfcClient.ViewModels
             {
                 if (this.Set(ref this.isBusy, value))
                 {
-                    applyConfigCommand.RaiseCanExecuteChanged();
-                    editConfigCommand.RaiseCanExecuteChanged();
-                    cancelCommand.RaiseCanExecuteChanged();
+                    ApplyConfigCommand.RaiseCanExecuteChanged();
+                    EditConfigCommand.RaiseCanExecuteChanged();
+                    CancelCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -110,8 +110,8 @@ namespace NbfcClient.ViewModels
             {
                 if (this.Set(ref this.selectedConfig, value))
                 {
-                    applyConfigCommand.RaiseCanExecuteChanged();
-                    editConfigCommand.RaiseCanExecuteChanged();
+                    ApplyConfigCommand.RaiseCanExecuteChanged();
+                    EditConfigCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -173,7 +173,7 @@ namespace NbfcClient.ViewModels
 
         private bool CanExecuteEditConfig()
         {
-            return !IsBusy && File.Exists(ConfigEditorPath);
+            return !IsBusy && !string.IsNullOrEmpty(this.selectedConfig) && File.Exists(ConfigEditorPath);
         }
 
         private async void ApplyConfig()
