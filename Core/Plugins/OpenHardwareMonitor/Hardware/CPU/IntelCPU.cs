@@ -104,7 +104,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                   case 0x0B: // G0
                     tjMax = Floats(90 + 10); break;
                   case 0x0D: // M0
-                    tjMax = Floats(85 + 10); break;
+                    tjMax = Floats(90 + 10); break;
                   default:
                     tjMax = Floats(85 + 10); break;
                 } break;
