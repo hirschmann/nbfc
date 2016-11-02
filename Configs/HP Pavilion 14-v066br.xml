@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP Pavilion 14-v066br</NotebookModel>
+  <Author />
+  <EcPollInterval>290</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>89</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>0</ReadRegister>
+      <WriteRegister>183</WriteRegister>
+      <MinSpeedValue>50</MinSpeedValue>
+      <MaxSpeedValue>100</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>
