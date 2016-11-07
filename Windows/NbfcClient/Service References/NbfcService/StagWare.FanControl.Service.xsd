@@ -4,6 +4,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Enabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="FanStatus" nillable="true" type="tns:ArrayOfFanStatus" />
+      <xs:element minOccurs="0" name="ReadOnly" type="xs:boolean" />
       <xs:element minOccurs="0" name="SelectedConfig" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Temperature" type="xs:int" />
       <xs:element minOccurs="0" name="TemperatureSourceDisplayName" nillable="true" type="xs:string" />

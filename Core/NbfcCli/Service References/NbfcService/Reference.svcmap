@@ -25,6 +25,7 @@
     <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6270e028-c3b4-4b81-8e82-9a8ed8a42918" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/StagWare.FanControl.Service/FanControlService/mex" />
     <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="4e505f58-8740-4aa4-a642-8f7d24ae0ca7" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/StagWare.FanControl.Service/FanControlService/mex" />
     <MetadataFile FileName="StagWare.FanControl.Service.xsd" MetadataType="Schema" ID="4d78d10d-347c-4e43-8c8b-eec72da02359" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/StagWare.FanControl.Service/FanControlService/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="9ca38153-1c20-452c-98e1-146229e29475" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/StagWare.FanControl.Service/FanControlService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

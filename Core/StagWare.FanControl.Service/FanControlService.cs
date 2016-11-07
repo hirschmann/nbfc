@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.ServiceModel;
+using System.Linq;
 
 namespace StagWare.FanControl.Service
 {
@@ -56,7 +57,7 @@ namespace StagWare.FanControl.Service
 
             if (ServiceSettings.Default.Autostart)
             {
-                Start();
+                Start(ServiceSettings.Default.ReadOnly);
             }
         }
 
@@ -85,21 +86,24 @@ namespace StagWare.FanControl.Service
         public FanControlInfo GetFanControlInfo()
         {
             bool initialized = !this.disposed && this.fanControl != null;
-            bool enabled = initialized && this.fanControl.Enabled;
-
             var info = new FanControlInfo()
             {
-                Enabled = enabled,
-                SelectedConfig = selectedConfig,
+                SelectedConfig = this.selectedConfig,
                 Temperature = 0
             };
+
+            if (initialized)
+            {
+                info.Enabled = this.fanControl.Enabled;
+                info.ReadOnly = this.fanControl.ReadOnly;
+            }
 
             if (initialized)
             {
                 info.TemperatureSourceDisplayName = this.fanControl.TemperatureSourceDisplayName;
             }
 
-            if (enabled)
+            if (this.fanControl.Enabled)
             {
                 info.Temperature = (int)Math.Round(fanControl.Temperature);
 
@@ -123,36 +127,37 @@ namespace StagWare.FanControl.Service
             return info;
         }
 
-        public bool Start()
+        public void Start(bool readOnly = true)
         {
-            if (!this.disposed)
+            if (this.disposed)
             {
-                if (this.fanControl == null)
-                {
-                    FanControlConfigV2 cfg;
+                return;
+            }
 
-                    if (TryLoadConfig(out cfg))
+            if (this.fanControl == null)
+            {
+                FanControlConfigV2 cfg;
+
+                if (TryLoadConfig(out cfg))
+                {
+                    InitializeFanSpeedSteps(cfg);
+
+                    if (TryInitializeFanControl(cfg, out this.fanControl))
                     {
-                        InitializeFanSpeedSteps(cfg);
-
-                        if (TryInitializeFanControl(cfg, out this.fanControl))
-                        {
-                            this.fansCount = this.fanControl.FanInformation.Count;
-                            this.fanControl.Start();
-                            ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                            ServiceSettings.Save();
-                        }
+                        this.fansCount = this.fanControl.FanInformation.Count;
+                        ServiceSettings.Default.Autostart = this.fanControl.Enabled;
+                        ServiceSettings.Save();
                     }
-                }
-                else if (!this.fanControl.Enabled)
-                {
-                    this.fanControl.Start();
-                    ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                    ServiceSettings.Save();
                 }
             }
 
-            return ServiceSettings.Default.Autostart;
+            if (this.fanControl != null)
+            {
+                this.fanControl.Start(readOnly);
+                ServiceSettings.Default.Autostart = this.fanControl.Enabled;
+                ServiceSettings.Default.ReadOnly = this.fanControl.ReadOnly;
+                ServiceSettings.Save();
+            }
         }
 
         public void Stop()
@@ -198,6 +203,12 @@ namespace StagWare.FanControl.Service
             }
         }
 
+        public string[] GetConfigNames()
+        {
+            var cfgMan = new FanControlConfigManager(ConfigsDirectory);
+            return cfgMan.ConfigNames.ToArray();
+        }
+
         #endregion
 
         #region IDisposable implementation
@@ -224,11 +235,19 @@ namespace StagWare.FanControl.Service
 
         #region Public Methods
 
-        public void ReInitializeFanControl()
+        public void Pause()
         {
-            if (!this.disposed && this.fanControl != null)
+            if ((this.fanControl != null) && (this.fanControl.Enabled))
             {
-                this.fanControl.ReInitialize();
+                this.fanControl.Start(true);
+            }
+        }
+
+        public void Continue()
+        {
+            if ((this.fanControl != null) && (this.fanControl.Enabled))
+            {
+                this.fanControl.Start(ServiceSettings.Default.ReadOnly);
             }
         }
 
@@ -243,7 +262,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;                
+                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
                 {
@@ -264,7 +283,7 @@ namespace StagWare.FanControl.Service
                 {
                     fanControl.SetTargetFanSpeed(speeds[i], i);
                 }
-                
+
                 success = true;
             }
             finally
@@ -286,10 +305,9 @@ namespace StagWare.FanControl.Service
             for (int i = 0; i < this.fanSpeedSteps.Length; i++)
             {
                 var fanConfig = cfg.FanConfigurations[i];
-
-                // Add 1 extra step for "auto control"
-                this.fanSpeedSteps[i] = 1 + (Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
-                    - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue));
+                
+                this.fanSpeedSteps[i] = Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
+                    - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue);
             }
         }
 

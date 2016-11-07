@@ -37,7 +37,7 @@ namespace NbfcCli
 
             if (opt.Start != null)
             {
-                StartService();
+                StartService(opt.Start.ReadOnly);
             }
             else if (opt.Stop != null)
             {
@@ -72,7 +72,7 @@ namespace NbfcCli
             {
                 PrintServiceStatus(info);
             }
-            
+
             if (printAll || verb.Fan != null)
             {
                 if (info.FanStatus == null)
@@ -105,13 +105,13 @@ namespace NbfcCli
 
         private static void ConfigureService(ConfigVerb verb)
         {
-            if (!string.IsNullOrEmpty(verb.Apply))
+            if (!string.IsNullOrWhiteSpace(verb.Apply))
             {
                 ApplyConfig(verb.Apply);
             }
             else
             {
-                Console.Error.WriteLine("Invalid config name");
+                PrintConfigNames(GetConfigNames());
             }
         }
 
@@ -165,10 +165,34 @@ namespace NbfcCli
             return info;
         }
 
+        private static string[] GetConfigNames()
+        {
+            string[] cfgNames = null;
+
+            Action<FanControlServiceClient> action = client =>
+            {
+                cfgNames = client.GetConfigNames();
+            };
+
+            CallServiceMethod(action);
+
+            return cfgNames;
+        }
+
+        private static void PrintConfigNames(string[] cfgNames)
+        {
+            foreach (string s in cfgNames)
+            {
+                Console.WriteLine(s);
+            }
+        }
+
         private static void PrintServiceStatus(FanControlInfo info)
         {
             var sb = new StringBuilder();
             sb.AppendFormat("Service enabled\t\t: {0}", info.Enabled);
+            sb.AppendLine();
+            sb.AppendFormat("Read-only\t\t: {0}", info.ReadOnly);
             sb.AppendLine();
             sb.AppendFormat("Selected config name\t: {0}", info.SelectedConfig);
             sb.AppendLine();
@@ -197,9 +221,9 @@ namespace NbfcCli
             Console.WriteLine(sb.ToString());
         }
 
-        private static void StartService()
+        private static void StartService(bool readOnly)
         {
-            Action<FanControlServiceClient> action = client => client.Start();
+            Action<FanControlServiceClient> action = client => client.Start(readOnly);
             CallServiceMethod(action);
         }
 

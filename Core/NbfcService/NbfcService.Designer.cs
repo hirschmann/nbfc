@@ -32,6 +32,8 @@
             // NoteBookFanControlService
             // 
             this.CanHandlePowerEvent = true;
+            this.CanPauseAndContinue = true;
+            this.CanShutdown = true;
             this.ServiceName = "NoteBookFanControlService";
 
         }

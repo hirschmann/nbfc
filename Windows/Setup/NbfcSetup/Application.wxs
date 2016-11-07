@@ -159,6 +159,52 @@
               KeyPath="yes"
               Source="$(var.NbfcClient.TargetDir)NoteBookFanControl.exe.config"/>
       </Component>
+      
+      <Component Id="App.GalaSoft.MvvmLight" Guid="254A718B-73A7-470B-A519-6DF09A7CCE7E">
+        <File Id="GalaSoft.MvvmLight.dll" 
+              Name="GalaSoft.MvvmLight.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)GalaSoft.MvvmLight.dll"/>
+      </Component>
+      
+      <Component Id="App.GalaSoft.MvvmLight.Extras" Guid="07882C6A-5704-4C05-8FA4-60B31636D331">
+        <File Id="GalaSoft.MvvmLight.Extras.dll" 
+              Name="GalaSoft.MvvmLight.Extras.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)GalaSoft.MvvmLight.Extras.dll"/>
+      </Component>
+      
+      <Component Id="App.GalaSoft.MvvmLight.Platform" Guid="{66F5434D-64B8-40B0-9348-5315CF7607C0}">
+        <File Id="GalaSoft.MvvmLight.Platform.dll" 
+              Name="GalaSoft.MvvmLight.Platform.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)GalaSoft.MvvmLight.Platform.dll"/>
+      </Component>
+      
+      <Component Id="App.Microsoft.Practices.ServiceLocation" Guid="{26C7DE67-BF58-45C1-A263-4D2F56386CD1}">
+        <File Id="Microsoft.Practices.ServiceLocation.dll" 
+              Name="Microsoft.Practices.ServiceLocation.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)Microsoft.Practices.ServiceLocation.dll"/>
+      </Component>
+        
+      
+      <Component Id="App.System.Windows.Interactivity" Guid="DE046D6D-6981-4680-91F9-A099261FC1EA">
+        <File Id="System.Windows.Interactivity.dll" 
+              Name="System.Windows.Interactivity.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)System.Windows.Interactivity.dll"/>
+      </Component>
 
       <Component Id="App.Hardcodet.Wpf.TaskbarNotification" Guid="076A2E94-119E-4EF7-8131-4C174E90F3BE">
         <File Id="Hardcodet.Wpf.TaskbarNotification.dll" 

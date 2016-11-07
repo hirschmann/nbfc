@@ -1,12 +1,10 @@
-﻿using NbfcClient.Properties;
-using NbfcClient.ViewModels;
+﻿using GalaSoft.MvvmLight.Messaging;
+using NbfcClient.Messages;
+using NbfcClient.Properties;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace NbfcClient.Windows
@@ -14,21 +12,10 @@ namespace NbfcClient.Windows
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IDisposable
+    public partial class MainWindow : Window
     {
-        #region Nested Types
-
-        private static class NativeMethods
-        {
-            [DllImport("user32.dll", SetLastError = true)]
-            public static extern bool DestroyIcon(IntPtr hIcon);
-        }
-
-        #endregion
-
         #region Constants
 
-        private const int UpdateInterval = 3; // seconds
         private const int SaveWindowSizeDelay = 1; // seconds
         private const string StartInTrayParameter = "-tray";
 
@@ -36,10 +23,7 @@ namespace NbfcClient.Windows
 
         #region Private Fields
 
-        private FanControlClient client;
-        private MainWindowViewModel viewModel;
         private DispatcherTimer saveSizeTimer;
-        private TrayIconRenderer renderer;
         private bool close;
         private double lastWidth;
         private double lastHeight;
@@ -55,19 +39,9 @@ namespace NbfcClient.Windows
 
             Application.Current.SessionEnding += Current_SessionEnding;
 
-            this.renderer = new TrayIconRenderer();
-            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
-
             this.saveSizeTimer = new DispatcherTimer();
             this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
             this.saveSizeTimer.Tick += saveSizeTimer_Tick;
-
-            this.viewModel = new MainWindowViewModel();
-            viewModel.PropertyChanged += viewModel_PropertyChanged;
-
-            this.client = new FanControlClient(viewModel, UpdateInterval);
-            this.DataContext = viewModel;
-            client.UpdateViewModel();
 
             this.Height = Settings.Default.WindowHeight;
             this.Width = Settings.Default.WindowWidth;
@@ -78,15 +52,20 @@ namespace NbfcClient.Windows
             if ((DateTime.Today > wbcd.Subtract(new TimeSpan(14, 0, 0, 0)))
                 && (DateTime.Today <= wbcd))
             {
-                this.wbcd.Visibility = System.Windows.Visibility.Visible;
+                this.wbcd.Visibility = Visibility.Visible;
             }
             else
             {
-                this.wbcd.Visibility = System.Windows.Visibility.Collapsed;
+                this.wbcd.Visibility = Visibility.Collapsed;
             }
-        }        
 
-        #region Helper Methods
+            Messenger.Default.Register<OpenSelectConfigDialogMessage>(this, ShowSelectConfigDialog);
+            Messenger.Default.Register<OpenSettingsDialogMessage>(this, ShowSettingsDialog);
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void ProcessCommandLineArgs()
         {
@@ -100,84 +79,21 @@ namespace NbfcClient.Windows
             }
         }
 
-        #endregion
-
-        #endregion
-
-        #region Public Methods
-
-        public void UpdateNotifyIcon()
+        private void ShowSelectConfigDialog(OpenSelectConfigDialogMessage msg)
         {
-            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
-
-            using (var bmp = this.renderer.RenderIcon(viewModel.Temperature.ToString()))
-            {
-                var tmp = notifyIcon.Icon;
-                notifyIcon.Icon = System.Drawing.Icon.FromHandle(bmp.GetHicon());
-
-                if (tmp != null)
-                {
-                    NativeMethods.DestroyIcon(tmp.Handle);
-                    tmp.Dispose();
-                }
-            }
+            var dialog = new SelectConfigWindow() { Owner = this };
+            dialog.ShowDialog();
         }
 
-        #endregion
-
-        #region Private Methods
-
-        private static bool IsPathValid(string path)
+        private void ShowSettingsDialog(OpenSettingsDialogMessage msg)
         {
-            bool isValid = false;
-
-            try
-            {
-                var tmp = new FileInfo(path);
-                isValid = true;
-            }
-            catch
-            {
-            }
-
-            return isValid;
+            var dialog = new SettingsWindow() { Owner = this };
+            dialog.ShowDialog();
         }
 
-        #endregion
+        #endregion      
 
         #region EventHandlers
-
-        #region FanControl
-
-        private void selectConfig_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new SelectConfigWindow(client);
-            window.Owner = this;
-            window.ShowDialog();
-        }
-
-        private void FanControlEnabled_StateChanged(object sender, RoutedEventArgs e)
-        {
-           try
-            {
-                Mouse.OverrideCursor = Cursors.Wait;
-
-                if (this.viewModel.IsServiceAvailable)
-                {
-                    this.client.StartFanControl();
-                }
-                else
-                {
-                    this.client.StopFanControl();
-                }
-            }
-            finally
-            {
-                Mouse.OverrideCursor = null;
-            }
-        }
-
-        #endregion
 
         #region NotifyIcon
 
@@ -216,14 +132,6 @@ namespace NbfcClient.Windows
             }
         }
 
-        void viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "Temperature")
-            {
-                UpdateNotifyIcon();
-            }
-        }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (Settings.Default.CloseToTray && !close)
@@ -231,7 +139,7 @@ namespace NbfcClient.Windows
                 e.Cancel = true;
                 WindowState = System.Windows.WindowState.Minimized;
             }
-        }        
+        }
 
         #endregion
 
@@ -260,7 +168,7 @@ namespace NbfcClient.Windows
 
         #endregion
 
-        #region Settings & Links
+        #region Links
 
         private void donationLink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
@@ -274,32 +182,8 @@ namespace NbfcClient.Windows
             e.Handled = true;
         }
 
-        private void settings_Click(object sender, RoutedEventArgs e)
-        {
-            var wnd = new NbfcClient.Windows.SettingsWindow();
-            wnd.Owner = this;
-
-            wnd.ShowDialog();
-        }
-
         #endregion
-
-        #endregion
-
-        #region IDisposable implementation
-
-        public void Dispose()
-        {
-            if (this.client != null)
-            {
-                this.client.Dispose();
-                this.client = null;
-            }
-
-            GC.SuppressFinalize(this);
-        }
 
         #endregion
     }
-
 }

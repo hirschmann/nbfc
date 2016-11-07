@@ -20,6 +20,7 @@ namespace OpenHardwareMonitor.Hardware.LPC {
     private readonly byte revision;
 
     private readonly Chip chip;
+    private readonly LPCPort lpcPort;
 
     private readonly bool isNuvotonVendor;
 
@@ -183,11 +184,35 @@ namespace OpenHardwareMonitor.Hardware.LPC {
       BYTE_TEMP = 22
     }
 
-    public NCT677X(Chip chip, byte revision, ushort port) {
+    public NCT677X(Chip chip, byte revision, ushort port, LPCPort lpcPort) 
+  {
       this.chip = chip;
       this.revision = revision;
       this.port = port;
+      this.lpcPort = lpcPort;
 
+      if (chip == LPC.Chip.NCT610X) {
+        VENDOR_ID_HIGH_REGISTER = 0x80FE;
+        VENDOR_ID_LOW_REGISTER = 0x00FE;  
+
+        FAN_PWM_OUT_REG = new ushort[] { 0x04A, 0x04B, 0x04C };
+        FAN_PWM_COMMAND_REG = new ushort[] { 0x119, 0x129, 0x139 };
+        FAN_CONTROL_MODE_REG = new ushort[] { 0x113, 0x123, 0x133 };
+
+        vBatMonitorControlRegister = 0x0318;
+      } else {
+        VENDOR_ID_HIGH_REGISTER = 0x804F;
+        VENDOR_ID_LOW_REGISTER = 0x004F;  
+
+        FAN_PWM_OUT_REG = new ushort[] { 
+          0x001, 0x003, 0x011, 0x013, 0x015, 0x017 };
+        FAN_PWM_COMMAND_REG = new ushort[] { 
+          0x109, 0x209, 0x309, 0x809, 0x909, 0xA09 };
+        FAN_CONTROL_MODE_REG = new ushort[] { 
+          0x102, 0x202, 0x302, 0x802, 0x902, 0xA02 };
+
+        vBatMonitorControlRegister = 0x005D;
+      }
 
       this.isNuvotonVendor = IsNuvotonVendor();
 
@@ -411,12 +436,27 @@ namespace OpenHardwareMonitor.Hardware.LPC {
     public float?[] Fans { get { return fans; } }
     public float?[] Controls { get { return controls; } }
 
+    private void DisableIOSpaceLock() {
+      if (chip != Chip.NCT6791D)
+        return;
+
+      // the lock is disabled already if the vendor ID can be read
+      if (IsNuvotonVendor())
+        return;
+
+      lpcPort.WinbondNuvotonFintekEnter();
+      lpcPort.NuvotonDisableIOSpaceLock();
+      lpcPort.WinbondNuvotonFintekExit();
+    }
+
     public void Update() {
       if (!isNuvotonVendor)
         return;
 
       if (!Ring0.WaitIsaBusMutex(10))
         return;
+
+      DisableIOSpaceLock();
 
       for (int i = 0; i < voltages.Length; i++) {
         float value = 0.008f * ReadByte(voltageRegisters[i]);

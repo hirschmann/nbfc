@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -38,7 +33,7 @@ namespace NbfcClient
 
         public TrayIconRenderer()
         {
-            this.iconSize = System.Windows.Forms.SystemInformation.IconSize.Height / 2;
+            this.iconSize = System.Windows.Forms.SystemInformation.SmallIconSize.Width;
             double scalingFactor = this.iconSize / DefaultTrayIconSize;
             this.fontSize = DefaultTrayFontSize * scalingFactor;
             this.foreground = new SolidColorBrush(Colors.White);
@@ -122,7 +117,7 @@ namespace NbfcClient
 
         #region Public Methods
 
-        public System.Drawing.Bitmap RenderIcon(string iconText)
+        public BitmapSource RenderIcon(string iconText)
         {
             var text = new FormattedText(
                 iconText,
@@ -143,20 +138,15 @@ namespace NbfcClient
                 TrayIconDPI,
                 TrayIconDPI,
                 PixelFormats.Default);
-
-            target.Clear();
+                        
             target.Render(drawingVisual);
 
-            var enc = new PngBitmapEncoder();
-            enc.Frames.Add(BitmapFrame.Create(target));
-
-            using (var ms = new MemoryStream())
+            if (target.CanFreeze)
             {
-                enc.Save(ms);
-                ms.Position = 0;
-
-                return (System.Drawing.Bitmap)System.Drawing.Bitmap.FromStream(ms);
+                target.Freeze();
             }
+
+            return target;
         }
 
         #endregion

@@ -5,5 +5,5 @@
     FanSpeedSteps="41" 
     IsAutoFanControlEnabled="True" 
     FanDisplayName="CPU fan" 
-    FanSpeedSliderValue="41"/>
+    CurrentFanSpeedLevel="41"/>
 

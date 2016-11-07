@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.ServiceModel;
 
 namespace StagWare.FanControl.Service
 {
     [ServiceContract]
     public interface IFanControlService
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void SetTargetFanSpeed(float value, int fanIndex);
 
         [OperationContract]
         FanControlInfo GetFanControlInfo();
 
         [OperationContract]
-        bool Start();
+        void Start(bool readOnly);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void Stop();
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void SetConfig(string uniqueConfigId);
 
-        //TODO?: Add GetConfigNames()
+        [OperationContract]
+        string[] GetConfigNames();
     }
 }

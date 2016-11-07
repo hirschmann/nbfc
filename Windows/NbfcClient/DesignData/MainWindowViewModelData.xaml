@@ -1,10 +1,10 @@
-﻿<vm:MainWindowViewModel 
+﻿<vm:MainViewModel 
     xmlns:vm="clr-namespace:NbfcClient.ViewModels"
     xmlns:dd="clr-namespace:NbfcClient.DesignData"
                         
     Temperature="50"
     TemperatureSourceName="CPU/HDD"
-    IsServiceAvailable="True" 
+    IsServiceEnabled="True" 
     SelectedConfig="HP ProBook 6465b" 
     Version="1.2.3"/>
     

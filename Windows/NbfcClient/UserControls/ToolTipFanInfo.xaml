@@ -21,27 +21,22 @@
             Height="2" 
             Margin="10,26,10,0" 
             VerticalAlignment="Top"/>
-        
+
         <Label
-            x:Name="text" 
+            x:Name="text"
+            Content="{Binding FanDisplayName}"
             Margin="10,2,10,0" 
             VerticalAlignment="Top" 
             Foreground="#FF3C3C3C" 
-            FontWeight="Bold">
-            
-            <MultiBinding Converter="{StaticResource displayNameConverter}">
-                <Binding Path="FanDisplayName"/>
-                <Binding Path="FanIndex"/>
-            </MultiBinding>
-        </Label>
-        
+            FontWeight="Bold" />
+
         <Label
             ContentStringFormat="Target fan speed:  {0}" 
             Margin="10,34,10,0" 
             VerticalAlignment="Top" 
             Foreground="#FF3C3C3C">
             
-            <MultiBinding Converter="{StaticResource fanSpeedConverter}">
+            <MultiBinding Converter="{StaticResource FanSpeedToString}">
                 <Binding Path="TargetFanSpeed"/>
                 <Binding Path="IsAutoFanControlEnabled"/>
                 <Binding Path="IsCriticalModeEnabled" />

@@ -12,5 +12,13 @@ namespace NbfcCli.CommandLineOptions
             Action = ParseAction.Store, 
             Description = "Load and apply a config")]
         public string Apply { get; set; }
+
+        [MutuallyExclusiveGroup("option")]
+        [NamedArgumentEx(
+            'l',
+            "list",
+            Action = ParseAction.StoreTrue,
+            Description = "List all available configs")]
+        public bool List { get; set; }
     }
 }

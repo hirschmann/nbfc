@@ -8,8 +8,10 @@
     Width="350" 
     ResizeMode="NoResize" 
     WindowStartupLocation="CenterOwner" 
-    Icon="/NoteBookFanControl;component/fan.ico">
-
+    Icon="/NoteBookFanControl;component/fan.ico"
+    
+    DataContext="{Binding SelectConfig, Source={StaticResource ViewModelLocator}}">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -28,43 +30,50 @@
                 Margin="10,-2,0,0"/>
 
             <Button
-                x:Name="edit" 
-                Content="Edit" 
+                Content="Edit"
+                Command="{Binding EditConfigCommand}"                
                 DockPanel.Dock="Right"
         	    Margin="0,0,10,0"
                 Width="60" 
-                Height="22"                
-                Click="edit_Click"/>
+                Height="22"/>
 
-            <ComboBox 
-                x:Name="configSelector"
+            <ComboBox
+                ItemsSource="{Binding AvailableConfigs}"
+                SelectedItem="{Binding SelectedConfig}"
+                IsEnabled="{Binding IsBusy, Converter={StaticResource BoolToInverse}}"
                 DockPanel.Dock="Right"
                 Height="22"
                 Margin="10,0,10,0"/>
         </DockPanel>
 
         <Button
-            x:Name="cancel" 
-            Content="Cancel" 
+            Content="Cancel"
+            Command="{Binding CancelCommand}"
             HorizontalAlignment="Left"
             VerticalAlignment="Center" 
             Margin="3,0,0,0"            
             Width="75" 
             Height="22"             
             Grid.Row="1" 
-            Grid.Column="1"
-            Click="cancel_Click" />
+            Grid.Column="1"/>
 
         <Button
-            x:Name="apply" 
             Content="Apply"
+            Command="{Binding ApplyConfigCommand}"            
             VerticalAlignment="Center" 
             HorizontalAlignment="Right"
             Margin="0,0,3,0"
             Width="75" 
             Height="22"             
             Grid.Row="1" 
-            Grid.Column="0"
-            Click="apply_Click" />
+            Grid.Column="0"/>
+
+        <ProgressBar
+            Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}"
+            IsIndeterminate="True"
+            Height="6"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Bottom" />
     </Grid>
 </Window>
