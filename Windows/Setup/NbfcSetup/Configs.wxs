@@ -80,17 +80,23 @@
             <Component Id="cmpA50D9BE7DF10581FA7954E815E9CF500" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil5D45BE6ABB7404ED8605C85D7682E714" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V5-572G.xml" />
             </Component>
-            <Component Id="cmp118250EDE7C6CECD602C31103ABA27CC" Directory="ConfigsFolder" Guid="*">
-                <File Id="fil5A926D948CA9771165DA8A992297AEB9" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-591 V15 Nitro.xml" />
+            <Component Id="cmpE2705FC97CB36E5D93C4FF02AC115131" Directory="ConfigsFolder" Guid="*">
+                <File Id="filEDA83F46A0CB4FA222352177AC8D055B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-572G V15 Nitro BE.xml" />
             </Component>
-            <Component Id="cmp5C25A07B5A5BC87DBE84EB35EAD7ADCC" Directory="ConfigsFolder" Guid="*">
-                <File Id="filA8A16B1603D94B444A8CEE92349D1681" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-791G V17 Nitro Black Edition.xml" />
+            <Component Id="cmpD71B3707DA36020BF8C994F0B25BD1A3" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil91F3B103ED5081F45B57746C04AB3C0B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-591G V15 Nitro BE.xml" />
             </Component>
-            <Component Id="cmpEA06644CE7017C8E41291E55F4105805" Directory="ConfigsFolder" Guid="*">
-                <File Id="fil065697B36A35FCBBD49A2A833495EC83" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-792G V17 Nitro.xml" />
+            <Component Id="cmp7F52AFA445F037992C568FF06D12F247" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil12DCD6D52E1B3771094E378540864DB3" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-791G V17 Nitro BE.xml" />
+            </Component>
+            <Component Id="cmp16692EB08D24F84CEDD84C1CD3218398" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil954B4F9894B5B46CFB69A1B4C7AB68D1" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire VN7-792G V17 Nitro BE.xml" />
             </Component>
             <Component Id="cmpF221075C8F48F060A7D6FD557F40D8A1" Directory="ConfigsFolder" Guid="*">
                 <File Id="filAC40B425A9D97AB6920197591096776B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Extensa 5220.xml" />
+            </Component>
+            <Component Id="cmp72641762B764DB62A720700BEF406E99" Directory="ConfigsFolder" Guid="*">
+                <File Id="filD05B7F81ECF75D2241F8CDCF3A12CB12" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Extensa 5630Z.xml" />
             </Component>
             <Component Id="cmp70459DCB1319EED2BDDF79ABA31E23CF" Directory="ConfigsFolder" Guid="*">
                 <File Id="filE0D8B8B54ACEC48F250622548F93B828" KeyPath="yes" Source="$(var.ConfigsDir)\Acer LT-10Q.xml" />
@@ -208,6 +214,9 @@
             </Component>
             <Component Id="cmp2BD610C894C8593B672B535D14C5C517" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil91223EEF3BB04527921C230C43D5CC61" KeyPath="yes" Source="$(var.ConfigsDir)\HP OMEN Notebook PC 15.xml" />
+            </Component>
+            <Component Id="cmp4DA51E1657FD0AC697AA89A69A3C2DF4" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil71F079994F1A9120F9E26279D1A29ED8" KeyPath="yes" Source="$(var.ConfigsDir)\HP Pavilion 14-v066br.xml" />
             </Component>
             <Component Id="cmpE9A0042F8ACCD0783A87349402283971" Directory="ConfigsFolder" Guid="*">
                 <File Id="filA65C00051115509D0FBC1F644A406278" KeyPath="yes" Source="$(var.ConfigsDir)\HP Pavilion dv6 6190.xml" />
