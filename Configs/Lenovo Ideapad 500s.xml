@@ -1,20 +1,22 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Lenovo Ideapad 500s</NotebookModel>
-  <EcPollInterval>1000</EcPollInterval>
+  <NotebookModel>Ideapad 500S</NotebookModel>
+  <Author />
+  <EcPollInterval>1500</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>85</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
-      <ReadRegister>176</ReadRegister>
-      <WriteRegister>176</WriteRegister>
-      <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>100</MaxSpeedValue>
+      <ReadRegister>149</ReadRegister>
+      <WriteRegister>148</WriteRegister>
+      <MinSpeedValue>255</MinSpeedValue>
+      <MaxSpeedValue>116</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>false</ResetRequired>
-      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>116</FanSpeedResetValue>
+      <FanDisplayName />
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
@@ -22,23 +24,34 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>56</UpThreshold>
-          <DownThreshold>46</DownThreshold>
-          <FanSpeed>51</FanSpeed>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>58</DownThreshold>
+          <FanSpeed>46.6666679</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>66</UpThreshold>
-          <DownThreshold>55</DownThreshold>
-          <FanSpeed>55</FanSpeed>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>68</DownThreshold>
+          <FanSpeed>66.6666641</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>73</UpThreshold>
-          <DownThreshold>61</DownThreshold>
-          <FanSpeed>70</FanSpeed>
+          <UpThreshold>85</UpThreshold>
+          <DownThreshold>78</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
     </FanConfiguration>
   </FanConfigurations>
-  <RegisterWriteConfigurations />
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>147</Register>
+      <Value>20</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>4</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <Description>Enable manual EC control</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
 </FanControlConfigV2>
