@@ -212,8 +212,8 @@ namespace ConfigEditor.Windows
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
-                Filter = string.Format("NBFC config file V1(*.{0})|*.{0}", e.ViewModel.ConfigFileExtension),
-                DefaultExt = e.ViewModel.ConfigFileExtension,
+                Filter = "NBFC config file V2(*.xml)|*.xml|NBFC config file V1(*.config)|*.config",
+                DefaultExt = "xml",
                 Multiselect = false,
                 Title = "Please select a config file"
             };
