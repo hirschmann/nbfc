@@ -109,6 +109,10 @@ namespace NbfcCli
             {
                 ApplyConfig(verb.Apply);
             }
+            else if (!string.IsNullOrWhiteSpace(verb.Set))
+            {
+                SetConfig(verb.Set);
+            }
             else
             {
                 PrintConfigNames(GetConfigNames());
@@ -146,6 +150,17 @@ namespace NbfcCli
         }
 
         private static void ApplyConfig(string configName)
+        {
+            Action<FanControlServiceClient> action = client =>
+            {
+                client.SetConfig(configName);
+                client.Start(false);
+            };
+
+            CallServiceMethod(action);
+        }
+
+        private static void SetConfig(string configName)
         {
             Action<FanControlServiceClient> action = client => client.SetConfig(configName);
             CallServiceMethod(action);
