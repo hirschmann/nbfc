@@ -132,10 +132,27 @@ namespace NbfcCli
 
             if (verb.Auto || float.TryParse(verb.Speed, out speed))
             {
-                foreach (int idx in indices)
+                CallServiceMethod(client =>
                 {
-                    SetFanSpeed(speed, idx);
-                }
+                    foreach (int idx in indices)
+                    {
+                        try
+                        {
+                            client.SetTargetFanSpeed(speed, idx);
+                        }
+                        catch (Exception e)
+                        {
+                            string msg = "Could not set fan speed";
+
+                            if (!string.IsNullOrWhiteSpace(e.Message))
+                            {
+                                msg += $": {e.Message}";
+                            }
+
+                            Console.WriteLine(msg);
+                        }
+                    }
+                });
             }
             else
             {
@@ -143,39 +160,28 @@ namespace NbfcCli
             }
         }
 
-        private static void SetFanSpeed(float speed, int index)
-        {
-            Action<FanControlServiceClient> action = client => client.SetTargetFanSpeed(speed, index);
-            CallServiceMethod(action);
-        }
-
         private static void ApplyConfig(string configName)
         {
-            Action<FanControlServiceClient> action = client =>
+            CallServiceMethod(client =>
             {
                 client.SetConfig(configName);
                 client.Start(false);
-            };
-
-            CallServiceMethod(action);
+            });
         }
 
         private static void SetConfig(string configName)
         {
-            Action<FanControlServiceClient> action = client => client.SetConfig(configName);
-            CallServiceMethod(action);
+            CallServiceMethod(client => client.SetConfig(configName));
         }
 
         private static FanControlInfo GetFanControlInfo()
         {
             FanControlInfo info = null;
 
-            Action<FanControlServiceClient> action = client =>
+            CallServiceMethod(client =>
             {
                 info = client.GetFanControlInfo();
-            };
-
-            CallServiceMethod(action);
+            });
 
             return info;
         }
@@ -184,12 +190,10 @@ namespace NbfcCli
         {
             string[] cfgNames = null;
 
-            Action<FanControlServiceClient> action = client =>
+            CallServiceMethod(client =>
             {
                 cfgNames = client.GetConfigNames();
-            };
-
-            CallServiceMethod(action);
+            });
 
             return cfgNames;
         }
@@ -238,14 +242,12 @@ namespace NbfcCli
 
         private static void StartService(bool readOnly)
         {
-            Action<FanControlServiceClient> action = client => client.Start(readOnly);
-            CallServiceMethod(action);
+            CallServiceMethod(client => client.Start(readOnly));
         }
 
         private static void StopService()
         {
-            Action<FanControlServiceClient> action = client => client.Stop();
-            CallServiceMethod(action);
+            CallServiceMethod(client => client.Stop());
         }
 
         private static void CallServiceMethod(Action<FanControlServiceClient> action)
