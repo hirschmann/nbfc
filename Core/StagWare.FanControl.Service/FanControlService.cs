@@ -197,8 +197,6 @@ namespace StagWare.FanControl.Service
                         this.fanControl.Dispose();
                         this.fanControl = null;
                     }
-
-                    Start();
                 }
             }
         }
