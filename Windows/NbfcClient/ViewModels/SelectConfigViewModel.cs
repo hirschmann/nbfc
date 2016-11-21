@@ -182,7 +182,11 @@ namespace NbfcClient.ViewModels
 
             try
             {
-                await Task.Factory.StartNew(() => client.SetConfig(this.selectedConfig));
+                await Task.Factory.StartNew(() =>
+                {
+                    client.SetConfig(this.selectedConfig);
+                    client.Start(true);
+                });
 
                 var refreshMsg = new ReloadFanControlInfoMessage(true);
                 Messenger.Default.Send(refreshMsg);
