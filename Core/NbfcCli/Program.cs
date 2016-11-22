@@ -32,7 +32,8 @@ namespace NbfcCli
         private static void ParseArgs(string[] args)
         {
             var opt = new Verbs();
-            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, new VerbsHelpGenerator());
+            var helpGen = new VerbsHelpGenerator();
+            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, helpGen);
             parser.StrictParse(args);
 
             if (opt.Start != null)
@@ -54,6 +55,10 @@ namespace NbfcCli
             else if (opt.Status != null)
             {
                 PrintStatus(opt.Status);
+            }
+            else
+            {
+                Console.WriteLine(helpGen.GetUsage());
             }
         }
 
