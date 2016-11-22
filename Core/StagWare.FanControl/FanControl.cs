@@ -297,14 +297,6 @@ namespace StagWare.FanControl
             }
         }
 
-        public void ReInitialize()
-        {
-            if (this.Enabled)
-            {
-                InitializeRegisterWriteConfigurations();
-            }
-        }
-
         #endregion
 
         #region Protected Methods
