@@ -10,18 +10,18 @@ branches:
 
 install:
   - cinst wixtoolset -version 3.10.3.3007
-  
+
 before_build:
   - nuget restore
-  
+
 build:
   project: NoteBookFanControl.sln
-  
+
 artifacts:
   - path: Windows\Setup\NbfcBootstrapper\bin\Release\NoteBookFanControl.setup.exe
     name: NbfcSetup
     type: file
-	
+
 deploy:
   description: 'This is a BETA build which may not be stable. If you fear bugs or crashes, stick to the stable releases. You have been warned :)'
   provider: GitHub
