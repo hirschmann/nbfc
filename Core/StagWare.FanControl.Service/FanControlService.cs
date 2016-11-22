@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.ServiceModel;
 using System.Linq;
+using System.Threading;
 
 namespace StagWare.FanControl.Service
 {
@@ -154,6 +155,7 @@ namespace StagWare.FanControl.Service
             if (this.fanControl != null)
             {
                 this.fanControl.Start(readOnly);
+
                 ServiceSettings.Default.Autostart = this.fanControl.Enabled;
                 ServiceSettings.Default.ReadOnly = this.fanControl.ReadOnly;
                 ServiceSettings.Save();
@@ -197,8 +199,6 @@ namespace StagWare.FanControl.Service
                         this.fanControl.Dispose();
                         this.fanControl = null;
                     }
-
-                    Start();
                 }
             }
         }
@@ -247,7 +247,31 @@ namespace StagWare.FanControl.Service
         {
             if ((this.fanControl != null) && (this.fanControl.Enabled))
             {
-                this.fanControl.Start(ServiceSettings.Default.ReadOnly);
+                try
+                {
+                    this.fanControl.Start(ServiceSettings.Default.ReadOnly);
+                }
+                catch (TimeoutException)
+                {
+                    Thread.Sleep(3000);
+                    this.fanControl.Start(ServiceSettings.Default.ReadOnly);
+                }
+
+                if (!ServiceSettings.Default.ReadOnly)
+                {
+                    ThreadPool.QueueUserWorkItem(state =>
+                    {
+                        Thread.Sleep(5000);
+
+                        // Retry if current fan speed differs from target fan speed by 10% or more
+                        if (this.fanControl.FanInformation.Any(
+                            x => Math.Abs(x.CurrentFanSpeed - x.TargetFanSpeed) >= 10))
+                        {
+                            this.fanControl.Start(true);
+                            this.fanControl.Start(false);
+                        }
+                    });
+                }
             }
         }
 
@@ -305,7 +329,7 @@ namespace StagWare.FanControl.Service
             for (int i = 0; i < this.fanSpeedSteps.Length; i++)
             {
                 var fanConfig = cfg.FanConfigurations[i];
-                
+
                 this.fanSpeedSteps[i] = Math.Max(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue)
                     - Math.Min(fanConfig.MinSpeedValue, fanConfig.MaxSpeedValue);
             }

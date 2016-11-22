@@ -4,6 +4,15 @@ namespace NbfcCli.CommandLineOptions
 {
     public class StartVerb
     {
+        [MutuallyExclusiveGroup("option")]
+        [NamedArgumentEx(
+            'e',
+            "enabled",
+            Action = ParseAction.StoreTrue,
+            Description = "Start in enabled mode (default)")]
+        public bool Enabled { get; set; }
+
+        [MutuallyExclusiveGroup("option")]
         [NamedArgumentEx(
             'r',
             "readonly",

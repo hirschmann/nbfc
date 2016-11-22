@@ -271,19 +271,42 @@ namespace ConfigEditor.ViewModels
 
                         if (args.Update && vm.IsPathValid)
                         {
-                            FanControlConfig cfg = null;
+                            bool success = false;
 
-                            if (TryLoadFanControlConfigV1(vm.ConfigFilePath, out cfg))
+                            if (vm.ConfigFilePath.EndsWith(".config"))
                             {
-                                string cfgName = cfg.UniqueId;
+                                FanControlConfig cfg = null;
 
-                                if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
+                                if (TryLoadFanControlConfig(vm.ConfigFilePath, out cfg))
                                 {
-                                    AddOrUpdateConfig(new FanControlConfigV2(cfg), cfgName);
-                                    UpdateViewModel();
+                                    string cfgName = cfg.UniqueId;
+
+                                    if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
+                                    {
+                                        AddOrUpdateConfig(new FanControlConfigV2(cfg), cfgName);
+                                        UpdateViewModel();
+                                        success = true;
+                                    }
                                 }
                             }
-                            else
+                            else if (vm.ConfigFilePath.EndsWith(".xml"))
+                            {
+                                FanControlConfigV2 cfg;
+
+                                if(TryLoadFanControlConfig(vm.ConfigFilePath, out cfg))
+                                {
+                                    string cfgName = Path.GetFileNameWithoutExtension(vm.ConfigFilePath);
+
+                                    if (IsConfigNameValid(cfgName) || TryRequestConfigName(ref cfgName))
+                                    {
+                                        AddOrUpdateConfig(cfg, cfgName);
+                                        UpdateViewModel();
+                                        success = true;
+                                    }
+                                }
+                            }
+                            
+                            if(!success)
                             {
                                 OnImportConfigError(EventArgs.Empty);
                             }
@@ -493,16 +516,17 @@ namespace ConfigEditor.ViewModels
             this.configManager.SelectConfig(this.ActualNotebookModel);
         }
 
-        private bool TryLoadFanControlConfigV1(string configFilePath, out FanControlConfig config)
+        private bool TryLoadFanControlConfig<T>(string configFilePath, out T config)
+            where T : new()
         {
-            config = null;
+            config = default(T);
 
             try
             {
                 using (FileStream fs = new FileStream(configFilePath, FileMode.Open))
                 {
-                    var serializer = new XmlSerializer(typeof(FanControlConfig));
-                    config = (FanControlConfig)serializer.Deserialize(fs);
+                    var serializer = new XmlSerializer(typeof(T));
+                    config = (T)serializer.Deserialize(fs);
                 }
             }
             catch

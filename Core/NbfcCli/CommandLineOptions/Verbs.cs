@@ -13,7 +13,7 @@ namespace NbfcCli.CommandLineOptions
         public StartVerb Start { get; set; }
 
         [Verb("stop", "Stop the service")]
-        public StartVerb Stop { get; set; }
+        public StopVerb Stop { get; set; }
 
         [Verb("status", "Get the service status")]
         public StatusVerb Status { get; set; }

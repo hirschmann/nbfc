@@ -11,7 +11,7 @@ namespace NbfcCli.CommandLineOptions
             'a',
             "all",
             Action = ParseAction.StoreTrue,
-            Description = "Show service and fan status")]
+            Description = "Show service and fan status (default)")]
         public bool All { get; set; }
 
         [MutuallyExclusiveGroup("service")]
