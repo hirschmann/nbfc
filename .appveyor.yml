@@ -16,4 +16,23 @@ before_build:
   
 build:
   project: NoteBookFanControl.sln
+  
+artifacts:
+  - path: Windows\Setup\NbfcBootstrapper\bin\Release\NoteBookFanControl.setup.exe
+    name: NbfcSetup
+    type: file
+	
+deploy:
+  description: 'This is a BETA build which may not be stable. If you fear bugs or crashes, stick to the stable releases. You have been warned :)'
+  provider: GitHub
+  auth_token:
+    secure: ds1x2b7EIPV4+F0VUp8U3qliahWbOwe4nIGX3uYUzM1RtowpfytIz2OPX4i5Js8D
+  artifact: NbfcSetup
+  draft: true
+  prerelease: true
+  on:
+    # release from master branch only
+    branch: master       
+    # deploy on tag push only
+    appveyor_repo_tag: true        
 
