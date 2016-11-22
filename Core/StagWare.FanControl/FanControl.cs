@@ -231,14 +231,14 @@ namespace StagWare.FanControl
                 {
                     if (readOnly)
                     {
-                        this.readOnly = readOnly;
                         ResetEc();
                     }
                     else
                     {
-                        this.readOnly = readOnly;
                         InitializeRegisterWriteConfigurations();                        
                     }
+
+                    this.readOnly = readOnly;
                 }
             }
             else
@@ -252,14 +252,15 @@ namespace StagWare.FanControl
                 {
                     this.ec.Initialize();
                 }
-
-                this.readOnly = readOnly;
+                
                 this.autoEvent.Set();
 
                 if (!readOnly)
                 {
                     InitializeRegisterWriteConfigurations();
                 }
+
+                this.readOnly = readOnly;
 
                 if (this.timer == null)
                 {
