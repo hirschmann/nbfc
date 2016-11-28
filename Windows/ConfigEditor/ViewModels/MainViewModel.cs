@@ -1,14 +1,11 @@
 ﻿using ConfigEditor.Commands;
-using StagWare.BiosInfo;
 using StagWare.FanControl.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace ConfigEditor.ViewModels
@@ -18,7 +15,6 @@ namespace ConfigEditor.ViewModels
         #region Constants
 
         private const string ConfigsDirectoryName = "Configs";
-        private const string NotebookModelValueName = "SystemProductName";
 
         #endregion
 
@@ -444,9 +440,10 @@ namespace ConfigEditor.ViewModels
         {
             this.FanConfigs = new ObservableCollection<FanConfigViewModel>();
             this.RegisterWriteConfigs = new ObservableCollection<RegisterWriteConfigViewModel>();
-            this.ActualNotebookModel = GetNotebookModel();
+            this.configManager = new FanControlConfigManager(GetConfigsDirectoryPath());
+            this.configManager.SelectConfig(this.configManager.DeviceModelName);
+            this.ActualNotebookModel = this.configManager.DeviceModelName;
 
-            InitializeConfigManager();
             UpdateViewModel();
         }
 
@@ -490,30 +487,11 @@ namespace ConfigEditor.ViewModels
 
         #region Private Methods
 
-        private static string GetNotebookModel()
-        {
-            if (BiosInfo.ValueInfo.Any(x => x.ValueName.Equals(
-                NotebookModelValueName, StringComparison.OrdinalIgnoreCase)))
-            {
-                try
-                {
-                    return BiosInfo.GetStringValue(NotebookModelValueName);
-                }
-                catch
-                {
-                }
-            }
-
-            return null;
-        }
-
-        private void InitializeConfigManager()
+        private static string GetConfigsDirectoryPath()
         {
             string path = Assembly.GetExecutingAssembly().Location;
             path = Path.GetDirectoryName(path);
-            path = Path.Combine(path, ConfigsDirectoryName);
-            this.configManager = new FanControlConfigManager(path);
-            this.configManager.SelectConfig(this.ActualNotebookModel);
+            return Path.Combine(path, ConfigsDirectoryName);
         }
 
         private bool TryLoadFanControlConfig<T>(string configFilePath, out T config)
