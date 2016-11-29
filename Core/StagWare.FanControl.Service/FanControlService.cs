@@ -209,6 +209,12 @@ namespace StagWare.FanControl.Service
             return cfgMan.ConfigNames.ToArray();
         }
 
+        public string[] GetRecommendedConfigs()
+        {
+            var cfgMan = new FanControlConfigManager(ConfigsDirectory);
+            return cfgMan.RecommendConfigs().ToArray();
+        }
+
         #endregion
 
         #region IDisposable implementation

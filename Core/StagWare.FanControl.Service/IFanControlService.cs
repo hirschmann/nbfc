@@ -22,5 +22,8 @@ namespace StagWare.FanControl.Service
 
         [OperationContract]
         string[] GetConfigNames();
+
+        [OperationContract]
+        string[] GetRecommendedConfigs();
     }
 }
