@@ -28,7 +28,7 @@ namespace StagWare.FanControl
         public const int MaxWaitHandleTimeout = 500;
         public const int DefaultPollInterval = 3000;
         public const string PluginsFolderDefaultName = "Plugins";
-        public const int AutoFanSpeedPercentage = 101;
+        public const int AutoFanSpeedPercentage = Fan.AutoFanSpeed;
 
         #endregion
 
@@ -45,14 +45,12 @@ namespace StagWare.FanControl
         private readonly ITemperatureFilter tempFilter;
         private readonly ITemperatureMonitor tempMon;
         private readonly IEmbeddedController ec;
-        private readonly FanSpeedManager[] fanSpeedManagers;
-
-        private FanInformation[] fanInfo;
-        private FanInformation[] fanInfoInternal;
+        private readonly Fan[] fans;
 
         private volatile bool readOnly;
         private volatile float temperature;
         private volatile float[] requestedSpeeds;
+        private volatile FanInformation[] fanInfo;
 
         #endregion
 
@@ -117,8 +115,7 @@ namespace StagWare.FanControl
             this.waitHandleTimeout = Math.Min(MaxWaitHandleTimeout, config.EcPollInterval);
             this.requestedSpeeds = new float[config.FanConfigurations.Count];
             this.fanInfo = new FanInformation[config.FanConfigurations.Count];
-            this.fanInfoInternal = new FanInformation[config.FanConfigurations.Count];
-            this.fanSpeedManagers = new FanSpeedManager[config.FanConfigurations.Count];
+            this.fans = new Fan[config.FanConfigurations.Count];
             this.asyncOp = AsyncOperationManager.CreateOperation(null);
 
             for (int i = 0; i < config.FanConfigurations.Count; i++)
@@ -132,7 +129,7 @@ namespace StagWare.FanControl
                 }
 
                 this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);
-                this.fanSpeedManagers[i] = new FanSpeedManager(cfg, config.CriticalTemperature);
+                this.fans[i] = new Fan(this.ec, cfg, config.CriticalTemperature, config.ReadWriteWords);
                 this.requestedSpeeds[i] = AutoFanSpeedPercentage;
             }
         }
@@ -235,7 +232,7 @@ namespace StagWare.FanControl
                     }
                     else
                     {
-                        InitializeRegisterWriteConfigurations();                        
+                        InitializeRegisterWriteConfigurations();
                     }
 
                     this.readOnly = readOnly;
@@ -252,7 +249,7 @@ namespace StagWare.FanControl
                 {
                     this.ec.Initialize();
                 }
-                
+
                 this.autoEvent.Set();
 
                 if (!readOnly)
@@ -322,10 +319,24 @@ namespace StagWare.FanControl
             {
                 try
                 {
-                    // Read CPU temperature before the call to UpdateEc(),
-                    // because both methods try to aquire ISA bus mutex
-                    this.temperature = (float)GetTemperature();
-                    UpdateEc();
+                    // We don't know which locks the plugins try to acquire internally,
+                    // therefore never try to access tempMon after calling ec.AcquireLock()
+                    double temp = this.tempMon.GetTemperature();
+                    this.temperature = (float)this.tempFilter.FilterTemperature(temp);
+
+                    if (this.ec.AcquireLock(EcTimeout))
+                    {
+                        try
+                        {
+                            UpdateEc(this.temperature);
+                        }
+                        finally
+                        {
+                            this.ec.ReleaseLock();
+                        }
+
+                        asyncOp.Post(args => OnEcUpdated(), null);
+                    }
                 }
                 finally
                 {
@@ -334,26 +345,55 @@ namespace StagWare.FanControl
             }
         }
 
-        private void UpdateEc()
+        private void UpdateEc(float temperature)
         {
-            if (this.ec.AcquireLock(EcTimeout))
+            // Re-init if current fan speeds are off by more than 15%
+            bool reInitRequired = false;
+            var speeds = new float[this.fans.Length];
+
+            for (int i = 0; i < speeds.Length; i++)
             {
-                try
-                {
-                    if (!readOnly)
-                    {
-                        ApplyRegisterWriteConfigurations();
-                    }
+                speeds[i] = this.fans[i].GetCurrentSpeed();
 
-                    UpdateFanSpeeds();
-                }
-                finally
+                if (Math.Abs(speeds[i] - this.fans[i].TargetSpeed) > 15)
                 {
-                    this.ec.ReleaseLock();
+                    reInitRequired = true;
                 }
-
-                asyncOp.Post((object args) => OnEcUpdated(), null);
             }
+
+            if (!readOnly)
+            {
+                ApplyRegisterWriteConfigurations(reInitRequired);
+            }
+
+            // Set requested fan speeds
+            for (int i = 0; i < this.fans.Length; i++)
+            {
+                float speed = Thread.VolatileRead(ref this.requestedSpeeds[i]);
+                this.fans[i].SetTargetSpeed(speed, temperature, readOnly);
+            }
+
+            // Update fanInfo
+            this.fanInfo = GetFanInformation();
+        }
+
+        private FanInformation[] GetFanInformation()
+        {
+            var info = new FanInformation[this.fans.Length];
+
+            for (int i = 0; i < this.fans.Length; i++)
+            {
+                this.fans[i].GetCurrentSpeed();
+
+                info[i] = new FanInformation(
+                    this.fans[i].TargetSpeed,
+                    this.fans[i].CurrentSpeed,
+                    this.fans[i].AutoControlEnabled,
+                    this.fans[i].CriticalModeEnabled,
+                    this.config.FanConfigurations[i].FanDisplayName);
+            }
+
+            return info;
         }
 
         private void StopFanControlCore()
@@ -383,50 +423,7 @@ namespace StagWare.FanControl
                     ResetEc(true);
                 }
             }
-        }
-
-        private void UpdateFanSpeeds()
-        {
-            for (int i = 0; i < this.fanSpeedManagers.Length; i++)
-            {
-                float speed = Thread.VolatileRead(ref this.requestedSpeeds[i]);
-                this.fanSpeedManagers[i].UpdateFanSpeed(speed, this.temperature);
-
-                if (!readOnly)
-                {
-                    WriteValue(
-                        this.config.FanConfigurations[i].WriteRegister,
-                        this.fanSpeedManagers[i].FanSpeedValue,
-                        this.config.ReadWriteWords);
-                }
-            }
-
-            UpdateFanInformation();
-        }
-
-        private void UpdateFanInformation()
-        {
-            for (int i = 0; i < this.fanSpeedManagers.Length; i++)
-            {
-                FanSpeedManager speedMan = this.fanSpeedManagers[i];
-                FanConfiguration fanCfg = this.config.FanConfigurations[i];
-
-                int speedVal = GetFanSpeedValue(
-                    fanCfg.ReadRegister,
-                    speedMan.MinSpeedValueReadAbs,
-                    speedMan.MaxSpeedValueReadAbs,
-                    this.config.ReadWriteWords);
-
-                this.fanInfoInternal[i] = new FanInformation(
-                    speedMan.FanSpeedPercentage,
-                    speedMan.FanSpeedToPercentage(speedVal),
-                    speedMan.AutoControlEnabled,
-                    speedMan.CriticalModeEnabled,
-                    fanCfg.FanDisplayName);
-            }
-
-            this.fanInfoInternal = Interlocked.Exchange(ref this.fanInfo, this.fanInfoInternal);
-        }
+        }        
 
         private void InitializeRegisterWriteConfigurations()
         {
@@ -465,47 +462,24 @@ namespace StagWare.FanControl
                 {
                     if (initializing || cfg.WriteOccasion == RegisterWriteOccasion.OnWriteFanSpeed)
                     {
-                        ApplyRegisterWriteConfig(cfg.Value, cfg.Register, cfg.WriteMode);
+                        ApplyRegisterWriteConfig((byte)cfg.Value, (byte)cfg.Register, cfg.WriteMode);
                     }
                 }
             }
         }
 
-        private void ApplyRegisterWriteConfig(int value, int register, RegisterWriteMode mode)
+        private void ApplyRegisterWriteConfig(byte value, byte register, RegisterWriteMode mode)
         {
             if (mode == RegisterWriteMode.And)
             {
-                value &= ReadValue(register, false);
+                value &= this.ec.ReadByte(register);
             }
             else if (mode == RegisterWriteMode.Or)
             {
-                value |= ReadValue(register, false);
+                value |= this.ec.ReadByte(register);
             }
 
-            WriteValue(register, value, false);
-        }
-
-        #endregion
-
-        #region R/W EC
-
-        private void WriteValue(int register, int value, bool writeWord)
-        {
-            if (writeWord)
-            {
-                this.ec.WriteWord((byte)register, (ushort)value);
-            }
-            else
-            {
-                this.ec.WriteByte((byte)register, (byte)value);
-            }
-        }
-
-        private int ReadValue(int register, bool readWord)
-        {
-            return readWord
-                ? this.ec.ReadWord((byte)register)
-                : this.ec.ReadByte((byte)register);
+            this.ec.WriteByte(register, value);
         }
 
         #endregion
@@ -566,12 +540,9 @@ namespace StagWare.FanControl
 
         private void ResetFans()
         {
-            foreach (FanConfiguration cfg in this.config.FanConfigurations)
+            foreach (Fan fan in this.fans)
             {
-                if (cfg.ResetRequired)
-                {
-                    WriteValue(cfg.WriteRegister, cfg.FanSpeedResetValue, this.config.ReadWriteWords);
-                }
+                fan.Reset();
             }
         }
 
@@ -581,38 +552,9 @@ namespace StagWare.FanControl
             {
                 if (cfg.ResetRequired)
                 {
-                    ApplyRegisterWriteConfig(cfg.ResetValue, cfg.Register, cfg.ResetWriteMode);
+                    ApplyRegisterWriteConfig((byte)cfg.ResetValue, (byte)cfg.Register, cfg.ResetWriteMode);
                 }
             }
-        }
-
-        #endregion
-
-        #region Get Hardware Infos
-
-        private int GetFanSpeedValue(int readRegister, int minReadValue, int maxReadValue, bool readWriteWords)
-        {
-            int fanSpeed = 0;
-
-
-            // If the value is out of range 3 or more times,
-            // minFanSpeed and/or maxFanSpeed are probably wrong.
-            for (int i = 0; i <= 2; i++)
-            {
-                fanSpeed = ReadValue(readRegister, readWriteWords);
-
-                if ((fanSpeed >= minReadValue) && (fanSpeed <= maxReadValue))
-                {
-                    break;
-                }
-            }
-
-            return fanSpeed;
-        }
-
-        private double GetTemperature()
-        {
-            return this.tempFilter.FilterTemperature(this.tempMon.GetTemperature());
         }
 
         #endregion

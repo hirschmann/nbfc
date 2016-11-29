@@ -51,7 +51,7 @@
     <Compile Include="ArithmeticMeanTemperatureFilter.cs" />
     <Compile Include="FanControl.cs" />
     <Compile Include="FanInformation.cs" />
-    <Compile Include="FanSpeedManager.cs" />
+    <Compile Include="Fan.cs" />
     <Compile Include="ITemperatureFilter.cs" />
     <Compile Include="Plugins\FanControlMetadataAttribute.cs" />
     <Compile Include="Plugins\FanControlPluginLoader.cs" />
