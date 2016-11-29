@@ -284,6 +284,9 @@ namespace NbfcClient.NbfcService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetConfigNames", ReplyAction="http://tempuri.org/IFanControlService/GetConfigNamesResponse")]
         string[] GetConfigNames();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFanControlService/GetRecommendedConfigs", ReplyAction="http://tempuri.org/IFanControlService/GetRecommendedConfigsResponse")]
+        string[] GetRecommendedConfigs();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -335,6 +338,10 @@ namespace NbfcClient.NbfcService {
         
         public string[] GetConfigNames() {
             return base.Channel.GetConfigNames();
+        }
+        
+        public string[] GetRecommendedConfigs() {
+            return base.Channel.GetRecommendedConfigs();
         }
     }
 }

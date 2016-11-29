@@ -73,6 +73,12 @@
   <wsdl:message name="IFanControlService_GetConfigNames_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetConfigNamesResponse" />
   </wsdl:message>
+  <wsdl:message name="IFanControlService_GetRecommendedConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecommendedConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IFanControlService_GetRecommendedConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecommendedConfigsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IFanControlService">
     <wsdl:operation name="SetTargetFanSpeed">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/SetTargetFanSpeed" message="tns:IFanControlService_SetTargetFanSpeed_InputMessage" />
@@ -97,6 +103,10 @@
     <wsdl:operation name="GetConfigNames">
       <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/GetConfigNames" message="tns:IFanControlService_GetConfigNames_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/GetConfigNamesResponse" message="tns:IFanControlService_GetConfigNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecommendedConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFanControlService/GetRecommendedConfigs" message="tns:IFanControlService_GetRecommendedConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFanControlService/GetRecommendedConfigsResponse" message="tns:IFanControlService_GetRecommendedConfigs_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetNamedPipeBinding_IFanControlService" type="tns:IFanControlService">
@@ -149,6 +159,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetConfigNames">
       <soap12:operation soapAction="http://tempuri.org/IFanControlService/GetConfigNames" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRecommendedConfigs">
+      <soap12:operation soapAction="http://tempuri.org/IFanControlService/GetRecommendedConfigs" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
