@@ -25,7 +25,7 @@ namespace StagWare.FanControl
 #endif
 
         public const int EcTimeout = 200;
-        public const int MaxWaitHandleTimeout = 500;
+        public const int MaxLockTimeout = 500;
         public const int DefaultPollInterval = 3000;
         public const string PluginsFolderDefaultName = "Plugins";
         public const int AutoFanSpeedPercentage = Fan.AutoFanSpeed;
@@ -34,12 +34,13 @@ namespace StagWare.FanControl
 
         #region Private Fields
 
-        private AutoResetEvent autoEvent;
+        private readonly object syncRoot = new object();
+
         private Timer timer;
         private AsyncOperation asyncOp;
 
         private readonly int pollInterval;
-        private readonly int waitHandleTimeout;
+        private readonly int lockTimeout;
         private readonly FanControlConfigV2 config;
 
         private readonly ITemperatureFilter tempFilter;
@@ -107,12 +108,11 @@ namespace StagWare.FanControl
             {
                 throw new PlatformNotSupportedException("Could not load a  compatible temperature monitoring plugin");
             }
-
-            this.autoEvent = new AutoResetEvent(false);
+            
             this.tempFilter = tempFilter;
             this.config = (FanControlConfigV2)config.Clone();
             this.pollInterval = config.EcPollInterval;
-            this.waitHandleTimeout = Math.Min(MaxWaitHandleTimeout, config.EcPollInterval);
+            this.lockTimeout = Math.Min(MaxLockTimeout, config.EcPollInterval);
             this.requestedSpeeds = new float[config.FanConfigurations.Count];
             this.fanInfo = new FanInformation[config.FanConfigurations.Count];
             this.fans = new Fan[config.FanConfigurations.Count];
@@ -250,8 +250,6 @@ namespace StagWare.FanControl
                     this.ec.Initialize();
                 }
 
-                this.autoEvent.Set();
-
                 if (!readOnly)
                 {
                     InitializeRegisterWriteConfigurations();
@@ -315,7 +313,7 @@ namespace StagWare.FanControl
 
         private void TimerCallback(object state)
         {
-            if (this.autoEvent.WaitOne(this.waitHandleTimeout))
+            if (Monitor.TryEnter(syncRoot, lockTimeout))
             {
                 try
                 {
@@ -340,7 +338,7 @@ namespace StagWare.FanControl
                 }
                 finally
                 {
-                    this.autoEvent.Set();
+                    Monitor.Exit(syncRoot);
                 }
             }
         }
@@ -400,13 +398,9 @@ namespace StagWare.FanControl
         {
             if (this.Enabled)
             {
-                if (this.autoEvent != null && !this.autoEvent.SafeWaitHandle.IsClosed)
-                {
-                    this.autoEvent.Reset();
-                }
-
                 if (timer != null)
                 {
+                    // Wait until all callbacks have completed and then dispose the timer
                     using (var handle = new EventWaitHandle(false, EventResetMode.ManualReset))
                     {
                         timer.Dispose(handle);
@@ -427,30 +421,32 @@ namespace StagWare.FanControl
 
         private void InitializeRegisterWriteConfigurations()
         {
-            if (!this.autoEvent.WaitOne(waitHandleTimeout))
+            if (Monitor.TryEnter(syncRoot, lockTimeout))
             {
-                throw new TimeoutException("EC initialization failed: Waiting for AutoResetEvent timed out");
-            }
-
-            try
-            {
-                if (!this.ec.AcquireLock(EcTimeout))
-                {
-                    throw new TimeoutException("EC initialization failed: Could not acquire EC lock");
-                }
-
                 try
                 {
-                    ApplyRegisterWriteConfigurations(true);
+                    if (!this.ec.AcquireLock(EcTimeout))
+                    {
+                        throw new TimeoutException("EC initialization failed: Could not acquire EC lock");
+                    }
+
+                    try
+                    {
+                        ApplyRegisterWriteConfigurations(true);
+                    }
+                    finally
+                    {
+                        this.ec.ReleaseLock();
+                    }
                 }
                 finally
                 {
-                    this.ec.ReleaseLock();
+                    Monitor.Exit(syncRoot);
                 }
             }
-            finally
+            else
             {
-                this.autoEvent.Set();
+                throw new TimeoutException("EC initialization failed: Could not enter monitor");
             }
         }
 
@@ -494,11 +490,11 @@ namespace StagWare.FanControl
                 return;
             }
 
-            bool fanControlLockAcquired = this.autoEvent.WaitOne(MaxWaitHandleTimeout * 2);
+            bool fanControlLockAcquired = Monitor.TryEnter(syncRoot, MaxLockTimeout * 2);
 
             if (!fanControlLockAcquired && !force)
             {
-                throw new TimeoutException("EC reset failed: Waiting for AutoResetEvent timed out");
+                throw new TimeoutException("EC reset failed: Could not enter monitor");
             }
 
             try
@@ -533,7 +529,7 @@ namespace StagWare.FanControl
             {
                 if (fanControlLockAcquired)
                 {
-                    this.autoEvent.Set();
+                    Monitor.Exit(syncRoot);
                 }
             }
         }
@@ -571,11 +567,6 @@ namespace StagWare.FanControl
             {
                 this.disposed = true;
                 StopFanControlCore();
-
-                if (this.autoEvent != null)
-                {
-                    this.autoEvent.Dispose();
-                }
 
                 if (this.asyncOp != null)
                 {
