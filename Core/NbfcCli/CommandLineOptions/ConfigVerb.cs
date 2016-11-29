@@ -29,5 +29,13 @@ namespace NbfcCli.CommandLineOptions
             Action = ParseAction.Store, 
             Description = "Set a config and enable fan control")]
         public string Apply { get; set; }
+
+        [MutuallyExclusiveGroup("option")]
+        [NamedArgumentEx(
+            'r',
+            "recommend",
+            Action = ParseAction.StoreTrue,
+            Description = "Recommend configs whcih may work for your device")]
+        public bool Recommend { get; set; }
     }
 }

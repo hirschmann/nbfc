@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.ServiceModel;
 using System.Text;
+using System.Linq;
 
 namespace NbfcCli
 {
@@ -118,9 +119,13 @@ namespace NbfcCli
             {
                 SetConfig(verb.Set);
             }
+            else if (verb.Recommend)
+            {
+                PrintAllLines(GetRecommendedConfigNames());
+            }
             else
             {
-                PrintConfigNames(GetConfigNames());
+                PrintAllLines(GetConfigNames());
             }
         }
 
@@ -203,9 +208,21 @@ namespace NbfcCli
             return cfgNames;
         }
 
-        private static void PrintConfigNames(string[] cfgNames)
+        private static string[] GetRecommendedConfigNames()
         {
-            foreach (string s in cfgNames)
+            string[] cfgNames = null;
+
+            CallServiceMethod(client =>
+            {
+                cfgNames = client.GetRecommendedConfigs();
+            });
+
+            return cfgNames;
+        }
+
+        private static void PrintAllLines(string[] lines)
+        {
+            foreach (string s in lines)
             {
                 Console.WriteLine(s);
             }
