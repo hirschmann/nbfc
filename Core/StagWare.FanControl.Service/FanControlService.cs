@@ -262,22 +262,6 @@ namespace StagWare.FanControl.Service
                     Thread.Sleep(3000);
                     this.fanControl.Start(ServiceSettings.Default.ReadOnly);
                 }
-
-                if (!ServiceSettings.Default.ReadOnly)
-                {
-                    ThreadPool.QueueUserWorkItem(state =>
-                    {
-                        Thread.Sleep(5000);
-
-                        // Retry if current fan speed differs from target fan speed by 10% or more
-                        if (this.fanControl.FanInformation.Any(
-                            x => Math.Abs(x.CurrentFanSpeed - x.TargetFanSpeed) >= 10))
-                        {
-                            this.fanControl.Start(true);
-                            this.fanControl.Start(false);
-                        }
-                    });
-                }
             }
         }
 
