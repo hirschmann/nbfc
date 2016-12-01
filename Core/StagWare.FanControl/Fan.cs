@@ -188,9 +188,8 @@ namespace StagWare.FanControl
             }
             else
             {
-                return (int)Math.Round(
-                    ((percentage / 100.0) * (maxSpeedValueWrite - minSpeedValueWrite))
-                    + minSpeedValueWrite);
+                return (int)Math.Round(minSpeedValueWrite + 
+                    (((maxSpeedValueWrite - minSpeedValueWrite) * percentage) / 100.0));
             }
         }
 
@@ -208,8 +207,8 @@ namespace StagWare.FanControl
                 }
                 else
                 {
-                    return (float)(fanSpeed - minSpeedValueRead)
-                        / (float)(maxSpeedValueRead - minSpeedValueRead) * 100;
+                    return ((float)(fanSpeed - minSpeedValueRead) 
+                        / (maxSpeedValueRead - minSpeedValueRead)) * 100;
                 }
             }
         }
