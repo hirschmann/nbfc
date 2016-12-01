@@ -108,6 +108,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
+      <Name>StagWare.BiosInfo</Name>
+      <Project>{b45bbd0f-9345-4ec8-b70d-8369659da3b4}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Core\StagWare.Configurations\StagWare.FanControl.Configurations.csproj">
       <Name>StagWare.FanControl.Configurations</Name>
       <Project>{eb60ffbc-51f9-42f7-b22b-2200c3f0cb64}</Project>
@@ -143,14 +151,6 @@
     <ProjectReference Include="..\..\NbfcClient\NbfcClient.csproj">
       <Name>NbfcClient</Name>
       <Project>{df818d02-6fbc-44e1-88fa-0d62bd73ca95}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\..\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
-      <Name>StagWare.BiosInfo</Name>
-      <Project>{b45bbd0f-9345-4ec8-b70d-8369659da3b4}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
