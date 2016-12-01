@@ -227,14 +227,14 @@ namespace StagWare.FanControl
         private int ECReadValue()
         {
             return readWriteWords
-                ? this.ec.ReadWord((byte)this.fanConfig.WriteRegister)
-                : this.ec.ReadByte((byte)this.fanConfig.WriteRegister);
+                ? this.ec.ReadWord((byte)this.fanConfig.ReadRegister)
+                : this.ec.ReadByte((byte)this.fanConfig.ReadRegister);
         }
 
         private void HandleCriticalMode(double temperature)
         {
             if (this.CriticalModeEnabled
-                && (temperature < this.criticalTemperature - CriticalTemperatureOffset))
+                && (temperature < (this.criticalTemperature - CriticalTemperatureOffset)))
             {
                 this.CriticalModeEnabled = false;
             }
