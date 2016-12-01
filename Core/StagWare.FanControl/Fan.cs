@@ -114,7 +114,7 @@ namespace StagWare.FanControl
 
         public void SetTargetSpeed(float speed, float temperature, bool readOnly)
         {
-            this.CriticalModeEnabled = temperature < (this.criticalTemperature - CriticalTemperatureOffset);
+            HandleCriticalMode(temperature);
             this.AutoControlEnabled = (speed < 0) || (speed > 100);
 
             if (AutoControlEnabled)
@@ -131,7 +131,9 @@ namespace StagWare.FanControl
                 this.targetFanSpeed = speed;
             }
 
-            int speedValue = PercentageToFanSpeed(this.targetFanSpeed);
+            int speedValue = CriticalModeEnabled
+                ? maxSpeedValueWrite
+                : PercentageToFanSpeed(this.targetFanSpeed);
 
             if (!readOnly)
             {
