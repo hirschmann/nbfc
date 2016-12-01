@@ -112,6 +112,14 @@ namespace NbfcClient.Services
             CallServiceMethod(client => client.SetConfig(uniqueConfigId));
         }
 
+        public string[] GetRecommendedConfigs()
+        {
+            string[] configNames = null;
+            CallServiceMethod(client => configNames = client.GetRecommendedConfigs());
+
+            return configNames;
+        }
+
         #endregion
 
         #endregion
@@ -189,7 +197,7 @@ namespace NbfcClient.Services
 
             fanControlInfo = info;
             OnFanControlStatusChanged(info);
-        }
+        }        
 
         #endregion
     }
