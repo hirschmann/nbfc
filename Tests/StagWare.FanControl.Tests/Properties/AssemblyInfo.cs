@@ -1,17 +1,16 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StagWare.FanControl")]
-[assembly: AssemblyDescription("Fan control library for notebooks")]
+[assembly: AssemblyTitle("StagWare.FanControl.Tests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("StagWare")]
-[assembly: AssemblyProduct("StagWare.FanControl")]
-[assembly: AssemblyCopyright("Copyright © 2012-2016 Stefan Hirschmann")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("StagWare.FanControl.Tests")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6cf02004-dd78-4a26-90df-ee085099e80c")]
+[assembly: Guid("75f46626-9b87-497e-8565-51a5c8798ed4")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -33,8 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.0.0")]
-[assembly: AssemblyFileVersion("2.5.0.0")]
-
-// Internals should be visible to unit test project.
-[assembly: InternalsVisibleTo("StagWare.FanControl.Tests")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
