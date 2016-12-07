@@ -112,7 +112,7 @@ namespace StagWare.FanControl
 
         #region Public Methods
 
-        public void SetTargetSpeed(float speed, float temperature, bool readOnly)
+        public virtual void SetTargetSpeed(float speed, float temperature, bool readOnly)
         {
             HandleCriticalMode(temperature);
             this.AutoControlEnabled = (speed < 0) || (speed > 100);
@@ -141,7 +141,7 @@ namespace StagWare.FanControl
             }
         }
 
-        public float GetCurrentSpeed()
+        public virtual float GetCurrentSpeed()
         {
             int speed = 0;
 
@@ -161,7 +161,7 @@ namespace StagWare.FanControl
             return CurrentSpeed;
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             if (fanConfig.ResetRequired)
             {
