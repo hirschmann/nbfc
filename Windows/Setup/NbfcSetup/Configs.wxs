@@ -122,6 +122,9 @@
             <Component Id="cmpB4BB4E5BC8CB83099B03A0A9027A1C27" Directory="ConfigsFolder" Guid="*">
                 <File Id="filCBB006E4ADC7BAC79366C6E3B864E060" KeyPath="yes" Source="$(var.ConfigsDir)\Asus N56VZ.xml" />
             </Component>
+            <Component Id="cmpFE3504E8D4806C57AACB046435E582F1" Directory="ConfigsFolder" Guid="*">
+                <File Id="filE0FEC7436584123F21564BE602E51AA6" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG G501JW.xml" />
+            </Component>
             <Component Id="cmpAEEA893749B1EFC2738F7B0A6CF95D48" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB15F08FE7FBE418926A58D959BC79F86" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG G751JL.xml" />
             </Component>
@@ -133,6 +136,9 @@
             </Component>
             <Component Id="cmpD1CD78F32CA7EB898718617CE62DE8B7" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB76CDFC28FB4AE25879922AEC4F71DA0" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Vivobook S400CA.xml" />
+            </Component>
+            <Component Id="cmpA4BDD2F09AF018E3BC378E8AB030DA0C" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil71D6886595D57BAEEED131A8E13AED28" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook Flip UX360UAK.xml" />
             </Component>
             <Component Id="cmp263D719CF20BAC188000A77D7ECF1A1E" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1E6993524556085E8372314BD987D137" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX21E.xml" />
@@ -313,6 +319,9 @@
             </Component>
             <Component Id="cmpFF1DEFC7C0BD5D14B525A34786B7E7BB" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF50ACDDD5DBA85F729A08196597FB003" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Yoga 3 14.xml" />
+            </Component>
+            <Component Id="cmpABD01EF5BB0B6D8B5DCAE02BB3B5E226" Directory="ConfigsFolder" Guid="*">
+                <File Id="filFFEE8FA6A7BD4C99C34DB88394E37118" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Yoga 710.xml" />
             </Component>
             <Component Id="cmpF9FCFA89902847E4386F47E15C8AD711" Directory="ConfigsFolder" Guid="*">
                 <File Id="filD0C50735C7648FE83707686325DD8BA1" KeyPath="yes" Source="$(var.ConfigsDir)\Medion Akoya P6612.xml" />
