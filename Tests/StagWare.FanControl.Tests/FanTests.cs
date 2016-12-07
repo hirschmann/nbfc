@@ -167,6 +167,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
                 A.CallTo(() => ec.ReadByte((byte)cfg.ReadRegister)).Returns((byte)cfg.MaxSpeedValue);
 
                 var fan = new Fan(ec, cfg, 100, false);
@@ -187,6 +188,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
                 A.CallTo(() => ec.ReadWord((byte)cfg.ReadRegister)).Returns((ushort)cfg.MaxSpeedValue);
 
                 var fan = new Fan(ec, cfg, 100, true);
@@ -203,6 +205,8 @@ namespace StagWare.FanControl.Tests
             public void CallsWriteByte()
             {
                 var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
+
                 var cfg = new FanConfiguration()
                 {
                     WriteRegister = 123,
@@ -221,6 +225,8 @@ namespace StagWare.FanControl.Tests
             public void CallsWriteWord()
             {
                 var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
+
                 var cfg = new FanConfiguration()
                 {
                     WriteRegister = 123,
