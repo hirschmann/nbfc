@@ -55,83 +55,128 @@ namespace StagWare.FanControl
 
         #endregion
 
-        #region Constructor
+        #region Constructor        
 
-        public FanControl(FanControlConfigV2 config)
-            : this(config, PluginsDirectory)
+        public FanControl(FanControlConfigV2 config) : this(config, PluginsDirectory)
         {
         }
 
-        public FanControl(FanControlConfigV2 config, string pluginsPath) :
-            this(
+        public FanControl(FanControlConfigV2 config, string pluginsDirectory) : this(
             config,
-            new ArithmeticMeanTemperatureFilter(Math.Max(config.EcPollInterval, MinPollInterval)),
-            pluginsPath)
-        { }
+            CreateTemperatureFilter(config),
+            pluginsDirectory)
+        {
+        }
 
-        public FanControl(FanControlConfigV2 config, ITemperatureFilter tempFilter, string pluginsPath)
+        public FanControl(FanControlConfigV2 config, ITemperatureFilter filter, string pluginsDirectory) : this(
+            config, 
+            filter, 
+            LoadPlugin<IEmbeddedController>(pluginsDirectory), 
+            LoadPlugin<ITemperatureMonitor>(pluginsDirectory))
+        {
+        }
+
+        public FanControl(
+            FanControlConfigV2 config,
+            ITemperatureFilter filter,
+            IEmbeddedController ec,
+            ITemperatureMonitor tempMon)
         {
             if (config == null)
             {
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
             }
 
-            if (tempFilter == null)
+            if (filter == null)
             {
-                throw new ArgumentNullException("filter");
+                throw new ArgumentNullException(nameof(filter));
             }
 
-            if (pluginsPath == null)
+            if (ec == null)
             {
-                throw new ArgumentNullException("pluginsPath");
+                throw new ArgumentNullException(nameof(ec));
             }
 
-            if (!Directory.Exists(pluginsPath))
+            if (tempMon == null)
             {
-                throw new DirectoryNotFoundException(pluginsPath + " could not be found.");
+                throw new ArgumentNullException(nameof(tempMon));
             }
 
-            var ecLoader = new FanControlPluginLoader<IEmbeddedController>(pluginsPath);
-            this.ec = ecLoader.FanControlPlugin;
-            this.EmbeddedControllerPluginId = ecLoader.FanControlPluginId;
-
-            if (this.ec == null)
-            {
-                throw new PlatformNotSupportedException("Could not load a compatible EC plugin.");
-            }
-
-            var tempMonloader = new FanControlPluginLoader<ITemperatureMonitor>(pluginsPath);
-            this.tempMon = tempMonloader.FanControlPlugin;
-            this.TemperatureMonitorPluginId = tempMonloader.FanControlPluginId;
-
-            if (this.tempMon == null)
-            {
-                throw new PlatformNotSupportedException("Could not load a  compatible temperature monitoring plugin");
-            }
-            
-            this.tempFilter = tempFilter;
+            this.ec = ec;
+            this.tempMon = tempMon;
+            this.tempFilter = filter;
             this.config = (FanControlConfigV2)config.Clone();
             this.pollInterval = config.EcPollInterval;
-            this.lockTimeout = Math.Min(MaxLockTimeout, config.EcPollInterval);
             this.requestedSpeeds = new float[config.FanConfigurations.Count];
             this.fanInfo = new FanInformation[config.FanConfigurations.Count];
             this.fans = new Fan[config.FanConfigurations.Count];
+            this.lockTimeout = Math.Min(MaxLockTimeout, config.EcPollInterval);
             this.asyncOp = AsyncOperationManager.CreateOperation(null);
 
             for (int i = 0; i < config.FanConfigurations.Count; i++)
             {
-                var cfg = config.FanConfigurations[i];
-                string fanName = cfg.FanDisplayName;
+                var cfg = this.config.FanConfigurations[i];
 
-                if (string.IsNullOrWhiteSpace(fanName))
+                if (string.IsNullOrWhiteSpace(cfg.FanDisplayName))
                 {
-                    fanName = "Fan #" + (i + 1);
+                    cfg.FanDisplayName = "Fan #" + (i + 1);
                 }
 
                 this.fanInfo[i] = new FanInformation(0, 0, true, false, cfg.FanDisplayName);
                 this.fans[i] = new Fan(this.ec, cfg, config.CriticalTemperature, config.ReadWriteWords);
                 this.requestedSpeeds[i] = AutoFanSpeedPercentage;
             }
+        }
+
+        internal FanControl(
+            FanControlConfigV2 config,
+            ITemperatureFilter filter,
+            IEmbeddedController ec,
+            ITemperatureMonitor tempMon,
+            Fan[] fans) : this(config, filter, ec, tempMon)
+        {
+            if (fans == null)
+            {
+                throw new ArgumentNullException(nameof(fans));
+            }
+
+            if (fans.Length != this.fans.Length)
+            {
+                throw new ArgumentException(
+                    "The length must be equal to the number of fan configurations",
+                    nameof(fans));
+            }
+
+            this.fans = fans;
+        }        
+
+        private static T LoadPlugin<T>(string pluginsDirectory) where T : IFanControlPlugin
+        {
+            if (pluginsDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(pluginsDirectory));
+            }
+
+            if (!Directory.Exists(pluginsDirectory))
+            {
+                throw new DirectoryNotFoundException(pluginsDirectory + " could not be found.");
+            }
+
+            var pluginLoader = new FanControlPluginLoader<T>(pluginsDirectory);
+
+            if (pluginLoader.FanControlPlugin == null)
+            {
+                throw new PlatformNotSupportedException(
+                    "Could not load a  plugin which implements " + typeof(T));
+            }
+
+            return pluginLoader.FanControlPlugin;
+        }
+
+        private static ITemperatureFilter CreateTemperatureFilter(FanControlConfigV2 cfg)
+        {
+            int interval = Math.Max(cfg.EcPollInterval, MinPollInterval);
+            return new ArithmeticMeanTemperatureFilter(interval);
         }
 
         #endregion
@@ -163,9 +208,6 @@ namespace StagWare.FanControl
             }
         }
 
-        public string TemperatureMonitorPluginId { get; private set; }
-        public string EmbeddedControllerPluginId { get; private set; }
-
         public float Temperature
         {
             get { return this.temperature; }
@@ -191,14 +233,7 @@ namespace StagWare.FanControl
                 }
                 else
                 {
-                    if (string.IsNullOrWhiteSpace(this.tempMon.TemperatureSourceDisplayName))
-                    {
-                        return this.TemperatureMonitorPluginId;
-                    }
-                    else
-                    {
-                        return this.tempMon.TemperatureSourceDisplayName;
-                    }
+                    return this.tempMon.TemperatureSourceDisplayName;
                 }
             }
         }
@@ -243,11 +278,23 @@ namespace StagWare.FanControl
                 if (!this.tempMon.IsInitialized)
                 {
                     this.tempMon.Initialize();
+
+                    if (!this.tempMon.IsInitialized)
+                    {
+                        throw new PluginInitializationException(
+                            "Could not initialize plugin of type " + nameof(ITemperatureMonitor));
+                    }
                 }
 
                 if (!this.ec.IsInitialized)
                 {
                     this.ec.Initialize();
+
+                    if (!this.ec.IsInitialized)
+                    {
+                        throw new PluginInitializationException(
+                            "Could not initialize plugin of type " + nameof(IEmbeddedController));
+                    }
                 }
 
                 if (!readOnly)
@@ -299,10 +346,7 @@ namespace StagWare.FanControl
 
         protected void OnEcUpdated()
         {
-            if (EcUpdated != null)
-            {
-                EcUpdated(this, new EventArgs());
-            }
+            EcUpdated?.Invoke(this, new EventArgs());
         }
 
         #endregion
@@ -417,7 +461,7 @@ namespace StagWare.FanControl
                     ResetEc(true);
                 }
             }
-        }        
+        }
 
         private void InitializeRegisterWriteConfigurations()
         {

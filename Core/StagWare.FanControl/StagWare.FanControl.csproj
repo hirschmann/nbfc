@@ -59,6 +59,7 @@
     <Compile Include="Plugins\IFanControlPlugin.cs" />
     <Compile Include="Plugins\IFanControlPluginMetadata.cs" />
     <Compile Include="Plugins\ITemperatureMonitor.cs" />
+    <Compile Include="Plugins\PluginInitializationException.cs" />
     <Compile Include="TemperatureThresholdManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
