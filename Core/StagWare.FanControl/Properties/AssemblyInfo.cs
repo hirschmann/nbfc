@@ -38,3 +38,4 @@ using System.Runtime.InteropServices;
 
 // Internals should be visible to unit test project.
 [assembly: InternalsVisibleTo("StagWare.FanControl.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

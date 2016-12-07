@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArithmeticMeanTemperatureFilterTests.cs" />
+    <Compile Include="FanControlTests.cs" />
     <Compile Include="FanTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
