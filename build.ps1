@@ -10,6 +10,6 @@ if(!(test-path .\nuget.exe)) {
 .\nuget.exe restore
 
 # build solution
-& $env:windir\Microsoft.NET\Framework\v4.0.*\msbuild.exe /t:Build /p:Configuration=ReleaseWindows NoteBookFanControl.sln
+& ${env:ProgramFiles(x86)}\MSBuild\14.0\Bin\MSBuild.exe /t:Build /p:Configuration=ReleaseWindows NoteBookFanControl.sln
 
 pop-location
