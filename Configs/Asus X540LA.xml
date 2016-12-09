@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Asus K501LX</NotebookModel>
+  <NotebookModel>Asus K540LA</NotebookModel>
   <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>90</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
@@ -15,7 +15,7 @@
       <MaxSpeedValueRead>255</MaxSpeedValueRead>
       <ResetRequired>false</ResetRequired>
       <FanSpeedResetValue>4</FanSpeedResetValue>
-      <FanDisplayName>left FAN</FanDisplayName>
+      <FanDisplayName>FAN</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
