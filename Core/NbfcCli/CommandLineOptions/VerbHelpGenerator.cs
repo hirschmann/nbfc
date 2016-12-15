@@ -9,7 +9,7 @@ using System.Text;
 
 namespace NbfcCli.CommandLineOptions
 {
-    public class VerbsHelpGenerator : TriggerBase, IHelpGenerator<Verbs>
+    public class VerbsHelpGenerator : TriggerBase, IHelpGenerator
     {
         #region Constructors
 
@@ -38,10 +38,10 @@ namespace NbfcCli.CommandLineOptions
             get { return "HelpGenerator"; }
         }
 
-        public string GetHelp(IParserConfig<Verbs> config)
+        public string GetHelp(IParserConfig config)
         {
             var sb = new StringBuilder();
-            sb.Append(GetUsage());
+            sb.Append(GetUsage(config));
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine("commands:");
@@ -61,15 +61,15 @@ namespace NbfcCli.CommandLineOptions
             return sb.ToString();
         }        
 
-        public string GetUsage()
+        public string GetUsage(IParserConfig config)
         {
             var attrib = typeof(Verbs).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
-                .FirstOrDefault() as ApplicationInfoAttribute;
+                .FirstOrDefault() as ApplicationInfoAttribute;            
 
             return string.Format("usage: {0} [--version] [--help] <command> [<args>]", attrib.Name);
         }
 
-        public void OnParse(IParserConfig<Verbs> config)
+        public void OnParse(IParserConfig config)
         {
             Console.WriteLine(GetHelp(config));
         }

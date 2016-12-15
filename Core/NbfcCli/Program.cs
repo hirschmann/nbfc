@@ -59,7 +59,7 @@ namespace NbfcCli
             }
             else
             {
-                Console.WriteLine(helpGen.GetUsage());
+                Console.WriteLine(helpGen.GetHelp(parser.Config));
             }
         }
 
