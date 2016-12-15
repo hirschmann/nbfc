@@ -49,6 +49,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineOptions\ECMonitorVerb.cs" />
     <Compile Include="CommandLineOptions\ECWriteVerb.cs" />
     <Compile Include="CommandLineOptions\ECReadVerb.cs" />
     <Compile Include="CommandLineOptions\ECDumpVerb.cs" />
