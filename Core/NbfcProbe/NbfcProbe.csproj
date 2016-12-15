@@ -42,8 +42,8 @@
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="clipr, Version=1.4.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\clipr.1.4.7.0\lib\net35\clipr.dll</HintPath>
+    <Reference Include="clipr, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\clipr.1.5.1\lib\net35\clipr.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
