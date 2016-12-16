@@ -49,6 +49,15 @@ namespace NbfcCli.CommandLineOptions
         public string GetHelp(IParserConfig config)
         {
             var sb = new StringBuilder();
+
+            string descr = GetApplicationDescription();
+
+            if (!string.IsNullOrWhiteSpace(descr))
+            {
+                sb.AppendLine(descr);
+                sb.AppendLine();
+            }
+
             sb.Append(GetUsage(config));
             sb.AppendLine();
             sb.AppendLine();
@@ -56,8 +65,7 @@ namespace NbfcCli.CommandLineOptions
 
             foreach (PropertyInfo verb in typeof(T).GetProperties())
             {
-                var attrib = verb.GetCustomAttributes(typeof(VerbAttribute), false)
-                    .FirstOrDefault() as VerbAttribute;
+                var attrib = GetAttribute<VerbAttribute>(verb);
 
                 if (attrib != null)
                 {
@@ -76,9 +84,7 @@ namespace NbfcCli.CommandLineOptions
 
         public string GetUsage(IParserConfig config)
         {
-            var attrib = typeof(T).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
-                .FirstOrDefault() as ApplicationInfoAttribute;            
-
+            var attrib = GetAttribute<ApplicationInfoAttribute>(typeof(T));
             return string.Format("usage: {0} [--version] [--help] <command> [<args>]", attrib.Name);
         }
 
@@ -91,14 +97,23 @@ namespace NbfcCli.CommandLineOptions
 
         #region Private Methods
 
+        private static string GetApplicationDescription()
+        {
+            return GetAttribute<ApplicationInfoAttribute>(typeof(T))?.Description;
+        }
+
+        private static TAttribute GetAttribute<TAttribute>(MemberInfo info) where TAttribute : Attribute
+        {
+            return info.GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault() as TAttribute;
+        }
+
         private void AppendVerbHelpText(StringBuilder sb, VerbAttribute attrib, char argPrefix, PropertyInfo[] verbProperties)
         {
             string cmd = attrib.Name;
 
             foreach (PropertyInfo param in verbProperties)
             {
-                var paramAttrib = param.GetCustomAttributes(typeof(PositionalArgumentAttribute), false)
-                    .FirstOrDefault() as PositionalArgumentAttribute;
+                var paramAttrib = GetAttribute<PositionalArgumentAttribute>(param);
 
                 if (paramAttrib?.MetaVar != null)
                 {
@@ -126,8 +141,7 @@ namespace NbfcCli.CommandLineOptions
 
             foreach (PropertyInfo param in verbProperties)
             {
-                var paramAttrib = param.GetCustomAttributes(typeof(NamedArgumentAttribute), false)
-                    .FirstOrDefault() as NamedArgumentAttribute;
+                var paramAttrib = GetAttribute<NamedArgumentAttribute>(param);
 
                 if (paramAttrib != null)
                 {
