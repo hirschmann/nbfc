@@ -19,7 +19,7 @@ namespace NbfcCli.CommandLineOptions
             "speed",
             MetaVar = "value",
             Action = ParseAction.Store,
-            Description = "Set fan speed")]
+            Description = "Set fan speed to <value>")]
         public string Speed { get; set; }
 
         [NamedArgument(

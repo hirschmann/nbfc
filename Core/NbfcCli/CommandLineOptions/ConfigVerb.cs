@@ -35,7 +35,7 @@ namespace NbfcCli.CommandLineOptions
             'r',
             "recommend",
             Action = ParseAction.StoreTrue,
-            Description = "Recommend configs which may work for your device")]
+            Description = "List configs which may work for your device")]
         public bool Recommend { get; set; }
     }
 }

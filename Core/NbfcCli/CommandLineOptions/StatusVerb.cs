@@ -30,7 +30,7 @@ namespace NbfcCli.CommandLineOptions
             Action = ParseAction.Append,
             NumArgs = 0,
             Constraint = NumArgsConstraint.AtLeast,
-            Description = "Show fan(s) status")]
+            Description = "Show fan status")]
         public List<int> Fan { get; set; }
     }
 }
