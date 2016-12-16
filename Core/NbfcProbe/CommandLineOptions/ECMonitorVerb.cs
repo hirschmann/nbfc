@@ -36,7 +36,7 @@ namespace NbfcProbe.CommandLineOptions
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
             MetaVar = "path",
-            Description = "Creates a report file at the specified path")]
+            Description = "Create a report file at the specified path")]
         public string ReportPath { get; set; }
 
         [NamedArgument(

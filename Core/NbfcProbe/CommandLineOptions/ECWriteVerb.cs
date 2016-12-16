@@ -24,7 +24,7 @@ namespace NbfcProbe.CommandLineOptions
             'v',
             "verbose",
             Action = ParseAction.StoreTrue,
-            Description = "Print extra info")]
+            Description = "Be verbose")]
         public bool Verbose { get; set; }
     }
 }
