@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.ServiceModel;
 using System.Text;
-using System.Linq;
 
 namespace NbfcCli
 {
@@ -33,7 +32,8 @@ namespace NbfcCli
         private static void ParseArgs(string[] args)
         {
             var opt = new Verbs();
-            var helpGen = new VerbsHelpGenerator();
+            var helpGen = new HelpGenerator<Verbs>();
+            helpGen.DescriptionDistance = 25;
             var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, helpGen);
             parser.StrictParse(args);
 

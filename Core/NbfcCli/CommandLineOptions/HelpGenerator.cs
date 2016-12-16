@@ -9,15 +9,23 @@ using System.Text;
 
 namespace NbfcCli.CommandLineOptions
 {
-    public class VerbsHelpGenerator : TriggerBase, IHelpGenerator
+    public class HelpGenerator<T> : TriggerBase, IHelpGenerator
     {
         #region Constructors
 
-        public VerbsHelpGenerator()
+        public HelpGenerator()
         {
             this.ShortName = 'h';
             this.LongName = "help";
+            this.DescriptionDistance = 25;
         }
+
+        #endregion
+
+        #region Properties
+
+        public int DescriptionDistance { get; set; }
+        public string GenericDescription { get; set; }
 
         #endregion
 
@@ -46,7 +54,7 @@ namespace NbfcCli.CommandLineOptions
             sb.AppendLine();
             sb.AppendLine("commands:");
 
-            foreach (PropertyInfo verb in typeof(Verbs).GetProperties())
+            foreach (PropertyInfo verb in typeof(T).GetProperties())
             {
                 var attrib = verb.GetCustomAttributes(typeof(VerbAttribute), false)
                     .FirstOrDefault() as VerbAttribute;
@@ -58,12 +66,17 @@ namespace NbfcCli.CommandLineOptions
                 }
             }
 
+            if (!string.IsNullOrWhiteSpace(GenericDescription))
+            {
+                sb.AppendLine(GenericDescription);
+            }
+
             return sb.ToString();
         }        
 
         public string GetUsage(IParserConfig config)
         {
-            var attrib = typeof(Verbs).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
+            var attrib = typeof(T).GetCustomAttributes(typeof(ApplicationInfoAttribute), false)
                 .FirstOrDefault() as ApplicationInfoAttribute;            
 
             return string.Format("usage: {0} [--version] [--help] <command> [<args>]", attrib.Name);
@@ -78,22 +91,43 @@ namespace NbfcCli.CommandLineOptions
 
         #region Private Methods
 
-        private static void AppendVerbHelpText(StringBuilder sb, VerbAttribute attrib, char argPrefix, PropertyInfo[] verbProperties)
+        private void AppendVerbHelpText(StringBuilder sb, VerbAttribute attrib, char argPrefix, PropertyInfo[] verbProperties)
         {
             string cmd = attrib.Name;
+
+            foreach (PropertyInfo param in verbProperties)
+            {
+                var paramAttrib = param.GetCustomAttributes(typeof(PositionalArgumentAttribute), false)
+                    .FirstOrDefault() as PositionalArgumentAttribute;
+
+                if (paramAttrib?.MetaVar != null)
+                {
+                    cmd += $" <{paramAttrib.MetaVar}>";
+                }
+            }
 
             if (verbProperties.Length > 0)
             {
                 cmd += " [options]";
             }
 
-            sb.AppendFormat("  {0,-25}{1}", cmd, attrib.Description);
+            sb.Append("  ");
+            sb.AppendFormat($"{{0,{-DescriptionDistance}}}", cmd);
+
+            if (cmd.Length >= DescriptionDistance)
+            {
+                sb.AppendLine();
+                sb.Append("  ");
+                sb.AppendFormat($"{{0,{-DescriptionDistance}}}", "");
+            }
+
+            sb.Append(attrib.Description);
             sb.AppendLine();
 
             foreach (PropertyInfo param in verbProperties)
             {
-                var paramAttrib = param.GetCustomAttributes(typeof(NamedArgumentExAttribute), false)
-                    .FirstOrDefault() as NamedArgumentExAttribute;
+                var paramAttrib = param.GetCustomAttributes(typeof(NamedArgumentAttribute), false)
+                    .FirstOrDefault() as NamedArgumentAttribute;
 
                 if (paramAttrib != null)
                 {
@@ -104,7 +138,7 @@ namespace NbfcCli.CommandLineOptions
             sb.AppendLine();
         }
 
-        private static void AppendArgHelpText(StringBuilder sb, char argPrefix, NamedArgumentExAttribute paramAttrib)
+        private void AppendArgHelpText(StringBuilder sb, char argPrefix, NamedArgumentAttribute paramAttrib)
         {
             string s = string.Format(
                     "{0}{1}, {0}{0}{2}",
@@ -112,7 +146,7 @@ namespace NbfcCli.CommandLineOptions
                     paramAttrib.ShortName,
                     paramAttrib.LongName);
 
-            if (paramAttrib.ArgumentName != null)
+            if ((paramAttrib.MetaVar != null) && (paramAttrib.MetaVar != paramAttrib.ShortName.ToString()))
             {
                 string format = " <{0}>";
 
@@ -121,10 +155,11 @@ namespace NbfcCli.CommandLineOptions
                     format = " [<{0}>]";
                 }
 
-                s += string.Format(format, paramAttrib.ArgumentName);
+                s += string.Format(format, paramAttrib.MetaVar);
             }
 
-            sb.AppendFormat("    {0,-27}{1}", s, paramAttrib.Description);
+            sb.Append("    ");
+            sb.AppendFormat($"{{0,{-DescriptionDistance}}}{{1}}", s, paramAttrib.Description);
             sb.AppendLine();
         }
 

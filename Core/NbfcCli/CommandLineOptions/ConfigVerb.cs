@@ -5,7 +5,7 @@ namespace NbfcCli.CommandLineOptions
     public class ConfigVerb
     {
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'l',
             "list",
             Action = ParseAction.StoreTrue,
@@ -13,25 +13,25 @@ namespace NbfcCli.CommandLineOptions
         public bool List { get; set; }
 
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             's',
             "set",
-            ArgumentName = "cfg-name",
+            MetaVar = "cfg-name",
             Action = ParseAction.Store,
             Description = "Set a config")]
         public string Set { get; set; }
 
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'a', 
             "apply", 
-            ArgumentName = "cfg-name", 
+            MetaVar = "cfg-name", 
             Action = ParseAction.Store, 
             Description = "Set a config and enable fan control")]
         public string Apply { get; set; }
 
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'r',
             "recommend",
             Action = ParseAction.StoreTrue,

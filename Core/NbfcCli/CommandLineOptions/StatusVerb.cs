@@ -7,7 +7,7 @@ namespace NbfcCli.CommandLineOptions
     {
         [MutuallyExclusiveGroup("fan")]
         [MutuallyExclusiveGroup("service")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'a',
             "all",
             Action = ParseAction.StoreTrue,
@@ -15,7 +15,7 @@ namespace NbfcCli.CommandLineOptions
         public bool All { get; set; }
 
         [MutuallyExclusiveGroup("service")]
-        [NamedArgumentEx(
+        [NamedArgument(
             's',
             "service",
             Action = ParseAction.StoreTrue,
@@ -23,10 +23,10 @@ namespace NbfcCli.CommandLineOptions
         public bool Service { get; set; }
 
         [MutuallyExclusiveGroup("fan")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'f',
             "fan",
-            ArgumentName = "index",
+            MetaVar = "index",
             Action = ParseAction.Append,
             NumArgs = 0,
             Constraint = NumArgsConstraint.AtLeast,

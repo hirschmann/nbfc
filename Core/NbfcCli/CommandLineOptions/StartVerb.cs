@@ -5,7 +5,7 @@ namespace NbfcCli.CommandLineOptions
     public class StartVerb
     {
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'e',
             "enabled",
             Action = ParseAction.StoreTrue,
@@ -13,7 +13,7 @@ namespace NbfcCli.CommandLineOptions
         public bool Enabled { get; set; }
 
         [MutuallyExclusiveGroup("option")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'r',
             "readonly",
             Action = ParseAction.StoreTrue,

@@ -6,7 +6,7 @@ namespace NbfcCli.CommandLineOptions
     public class SetVerb
     {
         [MutuallyExclusiveGroup("speed")]
-        [NamedArgumentEx(
+        [NamedArgument(
             'a',
             "auto",
             Action = ParseAction.StoreTrue,
@@ -14,18 +14,18 @@ namespace NbfcCli.CommandLineOptions
         public bool Auto { get; set; }
 
         [MutuallyExclusiveGroup("speed")]
-        [NamedArgumentEx(
+        [NamedArgument(
             's',
             "speed",
-            ArgumentName = "value",
+            MetaVar = "value",
             Action = ParseAction.Store,
             Description = "Set fan speed")]
         public string Speed { get; set; }
 
-        [NamedArgumentEx(
+        [NamedArgument(
             'f',
             "fan",
-            ArgumentName = "index",
+            MetaVar = "index",
             Action = ParseAction.Append,
             Description = "Fan index (zero based)")]
         public List<int> Fan { get; set; }
