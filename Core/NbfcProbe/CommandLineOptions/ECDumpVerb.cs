@@ -1,6 +1,4 @@
-﻿using clipr;
-
-namespace NbfcProbe.CommandLineOptions
+﻿namespace NbfcProbe.CommandLineOptions
 {
     public class ECDumpVerb
     {

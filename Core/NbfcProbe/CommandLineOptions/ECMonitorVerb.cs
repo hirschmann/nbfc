@@ -16,7 +16,7 @@ namespace NbfcProbe.CommandLineOptions
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
             MetaVar ="seconds",
-            Description = "Monitored timespan in seconds (default: infinite)")]
+            Description = "Monitored timespan (default: infinite)")]
         public int Timespan { get; set; }
 
         [NamedArgument(
@@ -26,7 +26,7 @@ namespace NbfcProbe.CommandLineOptions
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
             MetaVar = "seconds",
-            Description = "Set poll interval in seconds (default: 5)")]
+            Description = "Set poll interval (default: 5)")]
         public int Interval { get; set; }
 
         [NamedArgument(
@@ -36,7 +36,7 @@ namespace NbfcProbe.CommandLineOptions
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
             MetaVar = "path",
-            Description = "Creates a report file at the specified path after the monitoring")]
+            Description = "Creates a report file at the specified path")]
         public string ReportPath { get; set; }
 
         [NamedArgument(

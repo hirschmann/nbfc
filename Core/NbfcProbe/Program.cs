@@ -34,7 +34,13 @@ namespace NbfcProbe
         private static void ParseArgs(string[] args)
         {
             var opt = new Verbs();
-            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, new CustomHelpGenerator());
+            var helpGen = new NbfcCli.CommandLineOptions.HelpGenerator<Verbs>();
+            helpGen.DescriptionDistance = 29;
+            helpGen.GenericDescription = "All input values are interpreted as decimal numbers by default."
+                + Environment.NewLine
+                + "Hexadecimal values may be entered by prefixing them with \"0x\".";
+
+            var parser = new CliParser<Verbs>(opt, ParserOptions.CaseInsensitive, helpGen);
             parser.StrictParse(args);
 
             if (opt.ECDump != null)
@@ -71,7 +77,7 @@ namespace NbfcProbe
             }
             else
             {
-                Console.WriteLine((new CustomHelpGenerator()).GetHelp(null));
+                Console.WriteLine(helpGen.GetHelp(parser.Config));
             }
         }
 

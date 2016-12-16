@@ -53,7 +53,6 @@
     <Compile Include="CommandLineOptions\ECWriteVerb.cs" />
     <Compile Include="CommandLineOptions\ECReadVerb.cs" />
     <Compile Include="CommandLineOptions\ECDumpVerb.cs" />
-    <Compile Include="CommandLineOptions\CustomHelpGenerator.cs" />
     <Compile Include="CommandLineOptions\Verbs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,6 +62,10 @@
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
   </Target>
   <ItemGroup>
+    <ProjectReference Include="..\NbfcCli\NbfcCli.csproj">
+      <Project>{60a11809-e19b-46a2-8e91-bf6ada47bbc6}</Project>
+      <Name>NbfcCli</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
       <Project>{12084B38-C1A2-414C-80A7-B8D02D6F5B84}</Project>
       <Name>StagWare.FanControl</Name>
