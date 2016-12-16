@@ -131,13 +131,11 @@ namespace StagWare.FanControl
                 this.targetFanSpeed = speed;
             }
 
-            int speedValue = CriticalModeEnabled
-                ? maxSpeedValueWrite
-                : PercentageToFanSpeed(this.targetFanSpeed);
+            speed = CriticalModeEnabled ? 100.0f : this.targetFanSpeed;
 
             if (!readOnly)
             {
-                ECWriteValue(speedValue);
+                ECWriteValue(PercentageToFanSpeed(speed));
             }
         }
 
@@ -188,8 +186,8 @@ namespace StagWare.FanControl
             }
             else
             {
-                return (int)Math.Round(minSpeedValueWrite + 
-                    (((maxSpeedValueWrite - minSpeedValueWrite) * percentage) / 100.0));
+                return (int)Math.Round(minSpeedValueWrite
+                    + (((maxSpeedValueWrite - minSpeedValueWrite) * percentage) / 100.0));
             }
         }
 
@@ -207,7 +205,7 @@ namespace StagWare.FanControl
                 }
                 else
                 {
-                    return ((float)(fanSpeed - minSpeedValueRead) 
+                    return ((float)(fanSpeed - minSpeedValueRead)
                         / (maxSpeedValueRead - minSpeedValueRead)) * 100;
                 }
             }
