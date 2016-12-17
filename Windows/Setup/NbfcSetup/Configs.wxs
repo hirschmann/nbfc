@@ -41,6 +41,9 @@
             <Component Id="cmpA5D5700E9EF32D169F2EEE3887845263" Directory="ConfigsFolder" Guid="*">
                 <File Id="filC258543E23B186FEC5E721A737FAEABA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-522.xml" />
             </Component>
+            <Component Id="cmpD8A70748ADB3EFB0E75E988C1DB41103" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil96EAE3CA6E0A75AB6EA482F8720EDECA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-772.xml" />
+            </Component>
             <Component Id="cmp546CA263041C9F4A1DA1350AEC3EA502" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil0422E2226C205BE517BC2E09D9393F0F" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-471G.xml" />
             </Component>
