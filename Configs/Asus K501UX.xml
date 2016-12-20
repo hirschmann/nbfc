@@ -54,7 +54,7 @@
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>false</ResetRequired>
+      <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>8</FanSpeedResetValue>
       <FanDisplayName>Right Fan</FanDisplayName>
       <TemperatureThresholds>
