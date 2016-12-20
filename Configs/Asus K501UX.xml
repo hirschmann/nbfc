@@ -10,12 +10,12 @@
       <ReadRegister>151</ReadRegister>
       <WriteRegister>151</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>4</MaxSpeedValue>
+      <MaxSpeedValue>8</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>255</MaxSpeedValueRead>
-      <ResetRequired>false</ResetRequired>
-      <FanSpeedResetValue>4</FanSpeedResetValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>8</FanSpeedResetValue>
       <FanDisplayName>Left Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
@@ -50,12 +50,12 @@
       <ReadRegister>152</ReadRegister>
       <WriteRegister>152</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>4</MaxSpeedValue>
+      <MaxSpeedValue>8</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>false</ResetRequired>
-      <FanSpeedResetValue>4</FanSpeedResetValue>
+      <FanSpeedResetValue>8</FanSpeedResetValue>
       <FanDisplayName>Right Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
@@ -91,22 +91,22 @@
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
       <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
-      <Register>166</Register>
-      <Value>25</Value>
-      <ResetRequired>false</ResetRequired>
+      <Register>160</Register>
+      <Value>10</Value>
+      <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>SetMinCPUTemp</Description>
+      <Description></Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
       <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
-      <Register>165</Register>
-      <Value>25</Value>
-      <ResetRequired>false</ResetRequired>
-      <ResetValue>0</ResetValue>
+      <Register>166</Register>
+      <Value>10</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>SetMinGPUTemp</Description>
+      <Description></Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
