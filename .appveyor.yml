@@ -3,10 +3,6 @@ clone_depth: 5
 image: Visual Studio 2015
 configuration: ReleaseWindows
 platform: Any CPU
-branches:
-  # whitelist
-  only:
-    - master
 
 install:
   - cinst wixtoolset -version 3.10.3.3007
