@@ -172,7 +172,7 @@ namespace StagWare.FanControl.Tests
 
                 var fan2 = A.Fake<Fan>(opt => opt.WithArgumentsForConstructor(
                     new object[] { ec, fanCfg2, 70, false }));
-                A.CallTo(() => fan1.GetCurrentSpeed()).Returns(0);
+                A.CallTo(() => fan2.GetCurrentSpeed()).Returns(0);
 
                 var tsc = new TaskCompletionSource<bool>();
 
@@ -193,7 +193,7 @@ namespace StagWare.FanControl.Tests
                 Assert.True(tsc.Task.IsCompleted, nameof(tsc.Task.IsCompleted));
                 A.CallTo(() => fan1.SetTargetSpeed(speed, A<float>.Ignored, false))
                                     .MustHaveHappened();
-                A.CallTo(() => fan1.SetTargetSpeed(speed, A<float>.Ignored, false))
+                A.CallTo(() => fan2.SetTargetSpeed(speed, A<float>.Ignored, false))
                                     .MustHaveHappened();
             }
 
