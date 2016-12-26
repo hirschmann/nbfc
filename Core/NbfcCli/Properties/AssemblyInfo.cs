@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("NbfcCli")]
-[assembly: AssemblyCopyright("Copyright © 2014-2015 Stefan Hirschmann")]
+[assembly: AssemblyCopyright("Copyright © 2014-2016 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

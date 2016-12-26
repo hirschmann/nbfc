@@ -41,6 +41,14 @@
   <PropertyGroup>
     <ApplicationManifest>App.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLinux|AnyCPU'">
+    <OutputPath>bin\ReleaseLinux\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="clipr, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\clipr.1.5.1\lib\net35\clipr.dll</HintPath>
