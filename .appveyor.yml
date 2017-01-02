@@ -5,7 +5,7 @@ configuration: ReleaseWindows
 platform: Any CPU
 
 install:
-  - cinst wixtoolset -version 3.10.3.3007
+  - cinst wixtoolset --version 3.10.3.3007 --checksumtype=sha256 --checksum=3C125E3551C035F69ED24ACD8FB4EF7B74C1311ECACF1F8FC1EB7E0DD47D9C75
 
 before_build:
   - nuget restore
