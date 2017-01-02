@@ -36,6 +36,7 @@ namespace StagWare.FanControl.Tests
                 A.CallTo(() => fan.GetCurrentSpeed()).Returns(0);
 
                 var tsc = new TaskCompletionSource<bool>();
+                Task<bool> task = tsc.Task;
 
                 using (var fanControl = new FanControl(cfg, filter, ec, tempMon, new[] { fan }))
                 {
@@ -47,9 +48,9 @@ namespace StagWare.FanControl.Tests
                     fanControl.Start(false);
                     Assert.True(fanControl.Enabled, nameof(fanControl.Enabled));
 
-                    await Task.WhenAny(tsc.Task, Task.Delay(cfg.EcPollInterval * 3));
+                    await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3));
 
-                    Assert.True(tsc.Task.IsCompleted, nameof(tsc.Task.IsCompleted));
+                    Assert.True(task.IsCompleted, nameof(task.IsCompleted));
                     A.CallTo(() => fan.SetTargetSpeed(A<float>.Ignored, A<float>.Ignored, false))
                                         .MustHaveHappened();
                 }
@@ -80,6 +81,7 @@ namespace StagWare.FanControl.Tests
                 A.CallTo(() => fan.GetCurrentSpeed()).Returns(0);
 
                 var tsc = new TaskCompletionSource<bool>();
+                Task<bool> task = tsc.Task;
 
                 using (var fanControl = new FanControl(cfg, filter, ec, tempMon, new[] { fan }))
                 {
@@ -90,11 +92,11 @@ namespace StagWare.FanControl.Tests
 
                     fanControl.Start(true);
                     Assert.True(fanControl.Enabled, nameof(fanControl.Enabled));
-                    Assert.True(fanControl.ReadOnly, nameof(fanControl.ReadOnly));
+                    Assert.True(fanControl.ReadOnly, nameof(fanControl.ReadOnly));                    
 
-                    await Task.WhenAny(tsc.Task, Task.Delay(cfg.EcPollInterval * 3));
+                    await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3));
 
-                    Assert.True(tsc.Task.IsCompleted, nameof(tsc.Task.IsCompleted));
+                    Assert.True(task.IsCompleted, nameof(task.IsCompleted));
                     A.CallTo(() => fan.SetTargetSpeed(A<float>.Ignored, A<float>.Ignored, false))
                                         .MustNotHaveHappened();
                 }
@@ -175,6 +177,7 @@ namespace StagWare.FanControl.Tests
                 A.CallTo(() => fan2.GetCurrentSpeed()).Returns(0);
 
                 var tsc = new TaskCompletionSource<bool>();
+                Task<bool> task = tsc.Task;
 
                 var fanControl = new FanControl(cfg, filter, ec, tempMon, new[] { fan1, fan2 });
                 fanControl.EcUpdated += (s, e) =>
@@ -188,9 +191,9 @@ namespace StagWare.FanControl.Tests
 
                 Assert.True(fanControl.Enabled, nameof(fanControl.Enabled));
 
-                await Task.WhenAny(tsc.Task, Task.Delay(cfg.EcPollInterval * 3));
+                await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3));
 
-                Assert.True(tsc.Task.IsCompleted, nameof(tsc.Task.IsCompleted));
+                Assert.True(task.IsCompleted, nameof(task.IsCompleted));
                 A.CallTo(() => fan1.SetTargetSpeed(speed, A<float>.Ignored, false))
                                     .MustHaveHappened();
                 A.CallTo(() => fan2.SetTargetSpeed(speed, A<float>.Ignored, false))
