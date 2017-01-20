@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System;
 
 namespace StagWare.Plugins.ECSysLinux
 {
@@ -27,7 +28,8 @@ namespace StagWare.Plugins.ECSysLinux
         #region Private Fields
 
         static readonly object syncRoot = new object();
-        private UnixStream stream;
+        bool disposed = false;
+        UnixStream stream;
 
         #endregion
 
@@ -90,26 +92,46 @@ namespace StagWare.Plugins.ECSysLinux
 
         public bool AcquireLock(int timeout)
         {
-            bool success = false;
-
-            if (Monitor.TryEnter(syncRoot, timeout))
+            if (disposed)
             {
+                throw new ObjectDisposedException(nameof(ECSysLinux));
+            }
+
+            bool success = false;
+            bool syncRootLockTaken = false;
+
+            try
+            {
+                Monitor.TryEnter(syncRoot, timeout, ref syncRootLockTaken);
+
+                if (!syncRootLockTaken)
+                {
+                    return false;
+                }
+
                 if (this.stream == null)
                 {
                     int fd = Syscall.open(EC0IOPath, OpenFlags.O_RDWR | OpenFlags.O_EXCL);
 
                     if (fd == -1)
                     {
-                        var e = new Win32Exception(Marshal.GetLastWin32Error());
-                        Debug.WriteLine(string.Format("Error opening {0}: {1}", EC0IOPath, e.Message));
+                        throw new Win32Exception(Marshal.GetLastWin32Error());
+                    }
 
-                        Monitor.Exit(syncRoot);
-                    }
-                    else
-                    {
-                        this.stream = new UnixStream(fd);
-                        success = true;
-                    }
+                    this.stream = new UnixStream(fd);
+                }
+
+                success = this.stream != null;
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            finally
+            {
+                if(syncRootLockTaken && !success)
+                {
+                    Monitor.Exit(syncRoot);
                 }
             }
 
@@ -118,6 +140,11 @@ namespace StagWare.Plugins.ECSysLinux
 
         public void ReleaseLock()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(ECSysLinux));
+            }
+
             try
             {
                 if (this.stream != null)
@@ -134,7 +161,16 @@ namespace StagWare.Plugins.ECSysLinux
 
         public void Dispose()
         {
-            ReleaseLock();
+            lock (syncRoot)
+            {
+                if (this.stream != null)
+                {
+                    this.stream.Dispose();
+                    this.stream = null;
+                }
+
+                disposed = true;
+            }
         }
 
         #endregion
