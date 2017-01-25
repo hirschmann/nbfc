@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2016 Michael Möller <mmoeller@openhardwaremonitor.org>
+  Copyright (C) 2009-2017 Michael Möller <mmoeller@openhardwaremonitor.org>
 	
 */
 
@@ -27,7 +27,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       Broadwell,
       Silvermont,
       Skylake,
-      Airmont
+      Airmont,
+      KabyLake
     }
 
     private readonly Sensor[] coreTemperatures;
@@ -176,6 +177,11 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 microarchitecture = Microarchitecture.Airmont;
                 tjMax = GetTjMaxFromMSR();
                 break;
+              case 0x8E: 
+              case 0x9E: // Intel Core i5, i7 7xxxx (14nm)
+                microarchitecture = Microarchitecture.KabyLake;
+                tjMax = GetTjMaxFromMSR();
+                break;
               default:
                 microarchitecture = Microarchitecture.Unknown;
                 tjMax = Floats(100);
@@ -223,7 +229,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         case Microarchitecture.Broadwell:
         case Microarchitecture.Silvermont:
         case Microarchitecture.Skylake:
-        case Microarchitecture.Airmont: {
+        case Microarchitecture.Airmont:
+        case Microarchitecture.KabyLake: {
             uint eax, edx;
             if (Ring0.Rdmsr(MSR_PLATFORM_INFO, out eax, out edx)) {
               timeStampCounterMultiplier = (eax >> 8) & 0xff;
@@ -286,7 +293,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           microarchitecture == Microarchitecture.Broadwell || 
           microarchitecture == Microarchitecture.Skylake ||
           microarchitecture == Microarchitecture.Silvermont ||
-          microarchitecture == Microarchitecture.Airmont) 
+          microarchitecture == Microarchitecture.Airmont ||
+          microarchitecture == Microarchitecture.KabyLake) 
       {
         powerSensors = new Sensor[energyStatusMSRs.Length];
         lastEnergyTime = new DateTime[energyStatusMSRs.Length];
@@ -403,7 +411,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case Microarchitecture.Haswell: 
               case Microarchitecture.Broadwell:
               case Microarchitecture.Silvermont:
-              case Microarchitecture.Skylake: {
+              case Microarchitecture.Skylake:
+              case Microarchitecture.KabyLake: {
                   uint multiplier = (eax >> 8) & 0xff;
                   coreClocks[i].Value = (float)(multiplier * newBusClock);
                 } break;
