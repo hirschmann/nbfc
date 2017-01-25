@@ -116,6 +116,9 @@
             <Component Id="cmpC1136CA47F685E659B066EA9B0A3768C" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil056D992406F8782868FE3BEE4707D96F" KeyPath="yes" Source="$(var.ConfigsDir)\Asus K501LX.xml" />
             </Component>
+            <Component Id="cmp8ED96CAA6E91289B877DFB83317EA582" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil4B2BB6AC4EB118A7E5671A3495867D08" KeyPath="yes" Source="$(var.ConfigsDir)\Asus K501UX.xml" />
+            </Component>
             <Component Id="cmp3AEC556746998325CB90C9071A477BD9" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9F3C550F81DCBEAC1EFF0E09E435A053" KeyPath="yes" Source="$(var.ConfigsDir)\Asus M52VA.xml" />
             </Component>
@@ -232,6 +235,9 @@
             </Component>
             <Component Id="cmp1B273B9270D77B1670BBDD1D937A1896" Directory="ConfigsFolder" Guid="*">
                 <File Id="filB09FC25ABFC031BCBB535E1F0A537742" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6 Sleekbook.xml" />
+            </Component>
+            <Component Id="cmpACE3AC37692D6CC14920DE8757B0E92E" Directory="ConfigsFolder" Guid="*">
+                <File Id="filA9A54DD49574B74B05151C8C65187AC0" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6-1254eo.xml" />
             </Component>
             <Component Id="cmp2BD610C894C8593B672B535D14C5C517" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil91223EEF3BB04527921C230C43D5CC61" KeyPath="yes" Source="$(var.ConfigsDir)\HP OMEN Notebook PC 15.xml" />
