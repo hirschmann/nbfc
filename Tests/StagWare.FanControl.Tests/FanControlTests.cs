@@ -309,5 +309,81 @@ namespace StagWare.FanControl.Tests
                 }
             }
         }
+
+        public class Dispose
+        {
+            [Fact]
+            public void CallsResetOnFans()
+            {
+                var fanCfg = new FanConfiguration()
+                {
+                    ResetRequired = true
+                };
+
+                var cfg = new FanControlConfigV2()
+                {
+                    EcPollInterval = 100,
+                    FanConfigurations = { fanCfg }
+                };
+
+                var filter = A.Fake<ITemperatureFilter>();
+                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+
+                var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.IsInitialized).Returns(true);
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
+
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.IsInitialized).Returns(true);
+
+                var fan = A.Fake<Fan>(opt => opt.WithArgumentsForConstructor(
+                    new object[] { ec, fanCfg, 70, false }));
+                A.CallTo(() => fan.GetCurrentSpeed()).Returns(0);
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon, new[] { fan }))
+                {
+                    fanControl.Start(false);                    
+                }
+
+                A.CallTo(() => fan.Reset()).MustHaveHappened();
+            }
+
+            [Fact]
+            public void TriesToForceResetFans()
+            {
+                var fanCfg = new FanConfiguration()
+                {
+                    ResetRequired = true
+                };
+
+                var cfg = new FanControlConfigV2()
+                {
+                    EcPollInterval = 100,
+                    FanConfigurations = { fanCfg }
+                };
+
+                var filter = A.Fake<ITemperatureFilter>();
+                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+
+                var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.IsInitialized).Returns(true);
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
+
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.IsInitialized).Returns(true);
+
+                var fan = A.Fake<Fan>(opt => opt.WithArgumentsForConstructor(
+                    new object[] { ec, fanCfg, 70, false }));
+                A.CallTo(() => fan.GetCurrentSpeed()).Returns(0);
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon, new[] { fan }))
+                {
+                    fanControl.Start(false);
+                    A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(false);
+                }
+
+                A.CallTo(() => fan.Reset()).MustHaveHappened();
+            }
+        }
     }
 }
