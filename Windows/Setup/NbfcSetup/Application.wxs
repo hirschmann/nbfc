@@ -32,6 +32,10 @@
                         Interactive="no"
                         DisplayName="NoteBook FanControl Service"
                         Description="Allows to control the fans on various notebook models via user defined configuration files.">
+          
+          <util:ServiceConfig FirstFailureActionType="restart"
+                              SecondFailureActionType="restart"
+                              ThirdFailureActionType="restart"/>
         </ServiceInstall>        
         <ServiceControl Id="StartService" 
                         Start="install" 
