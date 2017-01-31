@@ -6,6 +6,7 @@ ExecStart=/opt/nbfc/start-nbfcservice.sh
 Type=forking
 PIDFile=/run/nbfc.pid
 TimeoutStopSec=20
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
