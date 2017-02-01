@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Ideapad 500S</NotebookModel>
+  <NotebookModel>Ideapad 500s-14ISK</NotebookModel>
   <Author />
   <EcPollInterval>1500</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
