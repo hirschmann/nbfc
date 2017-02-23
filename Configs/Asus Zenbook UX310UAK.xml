@@ -2,7 +2,7 @@
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>UX310UAK</NotebookModel>
   <Author>xant1, jws, fredo61</Author>
-  <EcPollInterval>200</EcPollInterval>
+  <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>80</CriticalTemperature>
   <FanConfigurations>
