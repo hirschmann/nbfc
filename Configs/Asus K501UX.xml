@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>Asus K501UX</NotebookModel>
-  <Author></Author>
-  <EcPollInterval>100</EcPollInterval>
+  <Author />
+  <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>80</CriticalTemperature>
   <FanConfigurations>
@@ -14,8 +14,8 @@
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>255</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>8</FanSpeedResetValue>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
       <FanDisplayName>Left Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
@@ -50,12 +50,12 @@
       <ReadRegister>152</ReadRegister>
       <WriteRegister>152</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>8</MaxSpeedValue>
+      <MaxSpeedValue>1</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>8</FanSpeedResetValue>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
       <FanDisplayName>Right Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
@@ -92,21 +92,19 @@
       <WriteMode>Set</WriteMode>
       <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
       <Register>160</Register>
-      <Value>10</Value>
-      <ResetRequired>true</ResetRequired>
-      <ResetValue>10</ResetValue>
+      <Value>0</Value>
+      <ResetRequired>false</ResetRequired>
+      <ResetValue>0</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description></Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
       <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
       <Register>166</Register>
-      <Value>10</Value>
-      <ResetRequired>true</ResetRequired>
-      <ResetValue>10</ResetValue>
+      <Value>0</Value>
+      <ResetRequired>false</ResetRequired>
+      <ResetValue>0</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description></Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
