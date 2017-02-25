@@ -2,7 +2,7 @@
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>Asus K501UX</NotebookModel>
   <Author />
-  <EcPollInterval>200</EcPollInterval>
+  <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>80</CriticalTemperature>
   <FanConfigurations>
