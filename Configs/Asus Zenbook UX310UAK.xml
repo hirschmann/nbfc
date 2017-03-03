@@ -61,7 +61,7 @@
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>-KA1-</Description>
+      <Description>UnknownButWorks1</Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
@@ -71,7 +71,7 @@
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>-KA2-</Description>
+      <Description>UnknownButWorks2</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
