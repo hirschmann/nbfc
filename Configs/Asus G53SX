@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Asus G53SX</NotebookModel>
+  <NotebookModel>G53SX</NotebookModel>
   <Author>flexbrane</Author>
   <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
@@ -31,7 +31,7 @@
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
           <DownThreshold>55</DownThreshold>
-          <FanSpeed>57.14286</FanSpeed>
+          <FanSpeed>42.8571434</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>75</UpThreshold>
