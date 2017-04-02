@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Lenovo IdeaPad Y580</NotebookModel>
+  <Author>IL_DECAMERON</Author>
+  <EcPollInterval>500</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>100</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>6</ReadRegister>
+      <WriteRegister>95</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>95</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>35</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>FAN</FanDisplayName>
+      <TemperatureThresholds>
+	    <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>54</UpThreshold>
+          <DownThreshold>46</DownThreshold>
+          <FanSpeed>67.36842</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>83.1579</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>
