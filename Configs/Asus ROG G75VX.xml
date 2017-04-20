@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>G752VY</NotebookModel>
-  <Author>Slartibartfast</Author>
+  <Author>RypeDub - https://www.YouTube.com/RypeDub</Author>
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>90</CriticalTemperature>
@@ -16,7 +16,7 @@
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>8</FanSpeedResetValue>
-      <FanDisplayName>CPU FAN</FanDisplayName>
+      <FanDisplayName>Intel Core i7-3630QM Fan Speed</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
@@ -56,7 +56,7 @@
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>8</FanSpeedResetValue>
-      <FanDisplayName>GPU FAN</FanDisplayName>
+      <FanDisplayName>nVidia GTX 670MX Fan Speed</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
