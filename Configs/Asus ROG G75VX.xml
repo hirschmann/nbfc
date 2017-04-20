@@ -96,7 +96,7 @@
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>CPU FAN</Description>
+      <Description>This Fan is for cooling the Intel Core i7-3630QM CPU in your laptop.</Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
@@ -106,7 +106,7 @@
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>GPU FAN</Description>
+      <Description>This Fan is for cooling the nVidia GTX 670MX GPU in your laptop.</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
