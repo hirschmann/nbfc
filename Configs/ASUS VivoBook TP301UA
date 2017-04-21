@@ -22,28 +22,28 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>45</UpThreshold>
-          <DownThreshold>40</DownThreshold>
+          <UpThreshold>47</UpThreshold>
+          <DownThreshold>41</DownThreshold>
           <FanSpeed>12.5</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>55</UpThreshold>
-          <DownThreshold>45</DownThreshold>
+          <DownThreshold>48</DownThreshold>
           <FanSpeed>25</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
-          <DownThreshold>55</DownThreshold>
+          <DownThreshold>56</DownThreshold>
           <FanSpeed>50</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>75</UpThreshold>
-          <DownThreshold>65</DownThreshold>
+          <DownThreshold>66</DownThreshold>
           <FanSpeed>75</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>85</UpThreshold>
-          <DownThreshold>75</DownThreshold>
+          <DownThreshold>76</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
