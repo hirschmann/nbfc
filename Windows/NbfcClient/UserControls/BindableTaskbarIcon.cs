@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using NLog;
 
 namespace NbfcClient.UserControls
 {
@@ -17,6 +18,12 @@ namespace NbfcClient.UserControls
             [DllImport("user32.dll", SetLastError = true)]
             public static extern bool DestroyIcon(IntPtr hIcon);
         }
+
+        #endregion
+
+        #region Private Fields
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         #endregion
 
@@ -44,6 +51,7 @@ namespace NbfcClient.UserControls
 
             if (icon == null)
             {
+                logger.Warn(() => $"The event source is not a {nameof(BindableTaskbarIcon)}");
                 return;
             }
 
@@ -58,6 +66,7 @@ namespace NbfcClient.UserControls
             // Keep old icon in case the BitmapSource cannot be converted to an icon
             if (src == null)
             {
+                logger.Warn(() => $"The new icon value is not a {nameof(BitmapSource)}");
                 return;
             }
 
@@ -66,6 +75,10 @@ namespace NbfcClient.UserControls
             if (newIcon != null)
             {
                 UpdateTaskbarIcon(icon, newIcon);
+            }
+            else
+            {
+                logger.Warn(() => $"Could not convert {nameof(BitmapSource)} to icon");
             }
         }
 
