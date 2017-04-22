@@ -47,33 +47,65 @@ namespace NbfcClient.UserControls
                 return;
             }
 
-            Icon oldIcon = icon.Icon;
+            if(e.NewValue == null)
+            {
+                UpdateTaskbarIcon(icon, null);
+                return;
+            }
+
             var src = e.NewValue as BitmapSource;
 
+            // Keep old icon in case the BitmapSource cannot be converted to an icon
             if (src == null)
             {
-                icon.Icon = null;
+                return;
             }
-            else
+
+            Icon newIcon = BitmapSourceToIcon(src);
+            
+            if (newIcon != null)
             {
-                var enc = new PngBitmapEncoder();
-                enc.Frames.Add(BitmapFrame.Create(src));
+                UpdateTaskbarIcon(icon, newIcon);
+            }
+        }
 
-                using (var ms = new MemoryStream())
+        private static void UpdateTaskbarIcon(TaskbarIcon icon, Icon newIcon)
+        {
+            Icon oldIcon = icon.Icon;
+            IntPtr handle = oldIcon.Handle;
+
+            icon.Icon = newIcon;
+
+            oldIcon.Dispose();
+            NativeMethods.DestroyIcon(handle);
+        }
+
+        /// <summary>
+        /// Creates an Icon from a BitmapSource.
+        /// The returned Icon's handle must be destroyed manually after use. Calling Dispose() is not enough.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns>An Icon object on success or null on failure</returns>
+        private static Icon BitmapSourceToIcon(BitmapSource src)
+        {
+            if(src == null)
+            {
+                return null;
+            }
+
+            var enc = new PngBitmapEncoder();
+            enc.Frames.Add(BitmapFrame.Create(src));
+
+            using (var ms = new MemoryStream())
+            {
+                enc.Save(ms);
+                ms.Position = 0;
+
+                using (Bitmap bmp = (Bitmap)Bitmap.FromStream(ms))
                 {
-                    enc.Save(ms);
-                    ms.Position = 0;
-
-                    using (Bitmap bmp = (Bitmap)Bitmap.FromStream(ms))
-                    {
-                        icon.Icon = Icon.FromHandle(bmp.GetHicon());
-                    }
+                    return Icon.FromHandle(bmp.GetHicon());
                 }
             }
-
-            IntPtr iconHandle = oldIcon.Handle;
-            oldIcon.Dispose();
-            NativeMethods.DestroyIcon(iconHandle);
         }
 
         #endregion
