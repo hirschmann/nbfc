@@ -1,5 +1,6 @@
 ﻿using NbfcClient.Properties;
 using NLog;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
@@ -20,6 +21,11 @@ namespace NbfcClient
             this.DispatcherUnhandledException += (sender, args) =>
             {
                 logger.Error(args.Exception, "An unhandled exception occurred");
+            };
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>
+            {
+                logger.Debug(args.Exception, "A first chance exception occurred");
             };
 
             this.Exit += (sender, args) =>
