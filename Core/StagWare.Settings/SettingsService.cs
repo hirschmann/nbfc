@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace StagWare.Settings
 {
-    public sealed class SettingsService<T> where T : SettingsBase, new()
+    public static class SettingsService<T> where T : SettingsBase, new()
     {
         #region Nested Types
 
@@ -52,6 +52,10 @@ namespace StagWare.Settings
                         OnLoadSettingsFailed(e);
                         RestoreDefaults();
                     }
+                }
+                else
+                {
+                    RestoreDefaults();
                 }
             }
 
@@ -137,12 +141,6 @@ namespace StagWare.Settings
             {
                 SettingsFileName = SettingsFolderName + DefaultSettingsFileNameSuffix;
             }
-        }
-
-        // Hide constructor (Singleton)
-        private SettingsService()
-        {
-            RestoreDefaults(Settings, true);
         }
 
         #endregion

@@ -3,7 +3,7 @@
 namespace StagWare.Settings
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class RestoreDefaultsIgnoreAttribute : Attribute
+    public sealed class RestoreDefaultsIgnoreAttribute : Attribute
     {
     }
 }

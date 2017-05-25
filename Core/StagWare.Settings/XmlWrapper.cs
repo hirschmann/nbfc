@@ -36,11 +36,17 @@ namespace StagWare.Settings
         {
             get
             {
-                return TypeDescriptor.GetConverter(typeof(T)).ConvertToString(null, CultureInfo.InvariantCulture, wrappedItem);
+                return TypeDescriptor.GetConverter(typeof(T)).ConvertToString(
+                    null, 
+                    CultureInfo.InvariantCulture, 
+                    wrappedItem);
             }
             set
             {
-                wrappedItem = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(null, CultureInfo.InvariantCulture, value);
+                wrappedItem = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(
+                    null, 
+                    CultureInfo.InvariantCulture, 
+                    value);
             }
         }
 
