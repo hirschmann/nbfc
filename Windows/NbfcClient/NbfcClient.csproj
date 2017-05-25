@@ -111,6 +111,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AppSettings.cs" />
     <Compile Include="AutorunEntry.cs" />
     <Compile Include="DesignData\FanControllerViewModelCollection.cs" />
     <Compile Include="Messages\CloseSelectConfigDialogMessage.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Services\FanControlStatusChangedEventArgs.cs" />
     <Compile Include="Services\IFanControlClient.cs" />
     <Compile Include="Messages\OpenSelectConfigDialogMessage.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="TrayIconRenderer.cs" />
     <Compile Include="UserControls\BindableTaskbarIcon.cs" />
     <Compile Include="UserControls\FanController.xaml.cs">
@@ -208,24 +210,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="App.manifest">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
     <AppDesigner Include="Properties\" />
     <None Include="Service References\NbfcService\Arrays.xsd">
       <SubType>Designer</SubType>
@@ -283,7 +276,12 @@
   <ItemGroup>
     <Resource Include="fan.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\StagWare.Settings\StagWare.Settings.csproj">
+      <Project>{44c3959a-3565-4fb6-9bf6-694b146cd032}</Project>
+      <Name>StagWare.Settings</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
