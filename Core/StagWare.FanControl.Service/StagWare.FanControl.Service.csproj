@@ -58,15 +58,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Settings\ServiceSettings.cs" />
     <Compile Include="FanControlInfo.cs" />
     <Compile Include="FanControlService.cs" />
     <Compile Include="FanStatus.cs" />
     <Compile Include="IFanControlService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\ServiceSettingsProperties.cs" />
-    <Compile Include="Settings\LoadSettingsFailedEventArgs.cs" />
-    <Compile Include="Settings\RestoreDefaultsIgnoreAttribute.cs" />
+    <Compile Include="ServiceSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -81,6 +78,10 @@
     <ProjectReference Include="..\StagWare.FanControl\StagWare.FanControl.csproj">
       <Project>{12084b38-c1a2-414c-80a7-b8d02d6f5b84}</Project>
       <Name>StagWare.FanControl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StagWare.Settings\StagWare.Settings.csproj">
+      <Project>{44c3959a-3565-4fb6-9bf6-694b146cd032}</Project>
+      <Name>StagWare.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
