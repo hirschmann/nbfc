@@ -140,6 +140,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Core\StagWare.Settings\StagWare.Settings.csproj">
+      <Name>StagWare.Settings</Name>
+      <Project>{44c3959a-3565-4fb6-9bf6-694b146cd032}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\..\ConfigEditor\ConfigEditor.csproj">
       <Name>ConfigEditor</Name>
       <Project>{a2e2e628-7bda-4072-83de-b28de7ea85a9}</Project>
