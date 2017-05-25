@@ -127,7 +127,7 @@ namespace StagWare.Settings
         static SettingsService()
         {
             BaseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            SettingsFolderName = Assembly.GetExecutingAssembly().GetName().Name;
+            SettingsFolderName = Assembly.GetEntryAssembly()?.GetName()?.Name;
 
             if (SettingsFolderName == null)
             {
