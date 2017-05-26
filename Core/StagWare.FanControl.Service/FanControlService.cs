@@ -7,6 +7,7 @@ using System.Reflection;
 using System.ServiceModel;
 using System.Linq;
 using System.Threading;
+using NLog;
 
 namespace StagWare.FanControl.Service
 {
@@ -23,6 +24,7 @@ namespace StagWare.FanControl.Service
 
         #region Private Fields
 
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly string ConfigsDirectory = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 ConfigsDirectoryName);
@@ -171,8 +173,9 @@ namespace StagWare.FanControl.Service
                     ServiceSettings.Default.Autostart = false;
                     ServiceSettings.Save();
                 }
-                catch
+                catch(Exception e)
                 {
+                    logger.Error(e, "Failed to save settings");
                 }
 
                 fanControl.Stop();
@@ -257,8 +260,9 @@ namespace StagWare.FanControl.Service
                 {
                     this.fanControl.Start(ServiceSettings.Default.ReadOnly);
                 }
-                catch (TimeoutException)
+                catch (TimeoutException e)
                 {
+                    logger.Warn(e, "Trying to start the service timed out. Retrying");
                     Thread.Sleep(3000);
                     this.fanControl.Start(ServiceSettings.Default.ReadOnly);
                 }
