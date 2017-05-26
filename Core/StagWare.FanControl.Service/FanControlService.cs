@@ -1,13 +1,13 @@
 ﻿using StagWare.FanControl.Configurations;
-using StagWare.Settings;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
-using System.Linq;
 using System.Threading;
 using NLog;
+using SettingsService = StagWare.Settings.SettingsService<StagWare.ServiceSettings>;
 
 namespace StagWare.FanControl.Service
 {
@@ -40,27 +40,13 @@ namespace StagWare.FanControl.Service
 
         public FanControlService()
         {
-            string dir = "";
+            SettingsService.BaseDirectory = Environment.OSVersion.Platform == PlatformID.Unix
+                ? "/etc/"
+                : Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
-            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            if (SettingsService.Settings.Autostart)
             {
-                dir = "/etc/";
-            }
-            else
-            {
-                dir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            }
-
-            string settingsFile = Path.Combine(
-                dir,
-                SettingsFolderName,
-                SettingsFileName);
-
-            ServiceSettings.SettingsFileName = settingsFile;
-
-            if (ServiceSettings.Default.Autostart)
-            {
-                Start(ServiceSettings.Default.ReadOnly);
+                Start(SettingsService.Settings.ReadOnly);
             }
         }
 
@@ -80,8 +66,8 @@ namespace StagWare.FanControl.Service
                 {
                     this.fanControl.SetTargetFanSpeed(value, fanIndex);
 
-                    ServiceSettings.Default.TargetFanSpeeds[fanIndex] = value;
-                    ServiceSettings.Save();
+                    SettingsService.Settings.TargetFanSpeeds[fanIndex] = value;
+                    SettingsService.Save();
                 }
             }
         }
@@ -148,8 +134,8 @@ namespace StagWare.FanControl.Service
                     if (TryInitializeFanControl(cfg, out this.fanControl))
                     {
                         this.fansCount = this.fanControl.FanInformation.Count;
-                        ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                        ServiceSettings.Save();
+                        SettingsService.Settings.Autostart = this.fanControl.Enabled;
+                        SettingsService.Save();
                     }
                 }
             }
@@ -158,9 +144,9 @@ namespace StagWare.FanControl.Service
             {
                 this.fanControl.Start(readOnly);
 
-                ServiceSettings.Default.Autostart = this.fanControl.Enabled;
-                ServiceSettings.Default.ReadOnly = this.fanControl.ReadOnly;
-                ServiceSettings.Save();
+                SettingsService.Settings.Autostart = this.fanControl.Enabled;
+                SettingsService.Settings.ReadOnly = this.fanControl.ReadOnly;
+                SettingsService.Save();
             }
         }
 
@@ -170,8 +156,8 @@ namespace StagWare.FanControl.Service
             {
                 try
                 {
-                    ServiceSettings.Default.Autostart = false;
-                    ServiceSettings.Save();
+                    SettingsService.Settings.Autostart = false;
+                    SettingsService.Save();
                 }
                 catch(Exception e)
                 {
@@ -194,8 +180,8 @@ namespace StagWare.FanControl.Service
                 }
                 else
                 {
-                    ServiceSettings.Default.SelectedConfigId = configUniqueId;
-                    ServiceSettings.Save();
+                    SettingsService.Settings.SelectedConfigId = configUniqueId;
+                    SettingsService.Save();
 
                     if (this.fanControl != null)
                     {
@@ -258,13 +244,13 @@ namespace StagWare.FanControl.Service
             {
                 try
                 {
-                    this.fanControl.Start(ServiceSettings.Default.ReadOnly);
+                    this.fanControl.Start(SettingsService.Settings.ReadOnly);
                 }
                 catch (TimeoutException e)
                 {
                     logger.Warn(e, "Trying to start the service timed out. Retrying");
                     Thread.Sleep(3000);
-                    this.fanControl.Start(ServiceSettings.Default.ReadOnly);
+                    this.fanControl.Start(SettingsService.Settings.ReadOnly);
                 }
             }
         }
@@ -280,7 +266,7 @@ namespace StagWare.FanControl.Service
 
             try
             {
-                float[] speeds = ServiceSettings.Default.TargetFanSpeeds;
+                float[] speeds = SettingsService.Settings.TargetFanSpeeds;
 
                 if (speeds == null || speeds.Length != cfg.FanConfigurations.Count)
                 {
@@ -291,8 +277,8 @@ namespace StagWare.FanControl.Service
                         speeds[i] = FanControl.AutoFanSpeedPercentage;
                     }
 
-                    ServiceSettings.Default.TargetFanSpeeds = speeds;
-                    ServiceSettings.Save();
+                    SettingsService.Settings.TargetFanSpeeds = speeds;
+                    SettingsService.Save();
                 }
 
                 fanControl = new FanControl(cfg);
@@ -333,7 +319,7 @@ namespace StagWare.FanControl.Service
         {
             bool result = false;
             var configManager = new FanControlConfigManager(FanControlService.ConfigsDirectory);
-            string id = ServiceSettings.Default.SelectedConfigId;
+            string id = SettingsService.Settings.SelectedConfigId;
 
             if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
             {

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
+using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.Windows
 {
@@ -43,8 +44,8 @@ namespace NbfcClient.Windows
             this.saveSizeTimer.Interval = TimeSpan.FromSeconds(SaveWindowSizeDelay);
             this.saveSizeTimer.Tick += saveSizeTimer_Tick;
 
-            this.Height = Settings.Default.WindowHeight;
-            this.Width = Settings.Default.WindowWidth;
+            this.Height = SettingsService.Settings.WindowHeight;
+            this.Width = SettingsService.Settings.WindowWidth;
             this.SizeChanged += MainWindow_SizeChanged;
 
             var wbcd = new DateTime(DateTime.Now.Year, 5, 28);
@@ -134,7 +135,7 @@ namespace NbfcClient.Windows
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (Settings.Default.CloseToTray && !close)
+            if (SettingsService.Settings.CloseToTray && !close)
             {
                 e.Cancel = true;
                 WindowState = System.Windows.WindowState.Minimized;
@@ -161,9 +162,9 @@ namespace NbfcClient.Windows
         {
             this.saveSizeTimer.Stop();
 
-            Settings.Default.WindowHeight = lastHeight;
-            Settings.Default.WindowWidth = lastWidth;
-            Settings.Default.Save();
+            SettingsService.Settings.WindowHeight = lastHeight;
+            SettingsService.Settings.WindowWidth = lastWidth;
+            SettingsService.Save();
         }
 
         #endregion

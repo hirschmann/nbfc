@@ -88,6 +88,15 @@
               KeyPath="yes"
               Source="$(var.StagWare.BiosInfo.TargetDir)StagWare.BiosInfo.dll"/>
       </Component>
+
+      <Component Id="App.StagWare.Settings" Guid="44EA1296-53F1-45C7-843F-C3DCBE04921C">
+        <File Id="StagWare.Settings.dll"
+              Name="StagWare.Settings.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.StagWare.Settings.TargetDir)StagWare.Settings.dll"/>
+      </Component>
       
       <Component Id="App.NbfcProbe" Guid="96351E80-C0DD-4845-BAC5-065EA49114BC">
         <File Id="ec_probe.exe"
