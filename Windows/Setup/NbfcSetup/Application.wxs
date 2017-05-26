@@ -219,6 +219,15 @@
               Source="$(var.NbfcClient.TargetDir)Hardcodet.Wpf.TaskbarNotification.dll"/>
       </Component>
 
+      <Component Id="App.NLog" Guid="D2CF95AB-9859-4432-86D5-89FF9E64D970">
+        <File Id="NLog.dll"
+              Name="NLog.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)NLog.dll"/>
+      </Component>
+
       <Component Id="App.ConfigEditor" Guid="C3D8D023-75AB-49F5-B276-75E80FA87DBF">
         <File Id="ConfigEditor.exe" 
               Name="ConfigEditor.exe" 

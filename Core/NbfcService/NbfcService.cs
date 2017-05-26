@@ -1,4 +1,5 @@
-﻿using StagWare.FanControl.Service;
+﻿using NLog;
+using StagWare.FanControl.Service;
 using System;
 using System.Diagnostics;
 using System.ServiceModel;
@@ -9,6 +10,8 @@ namespace NbfcService
     public partial class NoteBookFanControlService : ServiceBase
     {
         #region Private Fields
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private ServiceHost host;
         private FanControlService service;
@@ -122,32 +125,7 @@ namespace NbfcService
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            if (this.EventLog != null)
-            {
-                string message = "";
-                var exception = e.ExceptionObject as Exception;
-
-                if (exception == null)
-                {
-                    message = "An unknown exception occurred.";
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(exception.Message))
-                    {
-                        message = exception.StackTrace;
-                    }
-                    else
-                    {
-                        message = exception.Message
-                            + Environment.NewLine
-                            + Environment.NewLine
-                            + exception.StackTrace;
-                    }
-                }
-
-                this.EventLog.WriteEntry(message, EventLogEntryType.Error);
-            }
+            logger.Error(e.ExceptionObject as Exception, "An unhandled exception occurred");
         }
 
         #endregion
