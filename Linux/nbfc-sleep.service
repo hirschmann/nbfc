@@ -6,8 +6,8 @@ StopWhenUnneeded=yes
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=-/opt/nbfc/pause-nbfcservice.sh
-ExecStop=-/opt/nbfc/continue-nbfcservice.sh
+ExecStart=-/opt/nbfc/nbfcservice.sh pause
+ExecStop=-/opt/nbfc/nbfcservice.sh continue
 
 [Install]
 WantedBy=sleep.target 
