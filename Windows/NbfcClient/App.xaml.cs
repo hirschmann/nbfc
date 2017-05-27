@@ -18,9 +18,9 @@ namespace NbfcClient
         {
             logger.Info("App start");
 
-            this.DispatcherUnhandledException += (sender, args) =>
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
             {
-                logger.Error(args.Exception, "An unhandled exception occurred");
+                logger.Fatal(args.ExceptionObject as Exception, "An unhandled exception occurred");
             };
 
             AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>

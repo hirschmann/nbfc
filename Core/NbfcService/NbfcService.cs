@@ -1,7 +1,6 @@
 ﻿using NLog;
 using StagWare.FanControl.Service;
 using System;
-using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceProcess;
 
@@ -22,7 +21,16 @@ namespace NbfcService
 
         public NoteBookFanControlService()
         {
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                logger.Fatal(args.ExceptionObject as Exception, "An unhandled exception occurred");
+            };
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>
+            {
+                logger.Debug(args.Exception, "A first chance exception occurred");
+            };
+            
             InitializeComponent();
         }
 
@@ -117,15 +125,6 @@ namespace NbfcService
                     this.service = null;
                 }
             }
-        }
-
-        #endregion
-
-        #region Exception logging
-
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            logger.Error(e.ExceptionObject as Exception, "An unhandled exception occurred");
         }
 
         #endregion
