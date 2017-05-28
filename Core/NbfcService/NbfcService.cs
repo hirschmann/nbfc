@@ -49,6 +49,7 @@ namespace NbfcService
 
         protected override void OnStart(string[] args)
         {
+            logger.Info("Starting NoteBookFanControlService");
             StopServiceHost();
 
             this.service = new FanControlService();
@@ -58,21 +59,26 @@ namespace NbfcService
 
         protected override void OnStop()
         {
+            logger.Info("Stopping NoteBookFanControlService");
             StopServiceHost();
         }
 
         protected override void OnContinue()
         {
+            logger.Info("Continuing NoteBookFanControlService");
             this.service.Continue();
         }
 
         protected override void OnPause()
         {
+            logger.Info("Pausing NoteBookFanControlService");
             this.service.Pause();
         }
 
         protected override bool OnPowerEvent(PowerBroadcastStatus powerStatus)
         {
+            logger.Info(() => "Handling power event: " + powerStatus.ToString());
+
             switch (powerStatus)
             {
                 case PowerBroadcastStatus.ResumeAutomatic:
