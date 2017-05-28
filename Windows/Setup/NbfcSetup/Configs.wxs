@@ -419,8 +419,8 @@
             <Component Id="cmp389BB03BC60B6059A9E07CC62ADD5B8F" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9355EE77F8BF69DBC1FBF713841F6ADF" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVE1711.xml" />
             </Component>
-            <Component Id="cmpC07FC53B0FA53794371B78BF1233D905" Directory="ConfigsFolder" Guid="*">
-                <File Id="filD31D8AE4F9CB9E1ED9EE01BEDB966C88" KeyPath="yes" Source="$(var.ConfigsDir)\Sony VAIO SVE1713Y1E.xml" />
+            <Component Id="cmp2AF72BE6669C64A0A008B9D38F6D0800" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil416AD2F73E8AEA834E97CB602DDDE4C8" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVE1713Y1E.xml" />
             </Component>
             <Component Id="cmp6945C93B7B7B5007E4E6AFF561F792D0" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF3F2135D38CD734F793030D075BC2314" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVT1312M1ES.xml" />
