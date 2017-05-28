@@ -75,20 +75,22 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-      <ItemGroup>
+  <Target Name="AfterBuild">
+    <ItemGroup>
       <Libs Include="$(TargetDir)\StagWare.Plugins*.dll;$(TargetDir)\StagWare.Hardware*.dll;$(TargetDir)\OpenHardwareMonitorLib.dll" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Release\Plugins\" ContinueOnError="true" />
-  </Target>
+    <Copy
+      Condition="'$(Configuration)' == 'DebugLinux'"
+      SourceFiles="@(Libs)"
+      DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Debug\Plugins\"
+      ContinueOnError="true" />
 
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'DebugLinux'">
-      <ItemGroup>
-      <Libs Include="$(TargetDir)\StagWare.Plugins*.dll;$(TargetDir)\StagWare.Hardware*.dll;$(TargetDir)\OpenHardwareMonitorLib.dll" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Release\Plugins\" ContinueOnError="true" />
+    <Copy
+      Condition="'$(Configuration)' == 'ReleaseLinux'"
+      SourceFiles="@(Libs)"
+      DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Release\Plugins\"
+      ContinueOnError="true" />
   </Target>
 
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

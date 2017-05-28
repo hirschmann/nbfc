@@ -72,12 +72,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\" ContinueOnError="true" />
-  </Target>
+  <Target Name="AfterBuild">
+    <Copy
+      Condition="'$(Configuration)' == 'ReleaseLinux'"
+      SourceFiles="$(TargetPath)"
+      DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\"
+      ContinueOnError="true" />
 
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'DebugLinux'">
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Debug\" ContinueOnError="true" />
+    <Copy
+      Condition="'$(Configuration)' == 'DebugLinux'"
+      SourceFiles="$(TargetPath)"
+      DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Debug\"
+      ContinueOnError="true" />
   </Target>
 
   <ItemGroup>
