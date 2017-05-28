@@ -14,7 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWindows|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +24,7 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWindows|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,10 +34,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLinux|AnyCPU'">
-    <OutputPath>bin\ReleaseLinux\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugLinux|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
@@ -66,13 +74,24 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
   <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
-    <ItemGroup>
-      <Libs Include="$(TargetDir)\*.dll" Exclude="$(TargetDir)\StagWare.FanControl.*" />
+      <ItemGroup>
+      <Libs Include="$(TargetDir)\StagWare.Plugins*.dll;$(TargetDir)\StagWare.Hardware*.dll;$(TargetDir)\OpenHardwareMonitorLib.dll" />
     </ItemGroup>
-    <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\$(Configuration)\Plugins\" ContinueOnError="true" />
+
+    <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Release\Plugins\" ContinueOnError="true" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+
+  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'DebugLinux'">
+      <ItemGroup>
+      <Libs Include="$(TargetDir)\StagWare.Plugins*.dll;$(TargetDir)\StagWare.Hardware*.dll;$(TargetDir)\OpenHardwareMonitorLib.dll" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(Libs)" DestinationFolder="$(ProjectDir)\..\..\..\Linux\bin\Release\Plugins\" ContinueOnError="true" />
+  </Target>
+
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
