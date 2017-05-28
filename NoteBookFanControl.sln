@@ -121,7 +121,6 @@ Global
 		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.DebugWindows|Any CPU.ActiveCfg = DebugWindows|Any CPU
 		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.DebugWindows|Any CPU.Build.0 = DebugWindows|Any CPU
 		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.ReleaseLinux|Any CPU.ActiveCfg = ReleaseWindows|Any CPU
-		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.ReleaseLinux|Any CPU.Build.0 = ReleaseWindows|Any CPU
 		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.ReleaseWindows|Any CPU.ActiveCfg = ReleaseWindows|Any CPU
 		{DF818D02-6FBC-44E1-88FA-0D62BD73CA95}.ReleaseWindows|Any CPU.Build.0 = ReleaseWindows|Any CPU
 		{D709446B-7DEC-4F18-B2A2-638A2EF8AAA6}.DebugLinux|Any CPU.ActiveCfg = Debug|x86
