@@ -11,6 +11,9 @@ then
 	mozroots --import --sync
 fi
 
+# update nuget
+mono nuget.exe update -self
+
 # restore nuget packages for solution
 mono nuget.exe restore
 

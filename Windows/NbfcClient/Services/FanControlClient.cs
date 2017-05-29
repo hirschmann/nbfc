@@ -2,12 +2,15 @@
 using NbfcClient.NbfcService;
 using System;
 using System.Windows.Threading;
+using NLog;
 
 namespace NbfcClient.Services
 {
     public class FanControlClient : IDisposable, IFanControlClient
     {
         #region Private Fields
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private FanControlServiceClient client;
         private FanControlInfo fanControlInfo;
@@ -180,8 +183,9 @@ namespace NbfcClient.Services
 
                 action(client);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                logger.Warn(e, "Attempt to call a service method failed");
                 client.Abort();
                 client = null;
             }

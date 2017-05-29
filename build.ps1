@@ -6,6 +6,9 @@ if(!(test-path .\nuget.exe)) {
 	(new-object System.Net.WebClient).DownloadFile('http://nuget.org/nuget.exe', "$workingDir\nuget.exe")
 }
 
+# update nuget
+.\nuget.exe update -self
+
 # restore nuget packages for solution
 .\nuget.exe restore
 

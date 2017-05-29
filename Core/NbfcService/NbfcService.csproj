@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{820ABB59-7F86-4D7F-89C9-8F7DA013D992}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -14,21 +12,6 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>NbfcService.Program</StartupObject>
@@ -37,17 +20,19 @@
     <ApplicationIcon>
     </ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugWindows|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\DebugWindows\</OutputPath>
     <Prefer32Bit>false</Prefer32Bit>
+    <appConfig>App.Windows.config</appConfig>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'ReleaseWindows|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\ReleaseWindows\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <Prefer32Bit>false</Prefer32Bit>
+    <appConfig>App.Windows.config</appConfig>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>App.manifest</ApplicationManifest>
@@ -57,17 +42,18 @@
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<appConfig>App.Linux.config</appConfig>
+    <appConfig>App.Linux.config</appConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugLinux|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugLinux\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-	<appConfig>App.Linux.config</appConfig>
+    <appConfig>App.Linux.config</appConfig>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NLog.4.4.9\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
@@ -102,48 +88,57 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
+    <None Include="App.Windows.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="App.Linux.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="App.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 4.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="AfterBuild" Condition="'$(Configuration)' == 'ReleaseLinux'">
+
+  <Target Name="AfterBuild">
     <ItemGroup>
       <ServiceFiles Include="$(TargetDir)\*.dll" />
       <Configs Include="$(ProjectDir)\..\..\Configs\*.xml" />
       <Scripts Include="$(ProjectDir)\..\..\Linux\*.sh" />
     </ItemGroup>
-    <Copy SourceFiles="@(ServiceFiles);$(TargetPath);$(TargetPath).config" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
-    <Copy SourceFiles="@(Configs)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\Configs\" ContinueOnError="true" />
-    <Copy SourceFiles="@(Scripts)" DestinationFolder="$(ProjectDir)\..\..\Linux\bin\$(Configuration)\" ContinueOnError="true" />
+
+      <Copy
+        Condition=" '$(Configuration)'=='DebugLinux' "
+        SourceFiles="@(ServiceFiles);$(TargetPath);$(TargetPath).config"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Debug\"
+        ContinueOnError="true" />
+      <Copy
+        Condition=" '$(Configuration)'=='DebugLinux' "
+        SourceFiles="@(Configs)"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Debug\Configs\"
+        ContinueOnError="true" />
+      <Copy
+        Condition=" '$(Configuration)'=='DebugLinux' "
+        SourceFiles="@(Scripts)"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Debug\"
+        ContinueOnError="true" />
+
+      <Copy
+        Condition=" '$(Configuration)'=='ReleaseLinux' "
+        SourceFiles="@(ServiceFiles);$(TargetPath);$(TargetPath).config"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\"
+        ContinueOnError="true" />
+      <Copy
+        Condition=" '$(Configuration)'=='ReleaseLinux' "
+        SourceFiles="@(Configs)"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\Configs\"
+        ContinueOnError="true" />
+      <Copy
+        Condition=" '$(Configuration)'=='ReleaseLinux' "
+        SourceFiles="@(Scripts)"
+        DestinationFolder="$(ProjectDir)\..\..\Linux\bin\Release\"
+        ContinueOnError="true" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
