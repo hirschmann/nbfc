@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using StagWare.ExtensionMethods;
+using System.IO.Abstractions;
 
 namespace StagWare.FanControl.Configurations
 {
@@ -44,6 +45,12 @@ namespace StagWare.FanControl.Configurations
 
         public FanControlConfigManager(string configsDirPath, string configFileExtension)
             : base(configsDirPath, configFileExtension)
+        {
+            DeviceModelName = GetDeviceModelName();
+        }
+
+        public FanControlConfigManager(string configsDirPath, string configFileExtension, IFileSystem fs)
+            : base(configsDirPath, configFileExtension, fs)
         {
             DeviceModelName = GetDeviceModelName();
         }

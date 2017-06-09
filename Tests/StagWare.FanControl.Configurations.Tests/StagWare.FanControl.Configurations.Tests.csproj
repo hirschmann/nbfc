@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="ConfigsTests.cs" />
+    <Compile Include="FanControlConfigManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
