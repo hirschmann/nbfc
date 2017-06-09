@@ -50,12 +50,11 @@ namespace StagWare.Settings
                     catch (Exception e)
                     {
                         OnLoadSettingsFailed(e);
-                        RestoreDefaults();
                     }
                 }
                 else
                 {
-                    RestoreDefaults();
+                    RestoreDefaults(instance);
                 }
             }
 
