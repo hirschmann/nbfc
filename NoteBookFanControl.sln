@@ -63,6 +63,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Settings", "Core\StagWare.Settings\StagWare.Settings.csproj", "{44C3959A-3565-4FB6-9BF6-694B146CD032}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Configurations.Tests", "Tests\StagWare.FanControl.Configurations.Tests\StagWare.FanControl.Configurations.Tests.csproj", "{F25EF457-99FB-448E-BB9B-B618ACAAD51A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugLinux|Any CPU = DebugLinux|Any CPU
@@ -225,6 +227,14 @@ Global
 		{44C3959A-3565-4FB6-9BF6-694B146CD032}.ReleaseLinux|Any CPU.Build.0 = Release|Any CPU
 		{44C3959A-3565-4FB6-9BF6-694B146CD032}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
 		{44C3959A-3565-4FB6-9BF6-694B146CD032}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.DebugLinux|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.DebugLinux|Any CPU.Build.0 = Debug|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.DebugWindows|Any CPU.ActiveCfg = Debug|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.DebugWindows|Any CPU.Build.0 = Debug|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.ReleaseLinux|Any CPU.ActiveCfg = Release|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.ReleaseLinux|Any CPU.Build.0 = Release|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.ReleaseWindows|Any CPU.ActiveCfg = Release|Any CPU
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A}.ReleaseWindows|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -254,5 +264,6 @@ Global
 		{D92D1F2A-8B4F-4946-9385-74EA13DF86AC} = {0288F2E8-672E-49DA-9B93-86CEE224D996}
 		{75F46626-9B87-497E-8565-51A5C8798ED4} = {DC9BC2E5-2F5C-4D98-A590-A60674554415}
 		{44C3959A-3565-4FB6-9BF6-694B146CD032} = {656212AC-91B4-49EC-9460-7BC3D6DD500C}
+		{F25EF457-99FB-448E-BB9B-B618ACAAD51A} = {DC9BC2E5-2F5C-4D98-A590-A60674554415}
 	EndGlobalSection
 EndGlobal

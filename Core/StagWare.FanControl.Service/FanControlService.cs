@@ -44,6 +44,12 @@ namespace StagWare.FanControl.Service
                 ? "/etc/"
                 : Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
+            SettingsService.LoadSettingsFailed += (sender, args) =>
+            {
+                logger.Error(args.Exception, "Failed to load settings. Restoring defaults.");
+                SettingsService.RestoreDefaults();
+            };
+
             if (SettingsService.Settings.Autostart)
             {
                 Start(SettingsService.Settings.ReadOnly);
@@ -67,49 +73,46 @@ namespace StagWare.FanControl.Service
                     this.fanControl.SetTargetFanSpeed(value, fanIndex);
 
                     SettingsService.Settings.TargetFanSpeeds[fanIndex] = value;
-                    SettingsService.Save();
+                    SaveSettings();
                 }
             }
         }
 
         public FanControlInfo GetFanControlInfo()
         {
-            bool initialized = !this.disposed && this.fanControl != null;
             var info = new FanControlInfo()
             {
+                Enabled = false,
+                ReadOnly = SettingsService.Settings.ReadOnly,
                 SelectedConfig = this.selectedConfig,
                 Temperature = 0
             };
 
-            if (initialized)
+            if (!this.disposed && this.fanControl != null)
             {
                 info.Enabled = this.fanControl.Enabled;
                 info.ReadOnly = this.fanControl.ReadOnly;
-            }
-
-            if (initialized)
-            {
                 info.TemperatureSourceDisplayName = this.fanControl.TemperatureSourceDisplayName;
-            }
 
-            if (this.fanControl.Enabled)
-            {
-                info.Temperature = (int)Math.Round(fanControl.Temperature);
-
-                ReadOnlyCollection<FanInformation> fanInfo = this.fanControl.FanInformation;
-                info.FanStatus = new FanStatus[fanInfo.Count];
-
-                for (int i = 0; i < fanInfo.Count; i++)
+                if (this.fanControl.Enabled)
                 {
-                    info.FanStatus[i] = new FanStatus()
+                    info.Temperature = (int)Math.Round(fanControl.Temperature);
+
+                    ReadOnlyCollection<FanInformation> fanInfo = this.fanControl.FanInformation;
+                    info.FanStatus = new FanStatus[fanInfo.Count];
+
+                    for (int i = 0; i < fanInfo.Count; i++)
                     {
-                        AutoControlEnabled = fanInfo[i].AutoFanControlEnabled,
-                        CriticalModeEnabled = fanInfo[i].CriticalModeEnabled,
-                        CurrentFanSpeed = fanInfo[i].CurrentFanSpeed,
-                        TargetFanSpeed = fanInfo[i].TargetFanSpeed,
-                        FanDisplayName = fanInfo[i].FanDisplayName,
-                        FanSpeedSteps = this.fanSpeedSteps[i]
-                    };
+                        info.FanStatus[i] = new FanStatus()
+                        {
+                            AutoControlEnabled = fanInfo[i].AutoFanControlEnabled,
+                            CriticalModeEnabled = fanInfo[i].CriticalModeEnabled,
+                            CurrentFanSpeed = fanInfo[i].CurrentFanSpeed,
+                            TargetFanSpeed = fanInfo[i].TargetFanSpeed,
+                            FanDisplayName = fanInfo[i].FanDisplayName,
+                            FanSpeedSteps = this.fanSpeedSteps[i]
+                        };
+                    }
                 }
             }
 
@@ -125,9 +128,17 @@ namespace StagWare.FanControl.Service
 
             if (this.fanControl == null)
             {
+                string selectedCfg = SettingsService.Settings.SelectedConfigId;
+
+                if (string.IsNullOrWhiteSpace(selectedCfg))
+                {
+                    logger.Warn("An attempt to start the fan controller failed because no config is selected");
+                    return;
+                }
+
                 FanControlConfigV2 cfg;
 
-                if (TryLoadConfig(out cfg))
+                if (TryLoadConfig(selectedCfg, out cfg))
                 {
                     InitializeFanSpeedSteps(cfg);
 
@@ -135,8 +146,12 @@ namespace StagWare.FanControl.Service
                     {
                         this.fansCount = this.fanControl.FanInformation.Count;
                         SettingsService.Settings.Autostart = this.fanControl.Enabled;
-                        SettingsService.Save();
+                        SaveSettings();
                     }
+                }
+                else
+                {
+                    logger.Error($"Failed to load config: {selectedCfg}");
                 }
             }
 
@@ -146,7 +161,7 @@ namespace StagWare.FanControl.Service
 
                 SettingsService.Settings.Autostart = this.fanControl.Enabled;
                 SettingsService.Settings.ReadOnly = this.fanControl.ReadOnly;
-                SettingsService.Save();
+                SaveSettings();
             }
         }
 
@@ -154,16 +169,8 @@ namespace StagWare.FanControl.Service
         {
             if (!this.disposed && fanControl != null)
             {
-                try
-                {
-                    SettingsService.Settings.Autostart = false;
-                    SettingsService.Save();
-                }
-                catch(Exception e)
-                {
-                    logger.Error(e, "Failed to save settings");
-                }
-
+                SettingsService.Settings.Autostart = false;
+                SaveSettings();
                 fanControl.Stop();
             }
         }
@@ -181,7 +188,7 @@ namespace StagWare.FanControl.Service
                 else
                 {
                     SettingsService.Settings.SelectedConfigId = configUniqueId;
-                    SettingsService.Save();
+                    SaveSettings();
 
                     if (this.fanControl != null)
                     {
@@ -259,6 +266,18 @@ namespace StagWare.FanControl.Service
 
         #region Private Methods
 
+        private static void SaveSettings()
+        {
+            try
+            {
+                SettingsService.Save();
+            }
+            catch (Exception e)
+            {
+                logger.Error(e, "Failed to save settings");
+            }
+        }
+
         private static bool TryInitializeFanControl(FanControlConfigV2 cfg, out FanControl fanControl)
         {
             bool success = false;
@@ -278,7 +297,7 @@ namespace StagWare.FanControl.Service
                     }
 
                     SettingsService.Settings.TargetFanSpeeds = speeds;
-                    SettingsService.Save();
+                    SaveSettings();
                 }
 
                 fanControl = new FanControl(cfg);
@@ -315,11 +334,10 @@ namespace StagWare.FanControl.Service
             }
         }
 
-        private bool TryLoadConfig(out FanControlConfigV2 config)
+        private bool TryLoadConfig(string id, out FanControlConfigV2 config)
         {
             bool result = false;
             var configManager = new FanControlConfigManager(FanControlService.ConfigsDirectory);
-            string id = SettingsService.Settings.SelectedConfigId;
 
             if (!string.IsNullOrWhiteSpace(id) && configManager.SelectConfig(id))
             {
