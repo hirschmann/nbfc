@@ -12,9 +12,10 @@ It comes with a powerful configuration system, which allows to adjust it to many
 Currently there are no pre-built releases for Linux, but you can easily build NBFC yourself: [How to build NBFC](https://github.com/hirschmann/nbfc/wiki/How-to-build-NBFC)
 
 ## Getting started
+In general the [NBFC Wiki](https://github.com/hirschmann/nbfc/wiki) is the first place to go if you have any questions, especially these pages:
 - [First steps](https://github.com/hirschmann/nbfc/wiki/First-steps)
 - [FAQ](https://github.com/hirschmann/nbfc/wiki/FAQ) (please read this before you submit a new issue)
-- [Structure of a NBFC config file](https://github.com/hirschmann/nbfc/wiki/Structure-of-a-NBFC-config-file) (in case you want to edit or create a NBFC config)
+- [How to create a NBFC config](https://github.com/hirschmann/nbfc/wiki/How-to-create-a-NBFC-config) (in case you want to edit or create a NBFC config)
 
 ## Build status
 | Platform | CI service | Status |
