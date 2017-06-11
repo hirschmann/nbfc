@@ -426,6 +426,31 @@
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
     </FanConfiguration>
+    <FanConfiguration>
+      <ReadRegister>171</ReadRegister>
+      <WriteRegister>171</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>8</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>Fan_ON or OFF</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>52</UpThreshold>
+          <DownThreshold>46</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>53</UpThreshold>
+          <DownThreshold>46</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
   </FanConfigurations>
   <RegisterWriteConfigurations />
 </FanControlConfigV2>
