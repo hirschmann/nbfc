@@ -113,23 +113,40 @@ namespace NbfcProbe
         {
             AccessEcSynchronized(ec =>
             {
-                StringBuilder sb = new StringBuilder(16 * 54);
+                ConsoleColor defaultColor = Console.ForegroundColor;
+                Console.WriteLine("   | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F");
+                Console.WriteLine("---|------------------------------------------------");
 
                 // Read all register bytes
                 for (int i = 0; i <= 0xF0; i += 0x10)
                 {
-                    sb.AppendFormat("{0:X2}: ", i);
+                    Console.ForegroundColor = defaultColor;
+                    Console.Write("{0:X2} | ", i);
 
                     for (int j = 0; j <= 0xF; j++)
                     {
                         byte b = ec.ReadByte((byte)(i + j));
-                        sb.AppendFormat("{0:X2} ", b);
+
+                        if (b == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                        }
+                        else if (b == 0xFF)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+
+                        Console.Write("{0:X2} ", b);
                     }
 
-                    sb.AppendLine();
+                    Console.WriteLine();
                 }
 
-                Console.WriteLine(sb);
+                Console.ForegroundColor = defaultColor;
             });
         }
 
