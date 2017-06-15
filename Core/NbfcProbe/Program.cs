@@ -311,7 +311,7 @@ namespace NbfcProbe
 
             if (ecLoader.FanControlPlugin == null)
             {
-                Console.Error.WriteLine("Could not load EC plugin");
+                Console.Error.WriteLine("Could not load EC plugin. Try to run ec-probe with elevated privileges.");
                 return null;
             }
 
@@ -323,7 +323,7 @@ namespace NbfcProbe
             }
             else
             {
-                Console.Error.WriteLine("EC initialization failed");
+                Console.Error.WriteLine("EC initialization failed. Try to run ec-probe with elevated privileges.");
                 ecLoader.FanControlPlugin.Dispose();
             }
 
