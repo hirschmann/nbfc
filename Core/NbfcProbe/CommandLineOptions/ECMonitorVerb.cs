@@ -15,7 +15,7 @@ namespace NbfcProbe.CommandLineOptions
             Action = ParseAction.Store,
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
-            MetaVar ="seconds",
+            MetaVar = "seconds",
             Description = "Monitored timespan (default: infinite)")]
         public int Timespan { get; set; }
 
@@ -36,7 +36,7 @@ namespace NbfcProbe.CommandLineOptions
             Constraint = NumArgsConstraint.Exactly,
             NumArgs = 1,
             MetaVar = "path",
-            Description = "Create a report file at the specified path")]
+            Description = "Save all readings as CSV file")]
         public string ReportPath { get; set; }
 
         [NamedArgument(
@@ -45,5 +45,12 @@ namespace NbfcProbe.CommandLineOptions
             Action = ParseAction.StoreTrue,
             Description = "Blanks out consecutive duplicate readings")]
         public bool Clearly { get; set; }
+
+        [NamedArgument(
+            'd',
+            "decimal",
+            Action = ParseAction.StoreTrue,
+            Description = "Output readings in decimal format instead of hexadecimal format")]
+        public bool Decimal { get; set; }
     }
 }
