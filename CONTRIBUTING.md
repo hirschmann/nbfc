@@ -32,6 +32,7 @@ If you found a bug or have a suggestion of how to improve NBFC, feel free to cre
 
 ### Config requests
 
+- Before creating a new issue, give the configs recommended by NBFC a try: `nbfc.exe config --recommend` (for further information, have a look at the [NBFC command line interface](https://github.com/hirschmann/nbfc/wiki/Command-line-interface))
 - Don't ask if someone can create a configs for you. Instead, read the tutorial of [how to create a NBFC config](https://github.com/hirschmann/nbfc/wiki/How-to-create-a-NBFC-config) and try to create a config on your own
 - In case you've read the tutorial, but you're stuck, please try to provide as much information as possible about your notebook, e.g. manufacturer, model, EC/SuperI/O-chip name, interesting EC registers etc.
 - In general, a forum dedicated to your notebook model is probably the best place to find other users who want to help create a config
