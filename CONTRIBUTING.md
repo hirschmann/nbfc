@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you very much for helping to improve NBFC. :yellow_heart:
+Thank you very much for helping to improve NBFC. :yellow_heart:  
 The following is a set of guidelines for contributing to this project.
 
 ## Pull requests
