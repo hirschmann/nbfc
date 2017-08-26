@@ -64,7 +64,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="clipr, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\clipr.1.6.0\lib\net35\clipr.dll</HintPath>
+      <HintPath>..\..\packages\clipr.1.6.0.1\lib\net35\clipr.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
