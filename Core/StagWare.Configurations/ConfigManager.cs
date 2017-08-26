@@ -68,12 +68,24 @@ namespace StagWare.Configurations
 
         public ConfigManager(string configsDirPath, string configFileExtension, IFileSystem fs)
         {
-            this.fs = fs
-                ?? throw new ArgumentNullException(nameof(fs));
-            this.configDirPath = configsDirPath
-                ?? throw new ArgumentNullException(nameof(configsDirPath));
-            this.configFileExtension = configFileExtension
-                ?? throw new ArgumentNullException(nameof(configFileExtension));
+            if (fs == null)
+            {
+                throw new ArgumentNullException(nameof(fs));
+            }
+
+            if (configsDirPath == null)
+            {
+                throw new ArgumentNullException(nameof(configsDirPath));
+            }
+
+            if (configFileExtension == null)
+            {
+                throw new ArgumentNullException(nameof(configFileExtension));
+            }
+
+            this.fs = fs;
+            this.configDirPath = configsDirPath;
+            this.configFileExtension = configFileExtension;
             this.serializer = new XmlSerializer(typeof(T));
 
             if (!fs.Directory.Exists(configsDirPath))
