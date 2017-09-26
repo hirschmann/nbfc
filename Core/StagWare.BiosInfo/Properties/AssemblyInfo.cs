@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StagWare")]
 [assembly: AssemblyProduct("StagWare.BiosInfo")]
-[assembly: AssemblyCopyright("Copyright © 2016 Stefan Hirschcmann")]
+[assembly: AssemblyCopyright("Copyright © 2016 Stefan Hirschmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

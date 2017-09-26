@@ -1,6 +1,6 @@
-﻿using StagWare.FanControl.Service;
+﻿using NLog;
+using StagWare.FanControl.Service;
 using System;
-using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceProcess;
 
@@ -9,6 +9,8 @@ namespace NbfcService
     public partial class NoteBookFanControlService : ServiceBase
     {
         #region Private Fields
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private ServiceHost host;
         private FanControlService service;
@@ -19,7 +21,16 @@ namespace NbfcService
 
         public NoteBookFanControlService()
         {
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
+            {
+                logger.Fatal(args.ExceptionObject as Exception, "An unhandled exception occurred");
+            };
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>
+            {
+                logger.Debug(args.Exception, "A first chance exception occurred");
+            };
+            
             InitializeComponent();
         }
 
@@ -38,6 +49,7 @@ namespace NbfcService
 
         protected override void OnStart(string[] args)
         {
+            logger.Info("Starting NoteBookFanControlService");
             StopServiceHost();
 
             this.service = new FanControlService();
@@ -47,21 +59,26 @@ namespace NbfcService
 
         protected override void OnStop()
         {
+            logger.Info("Stopping NoteBookFanControlService");
             StopServiceHost();
         }
 
         protected override void OnContinue()
         {
+            logger.Info("Continuing NoteBookFanControlService");
             this.service.Continue();
         }
 
         protected override void OnPause()
         {
+            logger.Info("Pausing NoteBookFanControlService");
             this.service.Pause();
         }
 
         protected override bool OnPowerEvent(PowerBroadcastStatus powerStatus)
         {
+            logger.Info(() => "Handling power event: " + powerStatus.ToString());
+
             switch (powerStatus)
             {
                 case PowerBroadcastStatus.ResumeAutomatic:
@@ -113,40 +130,6 @@ namespace NbfcService
                     this.service.Dispose();
                     this.service = null;
                 }
-            }
-        }
-
-        #endregion
-
-        #region Exception logging
-
-        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            if (this.EventLog != null)
-            {
-                string message = "";
-                var exception = e.ExceptionObject as Exception;
-
-                if (exception == null)
-                {
-                    message = "An unknown exception occurred.";
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(exception.Message))
-                    {
-                        message = exception.StackTrace;
-                    }
-                    else
-                    {
-                        message = exception.Message
-                            + Environment.NewLine
-                            + Environment.NewLine
-                            + exception.StackTrace;
-                    }
-                }
-
-                this.EventLog.WriteEntry(message, EventLogEntryType.Error);
             }
         }
 

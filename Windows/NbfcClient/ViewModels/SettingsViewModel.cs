@@ -1,12 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
-using NbfcClient.Properties;
 using StagWare.Windows;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Media;
+using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.ViewModels
 {
@@ -37,9 +35,8 @@ namespace NbfcClient.ViewModels
         {
             autorun = new AutorunEntry(RegistryAutorunValueName);
             autorun.Parameters = StartInTrayParameter;
-
-            trayIconColor = Settings.Default.TrayIconForegroundColor;
-            closeToTray = Settings.Default.CloseToTray;
+            trayIconColor = SettingsService.Settings.TrayIconForegroundColor;
+            closeToTray = SettingsService.Settings.CloseToTray;
             autostart = autorun.Exists;
         }
 
@@ -54,8 +51,8 @@ namespace NbfcClient.ViewModels
             {
                 if (Set(ref this.closeToTray, value))
                 {
-                    Settings.Default.CloseToTray = value;
-                    Settings.Default.Save();
+                    SettingsService.Settings.CloseToTray = value;
+                    SettingsService.Save();
                 }
             }
         }
@@ -79,8 +76,8 @@ namespace NbfcClient.ViewModels
             {
                 if (Set(ref this.trayIconColor, value))
                 {
-                    Settings.Default.TrayIconForegroundColor = value;
-                    Settings.Default.Save();
+                    SettingsService.Settings.TrayIconForegroundColor = value;
+                    SettingsService.Save();
 
                     // Make the main view model update the tray icon
                     Messenger.Default.Send(new ReloadFanControlInfoMessage(false));

@@ -1,4 +1,5 @@
-﻿using StagWare.FanControl.Configurations;
+﻿using NLog;
+using StagWare.FanControl.Configurations;
 using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.ObjectModel;
@@ -35,6 +36,7 @@ namespace StagWare.FanControl
         #region Private Fields
 
         private readonly object syncRoot = new object();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private Timer timer;
         private AsyncOperation asyncOp;
@@ -379,6 +381,10 @@ namespace StagWare.FanControl
                     {
                         UpdateEc(this.temperature);
                     }
+                    catch(Exception e)
+                    {
+                        logger.Error(e, "Could not update the EC");
+                    }
                     finally
                     {
                         this.ec.ReleaseLock();
@@ -576,6 +582,10 @@ namespace StagWare.FanControl
                         ResetRegisterWriteConfigs();
                         ResetFans();
                     }
+                }
+                catch(Exception e)
+                {
+                    logger.Error(e, "EC reset failed");
                 }
                 finally
                 {

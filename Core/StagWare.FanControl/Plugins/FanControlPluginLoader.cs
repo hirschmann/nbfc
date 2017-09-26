@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -8,6 +9,8 @@ namespace StagWare.FanControl.Plugins
 {
     public class FanControlPluginLoader<T> where T : IFanControlPlugin
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         T fanControlPlugin;
         string fanControlPluginId;
 
@@ -109,8 +112,9 @@ namespace StagWare.FanControl.Plugins
                 plugin.Initialize();
                 isPluginInitialized = plugin.IsInitialized;
             }
-            catch
+            catch (Exception e)
             {
+                logger.Warn(e, "Plugin initialization failed");
             }
 
             if (!isPluginInitialized)
@@ -119,7 +123,10 @@ namespace StagWare.FanControl.Plugins
                 {
                     plugin.Dispose();
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    logger.Warn(e, "Plugin disposal failed");
+                }
             }
 
             return isPluginInitialized;

@@ -152,40 +152,40 @@ namespace StagWare.FanControl.Tests
 
                 Assert.Equal(fanSpeedOverride.FanSpeedPercentage, fan.TargetSpeed);
             }
-        }
 
-        [Fact]
-        public void AppliesFanSpeedOverridesWhenTempIsCritical()
-        {
-            var ec = A.Fake<IEmbeddedController>();
-            var fanSpeedOverride = new FanSpeedPercentageOverride()
+            [Fact]
+            public void AppliesFanSpeedOverridesWhenTempIsCritical()
             {
-                FanSpeedPercentage = 100,
-                FanSpeedValue = 255,
-                TargetOperation = OverrideTargetOperation.Write
-            };
+                var ec = A.Fake<IEmbeddedController>();
+                var fanSpeedOverride = new FanSpeedPercentageOverride()
+                {
+                    FanSpeedPercentage = 100,
+                    FanSpeedValue = 255,
+                    TargetOperation = OverrideTargetOperation.Write
+                };
 
-            var cfg = new FanConfiguration()
-            {
-                WriteRegister = 123,
-                MinSpeedValue = 0,
-                MaxSpeedValue = 200,
-                FanSpeedPercentageOverrides = new List<FanSpeedPercentageOverride>()
+                var cfg = new FanConfiguration()
+                {
+                    WriteRegister = 123,
+                    MinSpeedValue = 0,
+                    MaxSpeedValue = 200,
+                    FanSpeedPercentageOverrides = new List<FanSpeedPercentageOverride>()
                 {
                     fanSpeedOverride
                 }
-            };            
+                };
 
-            int criticalTemperature = 70;
+                int criticalTemperature = 70;
 
-            var fan = new Fan(ec, cfg, criticalTemperature, false);
-            fan.SetTargetSpeed(50, criticalTemperature + 1, false);
+                var fan = new Fan(ec, cfg, criticalTemperature, false);
+                fan.SetTargetSpeed(50, criticalTemperature + 1, false);
 
-            A.CallTo(() => ec.WriteByte((byte)cfg.WriteRegister, (byte)fanSpeedOverride.FanSpeedValue))
-                .MustHaveHappened();
+                A.CallTo(() => ec.WriteByte((byte)cfg.WriteRegister, (byte)fanSpeedOverride.FanSpeedValue))
+                    .MustHaveHappened();
 
-            Assert.True(fan.CriticalModeEnabled, nameof(fan.CriticalModeEnabled));
-            Assert.Equal(100, fan.TargetSpeed, 10);
+                Assert.True(fan.CriticalModeEnabled, nameof(fan.CriticalModeEnabled));
+                Assert.Equal(100, fan.TargetSpeed, 10);
+            }
         }
 
         public class GetCurrentSpeed
