@@ -47,6 +47,9 @@
             <Component Id="cmpD8A70748ADB3EFB0E75E988C1DB41103" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil96EAE3CA6E0A75AB6EA482F8720EDECA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-772.xml" />
             </Component>
+            <Component Id="cmp0B1794DA91BD874D0E3BBEBF0DA97373" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil6191365BBDE9F9F629D2D29CD7395923" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-475G.xml" />
+            </Component>
             <Component Id="cmpBA75A32F5591C9DF1246E9BFC9C805C7" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil187D4C6DF34C21AD73CEA9A254C4AA24" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-731.xml" />
             </Component>
@@ -79,6 +82,9 @@
             </Component>
             <Component Id="cmp5B875705CD66AFFB2A109E9303732832" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil4722CBADD2D24BEBDA29D3A53AAF569B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V3-371.xml" />
+            </Component>
+            <Component Id="cmpA8C00FBC1C093637F8B7025F53A439F3" Directory="ConfigsFolder" Guid="*">
+                <File Id="filD8B6EDA2A985E37089D476F9A38ECD0C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V3-571G.xml" />
             </Component>
             <Component Id="cmpC21F8E0F76FB8DCF1B8AA4BB2796273B" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil956F89E7A963530AE4B04DEC0728C445" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V5-551.xml" />
@@ -212,6 +218,9 @@
             <Component Id="cmp1D1E43EB8C4F3A9F8FE18AEDFB8BD78D" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil2A9D229FC88D4AFFE6F46EA89C7E8AA7" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX410UQ.xml" />
             </Component>
+            <Component Id="cmpE2F1AABF2FA57EB6FFB930957537DF22" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil7FDA2FBDA9980AC26616D12F52151855" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX430UA.xml" />
+            </Component>
             <Component Id="cmp429C6058BF28DDC66DFADB66DC09C658" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil844A6443945ED3062EADE36C012DB31E" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX51VZA.xml" />
             </Component>
@@ -236,6 +245,9 @@
             <Component Id="cmp3B60C3B8BD589A666FF388699DD36F29" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9ED7E108D65AB96728584026E19EBF2D" KeyPath="yes" Source="$(var.ConfigsDir)\Gateway LT31.xml" />
             </Component>
+            <Component Id="cmpDECB0B6B2B9962AAE6DE59C06963C020" Directory="ConfigsFolder" Guid="*">
+                <File Id="filABA4EE1DC1DD559A09EED76D64D4AB69" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 15-s103tx.xml" />
+            </Component>
             <Component Id="cmpDDAAE66AA098D8B2D3709AA1573FAF3B" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil6E02EED7836F9183F2F8F1E76E69EE30" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 615.xml" />
             </Component>
@@ -247,6 +259,9 @@
             </Component>
             <Component Id="cmpE4E718FFD9FC2D55063ECCC3C629551C" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8A149CA066C1E8D2CB46FDFFB9DD2209" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq 8710p.xml" />
+            </Component>
+            <Component Id="cmpE0552BB1E86EC65D9B1C831C9EB16E8D" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil2E72A0A02BAFA882DABE9E619DA92638" KeyPath="yes" Source="$(var.ConfigsDir)\HP Compaq nw9440.xml" />
             </Component>
             <Component Id="cmp08C4A3E46E43BDE2362957AC783D5EE5" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil534C8CF1539136E7E9F2CE9C0FDEF63D" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2560p.xml" />
@@ -323,6 +338,9 @@
             <Component Id="cmp0765673553B0BF0791BD457D139995CF" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil48DBD0AB0C475FD7295F0E558DD4D1EF" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 5330m.xml" />
             </Component>
+            <Component Id="cmp4D1B23A530116314D574300A547203DE" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil60142D130A84CB70666DD410DE015E97" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6455b.xml" />
+            </Component>
             <Component Id="cmp9B183F9DD422A1D95AF941F7E44C6845" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9D3B482E4D45F686479495B5CF04D682" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6460b.xml" />
             </Component>
@@ -331,6 +349,9 @@
             </Component>
             <Component Id="cmpEFD85E5E413F0DD8B78CB01E3A182F9F" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil539CCFD04C1D084B1FE0778182DC8763" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 650 G1.xml" />
+            </Component>
+            <Component Id="cmpB60A5C426BCD36E15FE37302E3219A62" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil8767733BFF349D1B82E6E0DD9DB95B36" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6550b.xml" />
             </Component>
             <Component Id="cmp8E7A04B657D9DE04CEBA9381245E61DB" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8CEFC96581123F9EF92D9719D46673B2" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6560b.xml" />
@@ -367,6 +388,9 @@
             </Component>
             <Component Id="cmp92B823E355F2DBBD2D8F17E7CA2221EA" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil86B17C8351D0F70B76C5D992DC470C42" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T430s.xml" />
+            </Component>
+            <Component Id="cmp7EAEBB06804063A3E04159EF3DD2D81F" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil2739DFBBC5EE0B82EA0D68EFE03EA043" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T440s.xml" />
             </Component>
             <Component Id="cmp3A83DE42A694228184F56FF837794816" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil82B09531413AD67C3A75502C640E129B" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T540p.xml" />
@@ -437,8 +461,14 @@
             <Component Id="cmp389BB03BC60B6059A9E07CC62ADD5B8F" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9355EE77F8BF69DBC1FBF713841F6ADF" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVE1711.xml" />
             </Component>
-            <Component Id="cmpC07FC53B0FA53794371B78BF1233D905" Directory="ConfigsFolder" Guid="*">
-                <File Id="filD31D8AE4F9CB9E1ED9EE01BEDB966C88" KeyPath="yes" Source="$(var.ConfigsDir)\Sony VAIO SVE1713Y1E.xml" />
+            <Component Id="cmp2AF72BE6669C64A0A008B9D38F6D0800" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil416AD2F73E8AEA834E97CB602DDDE4C8" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVE1713Y1E.xml" />
+            </Component>
+            <Component Id="cmpBC9C96F19DE0FE336298F89B71A201A3" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil3018AF372A6392B2893A78F1B6BAB990" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVF13N190X.xml" />
+            </Component>
+            <Component Id="cmp16A5CD76F52DBEC6C19D52677B1457B5" Directory="ConfigsFolder" Guid="*">
+                <File Id="filF8469CD6795D2B4E12708EB7A17C2CAF" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVF14N1C5E.xml" />
             </Component>
             <Component Id="cmp6945C93B7B7B5007E4E6AFF561F792D0" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF3F2135D38CD734F793030D075BC2314" KeyPath="yes" Source="$(var.ConfigsDir)\Sony Vaio SVT1312M1ES.xml" />
