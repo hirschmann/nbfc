@@ -79,6 +79,15 @@
               KeyPath="yes"
               Source="$(var.StagWare.FanControl.Configurations.TargetDir)StagWare.FanControl.Configurations.dll"/>
       </Component>
+      
+      <Component Id="App.System.IO.Abstractions" Guid="7DB74C9F-53C3-4A99-91B8-B85BB4A47D38">
+        <File Id="System.IO.Abstractions.dll" 
+              Name="System.IO.Abstractions.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.StagWare.FanControl.Configurations.TargetDir)System.IO.Abstractions.dll"/>
+      </Component>
 
       <Component Id="App.StagWare.BiosInfo" Guid="56FD647A-734A-49E5-86CD-745BDA7804E1">
         <File Id="StagWare.BiosInfo.dll" 

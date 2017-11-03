@@ -47,6 +47,9 @@
             <Component Id="cmpD8A70748ADB3EFB0E75E988C1DB41103" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil96EAE3CA6E0A75AB6EA482F8720EDECA" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E1-772.xml" />
             </Component>
+            <Component Id="cmp0B1794DA91BD874D0E3BBEBF0DA97373" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil6191365BBDE9F9F629D2D29CD7395923" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-475G.xml" />
+            </Component>
             <Component Id="cmpBA75A32F5591C9DF1246E9BFC9C805C7" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil187D4C6DF34C21AD73CEA9A254C4AA24" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire E5-731.xml" />
             </Component>
@@ -79,6 +82,9 @@
             </Component>
             <Component Id="cmp5B875705CD66AFFB2A109E9303732832" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil4722CBADD2D24BEBDA29D3A53AAF569B" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V3-371.xml" />
+            </Component>
+            <Component Id="cmpA8C00FBC1C093637F8B7025F53A439F3" Directory="ConfigsFolder" Guid="*">
+                <File Id="filD8B6EDA2A985E37089D476F9A38ECD0C" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V3-571G.xml" />
             </Component>
             <Component Id="cmpC21F8E0F76FB8DCF1B8AA4BB2796273B" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil956F89E7A963530AE4B04DEC0728C445" KeyPath="yes" Source="$(var.ConfigsDir)\Acer Aspire V5-551.xml" />
@@ -382,6 +388,9 @@
             </Component>
             <Component Id="cmp92B823E355F2DBBD2D8F17E7CA2221EA" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil86B17C8351D0F70B76C5D992DC470C42" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T430s.xml" />
+            </Component>
+            <Component Id="cmp7EAEBB06804063A3E04159EF3DD2D81F" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil2739DFBBC5EE0B82EA0D68EFE03EA043" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T440s.xml" />
             </Component>
             <Component Id="cmp3A83DE42A694228184F56FF837794816" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil82B09531413AD67C3A75502C640E129B" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad T540p.xml" />

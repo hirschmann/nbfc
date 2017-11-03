@@ -318,7 +318,7 @@ namespace OpenHardwareMonitor.Hardware
             {
                 return isaBusMutex.WaitOne(millisecondsTimeout, false);
             }
-            catch (AbandonedMutexException) { return false; }
+            catch (AbandonedMutexException) { return true; }
             catch (InvalidOperationException) { return false; }
         }
 
