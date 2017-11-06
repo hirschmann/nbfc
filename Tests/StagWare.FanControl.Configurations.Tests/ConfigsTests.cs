@@ -1,7 +1,9 @@
-﻿using System;
+﻿using StagWare.FanControl.Configurations.Validation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Xunit;
 
 namespace StagWare.FanControl.Configurations.Tests
@@ -12,10 +14,29 @@ namespace StagWare.FanControl.Configurations.Tests
         public void AreConfigsValid()
         {
             var configMan = new FanControlConfigManager(GetConfigsDir());
+            var validator = new FanControlConfigValidator();
 
             foreach (string name in configMan.ConfigNames)
             {
-                Assert.True(configMan.GetConfig(name) != null, $"{name} is invalid");
+                var cfg = configMan.GetConfig(name);
+                Assert.True(cfg != null, $"{name} could not be loaded");
+
+                var result = validator.Validate(cfg, false, false);
+                StringBuilder message = null;
+
+                if (!result.Success)
+                {
+                    message = new StringBuilder();
+                    message.AppendFormat("{0} is not valid:", name);
+                    message.AppendLine();
+
+                    foreach (var rule in result.FailedRules)
+                    {
+                        message.AppendLine(rule.Description);
+                    }
+                }
+
+                Assert.True(result.Success, message?.ToString());
             }
         }
 
