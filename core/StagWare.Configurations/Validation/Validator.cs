@@ -9,7 +9,7 @@ namespace StagWare.FanControl.Configurations.Validation
         public ValidationSummary<T> Validate(T item, bool breakOnFailure = true, bool failOnWarnings = false)
         {
             var summary = new ValidationSummary<T>();
-            summary.Success = false;
+            summary.Success = true;
 
             foreach (var rule in Rules)
             {

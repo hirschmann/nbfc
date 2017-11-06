@@ -19,7 +19,7 @@ namespace StagWare.FanControl.Configurations.Tests
             foreach (string name in configMan.ConfigNames)
             {
                 var cfg = configMan.GetConfig(name);
-                Assert.True(cfg != null, $"{name} could not be loaded");
+                Assert.True(cfg != null, $"{name} config could not be loaded");
 
                 var result = validator.Validate(cfg, false, false);
                 StringBuilder message = null;
@@ -27,12 +27,13 @@ namespace StagWare.FanControl.Configurations.Tests
                 if (!result.Success)
                 {
                     message = new StringBuilder();
-                    message.AppendFormat("{0} is not valid:", name);
+                    message.AppendFormat("{0} config is not valid:", name);
                     message.AppendLine();
 
                     foreach (var rule in result.FailedRules)
                     {
-                        message.AppendLine(rule.Description);
+                        message.AppendFormat("- {0}", rule.Description);
+                        message.AppendLine();
                     }
                 }
 
