@@ -1,43 +1,56 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>UX430UA</NotebookModel>
-  <EcPollInterval>150</EcPollInterval>
+  <NotebookModel>ASUSTeK COMPUTER INC. UX430UA</NotebookModel>
+  <Author>sladiri</Author>
+  <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
-  <Author>xant1, jws</Author>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
       <WriteRegister>151</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
       <MaxSpeedValue>8</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>9</FanSpeedResetValue>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>50</UpThreshold>
+          <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>65</UpThreshold>
-          <DownThreshold>50</DownThreshold>
-          <FanSpeed>28.571428571428569</FanSpeed>
+          <UpThreshold>62</UpThreshold>
+          <DownThreshold>52</DownThreshold>
+          <FanSpeed>12.5</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
-          <DownThreshold>60</DownThreshold>
-          <FanSpeed>57.142857142857139</FanSpeed>
+          <DownThreshold>66</DownThreshold>
+          <FanSpeed>25</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>80</UpThreshold>
-          <DownThreshold>70</DownThreshold>
-          <FanSpeed>85.714285714285708</FanSpeed>
+          <UpThreshold>74</UpThreshold>
+          <DownThreshold>72</DownThreshold>
+          <FanSpeed>37.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>78</UpThreshold>
+          <DownThreshold>76</DownThreshold>
+          <FanSpeed>50</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>85</UpThreshold>
-          <DownThreshold>75</DownThreshold>
+          <DownThreshold>83</DownThreshold>
           <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>83</UpThreshold>
+          <DownThreshold>81</DownThreshold>
+          <FanSpeed>75</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
@@ -51,6 +64,7 @@
       <Value>10</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
@@ -59,6 +73,7 @@
       <Value>10</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>10</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
