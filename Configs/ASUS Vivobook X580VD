@@ -4,7 +4,7 @@
   <Author>Ensyell</Author>
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
@@ -23,8 +23,13 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>65</UpThreshold>
+          <UpThreshold>55</UpThreshold>
           <DownThreshold>50</DownThreshold>
+          <FanSpeed>12</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>55</DownThreshold>
           <FanSpeed>28.5714283</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
@@ -62,8 +67,13 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>65</UpThreshold>
+          <UpThreshold>55</UpThreshold>
           <DownThreshold>50</DownThreshold>
+          <FanSpeed>12</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>55</DownThreshold>
           <FanSpeed>28.5714283</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
