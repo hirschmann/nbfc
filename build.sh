@@ -6,7 +6,12 @@ function download-nuget {
     wget $NUGET_URL
 	
     # import Mozilla trusted root certificates into mono certificates store
-    mozroots --import --sync
+    
+    # Debian / Ubuntu / Arch
+    cert-sync "/etc/ssl/certs/ca-certificates.crt"
+
+    # Fedora / CentOS
+    cert-sync "/etc/pki/tls/certs/ca-bundle.crt"
 }
 
 
