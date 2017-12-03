@@ -14,12 +14,7 @@
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>196</FanSpeedResetValue>
       <FanDisplayName>Processor fan</FanDisplayName>
-      <TemperatureThresholds>
-        <TemperatureThreshold>
-          <UpThreshold>100</UpThreshold>
-          <DownThreshold>80</DownThreshold>
-          <FanSpeed>100</FanSpeed>
-        </TemperatureThreshold>
+      <TemperatureThresholds>        
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
           <DownThreshold>50</DownThreshold>
@@ -33,7 +28,7 @@
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
           <DownThreshold>75</DownThreshold>
-          <FanSpeed>95</FanSpeed>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>50</UpThreshold>

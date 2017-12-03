@@ -4,7 +4,7 @@
   <Author>KirraBu</Author>
   <EcPollInterval>2000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>80</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>215</ReadRegister>

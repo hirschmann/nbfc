@@ -6,7 +6,7 @@
 	<Author>erkexzcx</Author>
 	<EcPollInterval>300</EcPollInterval>
 	<ReadWriteWords>false</ReadWriteWords>
-	<CriticalTemperature>75</CriticalTemperature>
+	<CriticalTemperature>85</CriticalTemperature>
 	<FanConfigurations>
 		<FanConfiguration>
 			<ReadRegister>151</ReadRegister>

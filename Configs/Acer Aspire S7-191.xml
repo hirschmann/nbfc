@@ -3,7 +3,7 @@
   <NotebookModel>Aspire S7-191</NotebookModel>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>77</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <Author>Benjamin Wetzel</Author>  
   <FanConfigurations>
     <FanConfiguration>

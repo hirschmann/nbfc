@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
-<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <NotebookModel>HP ProBook 4720s</NotebookModel>
+  <Author>c01nd01r</Author>
   <EcPollInterval>2000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
-  <Author>c01nd01r</Author>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>214</ReadRegister>
       <WriteRegister>213</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
       <MaxSpeedValue>112</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>false</ResetRequired>
       <FanSpeedResetValue>20</FanSpeedResetValue>
       <FanDisplayName>Fan</FanDisplayName>
@@ -23,12 +26,12 @@
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
           <DownThreshold>60</DownThreshold>
-          <FanSpeed>80.9090909090909</FanSpeed>
+          <FanSpeed>80.90909</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>60</UpThreshold>
           <DownThreshold>50</DownThreshold>
-          <FanSpeed>66.363636363636374</FanSpeed>
+          <FanSpeed>66.36364</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>50</UpThreshold>
@@ -38,12 +41,12 @@
         <TemperatureThreshold>
           <UpThreshold>40</UpThreshold>
           <DownThreshold>30</DownThreshold>
-          <FanSpeed>41.071428571428569</FanSpeed>
+          <FanSpeed>41.07143</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>30</UpThreshold>
           <DownThreshold>0</DownThreshold>
-          <FanSpeed>20.909090909090907</FanSpeed>
+          <FanSpeed>20.90909</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />

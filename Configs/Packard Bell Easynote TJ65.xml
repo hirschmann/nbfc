@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <NotebookModel>Easynote TJ65</NotebookModel>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
@@ -10,14 +10,12 @@
       <WriteRegister>148</WriteRegister>
       <MinSpeedValue>255</MinSpeedValue>
       <MaxSpeedValue>102</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>196</FanSpeedResetValue>
       <TemperatureThresholds>
-        <TemperatureThreshold>
-          <UpThreshold>99</UpThreshold>
-          <DownThreshold>0</DownThreshold>
-          <FanSpeed>100</FanSpeed>
-        </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
     </FanConfiguration>
@@ -30,6 +28,7 @@
       <Value>20</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>4</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
       <Description>Set EC to manual control</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
