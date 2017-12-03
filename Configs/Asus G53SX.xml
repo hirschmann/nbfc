@@ -4,7 +4,7 @@
   <Author>flexbrane</Author>
   <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>80</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>152</ReadRegister>

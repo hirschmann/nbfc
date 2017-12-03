@@ -36,8 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.IO.Abstractions, Version=2.0.0.144, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.IO.Abstractions.2.0.0.144\lib\net40\System.IO.Abstractions.dll</HintPath>
+    <Reference Include="System.IO.Abstractions, Version=2.1.0.175, Culture=neutral, PublicKeyToken=96bf224d23c43e59, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Abstractions.2.1.0.175\lib\net40\System.IO.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="ConfigManager.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
-    <Compile Include="IFanControlConfig.cs" />
     <Compile Include="FanControlConfigManager.cs" />
     <Compile Include="FanControlConfig.cs" />
     <Compile Include="FanControlConfigV2.cs" />
@@ -58,6 +57,17 @@
     <Compile Include="RegisterWriteRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureThreshold.cs" />
+    <Compile Include="Validation\FanControlConfigValidator.cs" />
+    <Compile Include="Validation\Rules\FanConfigurationsNotEmtpy.cs" />
+    <Compile Include="Validation\Rules\NoDuplicateTemperatureUpThresholds.cs" />
+    <Compile Include="Validation\Rules\MaxFanSpeedThresholdRequired.cs" />
+    <Compile Include="Validation\Rules\UpThresholdMayNotBeLowerThanDownThreshold.cs" />
+    <Compile Include="Validation\Rules\UpThresholdsMustBeLowerThanCriticalTemperature.cs" />
+    <Compile Include="Validation\Rules\ZeroFanSpeedThresholdRecommended.cs" />
+    <Compile Include="Validation\Validation.cs" />
+    <Compile Include="Validation\ValidationSummary.cs" />
+    <Compile Include="Validation\IValidationRule.cs" />
+    <Compile Include="Validation\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StagWare.BiosInfo\StagWare.BiosInfo.csproj">
