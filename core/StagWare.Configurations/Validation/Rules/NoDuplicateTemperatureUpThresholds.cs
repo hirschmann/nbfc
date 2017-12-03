@@ -6,16 +6,22 @@ namespace StagWare.FanControl.Configurations.Validation.Rules
     {
         public string Description => "A fan's temperature thresholds must have unique up-thresholds";
 
-        public ValidationResult Validate(FanControlConfigV2 item)
+        public Validation Validate(FanControlConfigV2 item)
         {
+            var v = new Validation()
+            {
+                RuleDescription = this.Description,
+                Result = ValidationResult.Success
+            };
+
             if (item.FanConfigurations == null)
             {
-                return ValidationResult.Success;
+                return v;
             }
 
             foreach (FanConfiguration cfg in item.FanConfigurations)
             {
-                if(cfg.TemperatureThresholds == null)
+                if (cfg.TemperatureThresholds == null)
                 {
                     continue;
                 }
@@ -26,7 +32,9 @@ namespace StagWare.FanControl.Configurations.Validation.Rules
                 {
                     if (lookup.Contains(threshold.UpThreshold))
                     {
-                        return ValidationResult.Error;
+                        v.Result = ValidationResult.Error;
+                        v.Reason = "There is at least one duplicate up-threshold: " + threshold.UpThreshold;
+                        return v;
                     }
                     else
                     {
@@ -35,7 +43,7 @@ namespace StagWare.FanControl.Configurations.Validation.Rules
                 }
             }
 
-            return ValidationResult.Success;
+            return v;
         }
     }
 }

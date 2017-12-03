@@ -6,28 +6,47 @@ namespace StagWare.FanControl.Configurations.Validation.Rules
     {
         public string Description => "Each fan must have a threshold with a fan speed of 100";
 
-        public ValidationResult Validate(FanControlConfigV2 item)
+        public Validation Validate(FanControlConfigV2 item)
         {
+            var v = new Validation()
+            {
+                RuleDescription = this.Description,
+                Result = ValidationResult.Success
+            };
+
             if (item.FanConfigurations == null)
             {
-                return ValidationResult.Success;
+                return v;
             }
+
+            int i = 0;
 
             foreach (FanConfiguration cfg in item.FanConfigurations)
             {
+                i++;
+
                 // ignore empty thresholds, because in this case the defaults will be applied
-                if(cfg.TemperatureThresholds == null || cfg.TemperatureThresholds.Count == 0)
+                if (cfg.TemperatureThresholds == null || cfg.TemperatureThresholds.Count == 0)
                 {
                     continue;
                 }
 
-                if(!cfg.TemperatureThresholds.Any(x => x.FanSpeed == 100))
+                if (!cfg.TemperatureThresholds.Any(x => x.FanSpeed == 100))
                 {
-                    return ValidationResult.Error;
+                    string fanName = "Fan #" + i;
+
+                    if (!string.IsNullOrWhiteSpace(cfg.FanDisplayName))
+                    {
+                        fanName += $" ({cfg.FanDisplayName})";
+                    }
+
+                    v.Result = ValidationResult.Error;
+                    v.Reason = "There is no threshold with a fan speed of 100: " + fanName;
+                    return v;
                 }
             }
 
-            return ValidationResult.Success;
+            return v;
         }
     }
 }

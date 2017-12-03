@@ -30,9 +30,12 @@ namespace StagWare.FanControl.Configurations.Tests
                     message.AppendFormat("{0} config is not valid:", name);
                     message.AppendLine();
 
-                    foreach (var rule in result.FailedRules)
+                    foreach (var validation in result.Failed)
                     {
-                        message.AppendFormat("- {0}", rule.Description);
+                        message.AppendFormat("- {0}", validation.RuleDescription);
+                        message.AppendLine();
+                        message.AppendFormat("--> {0}", validation.Reason);
+                        message.AppendLine();
                         message.AppendLine();
                     }
                 }

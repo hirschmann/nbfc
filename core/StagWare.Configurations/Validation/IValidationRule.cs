@@ -10,6 +10,6 @@
     public interface IValidationRule<T>
     {
         string Description { get; }
-        ValidationResult Validate(T item);
+        Validation Validate(T item);
     }
 }

@@ -1,4 +1,5 @@
-﻿using StagWare.FanControl.Configurations.Validation.Rules;
+﻿using System;
+using System.Linq;
 
 namespace StagWare.FanControl.Configurations.Validation
 {
@@ -6,13 +7,12 @@ namespace StagWare.FanControl.Configurations.Validation
     {
         public FanControlConfigValidator()
         {
-            Rules.AddRange(new IValidationRule<FanControlConfigV2>[]
-            {
-                new MaxFanSpeedThresholdRequired(),
-                new NoDuplicateTemperatureUpThresholds(),
-                new UpThresholdsMustBeLowerThanCriticalTemperature(),
-                new ZeroFanSpeedThresholdRequired(),
-            });
+            var rules = typeof(IValidationRule<FanControlConfigV2>)?.Assembly
+                .GetTypes()
+                .Where(x => x.IsClass && typeof(IValidationRule<FanControlConfigV2>).IsAssignableFrom(x))
+                .Select(x => (IValidationRule <FanControlConfigV2>)Activator.CreateInstance(x));
+
+            Rules.AddRange(rules);
         }
     }
 }

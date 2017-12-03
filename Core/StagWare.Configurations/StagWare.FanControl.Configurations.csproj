@@ -58,10 +58,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemperatureThreshold.cs" />
     <Compile Include="Validation\FanControlConfigValidator.cs" />
+    <Compile Include="Validation\Rules\FanConfigurationsNotEmtpy.cs" />
     <Compile Include="Validation\Rules\NoDuplicateTemperatureUpThresholds.cs" />
     <Compile Include="Validation\Rules\MaxFanSpeedThresholdRequired.cs" />
+    <Compile Include="Validation\Rules\UpThresholdMayNotBeLowerThanDownThreshold.cs" />
     <Compile Include="Validation\Rules\UpThresholdsMustBeLowerThanCriticalTemperature.cs" />
-    <Compile Include="Validation\Rules\ZeroFanSpeedThresholdRequired.cs" />
+    <Compile Include="Validation\Rules\ZeroFanSpeedThresholdRecommended.cs" />
+    <Compile Include="Validation\Validation.cs" />
     <Compile Include="Validation\ValidationSummary.cs" />
     <Compile Include="Validation\IValidationRule.cs" />
     <Compile Include="Validation\Validator.cs" />

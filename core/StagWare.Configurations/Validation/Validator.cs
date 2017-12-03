@@ -13,19 +13,21 @@ namespace StagWare.FanControl.Configurations.Validation
 
             foreach (var rule in Rules)
             {
-                switch (rule.Validate(item))
+                var validation = rule.Validate(item);
+
+                switch (validation.Result)
                 {
                     case ValidationResult.Success:
-                        summary.PassedRules.Add(rule);
+                        summary.Passed.Add(validation);
                         break;
 
                     case ValidationResult.Warning:
-                        summary.WarningRules.Add(rule);
+                        summary.Warnings.Add(validation);
                         if (failOnWarnings) summary.Success = false;
                         break;
 
                     case ValidationResult.Error:
-                        summary.FailedRules.Add(rule);
+                        summary.Failed.Add(validation);
                         summary.Success = false;
                         break;
                 }
