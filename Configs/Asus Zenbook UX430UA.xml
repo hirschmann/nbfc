@@ -4,7 +4,7 @@
   <Author>sladiri</Author>
   <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>85</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
