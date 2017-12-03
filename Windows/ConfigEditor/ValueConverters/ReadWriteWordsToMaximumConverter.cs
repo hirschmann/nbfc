@@ -11,12 +11,12 @@ namespace ConfigEditor.ValueConverters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return (bool)value ? int.MaxValue : byte.MaxValue;
+            return (bool)value ? ushort.MaxValue : byte.MaxValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return (int)value > byte.MaxValue;
+            throw new NotImplementedException();
         }
     }
 }
