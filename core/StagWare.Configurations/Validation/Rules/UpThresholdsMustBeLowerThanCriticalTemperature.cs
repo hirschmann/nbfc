@@ -26,7 +26,7 @@ namespace StagWare.FanControl.Configurations.Validation.Rules
                 if (threshold != null)
                 {
                     v.Result = ValidationResult.Error;
-                    v.Reason = "At least one up-threshold is higher than the critical temperature: " + threshold.UpThreshold;
+                    v.Reason = "At least one up-threshold is higher than or equal to the critical temperature: " + threshold.UpThreshold;
                     return v;
                 }
 
