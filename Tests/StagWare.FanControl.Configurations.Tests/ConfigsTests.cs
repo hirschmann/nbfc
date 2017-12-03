@@ -55,6 +55,13 @@ namespace StagWare.FanControl.Configurations.Tests
             Assert.True(configsLookup.SetEquals(configMan.ConfigNames));
         }
 
+        [Fact]
+        public void DoAllConfigsHaveXmlFileExtension()
+        {
+            string path = GetConfigsDir();
+            Assert.True(Directory.GetFiles(path).All(x => x.EndsWith(".xml")));
+        }
+
         private static string GetConfigsDir()
         {
             string path = Directory.GetParent(Environment.CurrentDirectory)?
