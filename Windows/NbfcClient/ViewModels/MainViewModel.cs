@@ -3,12 +3,12 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
 using NbfcClient.NbfcService;
-using NbfcClient.Properties;
 using NbfcClient.Services;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
+using SettingsService = StagWare.Settings.SettingsService<NbfcClient.AppSettings>;
 
 namespace NbfcClient.ViewModels
 {
@@ -40,7 +40,7 @@ namespace NbfcClient.ViewModels
         {
             this.FanControllers = new ObservableCollection<FanControllerViewModel>();
             this.renderer = new TrayIconRenderer();
-            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
+            this.renderer.Color = SettingsService.Settings.TrayIconForegroundColor;
             this.client = client;
             this.client.FanControlStatusChanged += Client_FanControlStatusChanged;
             Messenger.Default.Register<ReloadFanControlInfoMessage>(this, Refresh);
@@ -190,7 +190,7 @@ namespace NbfcClient.ViewModels
 
         private void UpdateNotifyIcon(int temperature)
         {
-            this.renderer.Color = Settings.Default.TrayIconForegroundColor;
+            this.renderer.Color = SettingsService.Settings.TrayIconForegroundColor;
             TrayIcon = this.renderer.RenderIcon(temperature.ToString());
         }
 

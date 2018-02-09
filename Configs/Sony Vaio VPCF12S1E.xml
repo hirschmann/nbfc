@@ -4,7 +4,7 @@
   <Author>Alexander Schlarb</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>90</CriticalTemperature>
+  <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>76</ReadRegister>

@@ -79,6 +79,15 @@
               KeyPath="yes"
               Source="$(var.StagWare.FanControl.Configurations.TargetDir)StagWare.FanControl.Configurations.dll"/>
       </Component>
+      
+      <Component Id="App.System.IO.Abstractions" Guid="7DB74C9F-53C3-4A99-91B8-B85BB4A47D38">
+        <File Id="System.IO.Abstractions.dll" 
+              Name="System.IO.Abstractions.dll" 
+              DiskId="1" 
+              Vital="yes" 
+              KeyPath="yes"
+              Source="$(var.StagWare.FanControl.Configurations.TargetDir)System.IO.Abstractions.dll"/>
+      </Component>
 
       <Component Id="App.StagWare.BiosInfo" Guid="56FD647A-734A-49E5-86CD-745BDA7804E1">
         <File Id="StagWare.BiosInfo.dll" 
@@ -87,6 +96,15 @@
               Vital="yes" 
               KeyPath="yes"
               Source="$(var.StagWare.BiosInfo.TargetDir)StagWare.BiosInfo.dll"/>
+      </Component>
+
+      <Component Id="App.StagWare.Settings" Guid="44EA1296-53F1-45C7-843F-C3DCBE04921C">
+        <File Id="StagWare.Settings.dll"
+              Name="StagWare.Settings.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.StagWare.Settings.TargetDir)StagWare.Settings.dll"/>
       </Component>
       
       <Component Id="App.NbfcProbe" Guid="96351E80-C0DD-4845-BAC5-065EA49114BC">
@@ -217,6 +235,15 @@
               Vital="yes" 
               KeyPath="yes"
               Source="$(var.NbfcClient.TargetDir)Hardcodet.Wpf.TaskbarNotification.dll"/>
+      </Component>
+
+      <Component Id="App.NLog" Guid="D2CF95AB-9859-4432-86D5-89FF9E64D970">
+        <File Id="NLog.dll"
+              Name="NLog.dll"
+              DiskId="1"
+              Vital="yes"
+              KeyPath="yes"
+              Source="$(var.NbfcClient.TargetDir)NLog.dll"/>
       </Component>
 
       <Component Id="App.ConfigEditor" Guid="C3D8D023-75AB-49F5-B276-75E80FA87DBF">

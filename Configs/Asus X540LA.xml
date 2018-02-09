@@ -3,7 +3,7 @@
   <NotebookModel>Asus K540LA</NotebookModel>
   <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>85</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>

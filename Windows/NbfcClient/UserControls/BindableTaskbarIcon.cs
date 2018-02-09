@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using NLog;
 
 namespace NbfcClient.UserControls
 {
@@ -17,6 +18,12 @@ namespace NbfcClient.UserControls
             [DllImport("user32.dll", SetLastError = true)]
             public static extern bool DestroyIcon(IntPtr hIcon);
         }
+
+        #endregion
+
+        #region Private Fields
+
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         #endregion
 
@@ -44,36 +51,74 @@ namespace NbfcClient.UserControls
 
             if (icon == null)
             {
+                logger.Warn(() => $"The event source is not a {nameof(BindableTaskbarIcon)}");
                 return;
             }
 
-            Icon oldIcon = icon.Icon;
+            if(e.NewValue == null)
+            {
+                UpdateTaskbarIcon(icon, null);
+                return;
+            }
+
             var src = e.NewValue as BitmapSource;
 
+            // Keep old icon in case the BitmapSource cannot be converted to an icon
             if (src == null)
             {
-                icon.Icon = null;
+                logger.Warn(() => $"The new icon value is not a {nameof(BitmapSource)}");
+                return;
+            }
+
+            Icon newIcon = BitmapSourceToIcon(src);
+            
+            if (newIcon != null)
+            {
+                UpdateTaskbarIcon(icon, newIcon);
             }
             else
             {
-                var enc = new PngBitmapEncoder();
-                enc.Frames.Add(BitmapFrame.Create(src));
+                logger.Warn(() => $"Could not convert {nameof(BitmapSource)} to icon");
+            }
+        }
 
-                using (var ms = new MemoryStream())
-                {
-                    enc.Save(ms);
-                    ms.Position = 0;
+        private static void UpdateTaskbarIcon(TaskbarIcon icon, Icon newIcon)
+        {
+            Icon oldIcon = icon.Icon;
+            IntPtr handle = oldIcon.Handle;
 
-                    using (Bitmap bmp = (Bitmap)Bitmap.FromStream(ms))
-                    {
-                        icon.Icon = Icon.FromHandle(bmp.GetHicon());
-                    }
-                }
+            icon.Icon = newIcon;
+
+            oldIcon.Dispose();
+            NativeMethods.DestroyIcon(handle);
+        }
+
+        /// <summary>
+        /// Creates an Icon from a BitmapSource.
+        /// The returned Icon's handle must be destroyed manually after use. Calling Dispose() is not enough.
+        /// </summary>
+        /// <param name="src"></param>
+        /// <returns>An Icon object on success or null on failure</returns>
+        private static Icon BitmapSourceToIcon(BitmapSource src)
+        {
+            if(src == null)
+            {
+                return null;
             }
 
-            IntPtr iconHandle = oldIcon.Handle;
-            oldIcon.Dispose();
-            NativeMethods.DestroyIcon(iconHandle);
+            var enc = new PngBitmapEncoder();
+            enc.Frames.Add(BitmapFrame.Create(src));
+
+            using (var ms = new MemoryStream())
+            {
+                enc.Save(ms);
+                ms.Position = 0;
+
+                using (Bitmap bmp = (Bitmap)Bitmap.FromStream(ms))
+                {
+                    return Icon.FromHandle(bmp.GetHicon());
+                }
+            }
         }
 
         #endregion

@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Aspire E5-471G</NotebookModel>
-  <Author>DeiKun</Author>
-  <EcPollInterval>500</EcPollInterval>
+  <NotebookModel>Aspire E5-475G</NotebookModel>
+  <Author>arra</Author>
+  <EcPollInterval>250</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>93</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
-      <ReadRegister>85</ReadRegister>
-      <WriteRegister>85</WriteRegister>
-      <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>8</MaxSpeedValue>
+      <ReadRegister>88</ReadRegister>
+      <WriteRegister>88</WriteRegister>
+      <MinSpeedValue>10</MinSpeedValue>
+      <MaxSpeedValue>99</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>

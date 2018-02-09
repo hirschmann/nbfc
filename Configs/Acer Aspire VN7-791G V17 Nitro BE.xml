@@ -4,7 +4,7 @@
   <Author>Paul Werner</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>92</CriticalTemperature>
+  <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
@@ -51,7 +51,7 @@
         <TemperatureThreshold>
           <UpThreshold>90</UpThreshold>
           <DownThreshold>75</DownThreshold>
-          <FanSpeed>95.4545441</FanSpeed>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>45</UpThreshold>
@@ -92,6 +92,11 @@
           <UpThreshold>71</UpThreshold>
           <DownThreshold>67</DownThreshold>
           <FanSpeed>80.891716</FanSpeed>
+        </TemperatureThreshold>
+		<TemperatureThreshold>
+          <UpThreshold>90</UpThreshold>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <NotebookModel>Toshiba Satellite L740 , Bios v2.60 , EC v2.50</NotebookModel>
+  <Author>msafwan</Author>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+  <FanConfiguration>
+    <ReadRegister>197</ReadRegister>
+    <WriteRegister>94</WriteRegister>
+    <MinSpeedValue>1</MinSpeedValue>
+    <MaxSpeedValue>3</MaxSpeedValue>
+    <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+    <MinSpeedValueRead>0</MinSpeedValueRead>
+    <MaxSpeedValueRead>205</MaxSpeedValueRead>
+    <ResetRequired>true</ResetRequired>
+    <FanSpeedResetValue>2</FanSpeedResetValue>
+    <FanDisplayName>CPU Fan Level</FanDisplayName>
+    <TemperatureThresholds>
+      <TemperatureThreshold>
+        <UpThreshold>50</UpThreshold>
+        <DownThreshold>50</DownThreshold>
+        <FanSpeed>100</FanSpeed>
+      </TemperatureThreshold>
+      <TemperatureThreshold>
+        <UpThreshold>35</UpThreshold>
+        <DownThreshold>35</DownThreshold>
+        <FanSpeed>50</FanSpeed>
+      </TemperatureThreshold>
+      <TemperatureThreshold>
+        <UpThreshold>20</UpThreshold>
+        <DownThreshold>20</DownThreshold>
+        <FanSpeed>0</FanSpeed>
+      </TemperatureThreshold>
+    </TemperatureThresholds>
+    <FanSpeedPercentageOverrides />
+  </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

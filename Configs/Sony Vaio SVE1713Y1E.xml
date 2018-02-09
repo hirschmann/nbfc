@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
-<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <NotebookModel>SVE1713Y1E</NotebookModel>
+  <Author>marogo</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
-  <Author>marogo</Author>
+  <CriticalTemperature>83</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
       <WriteRegister>148</WriteRegister>
       <MinSpeedValue>255</MinSpeedValue>
       <MaxSpeedValue>102</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>196</FanSpeedResetValue>
       <FanDisplayName>VAIO</FanDisplayName>
@@ -23,37 +26,37 @@
         <TemperatureThreshold>
           <UpThreshold>50</UpThreshold>
           <DownThreshold>42</DownThreshold>
-          <FanSpeed>30.718954248366014</FanSpeed>
+          <FanSpeed>30.7189541</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>54</UpThreshold>
           <DownThreshold>46</DownThreshold>
-          <FanSpeed>40.522875816993462</FanSpeed>
+          <FanSpeed>40.5228767</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>58</UpThreshold>
           <DownThreshold>50</DownThreshold>
-          <FanSpeed>50.326797385620914</FanSpeed>
+          <FanSpeed>50.3267975</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>62</UpThreshold>
           <DownThreshold>54</DownThreshold>
-          <FanSpeed>60.784313725490193</FanSpeed>
+          <FanSpeed>60.7843132</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>66</UpThreshold>
           <DownThreshold>58</DownThreshold>
-          <FanSpeed>70.588235294117652</FanSpeed>
+          <FanSpeed>70.5882339</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
           <DownThreshold>62</DownThreshold>
-          <FanSpeed>80.3921568627451</FanSpeed>
+          <FanSpeed>80.39216</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>74</UpThreshold>
           <DownThreshold>66</DownThreshold>
-          <FanSpeed>90.196078431372555</FanSpeed>
+          <FanSpeed>90.1960754</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>78</UpThreshold>

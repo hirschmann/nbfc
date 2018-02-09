@@ -36,7 +36,7 @@
         <TemperatureThreshold>
           <UpThreshold>82</UpThreshold>
           <DownThreshold>73</DownThreshold>
-          <FanSpeed>91.66667</FanSpeed>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
@@ -50,31 +50,6 @@
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>50</FanSpeedPercentage>
-          <FanSpeedValue>5</FanSpeedValue>
-          <TargetOperation>Write</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>33.3333359</FanSpeedPercentage>
-          <FanSpeedValue>3</FanSpeedValue>
-          <TargetOperation>Write</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>8.333334</FanSpeedPercentage>
-          <FanSpeedValue>1</FanSpeedValue>
-          <TargetOperation>Write</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>91.66667</FanSpeedPercentage>
-          <FanSpeedValue>13</FanSpeedValue>
-          <TargetOperation>Write</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>16.6666679</FanSpeedPercentage>
-          <FanSpeedValue>2</FanSpeedValue>
-          <TargetOperation>ReadWrite</TargetOperation>
-        </FanSpeedPercentageOverride>
       </FanSpeedPercentageOverrides>
     </FanConfiguration>
   </FanConfigurations>

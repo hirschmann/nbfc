@@ -1,4 +1,6 @@
 ﻿using NbfcClient.Properties;
+using NLog;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;
@@ -10,14 +12,26 @@ namespace NbfcClient
     /// </summary>
     public partial class App : Application
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
         public App()
         {
-            if (Settings.Default.UpgradeRequired)
+            logger.Info("App start");
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
             {
-                Settings.Default.Upgrade();
-                Settings.Default.UpgradeRequired = false;
-                Settings.Default.Save();
-            }
+                logger.Fatal(args.ExceptionObject as Exception, "An unhandled exception occurred");
+            };
+
+            AppDomain.CurrentDomain.FirstChanceException += (sender, args) =>
+            {
+                logger.Debug(args.Exception, "A first chance exception occurred");
+            };
+
+            this.Exit += (sender, args) =>
+            {
+                logger.Info("App exit");
+            };
 
             FrameworkElement.LanguageProperty.OverrideMetadata(
                 typeof(FrameworkElement), 

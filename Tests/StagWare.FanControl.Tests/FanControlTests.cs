@@ -22,7 +22,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -67,7 +67,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -121,7 +121,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -159,7 +159,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -211,7 +211,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -247,7 +247,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -289,7 +289,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -327,7 +327,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);
@@ -363,7 +363,7 @@ namespace StagWare.FanControl.Tests
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
-                A.CallTo(() => filter.FilterTemperature(A<int>.Ignored)).ReturnsLazily((int x) => x);
+                A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).ReturnsLazily((double x) => x);
 
                 var ec = A.Fake<IEmbeddedController>();
                 A.CallTo(() => ec.IsInitialized).Returns(true);

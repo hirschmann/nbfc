@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Gigabyte p35w v3</NotebookModel>
+  <ReadWriteWords>false</ReadWriteWords>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>96</ReadRegister>
+      <WriteRegister>176</WriteRegister>
+      <MinSpeedValue>80</MinSpeedValue>
+      <MaxSpeedValue>221</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>100</FanSpeedResetValue>
+      <FanDisplayName>CPU fan</FanDisplayName>
+    </FanConfiguration>
+    <FanConfiguration>
+      <ReadRegister>96</ReadRegister>
+      <WriteRegister>177</WriteRegister>
+      <MinSpeedValue>80</MinSpeedValue>
+      <MaxSpeedValue>221</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>100</FanSpeedResetValue>
+      <FanDisplayName>GPU fan</FanDisplayName>
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration> 
+      <WriteMode>Set</WriteMode> 
+      <WriteOccasion>OnInitialization</WriteOccasion> 
+      <Register>1</Register> 
+      <Value>163</Value> 
+      <Description>Set EC to manual control</Description> 
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

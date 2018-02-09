@@ -3,7 +3,7 @@
   <NotebookModel>Acer Aspire S7-391</NotebookModel>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>82</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <Author>Dean Edwards</Author>  
   <FanConfigurations>
     <FanConfiguration>
@@ -26,9 +26,14 @@
           <FanSpeed>20.2020202020202</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>80</UpThreshold>
+          <UpThreshold>75</UpThreshold>
           <DownThreshold>65</DownThreshold>
           <FanSpeed>65.656565656565661</FanSpeed>
+        </TemperatureThreshold>
+		<TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
@@ -53,9 +58,14 @@
           <FanSpeed>21.212121212121211</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>80</UpThreshold>
+          <UpThreshold>75</UpThreshold>
           <DownThreshold>65</DownThreshold>
           <FanSpeed>65.656565656565661</FanSpeed>
+        </TemperatureThreshold>
+		<TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />

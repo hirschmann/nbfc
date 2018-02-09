@@ -1,18 +1,39 @@
 #!/bin/bash
 
+NUGET_URL="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
+
+function download-nuget {
+    wget $NUGET_URL
+	
+    # import Mozilla trusted root certificates into mono certificates store
+    
+    # Debian / Ubuntu / Arch
+    cert-sync "/etc/ssl/certs/ca-certificates.crt"
+
+    # Fedora / CentOS
+    cert-sync "/etc/pki/tls/certs/ca-bundle.crt"
+}
+
+
 pushd $(dirname "${0}")
 
 # download nuget if necessary
 if [ ! -f ./nuget.exe ]
 then
-	wget http://nuget.org/nuget.exe
-	
-	# import Mozilla trusted root certificates into mono certificates store
-	mozroots --import --sync
+    echo "NuGet could not be found. Downloading latest recommended version."
+    download-nuget
 fi
 
-# restore nuget packages for solution
 mono nuget.exe restore
+
+# restore nuget packages for solution
+if [ "$?" != 0 ]
+then
+    echo "Packages could not be restored. Updating NuGet."
+    rm ./nuget.exe
+    download-nuget
+    mono nuget.exe restore
+fi    
 
 # build solution
 xbuild /t:Build /p:Configuration=ReleaseLinux NoteBookFanControl.sln

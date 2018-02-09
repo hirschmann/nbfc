@@ -3,7 +3,7 @@
   <NotebookModel>UX360UAK</NotebookModel>
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <Author>xant1, jws</Author>
   <FanConfigurations>
     <FanConfiguration>

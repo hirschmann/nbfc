@@ -3,7 +3,7 @@
   <NotebookModel>UX301LA</NotebookModel>
   <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>78</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>

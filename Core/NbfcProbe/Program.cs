@@ -4,19 +4,57 @@ using StagWare.FanControl;
 using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace NbfcProbe
 {
     public class Program
     {
+        #region Nested Types
+
+        struct RegisterLog
+        {
+            public bool Print;
+            public List<byte> Values;
+        }
+
+        #endregion
+
+        #region Constants
+
+        const string RowHeaderFormatHex = "0x{0:X2}: ";
+        const string RowHeaderFormatDec = "{0:d3}: ";
+
+        const string ValueFormatHex = "{0:X2}";
+        const string ValueFormatDec = "{0:d3}";
+
+        #endregion
+
+        #region Private Fields
+
+        static IEmbeddedController ec;
+
+        #endregion
+
         #region Main
 
         static void Main(string[] args)
         {
+            AppDomain.CurrentDomain.ProcessExit += (s, e) =>
+            {
+                if (ec != null)
+                {
+                    try
+                    {
+                        ec.ReleaseLock();
+                        ec.Dispose();
+                    }
+                    catch { }
+                }
+            };
+
             try
             {
                 ParseArgs(args);
@@ -73,7 +111,8 @@ namespace NbfcProbe
                     opt.ECMonitor.Timespan,
                     opt.ECMonitor.Interval,
                     opt.ECMonitor.ReportPath,
-                    opt.ECMonitor.Clearly);
+                    opt.ECMonitor.Clearly,
+                    opt.ECMonitor.Decimal);
             }
             else
             {
@@ -113,54 +152,72 @@ namespace NbfcProbe
         {
             AccessEcSynchronized(ec =>
             {
-                StringBuilder sb = new StringBuilder(16 * 54);
+                ConsoleColor defaultColor = Console.ForegroundColor;
+                Console.WriteLine("   | 00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F");
+                Console.WriteLine("---|------------------------------------------------");
 
                 // Read all register bytes
                 for (int i = 0; i <= 0xF0; i += 0x10)
                 {
-                    sb.AppendFormat("{0:X2}: ", i);
+                    Console.ForegroundColor = defaultColor;
+                    Console.Write("{0:X2} | ", i);
 
                     for (int j = 0; j <= 0xF; j++)
                     {
                         byte b = ec.ReadByte((byte)(i + j));
-                        sb.AppendFormat("{0:X2} ", b);
+
+                        if (b == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                        }
+                        else if (b == 0xFF)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGreen;
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                        }
+
+                        Console.Write("{0:X2} ", b);
                     }
 
-                    sb.AppendLine();
+                    Console.WriteLine();
                 }
 
-                Console.WriteLine(sb);
+                Console.ForegroundColor = defaultColor;
             });
         }
 
-        private static void ECMonitor(int timespan, int interval, string reportPath, bool clearly)
+        private static void ECMonitor(int timespan, int interval, string reportPath, bool clearly, bool decimalFormat)
         {
-            var dict = new Dictionary<byte, List<byte>>();
+            var logs = new RegisterLog[byte.MaxValue];
 
             Console.CancelKeyPress += (sender, e) =>
             {
                 if (reportPath != null)
                 {
-                    SaveMonitoringReport(reportPath, dict, clearly);
+                    SaveRegisterLogs(reportPath, logs, clearly, decimalFormat);
                 }
             };
 
-            using (IEmbeddedController embeddedController = LoadEC())
+            using (ec = LoadEC())
             {
-                if (embeddedController == null)
+                if (ec == null)
                 {
                     return;
                 }
 
-                byte[] initialBytes = new byte[byte.MaxValue];
+                Console.WriteLine("monitoring...");
 
-                for (byte reg = 0; reg < initialBytes.Length; reg++)
+                for (byte b = 0; b < logs.Length; b++)
                 {
                     AccessEcSynchronized(ec =>
                     {
-                        initialBytes[reg] = ec.ReadByte(reg);
+                        logs[b].Values = new List<byte>();
+                        logs[b].Values.Add(ec.ReadByte(b));
                     },
-                    embeddedController);
+                    ec);
                 }
 
                 int loopCount = 0;
@@ -170,66 +227,98 @@ namespace NbfcProbe
                     Thread.Sleep(interval * 1000);
                     AccessEcSynchronized(ec =>
                     {
-                        for (byte reg = 0; reg < initialBytes.Length; reg++)
+                        for (int i = 0; i < logs.Length; i++)
                         {
-                            byte value = ec.ReadByte(reg);
+                            byte value = ec.ReadByte((byte)i);
+                            logs[i].Values.Add(value);
 
-                            if (dict.ContainsKey(reg))
+                            if (value != logs[i].Values[0])
                             {
-                                dict[reg].Add(value);
-                            }
-                            else if (value != initialBytes[reg])
-                            {
-                                var log = new List<byte>();
-
-                                for (int j = 0; j <= loopCount; j++)
-                                {
-                                    log.Add(initialBytes[reg]);
-                                }
-
-                                log.Add(value);
-                                dict.Add(reg, log);
+                                logs[i].Print = true;
                             }
                         }
                     },
-                    embeddedController);
+                    ec);
 
                     Console.Clear();
-                    PrintMonitoringStatus(dict, clearly);
+                    PrintRegisterLogs(logs, clearly, decimalFormat);
                     loopCount++;
                 }
             }
 
             if (reportPath != null)
             {
-                SaveMonitoringReport(reportPath, dict, clearly);
+                SaveRegisterLogs(reportPath, logs, clearly, decimalFormat);
             }
         }
 
-        private static void SaveMonitoringReport(
+        private static void SaveRegisterLogs(
             string path,
-            IEnumerable<KeyValuePair<byte, List<byte>>> registerLogs,
-            bool clearly)
+            RegisterLog[] registerLogs,
+            bool clearly,
+            bool decimalFormat)
         {
-            if (File.Exists(path) || Directory.Exists(path))
+            string dir = Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(dir))
             {
-                Console.Error.WriteLine($"Could not save report: {path} already exists");
-                return;
+                Directory.CreateDirectory(dir);
+            }
+
+            int filenameChanges = 0;
+            string validatedPath = path;
+
+            while (File.Exists(validatedPath))
+            {
+                filenameChanges++;
+                string filename = Path.GetFileNameWithoutExtension(path)
+                    + (filenameChanges + 1).ToString()
+                    + Path.GetExtension(path);
+
+                validatedPath = Path.Combine(Path.GetDirectoryName(path), filename);
             }
 
             try
             {
-                var report = new StringBuilder();
+                string valueFormat = decimalFormat ? ValueFormatDec : ValueFormatHex;
+                var sb = new StringBuilder();
 
-                foreach (var pair in registerLogs.OrderBy(x => x.Key))
+                // write header
+                for (int i = 0; i < registerLogs.Length; i++)
                 {
-                    report.AppendFormat("0x{0:X2}: ", pair.Key);
+                    if (!registerLogs[i].Print)
+                    {
+                        continue;
+                    }
 
-                    AppendRegisterLog(report, pair.Value, 0, clearly);
-                    report.AppendLine();
+                    sb.AppendFormat(valueFormat, i);
+                    sb.Append(",");
                 }
 
-                File.WriteAllText(path, report.ToString());
+                // remove last comma
+                sb.Remove(sb.Length - 1, 1);
+                sb.AppendLine();
+
+                // write values
+                for (int i = 0; i < registerLogs[0].Values.Count; i++)
+                {
+                    for (int j = 0; j < registerLogs.Length; j++)
+                    {
+                        if (!registerLogs[j].Print)
+                        {
+                            continue;
+                        }
+
+                        sb.AppendFormat(valueFormat, registerLogs[j].Values[i]);
+                        sb.Append(",");
+                    }
+
+                    sb.AppendLine();
+                }
+
+                sb.AppendLine();
+                File.WriteAllText(validatedPath, sb.ToString());
+                Console.WriteLine($"Report saved: {validatedPath}");
             }
             catch (Exception ex)
             {
@@ -244,48 +333,63 @@ namespace NbfcProbe
             }
         }
 
-        private static void PrintMonitoringStatus(
-            IEnumerable<KeyValuePair<byte, List<byte>>> registerLogs,
-            bool clearly)
+        private static void PrintRegisterLogs(
+            RegisterLog[] logs,
+            bool clearly,
+            bool decimalFormat)
         {
-            var report = new StringBuilder();
+            ConsoleColor defaultColor = Console.ForegroundColor;
+            string headerFormat = decimalFormat ? RowHeaderFormatDec : RowHeaderFormatHex;
+            string valueFormat = decimalFormat ? ValueFormatDec : ValueFormatHex;
+            int headerLength = string.Format(headerFormat, 0).Length;
+            int valueLength = string.Format(valueFormat, 0).Length + 1;
 
-            foreach (var pair in registerLogs.OrderBy(x => x.Key))
+            for (int i = 0; i < logs.Length; i++)
             {
+                if (!logs[i].Print)
+                {
+                    continue;
+                }
+
                 int start = 0;
-                report.AppendFormat("0x{0:X2}: ", pair.Key);
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.Write(headerFormat, i);
+                Console.ForegroundColor = defaultColor;
 
-                if (6 + pair.Value.Count * 3 > Console.BufferWidth)
+                if (headerLength + logs[i].Values.Count * valueLength > Console.BufferWidth)
                 {
-                    report.Append("...,");
-                    start = pair.Value.Count - ((Console.BufferWidth - 10) / 3);
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("...,");
+                    Console.ForegroundColor = defaultColor;
+                    start = logs[i].Values.Count - ((Console.BufferWidth - 10) / valueLength);
                 }
 
-                AppendRegisterLog(report, pair.Value, start, clearly);
-                report.AppendLine();
+                byte? prev = null;
+
+                for (int j = start; j < logs[i].Values.Count; j++)
+                {
+                    bool valueChanged = logs[i].Values[j] != prev;
+                    prev = logs[i].Values[j];
+
+                    if (clearly && !valueChanged)
+                    {
+                        Console.Write(string.Empty.PadRight(valueLength));
+                        continue;
+                    }
+
+                    if (j > start)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write(",");
+                    }
+
+                    Console.ForegroundColor = valueChanged ? ConsoleColor.Red : ConsoleColor.DarkGray;
+                    Console.Write(valueFormat, logs[i].Values[j]);
+                    Console.ForegroundColor = defaultColor;
+                }
+
+                Console.WriteLine();
             }
-
-            Console.Write(report.ToString());
-        }
-
-        private static void AppendRegisterLog(StringBuilder report, List<byte> log, int start, bool clearly)
-        {
-            byte? prev = null;
-
-            for (int i = start; i < log.Count - 1; i++)
-            {
-                if (clearly && (log[i] == prev))
-                {
-                    report.Append("   ");
-                }
-                else
-                {
-                    report.AppendFormat("{0:X2},", log[i]);
-                    prev = log[i];
-                }
-            }
-
-            report.AppendFormat("{0:X2}", log.Last());
         }
 
         private static IEmbeddedController LoadEC()
@@ -294,7 +398,7 @@ namespace NbfcProbe
 
             if (ecLoader.FanControlPlugin == null)
             {
-                Console.Error.WriteLine("Could not load EC plugin");
+                Console.Error.WriteLine("Could not load EC plugin. Try to run ec-probe with elevated privileges.");
                 return null;
             }
 
@@ -306,7 +410,7 @@ namespace NbfcProbe
             }
             else
             {
-                Console.Error.WriteLine("EC initialization failed");
+                Console.Error.WriteLine("EC initialization failed. Try to run ec-probe with elevated privileges.");
                 ecLoader.FanControlPlugin.Dispose();
             }
 
@@ -315,7 +419,7 @@ namespace NbfcProbe
 
         private static void AccessEcSynchronized(Action<IEmbeddedController> callback)
         {
-            using (IEmbeddedController ec = LoadEC())
+            using (ec = LoadEC())
             {
                 if (ec != null)
                 {
