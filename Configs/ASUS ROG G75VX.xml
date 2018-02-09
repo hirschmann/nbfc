@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>G752VY</NotebookModel>
+  <NotebookModel>Asus ROG G75VX</NotebookModel>
   <Author>RypeDub - https://www.YouTube.com/RypeDub</Author>
-  <EcPollInterval>150</EcPollInterval>
+  <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
@@ -10,103 +10,144 @@
       <ReadRegister>151</ReadRegister>
       <WriteRegister>151</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>8</MaxSpeedValue>
+      <MaxSpeedValue>9</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>8</FanSpeedResetValue>
-      <FanDisplayName>Intel Core i7-3630QM Fan Speed</FanDisplayName>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>Intel Core i7-3630QM CPU Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>0</UpThreshold>
-          <DownThreshold>0</DownThreshold>
-          <FanSpeed>0</FanSpeed>
+          <UpThreshold>50</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <FanSpeed>11.1111116</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>22.2222233</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>33.3333359</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
-          <DownThreshold>55</DownThreshold>
-          <FanSpeed>25</FanSpeed>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>44.4444466</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
-          <DownThreshold>60</DownThreshold>
-          <FanSpeed>50</FanSpeed>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>55.5555573</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>70</DownThreshold>
+          <FanSpeed>66.66667</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
-          <DownThreshold>65</DownThreshold>
-          <FanSpeed>75</FanSpeed>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>77.77778</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>85</UpThreshold>
-          <DownThreshold>75</DownThreshold>
+          <DownThreshold>80</DownThreshold>
+          <FanSpeed>88.88889</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>90</UpThreshold>
+          <DownThreshold>85</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>45</UpThreshold>
+          <DownThreshold>40</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
       </TemperatureThresholds>
-      <FanSpeedPercentageOverrides />
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>100</FanSpeedPercentage>
+          <FanSpeedValue>255</FanSpeedValue>
+          <TargetOperation>ReadWrite</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
     </FanConfiguration>
     <FanConfiguration>
       <ReadRegister>152</ReadRegister>
       <WriteRegister>152</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
-      <MaxSpeedValue>8</MaxSpeedValue>
+      <MaxSpeedValue>9</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>8</FanSpeedResetValue>
-      <FanDisplayName>nVidia GTX 670MX Fan Speed</FanDisplayName>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>nVidia GTX 670MX GPU Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
-          <UpThreshold>0</UpThreshold>
-          <DownThreshold>0</DownThreshold>
+          <UpThreshold>45</UpThreshold>
+          <DownThreshold>40</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>65</UpThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>22.2222233</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
           <DownThreshold>55</DownThreshold>
-          <FanSpeed>25</FanSpeed>
+          <FanSpeed>33.3333359</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>44.4444466</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
-          <DownThreshold>60</DownThreshold>
-          <FanSpeed>50</FanSpeed>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>55.5555573</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>70</DownThreshold>
+          <FanSpeed>66.66667</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
-          <DownThreshold>65</DownThreshold>
-          <FanSpeed>75</FanSpeed>
+          <DownThreshold>75</DownThreshold>
+          <FanSpeed>77.77778</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>85</UpThreshold>
-          <DownThreshold>75</DownThreshold>
+          <DownThreshold>80</DownThreshold>
+          <FanSpeed>88.88889</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>90</UpThreshold>
+          <DownThreshold>85</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>50</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <FanSpeed>11.1111116</FanSpeed>
+        </TemperatureThreshold>
       </TemperatureThresholds>
-      <FanSpeedPercentageOverrides />
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>100</FanSpeedPercentage>
+          <FanSpeedValue>255</FanSpeedValue>
+          <TargetOperation>ReadWrite</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
     </FanConfiguration>
   </FanConfigurations>
-  <RegisterWriteConfigurations>
-    <RegisterWriteConfiguration>
-      <WriteMode>Set</WriteMode>
-      <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
-      <Register>160</Register>
-      <Value>10</Value>
-      <ResetRequired>true</ResetRequired>
-      <ResetValue>10</ResetValue>
-      <ResetWriteMode>Set</ResetWriteMode>
-      <Description>This Fan is for cooling the Intel Core i7-3630QM CPU in your laptop.</Description>
-    </RegisterWriteConfiguration>
-    <RegisterWriteConfiguration>
-      <WriteMode>Set</WriteMode>
-      <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
-      <Register>166</Register>
-      <Value>10</Value>
-      <ResetRequired>true</ResetRequired>
-      <ResetValue>10</ResetValue>
-      <ResetWriteMode>Set</ResetWriteMode>
-      <Description>This Fan is for cooling the nVidia GTX 670MX GPU in your laptop.</Description>
-    </RegisterWriteConfiguration>
-  </RegisterWriteConfigurations>
+  <RegisterWriteConfigurations />
 </FanControlConfigV2>
