@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Lenovi Thinkpad 13</NotebookModel>
+  <Author>Sven Lange</Author>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>133</ReadRegister>
+      <WriteRegister>47</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>7</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>22</MaxSpeedValueRead>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>80</FanSpeedResetValue>
+      <FanDisplayName>System Fan</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>14.2857141</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>66</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>42.8571434</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>72</UpThreshold>
+          <DownThreshold>66</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>
