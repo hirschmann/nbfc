@@ -11,9 +11,9 @@
       <WriteRegister>224</WriteRegister>
       <MinSpeedValue>0</MinSpeedValue>
       <MaxSpeedValue>100</MaxSpeedValue>
-      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
-      <MinSpeedValueRead>4</MinSpeedValueRead>
-      <MaxSpeedValueRead>1</MaxSpeedValueRead>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>255</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>0</FanSpeedResetValue>
       <FanDisplayName>CPU &amp; GPU fan</FanDisplayName>
