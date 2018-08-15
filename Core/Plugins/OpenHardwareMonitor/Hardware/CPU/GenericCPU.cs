@@ -17,7 +17,7 @@ using System.Text;
 using System.Threading;
 
 namespace OpenHardwareMonitor.Hardware.CPU {
-  public class GenericCPU : Hardware {
+  internal class GenericCPU : Hardware {
 
     protected readonly CPUID[][] cpuid;
    
