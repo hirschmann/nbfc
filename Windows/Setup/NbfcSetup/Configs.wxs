@@ -230,6 +230,9 @@
             <Component Id="cmp429C6058BF28DDC66DFADB66DC09C658" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil844A6443945ED3062EADE36C012DB31E" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX51VZA.xml" />
             </Component>
+            <Component Id="cmp42148A0D3D956556159480506F892964" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil3D803F675E51ADBDCB4709CC5AEFCAAB" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX530U.xml" />
+            </Component>
             <Component Id="cmp9101C144566E04BE2B9C17D4177F96C4" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil655D4CC2CC8E3E2E1417DB447781C001" KeyPath="yes" Source="$(var.ConfigsDir)\Dell Inspiron 7348.xml" />
             </Component>
@@ -275,6 +278,9 @@
             <Component Id="cmp08C4A3E46E43BDE2362957AC783D5EE5" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil534C8CF1539136E7E9F2CE9C0FDEF63D" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2560p.xml" />
             </Component>
+            <Component Id="cmp2DB5F157790DA2DF5468B074E569EFD0" Directory="ConfigsFolder" Guid="*">
+                <File Id="filFAA6F91D634AE7FBFCB265E8817B0C99" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2570p.xml" />
+            </Component>
             <Component Id="cmp76213BADC175F968C00B834141CFAB3B" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF26D022153DE38ADE96D9EB6BB9A06D3" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 2760p.xml" />
             </Component>
@@ -289,6 +295,9 @@
             </Component>
             <Component Id="cmpC42DA9F2530419E9B7F55CE7A134689F" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF786D3E0580A3B7BADD608ED9560E0D8" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook Folio 9470m.xml" />
+            </Component>
+            <Component Id="cmp84CE3559ED687C6BD46DB7AFEE261612" Directory="ConfigsFolder" Guid="*">
+                <File Id="filB3A7270866747211A081ED2FA7411318" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook Folio 9470m_i5-3427u_bios-F.66.xml" />
             </Component>
             <Component Id="cmp3549BAAF275648A110DD3AE2CC23AABC" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil40F01FC568B50BFBCD8AFB54D053D3A5" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6 1206dx.xml" />
@@ -392,8 +401,14 @@
             <Component Id="cmpD7A1344DACCC638E9EBE90E76FF40BBF" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil9C5DCCF60EB9267C0FF10669A205502A" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Ideapad U330p.xml" />
             </Component>
+            <Component Id="cmpF90EED6EC06DFF4B8995120EEC5407A7" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil07EB92CC444905E681EB515F835E4E17" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo Ideapad U430p.xml" />
+            </Component>
             <Component Id="cmp78920A5A8BB4CC61191FC43F1B118175" Directory="ConfigsFolder" Guid="*">
                 <File Id="filA0E51601461AAC2415B5FFE4BEFCAF01" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo IdeaPad Y580.xml" />
+            </Component>
+            <Component Id="cmpEAAFEA4F47EC54110BD29ABDE8C8CE60" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil4CDB88AC7CC8E50AB6BAA472280E4930" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad 13.xml" />
             </Component>
             <Component Id="cmpAEE2616E5EDA146FC05C9C4F154C826D" Directory="ConfigsFolder" Guid="*">
                 <File Id="filC6364376DD3D2933905B5CD53887EA70" KeyPath="yes" Source="$(var.ConfigsDir)\Lenovo ThinkPad Edge E520.xml" />
@@ -496,6 +511,9 @@
             </Component>
             <Component Id="cmpC50BEB050A51F92A15F6AE2039714117" Directory="ConfigsFolder" Guid="*">
                 <File Id="filD9B8E5613E7781097588E55E0FBE5C36" KeyPath="yes" Source="$(var.ConfigsDir)\Toshiba Satellite L745.xml" />
+            </Component>
+            <Component Id="cmpBEE7867B3891717AAF794ADFA3FC94A3" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil263532E54A40B6DF33CE7320610B7A09" KeyPath="yes" Source="$(var.ConfigsDir)\Xiaomi Mi Book (TM1613, TM1703).xml" />
             </Component>
         </ComponentGroup>
     </Fragment>
