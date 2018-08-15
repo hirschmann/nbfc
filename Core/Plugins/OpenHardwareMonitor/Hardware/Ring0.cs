@@ -294,6 +294,10 @@ namespace OpenHardwareMonitor.Hardware
                 isaBusMutex = null;
             }
         }
+        public static ulong ThreadAffinitySet(ulong mask)
+        {
+            return ThreadAffinity.Set(mask);
+        }
 
         public static string GetReport()
         {
