@@ -126,6 +126,7 @@
     <Compile Include="Properties\AssemblyLibInfo.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Hardware\ThreadAffinity.cs" />
+    <Compile Include="Software\OperatingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Hardware\WinRing0.sys" />
