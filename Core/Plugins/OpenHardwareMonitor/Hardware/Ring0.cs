@@ -458,6 +458,15 @@ namespace OpenHardwareMonitor.Hardware
             public uint Register;
             public ulong Value;
         }
+    	public static bool RdmsrTx(uint index, out uint eax, out uint edx, ulong threadAffinityMask)
+	{
+            ulong mask = ThreadAffinity.Set(threadAffinityMask);
+
+	    bool result = Rdmsr(index, out eax, out edx);
+
+	    ThreadAffinity.Set(mask);
+	    return result;
+        }
 
         public static bool Wrmsr(uint index, uint eax, uint edx)
         {

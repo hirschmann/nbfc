@@ -129,7 +129,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           Thread.Sleep(1);
 
           uint eax, edx;
-          if (Ring0.Rdmsr(FIDVID_STATUS, out eax, out edx, cpuid[i][0].Thread)) {
+          if (Ring0.RdmsrTx(FIDVID_STATUS, out eax, out edx,
+            1UL << cpuid[i][0].Thread)) {
             // CurrFID can be found in eax bits 0-5, MaxFID in 16-21
             // 8-13 hold StartFID, we don't use that here.
             double curMP = 0.5 * ((eax & 0x3F) + 8);

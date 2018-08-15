@@ -12,14 +12,13 @@ using System;
 using System.Text;
 
 namespace OpenHardwareMonitor.Hardware.CPU {
-
-  internal enum Vendor {
+    public enum Vendor {
     Unknown,
     Intel,
     AMD,
   }
 
-  internal class CPUID {
+    public class CPUID {
 
     private readonly int thread;
 
@@ -186,6 +185,27 @@ namespace OpenHardwareMonitor.Hardware.CPU {
             corePerPackage = 1;
           threadMaskWith = 0;
           coreMaskWith = NextLog2(corePerPackage);
+          
+          if (this.family == 0x17)
+          {
+            // ApicIdCoreIdSize: APIC ID size. 
+            // cores per DIE 
+            // we need this for Ryzen 5 (4 cores, 8 threads) ans Ryzen 6 (6 cores, 12 threads) 
+            // Ryzen 5: [core0][core1][dummy][dummy][core2][core3] (Core0 EBX = 00080800, Core2 EBX = 08080800) 
+            uint max_cores_per_die = (cpuidExtData[8, 2] >> 12) & 0xF;
+            switch (max_cores_per_die)
+            {
+              case 0x04: // Ryzen 
+                coreMaskWith = NextLog2(16);
+                break;
+              case 0x05:// Threadripper 
+                coreMaskWith = NextLog2(32);
+                break;
+              case 0x06:// Epic 
+                coreMaskWith = NextLog2(64);
+                break;
+            }
+          }
           break;
         default:
           threadMaskWith = 0;
