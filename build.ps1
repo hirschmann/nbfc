@@ -35,6 +35,6 @@ $path = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -pr
 $msbuild = join-path $path 'MSBuild\15.0\Bin\MSBuild.exe'
 
 # build solution
-& $msbuild /t:Build /p:Configuration=ReleaseWindows NoteBookFanControl.sln
+& $msbuild /t:Clean,Build /p:Configuration=ReleaseWindows NoteBookFanControl.sln
 
 pop-location
