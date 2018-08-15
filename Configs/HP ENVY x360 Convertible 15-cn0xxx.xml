@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>HP Envy X360 13-ag0700ng</NotebookModel>
+  <NotebookModel>HP ENVY x360 Convertible 15-cn0xxx</NotebookModel>
   <Author>Daniel Andersen</Author>
-  <EcPollInterval>1000</EcPollInterval>
+  <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>true</ReadWriteWords>
   <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
       <WriteRegister>148</WriteRegister>
-      <MinSpeedValue>175</MinSpeedValue>
-      <MaxSpeedValue>70</MaxSpeedValue>
+      <MinSpeedValue>174</MinSpeedValue>
+      <MaxSpeedValue>67</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
@@ -24,9 +24,9 @@
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>70</UpThreshold>
-          <DownThreshold>55</DownThreshold>
-          <FanSpeed>51.4285736</FanSpeed>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>48</DownThreshold>
+          <FanSpeed>10</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>63</UpThreshold>
@@ -34,19 +34,19 @@
           <FanSpeed>20</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>68</UpThreshold>
+          <UpThreshold>66</UpThreshold>
+          <DownThreshold>59</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
           <DownThreshold>63</DownThreshold>
-          <FanSpeed>34.285717</FanSpeed>
+          <FanSpeed>70</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>74</UpThreshold>
-          <DownThreshold>67</DownThreshold>
+          <DownThreshold>69</DownThreshold>
           <FanSpeed>100</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
-          <UpThreshold>58</UpThreshold>
-          <DownThreshold>54</DownThreshold>
-          <FanSpeed>4.76190472</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
