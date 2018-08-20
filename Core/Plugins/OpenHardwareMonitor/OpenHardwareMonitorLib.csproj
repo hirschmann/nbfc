@@ -66,6 +66,7 @@
     <Compile Include="Hardware\CPU\GenericCPU.cs" />
     <Compile Include="Hardware\CPU\AMD0FCPU.cs" />
     <Compile Include="Hardware\CPU\AMD10CPU.cs" />
+    <Compile Include="Hardware\CPU\AMD17CPU.cs" />
     <Compile Include="Hardware\CPU\CPUGroup.cs" />
     <Compile Include="Hardware\CPU\CPUID.cs" />
     <Compile Include="Hardware\CPU\CPULoad.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Properties\AssemblyLibInfo.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Hardware\ThreadAffinity.cs" />
+    <Compile Include="Software\OperatingSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Hardware\WinRing0.sys" />
