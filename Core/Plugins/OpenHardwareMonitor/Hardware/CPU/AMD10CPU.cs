@@ -362,8 +362,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           Thread.Sleep(1);
 
           uint curEax, curEdx;
-          if (Ring0.RdmsrTx(COFVID_STATUS, out curEax, out curEdx,
-            1UL << cpuid[i][0].Thread)) 
+          if (Ring0.Rdmsr(COFVID_STATUS, out curEax, out curEdx, cpuid[i][0].Thread))
           {
             double multiplier;
             multiplier = GetCoreMultiplier(curEax);
