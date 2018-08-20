@@ -1,4 +1,4 @@
 language: csharp
 solution: NoteBookFanControl.sln
 script:
-  - xbuild /t:Build /p:Configuration=ReleaseLinux NoteBookFanControl.sln
+  - msbuild /t:Clean,Build /p:Configuration=ReleaseLinux NoteBookFanControl.sln
