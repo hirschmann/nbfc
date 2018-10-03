@@ -49,6 +49,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ArithmeticMeanTemperatureFilter.cs" />
     <Compile Include="FanControl.cs" />
     <Compile Include="FanInformation.cs" />

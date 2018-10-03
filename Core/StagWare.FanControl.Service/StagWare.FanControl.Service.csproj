@@ -61,6 +61,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="FanControlInfo.cs" />
     <Compile Include="FanControlService.cs" />
     <Compile Include="FanStatus.cs" />

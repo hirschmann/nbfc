@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ConfigManager.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethods.cs" />
     <Compile Include="FanControlConfigManager.cs" />

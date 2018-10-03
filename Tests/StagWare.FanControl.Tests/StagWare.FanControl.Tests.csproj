@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ArithmeticMeanTemperatureFilterTests.cs" />
     <Compile Include="FanControlTests.cs" />
     <Compile Include="FanTests.cs" />

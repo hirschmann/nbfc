@@ -65,6 +65,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Settings", "Core\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl.Configurations.Tests", "Tests\StagWare.FanControl.Configurations.Tests\StagWare.FanControl.Configurations.Tests.csproj", "{F25EF457-99FB-448E-BB9B-B618ACAAD51A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7CC8ECD-A3E9-4391-B933-2F010ED24767}"
+	ProjectSection(SolutionItems) = preProject
+		Common\CommonAssemblyInfo.cs = Common\CommonAssemblyInfo.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		DebugLinux|Any CPU = DebugLinux|Any CPU
@@ -265,5 +270,8 @@ Global
 		{75F46626-9B87-497E-8565-51A5C8798ED4} = {DC9BC2E5-2F5C-4D98-A590-A60674554415}
 		{44C3959A-3565-4FB6-9BF6-694B146CD032} = {656212AC-91B4-49EC-9460-7BC3D6DD500C}
 		{F25EF457-99FB-448E-BB9B-B618ACAAD51A} = {DC9BC2E5-2F5C-4D98-A590-A60674554415}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A419B220-7BA7-4E04-8571-84B888C5021D}
 	EndGlobalSection
 EndGlobal
