@@ -6,6 +6,6 @@ using System.Resources;
 [assembly: AssemblyTrademark("")]
 [assembly: NeutralResourcesLanguage("en")]
 
-[assembly: AssemblyVersion("1.5.3")]
-[assembly: AssemblyFileVersion("1.5.3")]
-[assembly: AssemblyInformationalVersion("1.5.3 beta")]
+[assembly: AssemblyVersion("1.6.0")]
+[assembly: AssemblyFileVersion("1.6.0")]
+[assembly: AssemblyInformationalVersion("1.6 beta1")]
