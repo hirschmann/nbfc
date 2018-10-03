@@ -293,6 +293,9 @@
             <Component Id="cmpE228405E6C41EC1E1A875F37314F338B" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil6C74CC221F673F2DC900633DDAFA6930" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook 8760w.xml" />
             </Component>
+            <Component Id="cmp53C1044FBB5359F6438FB89715DEE54F" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil1BEC0486572EBDA29BC7D5071FC98C3D" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook Folio 1040 G1.xml" />
+            </Component>
             <Component Id="cmpC42DA9F2530419E9B7F55CE7A134689F" Directory="ConfigsFolder" Guid="*">
                 <File Id="filF786D3E0580A3B7BADD608ED9560E0D8" KeyPath="yes" Source="$(var.ConfigsDir)\HP EliteBook Folio 9470m.xml" />
             </Component>
@@ -307,6 +310,12 @@
             </Component>
             <Component Id="cmpACE3AC37692D6CC14920DE8757B0E92E" Directory="ConfigsFolder" Guid="*">
                 <File Id="filA9A54DD49574B74B05151C8C65187AC0" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY m6-1254eo.xml" />
+            </Component>
+            <Component Id="cmpF759CCE328E0C6BED2D29A1BD4601EB5" Directory="ConfigsFolder" Guid="*">
+                <File Id="filEBBDC3B76E6458951DB9023C6C80CE66" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY x360 Convertible 13-ag0xxx.xml" />
+            </Component>
+            <Component Id="cmp5CE1CE4CD36FE92BA1CC30A4A2626C43" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil700E98614C60B53A7B0A6534070229CE" KeyPath="yes" Source="$(var.ConfigsDir)\HP ENVY x360 Convertible 15-cn0xxx.xml" />
             </Component>
             <Component Id="cmp2BD610C894C8593B672B535D14C5C517" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil91223EEF3BB04527921C230C43D5CC61" KeyPath="yes" Source="$(var.ConfigsDir)\HP OMEN Notebook PC 15.xml" />
@@ -376,6 +385,9 @@
             </Component>
             <Component Id="cmp8E7A04B657D9DE04CEBA9381245E61DB" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil8CEFC96581123F9EF92D9719D46673B2" KeyPath="yes" Source="$(var.ConfigsDir)\HP ProBook 6560b.xml" />
+            </Component>
+            <Component Id="cmp852ACE5B973150C398028EADEF221798" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil7D49D2B3E0D85A7CF856AC18DD35FB39" KeyPath="yes" Source="$(var.ConfigsDir)\HP Spectre x360 Convertible 13-ae0xx.xml" />
             </Component>
             <Component Id="cmpDD8482ADFCA1F547440687B88AC81D71" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil3E093A22723B74D81FF262649146AF22" KeyPath="yes" Source="$(var.ConfigsDir)\HP ZBook 15.xml" />
