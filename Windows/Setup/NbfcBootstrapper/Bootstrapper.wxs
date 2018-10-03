@@ -5,7 +5,7 @@
   <?include $(var.NbfcSetup.ProjectDir)Constants.wxi ?>
   
   <Bundle Name="$(var.ProductName)" 
-          Version="$(var.Version)" 
+          Version="!(bind.packageVersion.MsiPackage)" 
           Manufacturer="$(var.Manufacturer)" 
           UpgradeCode="$(var.UpgradeGuid)"
           IconSourceFile="$(var.NbfcClient.ProjectDir)fan.ico">
@@ -25,7 +25,7 @@
     
     <Chain>
       <PackageGroupRef Id="NetFx45Web"/>
-      <MsiPackage Compressed="yes" SourceFile="$(var.NbfcSetup.TargetPath)">        
+      <MsiPackage Compressed="yes" SourceFile="$(var.NbfcSetup.TargetPath)" Id="MsiPackage">        
         <MsiProperty Name="INSTALLFOLDER" Value="[InstallFolder]" />
       </MsiPackage>
     </Chain>

@@ -6,7 +6,7 @@
   <?include $(var.ProjectDir)Constants.wxi ?>
 
   <Product Id="*" Name="$(var.ProductName)" 
-           Version="$(var.Version)" 
+           Version="!(bind.fileVersion.NbfcService.exe)" 
            Language="1033" 
            Codepage="1252"
            Manufacturer="$(var.Manufacturer)"  
