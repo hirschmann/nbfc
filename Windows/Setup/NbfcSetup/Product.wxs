@@ -21,10 +21,9 @@
              Description="$(var.ProductName) Installer"/>
 
     <!--Upgrade-->
-    <MajorUpgrade Schedule="afterInstallInitialize"
-                  AllowDowngrades="no"
-                  AllowSameVersionUpgrades="no"
-                  DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
+    <!--Use Upgrade instead of MajorUpgrade because the latter doesn't support removing previous versions
+        before installing upgrades (without checking file versions)-->
+    <Upgrade Id="$(var.UpgradeGuid)"/>
 
     <!--Media-->
     <Media Id="1" Cabinet="NBFC.cab" EmbedCab="yes" CompressionLevel="high"/>
@@ -83,6 +82,10 @@
 
     <!--Do actions-->
     <InstallExecuteSequence>
+      <!--Always uninstall existing products before installing updated versions 
+          to avoid problems during up/downgrade-->
+      <RemoveExistingProducts Before='InstallInitialize' />
+      
       <Custom Action="SetInstallFolderForUninstallDriver" Before="UninstallDriver"/>
       <Custom Action="UninstallDriver" After="DeleteServices"/>
 
