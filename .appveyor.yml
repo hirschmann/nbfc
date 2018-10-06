@@ -19,7 +19,7 @@ deploy:
   description: 'This is a BETA build which may not be stable. If you fear bugs or crashes, stick to the stable releases. You have been warned :)'
   provider: GitHub
   auth_token:
-    secure: ds1x2b7EIPV4+F0VUp8U3qliahWbOwe4nIGX3uYUzM1RtowpfytIz2OPX4i5Js8D
+    secure: 8dxxTcoE0H9PMhzDiaxoioUv7IfYKwUxd0J890zTAkkKab8YLQN/09IKPCw+BJZo
   artifact: NbfcSetup
   draft: true
   prerelease: true
