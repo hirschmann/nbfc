@@ -184,7 +184,7 @@ namespace StagWare.Configurations
                 this.configs.Remove(configName);
             }
 
-            if (fs.File.Exists(path))
+            if (!string.IsNullOrWhiteSpace(path) && fs.File.Exists(path))
             {
                 fs.File.Delete(path);
             }
