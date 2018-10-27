@@ -23,7 +23,11 @@ namespace StagWare.FanControl.Configurations.Validation
 
                     case ValidationResult.Warning:
                         summary.Warnings.Add(validation);
-                        if (failOnWarnings) summary.Success = false;
+
+                        if (failOnWarnings)
+                        {
+                            summary.Success = false;
+                        }
                         break;
 
                     case ValidationResult.Error:

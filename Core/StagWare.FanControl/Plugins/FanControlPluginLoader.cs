@@ -56,8 +56,8 @@ namespace StagWare.FanControl.Plugins
         private void SelectPlugin()
         {
             OperatingSystem os = Environment.OSVersion;
-            var platform = SupportedPlatforms.None;
-            var arch = SupportedCpuArchitectures.None;
+            SupportedPlatforms platform;
+            SupportedCpuArchitectures arch;
 
             switch (os.Platform)
             {

@@ -13,14 +13,14 @@ namespace StagWare.FanControl.Configurations.Tests
         public class Constructor
         {
             [Fact]
-            public void ThrowsIfConfigsDirIsNull()
+            public static void ThrowsIfConfigsDirIsNull()
             {
                 Assert.Throws<ArgumentNullException>(
                     () => new ConfigManager<FanControlConfigV2>(null, ".xml", new MockFileSystem()));
             }
 
             [Fact]
-            public void ThrowsIfConfigsFileExtensionIsNull()
+            public static void ThrowsIfConfigsFileExtensionIsNull()
             {
                 string dir = Environment.CurrentDirectory;
                 Assert.Throws<ArgumentNullException>(
@@ -31,7 +31,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class GetConfig
         {
             [Fact]
-            public void ReturnsExistingConfigs()
+            public static void ReturnsExistingConfigs()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -50,7 +50,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsNullIfConfigDoesNotExist()
+            public static void ReturnsNullIfConfigDoesNotExist()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -64,7 +64,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsNullIfIdIsNull()
+            public static void ReturnsNullIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -76,7 +76,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class ConfigFileExists
         {
             [Fact]
-            public void ReturnsTrueIfExists()
+            public static void ReturnsTrueIfExists()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -95,7 +95,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsFalseIfNotExisting()
+            public static void ReturnsFalseIfNotExisting()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -109,7 +109,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsFalseIfIdIsNull()
+            public static void ReturnsFalseIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -121,7 +121,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class Contains
         {
             [Fact]
-            public void ReturnsTrueIfExists()
+            public static void ReturnsTrueIfExists()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -140,7 +140,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsFalseIfNotExisting()
+            public static void ReturnsFalseIfNotExisting()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -154,7 +154,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsFalseIfIdIsNull()
+            public static void ReturnsFalseIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -166,7 +166,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class AddConfig
         {
             [Fact]
-            public void AddsValidConfigs()
+            public static void AddsValidConfigs()
             {
                 string extension = ".xml";
                 var fs = new MockFileSystem();
@@ -190,7 +190,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsOnDuplicates()
+            public static void ThrowsOnDuplicates()
             {
                 string cfgName = "foo";
 
@@ -204,7 +204,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfConfigIsNull()
+            public static void ThrowsIfConfigIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -214,7 +214,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfIdIsNull()
+            public static void ThrowsIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -224,7 +224,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfIdContainsInvalidFileNameChars()
+            public static void ThrowsIfIdContainsInvalidFileNameChars()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -239,7 +239,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class RemoveConfig
         {
             [Fact]
-            public void RemovesConfigs()
+            public static void RemovesConfigs()
             {
                 string extension = ".xml";
                 var fs = new MockFileSystem();
@@ -266,7 +266,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void DoesNothingIfNotExisting()
+            public static void DoesNothingIfNotExisting()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -278,7 +278,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfIdIsNull()
+            public static void ThrowsIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -290,7 +290,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class UpdateConfig
         {
             [Fact]
-            public void UpdatesExistingConfigs()
+            public static void UpdatesExistingConfigs()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                    Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -307,7 +307,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfIdNotExisting()
+            public static void ThrowsIfIdNotExisting()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                    Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -317,7 +317,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfIdIsNull()
+            public static void ThrowsIfIdIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                    Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -327,7 +327,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ThrowsIfConfigIsNull()
+            public static void ThrowsIfConfigIsNull()
             {
                 var cfgMan = new ConfigManager<FanControlConfigV2>(
                    Environment.CurrentDirectory, ".xml", new MockFileSystem());

@@ -44,7 +44,7 @@ namespace NbfcClient.Services
         {
         }
 
-        public FanControlClient(int updateInterval = 3000)
+        public FanControlClient(int updateInterval)
         {
             fanControlInfo = new FanControlInfo();
             timer = new DispatcherTimer();

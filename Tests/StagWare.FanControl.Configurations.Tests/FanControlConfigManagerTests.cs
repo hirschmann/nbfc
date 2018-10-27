@@ -10,7 +10,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class SelectConfig
         {
             [Fact]
-            public void ReturnsTrueAndSetsPropertiesIfExisting()
+            public static void ReturnsTrueAndSetsPropertiesIfExisting()
             {
                 var cfgMan = new FanControlConfigManager(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -26,7 +26,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsFalseClearsPropertiesIfNotExisting()
+            public static void ReturnsFalseClearsPropertiesIfNotExisting()
             {
                 var cfgMan = new FanControlConfigManager(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());
@@ -44,7 +44,7 @@ namespace StagWare.FanControl.Configurations.Tests
         public class RecommendConfigs
         {
             [Fact]
-            public void ReturnsOnlyValidSuggestions()
+            public static void ReturnsOnlyValidSuggestions()
             {
                 string[] notebooks = new[] { "HP ProBook 1234", "HP EliteBook 1234", "Acer Foo 7683" };
                 var cfgMan = new FanControlConfigManager(
@@ -77,7 +77,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void DoNotRecommendConfigsWithSameRwRegisters()
+            public static void DoNotRecommendConfigsWithSameRwRegisters()
             {
                 string[] notebooks = new[] { "HP ProBook 1234", "HP ProBook 1235" };
                 var cfgMan = new FanControlConfigManager(
@@ -102,7 +102,7 @@ namespace StagWare.FanControl.Configurations.Tests
             }
 
             [Fact]
-            public void ReturnsEmptyListIfModelIsNull()
+            public static void ReturnsEmptyListIfModelIsNull()
             {
                 var cfgMan = new FanControlConfigManager(
                     Environment.CurrentDirectory, ".xml", new MockFileSystem());

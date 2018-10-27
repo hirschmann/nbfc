@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 using NbfcClient.Messages;
-using NbfcClient.Properties;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -24,7 +23,7 @@ namespace NbfcClient.Windows
 
         #region Private Fields
 
-        private DispatcherTimer saveSizeTimer;
+        private readonly DispatcherTimer saveSizeTimer;
         private bool close;
         private double lastWidth;
         private double lastHeight;
@@ -82,13 +81,13 @@ namespace NbfcClient.Windows
 
         private void ShowSelectConfigDialog(OpenSelectConfigDialogMessage msg)
         {
-            var dialog = new SelectConfigWindow() { Owner = this };
+            var dialog = new SelectConfigWindow { Owner = this };
             dialog.ShowDialog();
         }
 
         private void ShowSettingsDialog(OpenSettingsDialogMessage msg)
         {
-            var dialog = new SettingsWindow() { Owner = this };
+            var dialog = new SettingsWindow { Owner = this };
             dialog.ShowDialog();
         }
 

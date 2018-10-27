@@ -8,13 +8,13 @@ namespace StagWare.FanControl.Tests
         public class Constructor
         {
             [Fact]
-            public void ThrowsWithInvalidPollInterval()
+            public static void ThrowsWithInvalidPollInterval()
             {
                 Assert.Throws<ArgumentOutOfRangeException>(() => new ArithmeticMeanTemperatureFilter(0));
             }
 
             [Fact]
-            public void ThrowsWithInvalidTimespan()
+            public static void ThrowsWithInvalidTimespan()
             {
                 Assert.Throws<ArgumentOutOfRangeException>(() => new ArithmeticMeanTemperatureFilter(100, 0));
             }
@@ -23,7 +23,7 @@ namespace StagWare.FanControl.Tests
         public class FilterTemperature
         {
             [Fact]
-            public void RespectsTimespan()
+            public static void RespectsTimespan()
             {
                 int interval = 2000;
                 int timespan = 6000;

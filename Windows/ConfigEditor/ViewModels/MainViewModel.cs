@@ -352,7 +352,7 @@ namespace ConfigEditor.ViewModels
                                 AddOrUpdateConfig(ConvertViewModelToConfig(this), cfgName);
                                 UpdateViewModel();
 
-                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs
                                 {
                                     Success = true
                                 });
@@ -360,7 +360,7 @@ namespace ConfigEditor.ViewModels
                         }
                         catch (Exception e)
                         {
-                            OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                            OnSaveConfigCommandExecuted(new CommandExecutedEventArgs
                             {
                                 Success = false,
                                 Exception = e
@@ -392,7 +392,7 @@ namespace ConfigEditor.ViewModels
                                     var cfg = ConvertViewModelToConfig(this);
                                     this.configManager.UpdateConfig(this.SelectedConfigName, cfg);
 
-                                    OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                                    OnSaveConfigCommandExecuted(new CommandExecutedEventArgs
                                     {
                                         Success = true
                                     });
@@ -400,7 +400,7 @@ namespace ConfigEditor.ViewModels
                             }
                             catch (Exception e)
                             {
-                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs()
+                                OnSaveConfigCommandExecuted(new CommandExecutedEventArgs
                                 {
                                     Success = false,
                                     Exception = e
@@ -494,7 +494,7 @@ namespace ConfigEditor.ViewModels
             return Path.Combine(path, ConfigsDirectoryName);
         }
 
-        private bool TryLoadFanControlConfig<T>(string configFilePath, out T config)
+        private static bool TryLoadFanControlConfig<T>(string configFilePath, out T config)
             where T : new()
         {
             config = default(T);
@@ -566,7 +566,7 @@ namespace ConfigEditor.ViewModels
 
         private static FanControlConfigV2 ConvertViewModelToConfig(MainViewModel viewModel)
         {
-            var config = new FanControlConfigV2()
+            var config = new FanControlConfigV2
             {
                 CriticalTemperature = viewModel.CriticalTemperature,
                 EcPollInterval = viewModel.EcPollInterval,
@@ -595,7 +595,7 @@ namespace ConfigEditor.ViewModels
 
             foreach (FanConfigViewModel vm in viewModels)
             {
-                var cfg = new FanConfiguration()
+                var cfg = new FanConfiguration
                 {
                     FanDisplayName = vm.FanDisplayName,
                     ReadRegister = vm.ReadRegister,
@@ -612,7 +612,7 @@ namespace ConfigEditor.ViewModels
                 if (vm.FanSpeedOverrides != null)
                 {
                     cfg.FanSpeedPercentageOverrides = vm.FanSpeedOverrides.Select(
-                        x => new FanSpeedPercentageOverride()
+                        x => new FanSpeedPercentageOverride
                         {
                             FanSpeedPercentage = x.FanSpeedPercentage,
                             FanSpeedValue = x.FanSpeedValue,
@@ -623,7 +623,7 @@ namespace ConfigEditor.ViewModels
                 if (vm.TemperatureThresholds != null)
                 {
                     cfg.TemperatureThresholds = vm.TemperatureThresholds.Select(
-                        x => new TemperatureThreshold()
+                        x => new TemperatureThreshold
                         {
                             DownThreshold = x.DownThreshold,
                             UpThreshold = x.UpThreshold,
@@ -641,7 +641,7 @@ namespace ConfigEditor.ViewModels
             IEnumerable<RegisterWriteConfigViewModel> viewModels)
         {
             return viewModels.Select(
-                x => new RegisterWriteConfiguration()
+                x => new RegisterWriteConfiguration
                 {
                     Description = x.Description,
                     Register = x.Register,
@@ -710,7 +710,7 @@ namespace ConfigEditor.ViewModels
 
             foreach (FanConfiguration cfg in configs)
             {
-                var vm = new FanConfigViewModel()
+                var vm = new FanConfigViewModel
                 {
                     FanDisplayName = cfg.FanDisplayName,
                     ReadRegister = cfg.ReadRegister,
@@ -727,7 +727,7 @@ namespace ConfigEditor.ViewModels
                 if (cfg.FanSpeedPercentageOverrides != null)
                 {
                     vm.FanSpeedOverrides = new ObservableCollection<FanSpeedOverrideViewModel>(
-                        cfg.FanSpeedPercentageOverrides.Select(x => new FanSpeedOverrideViewModel()
+                        cfg.FanSpeedPercentageOverrides.Select(x => new FanSpeedOverrideViewModel
                         {
                             FanSpeedPercentage = x.FanSpeedPercentage,
                             FanSpeedValue = x.FanSpeedValue,
@@ -738,7 +738,7 @@ namespace ConfigEditor.ViewModels
                 if (cfg.TemperatureThresholds != null)
                 {
                     vm.TemperatureThresholds = new ObservableCollection<TemperatureThresholdViewModel>(
-                        cfg.TemperatureThresholds.Select(x => new TemperatureThresholdViewModel()
+                        cfg.TemperatureThresholds.Select(x => new TemperatureThresholdViewModel
                         {
                             UpThreshold = x.UpThreshold,
                             DownThreshold = x.DownThreshold,
@@ -755,7 +755,7 @@ namespace ConfigEditor.ViewModels
         private static IEnumerable<RegisterWriteConfigViewModel> ConvertRegisterWriteConfigsToViewModels(
             IEnumerable<RegisterWriteConfiguration> configs)
         {
-            return configs.Select(x => new RegisterWriteConfigViewModel()
+            return configs.Select(x => new RegisterWriteConfigViewModel
             {
                 Description = x.Description,
                 Register = x.Register,

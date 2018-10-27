@@ -42,12 +42,12 @@ namespace ConfigEditor.Windows
 
             if (dataContext != null)
             {
-                var viewModel = new TemperatureThresholdViewModel()
+                var viewModel = new TemperatureThresholdViewModel
                 {
                     Parent = dataContext
                 };
 
-                var dialog = new TemperatureThresholdWindow()
+                var dialog = new TemperatureThresholdWindow
                 {
                     DataContext = viewModel,
                     Owner = this
@@ -75,7 +75,7 @@ namespace ConfigEditor.Windows
                 var clonedViewModel = viewModel.Clone() as TemperatureThresholdViewModel;
                 clonedViewModel.Parent = dataContext;
 
-                var dialog = new TemperatureThresholdWindow()
+                var dialog = new TemperatureThresholdWindow
                 {
                     DataContext = clonedViewModel,
                     Owner = this
@@ -106,7 +106,7 @@ namespace ConfigEditor.Windows
             if (dataContext != null)
             {
                 dataContext.TemperatureThresholds = new ObservableCollection<TemperatureThresholdViewModel>(
-                    FanConfiguration.DefaultTemperatureThresholds.Select(x => new TemperatureThresholdViewModel()
+                    FanConfiguration.DefaultTemperatureThresholds.Select(x => new TemperatureThresholdViewModel
                     {
                         DownThreshold = x.DownThreshold,
                         UpThreshold = x.UpThreshold,
@@ -133,12 +133,12 @@ namespace ConfigEditor.Windows
 
             if (dataContext != null)
             {
-                var viewModel = new FanSpeedOverrideViewModel()
+                var viewModel = new FanSpeedOverrideViewModel
                 {
                     Parent = dataContext
                 };
 
-                var dialog = new FanSpeedOverrideWindow()
+                var dialog = new FanSpeedOverrideWindow
                 {
                     DataContext = viewModel,
                     Owner = this
@@ -185,7 +185,7 @@ namespace ConfigEditor.Windows
                 var clonedViewModel = viewModel.Clone() as FanSpeedOverrideViewModel;
                 clonedViewModel.Parent = dataContext;
 
-                var dialog = new FanSpeedOverrideWindow()
+                var dialog = new FanSpeedOverrideWindow
                 {
                     DataContext = clonedViewModel,
                     Owner = this

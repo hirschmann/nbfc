@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace StagWare.Configurations
 {
-    public class ConfigManager<T> where T : ICloneable
+    public class ConfigManager<T> where T : ICloneable, new()
     {
         #region Constants
 
@@ -26,9 +26,9 @@ namespace StagWare.Configurations
 
         #region Private Fields
 
-        private IFileSystem fs;
-        private Dictionary<string, Lazy<T>> configs;
-        private XmlSerializer serializer;
+        private readonly IFileSystem fs;
+        private readonly Dictionary<string, Lazy<T>> configs;
+        private readonly XmlSerializer serializer;
         private readonly string configDirPath;
         private readonly string configFileExtension;
 

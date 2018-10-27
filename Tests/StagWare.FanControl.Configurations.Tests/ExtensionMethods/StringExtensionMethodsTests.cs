@@ -17,13 +17,13 @@ namespace StagWare.FanControl.Configurations.Tests.ExtensionMethods
             [InlineData("", "123", "")]
             [InlineData("123", "", "")]
             [InlineData("123", "2", "2")]
-            public void FindsLongestSubstring(string s1, string s2, string result)
+            public static void FindsLongestSubstring(string s1, string s2, string result)
             {
                 Assert.Equal(result, s1.GetLongestCommonSubstring(s2));
             }
 
             [Fact]
-            public void ThrowsIfStringIsNull()
+            public static void ThrowsIfStringIsNull()
             {
                 Assert.Throws<ArgumentNullException>(() => "".GetLongestCommonSubstring(null));
             }

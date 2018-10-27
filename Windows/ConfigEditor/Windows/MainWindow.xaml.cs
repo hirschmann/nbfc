@@ -50,14 +50,14 @@ namespace ConfigEditor.Windows
             InitializeComponent();
 
             this.MessageBoxErrorStyle = new Style(typeof(Xceed.Wpf.Toolkit.MessageBox));
-            this.MessageBoxErrorStyle.Setters.Add(new Setter()
+            this.MessageBoxErrorStyle.Setters.Add(new Setter
             {
                 Property = Xceed.Wpf.Toolkit.MessageBox.ImageSourceProperty,
                 Value = SystemIcons.Error.ToImageSource()
             });
 
             this.MessageBoxInfoStyle = new Style(typeof(Xceed.Wpf.Toolkit.MessageBox));
-            this.MessageBoxInfoStyle.Setters.Add(new Setter()
+            this.MessageBoxInfoStyle.Setters.Add(new Setter
             {
                 Property = Xceed.Wpf.Toolkit.MessageBox.ImageSourceProperty,
                 Value = SystemIcons.Information.ToImageSource()
@@ -156,7 +156,7 @@ namespace ConfigEditor.Windows
                 var clonedViewModel = (FanConfigViewModel)vm.Clone();
                 clonedViewModel.Parent = dc;
 
-                var wnd = new FanConfigWindow()
+                var wnd = new FanConfigWindow
                 {
                     DataContext = clonedViewModel,
                     Owner = this
@@ -175,7 +175,7 @@ namespace ConfigEditor.Windows
             {
                 var clonedViewModel = vm.Clone() as RegisterWriteConfigViewModel;
 
-                var wnd = new RegisterWriteConfigWindow()
+                var wnd = new RegisterWriteConfigWindow
                 {
                     DataContext = clonedViewModel,
                     Owner = this
@@ -193,7 +193,7 @@ namespace ConfigEditor.Windows
 
         void vm_RequestingConfigName(object sender, DialogEventArgs<RequestConfigNameViewModel> e)
         {
-            var dialog = new RequestConfigNameWindow()
+            var dialog = new RequestConfigNameWindow
             {
                 DataContext = e.ViewModel,
                 Owner = this
@@ -207,7 +207,7 @@ namespace ConfigEditor.Windows
 
         void vm_RequestingConfigPath(object sender, DialogEventArgs<RequestConfigPathViewModel> e)
         {
-            var dialog = new System.Windows.Forms.OpenFileDialog()
+            var dialog = new System.Windows.Forms.OpenFileDialog
             {
                 CheckFileExists = true,
                 CheckPathExists = true,
@@ -290,12 +290,12 @@ namespace ConfigEditor.Windows
 
             if (dc != null)
             {
-                var vm = new FanConfigViewModel()
+                var vm = new FanConfigViewModel
                 {
                     Parent = dc
                 };
 
-                var wnd = new FanConfigWindow()
+                var wnd = new FanConfigWindow
                 {
                     DataContext = vm,
                     Owner = this
@@ -340,7 +340,7 @@ namespace ConfigEditor.Windows
             if (dc != null)
             {
                 var vm = new RegisterWriteConfigViewModel();
-                var wnd = new RegisterWriteConfigWindow()
+                var wnd = new RegisterWriteConfigWindow
                 {
                     DataContext = vm,
                     Owner = this

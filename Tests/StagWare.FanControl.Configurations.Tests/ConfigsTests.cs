@@ -11,7 +11,7 @@ namespace StagWare.FanControl.Configurations.Tests
     public class ConfigsTests
     {
         [Fact]
-        public void AreConfigsValid()
+        public static void AreConfigsValid()
         {
             var configMan = new FanControlConfigManager(GetConfigsDir());
             var validator = new FanControlConfigValidator();
@@ -45,7 +45,7 @@ namespace StagWare.FanControl.Configurations.Tests
         }
 
         [Fact]
-        public void HaveAllConfigsBeenLoaded()
+        public static void HaveAllConfigsBeenLoaded()
         {
             string path = GetConfigsDir();
             var configMan = new FanControlConfigManager(path);

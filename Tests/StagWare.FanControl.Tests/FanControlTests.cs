@@ -12,7 +12,7 @@ namespace StagWare.FanControl.Tests
         public class Start
         {
             [Fact]
-            public async Task CallsSetTargetSpeed()
+            public static async Task CallsSetTargetSpeed()
             {
                 var fanCfg = new FanConfiguration();
                 var cfg = new FanControlConfigV2()
@@ -48,7 +48,7 @@ namespace StagWare.FanControl.Tests
                     fanControl.Start(false);
                     Assert.True(fanControl.Enabled, nameof(fanControl.Enabled));
 
-                    await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3));
+                    await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3)).ConfigureAwait(false);
 
                     Assert.True(task.IsCompleted, nameof(task.IsCompleted));
                     A.CallTo(() => fan.SetTargetSpeed(A<float>.Ignored, A<float>.Ignored, false))
@@ -57,7 +57,7 @@ namespace StagWare.FanControl.Tests
             }
 
             [Fact]
-            public async Task RespectsReadOnlyArg()
+            public static async Task RespectsReadOnlyArg()
             {
                 var fanCfg = new FanConfiguration();
                 var cfg = new FanControlConfigV2()
@@ -103,7 +103,7 @@ namespace StagWare.FanControl.Tests
             }
 
             [Fact]
-            public void AppliesRegisterWriteConfigurations()
+            public static void AppliesRegisterWriteConfigurations()
             {
                 var fanCfg = new FanConfiguration();
                 var registerWriteCfg = new RegisterWriteConfiguration()
@@ -147,7 +147,7 @@ namespace StagWare.FanControl.Tests
             [InlineData(0)]
             [InlineData(66.66)]
             [InlineData(111)]
-            public async Task CallsSetTargetSpeed(float speed)
+            public static async Task CallsSetTargetSpeed(float speed)
             {
                 var fanCfg1 = new FanConfiguration();
                 var fanCfg2 = new FanConfiguration();
@@ -201,7 +201,7 @@ namespace StagWare.FanControl.Tests
             }
 
             [Fact]
-            public void ThrowsWhenIndexIsInvalid()
+            public static void ThrowsWhenIndexIsInvalid()
             {
                 var cfg = new FanControlConfigV2()
                 {
@@ -232,7 +232,7 @@ namespace StagWare.FanControl.Tests
         public class Stop
         {
             [Fact]
-            public void CallsResetOnFans()
+            public static void CallsResetOnFans()
             {
                 var fanCfg = new FanConfiguration()
                 {
@@ -269,9 +269,8 @@ namespace StagWare.FanControl.Tests
             }
 
             [Fact]
-            public void ResetsRegisterWriteConfigurations()
+            public static void ResetsRegisterWriteConfigurations()
             {
-                var fanCfg = new FanConfiguration();
                 var regWriteCfg = new RegisterWriteConfiguration()
                 {
                     Register = 123,
@@ -283,7 +282,7 @@ namespace StagWare.FanControl.Tests
                 var cfg = new FanControlConfigV2()
                 {
                     EcPollInterval = 100,
-                    FanConfigurations = { fanCfg },
+                    FanConfigurations = { new FanConfiguration() },
                     RegisterWriteConfigurations = { regWriteCfg }
                 };
 
@@ -312,7 +311,7 @@ namespace StagWare.FanControl.Tests
         public class Dispose
         {
             [Fact]
-            public void CallsResetOnFans()
+            public static void CallsResetOnFans()
             {
                 var fanCfg = new FanConfiguration()
                 {
@@ -348,7 +347,7 @@ namespace StagWare.FanControl.Tests
             }
 
             [Fact]
-            public void TriesToForceResetFans()
+            public static void TriesToForceResetFans()
             {
                 var fanCfg = new FanConfiguration()
                 {
