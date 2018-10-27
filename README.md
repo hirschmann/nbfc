@@ -7,6 +7,7 @@ It comes with a powerful configuration system, which allows to adjust it to many
 
 | Source | Link | Status |
 |---|---|---|
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d2b287382f3d405ab622c59af553d4d3)](https://app.codacy.com/app/hirschmann/nbfc?utm_source=github.com&utm_medium=referral&utm_content=hirschmann/nbfc&utm_campaign=Badge_Grade_Dashboard)
 | Download from github | [NBFC releases](https://github.com/hirschmann/nbfc/releases) | [![Github All Releases](https://img.shields.io/github/downloads/hirschmann/nbfc/total.svg)](https://github.com/hirschmann/nbfc/releases) |
 |Install via chocolatey| [NBFC package info](https://chocolatey.org/packages/nbfc) | [![Chocolatey](https://img.shields.io/chocolatey/dt/nbfc.svg)](https://chocolatey.org/packages/nbfc) |
 
