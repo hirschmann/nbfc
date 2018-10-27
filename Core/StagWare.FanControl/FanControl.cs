@@ -25,11 +25,11 @@ namespace StagWare.FanControl
 
 #endif
 
-        public const int EcTimeout = 200;
-        public const int MaxLockTimeout = 500;
-        public const int DefaultPollInterval = 3000;
-        public const string PluginsFolderDefaultName = "Plugins";
-        public const int AutoFanSpeedPercentage = Fan.AutoFanSpeed;
+        public static int EcTimeout => 200;
+        public static int MaxLockTimeout => 500;
+        public static int DefaultPollInterval => 3000;
+        public static string PluginsFolderDefaultName => "Plugins";
+        public static int AutoFanSpeedPercentage => Fan.AutoFanSpeed;
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace StagWare.FanControl
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private Timer timer;
-        private AsyncOperation asyncOp;
+        private readonly AsyncOperation asyncOp;
 
         private readonly int pollInterval;
         private readonly int lockTimeout;
@@ -52,8 +52,8 @@ namespace StagWare.FanControl
 
         private volatile bool readOnly;
         private volatile float temperature;
-        private volatile float[] requestedSpeeds;
         private volatile FanInformation[] fanInfo;
+        private readonly float[] requestedSpeeds;
 
         #endregion
 
@@ -326,7 +326,7 @@ namespace StagWare.FanControl
             }
             else
             {
-                throw new IndexOutOfRangeException("fanIndex");
+                throw new ArgumentOutOfRangeException("fanIndex");
             }
         }
 
@@ -381,7 +381,7 @@ namespace StagWare.FanControl
                     {
                         UpdateEc(this.temperature);
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         logger.Error(e, "Could not update the EC");
                     }
@@ -583,7 +583,7 @@ namespace StagWare.FanControl
                         ResetFans();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     logger.Error(e, "EC reset failed");
                 }

@@ -5,6 +5,7 @@ using StagWare.FanControl.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -14,10 +15,20 @@ namespace NbfcProbe
     {
         #region Nested Types
 
-        struct RegisterLog
+        struct RegisterLog : IEquatable<RegisterLog>
         {
             public bool Print;
             public List<byte> Values;
+
+            public bool Equals(RegisterLog other)
+            {
+                if(other.Print != this.Print)
+                {
+                    return false;
+                }
+
+                return other.Values.SequenceEqual(this.Values);
+            }
         }
 
         #endregion

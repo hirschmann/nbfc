@@ -8,8 +8,8 @@ namespace ConfigEditor.ViewModels
 {
     public class RequestConfigPathViewModel
     {
-        public const string ConfigV1FileExtension = "config";
-        public const string ConfigV2FileExtension = "xml";      
+        public static string ConfigV1FileExtension => "config";
+        public static string ConfigV2FileExtension => "xml";      
 
         public bool IsPathValid
         {

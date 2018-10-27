@@ -111,7 +111,7 @@ namespace NbfcCli.CommandLineOptions
         private void AppendVerbHelpText(StringBuilder sb, VerbAttribute attrib, char argPrefix, PropertyInfo[] verbProperties)
         {
             var namedArgAttributes = new List<NamedArgumentAttribute>();
-            string cmd = attrib.Name;
+            var cmd = new StringBuilder(attrib.Name);
 
             foreach (PropertyInfo param in verbProperties)
             {
@@ -120,7 +120,7 @@ namespace NbfcCli.CommandLineOptions
 
                 if (positionalArg?.MetaVar != null)
                 {
-                    cmd += $" <{positionalArg.MetaVar}>";
+                    cmd.AppendFormat(" <{0}>", positionalArg.MetaVar);
                 }
 
                 if(namedArg != null)
@@ -131,11 +131,11 @@ namespace NbfcCli.CommandLineOptions
 
             if (namedArgAttributes.Count > 0)
             {
-                cmd += " [options]";
+                cmd.Append(" [options]");
             }
 
             sb.Append("  ");
-            sb.AppendFormat($"{{0,{-DescriptionDistance}}}", cmd);
+            sb.AppendFormat($"{{0,{-DescriptionDistance}}}", cmd.ToString());
 
             if (cmd.Length >= DescriptionDistance)
             {

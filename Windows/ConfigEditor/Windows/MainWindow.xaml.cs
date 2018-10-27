@@ -1,12 +1,11 @@
 ﻿using ConfigEditor.ViewModels;
-using StagWare.FanControl.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
 
 namespace ConfigEditor.Windows
 {
@@ -387,7 +386,7 @@ namespace ConfigEditor.Windows
             {
                 return (new System.Windows.Interop.WindowInteropHelper(this)).Handle;
             }
-        } 
+        }
 
         #endregion
     }

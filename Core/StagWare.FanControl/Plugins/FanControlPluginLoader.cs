@@ -72,6 +72,10 @@ namespace StagWare.FanControl.Plugins
                 case PlatformID.MacOSX:
                     platform = SupportedPlatforms.MacOSX;
                     break;
+
+                default:
+                    platform = SupportedPlatforms.None;
+                    break;
             }
 
             switch (IntPtr.Size)
@@ -82,6 +86,10 @@ namespace StagWare.FanControl.Plugins
 
                 case 8:
                     arch = SupportedCpuArchitectures.x64;
+                    break;
+
+                default:
+                    arch = SupportedCpuArchitectures.None;
                     break;
             }
 

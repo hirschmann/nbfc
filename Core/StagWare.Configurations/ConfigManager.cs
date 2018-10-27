@@ -29,8 +29,8 @@ namespace StagWare.Configurations
         private IFileSystem fs;
         private Dictionary<string, Lazy<T>> configs;
         private XmlSerializer serializer;
-        private string configDirPath;
-        private string configFileExtension;
+        private readonly string configDirPath;
+        private readonly string configFileExtension;
 
         #endregion
 

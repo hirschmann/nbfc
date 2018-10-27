@@ -20,7 +20,7 @@ namespace ConfigEditor.ViewModels
 
         #region Private Fields
 
-        private FanControlConfigManager configManager;
+        private readonly FanControlConfigManager configManager;
 
         #region Property Backing Fields
 
@@ -289,7 +289,7 @@ namespace ConfigEditor.ViewModels
                             {
                                 FanControlConfigV2 cfg;
 
-                                if(TryLoadFanControlConfig(vm.ConfigFilePath, out cfg))
+                                if (TryLoadFanControlConfig(vm.ConfigFilePath, out cfg))
                                 {
                                     string cfgName = Path.GetFileNameWithoutExtension(vm.ConfigFilePath);
 
@@ -301,8 +301,8 @@ namespace ConfigEditor.ViewModels
                                     }
                                 }
                             }
-                            
-                            if(!success)
+
+                            if (!success)
                             {
                                 OnImportConfigError(EventArgs.Empty);
                             }

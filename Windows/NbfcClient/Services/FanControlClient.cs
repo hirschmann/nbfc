@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using NbfcClient.NbfcService;
+using NLog;
 using System;
 using System.Windows.Threading;
-using NLog;
 
 namespace NbfcClient.Services
 {
@@ -60,7 +60,7 @@ namespace NbfcClient.Services
 
         #region Events
 
-        public event EventHandler<FanControlStatusChangedEventArgs> FanControlStatusChanged;        
+        public event EventHandler<FanControlStatusChangedEventArgs> FanControlStatusChanged;
 
         protected void OnFanControlStatusChanged(FanControlInfo info)
         {
@@ -201,7 +201,7 @@ namespace NbfcClient.Services
 
             fanControlInfo = info;
             OnFanControlStatusChanged(info);
-        }        
+        }
 
         #endregion
     }

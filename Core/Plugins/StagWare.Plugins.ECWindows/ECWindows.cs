@@ -7,7 +7,7 @@ namespace StagWare.Plugins
 {
     [Export(typeof(IEmbeddedController))]
     [FanControlPluginMetadata(
-        "StagWare.Plugins.ECWindows", 
+        "StagWare.Plugins.ECWindows",
         SupportedPlatforms.Windows,
         SupportedCpuArchitectures.x86 | SupportedCpuArchitectures.x64,
         MinOSVersion = "5.0")]
@@ -27,7 +27,7 @@ namespace StagWare.Plugins
         {
             if (!this.IsInitialized)
             {
-                this.hwMon = HardwareMonitor.Instance;                
+                this.hwMon = HardwareMonitor.Instance;
                 this.IsInitialized = this.hwMon != null;
             }
         }
@@ -44,6 +44,14 @@ namespace StagWare.Plugins
 
         public void Dispose()
         {
+            try
+            {
+                ReleaseLock();
+            }
+            catch
+            {
+            }
+
         }
 
         #endregion

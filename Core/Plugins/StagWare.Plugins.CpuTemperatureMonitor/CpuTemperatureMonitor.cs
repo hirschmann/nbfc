@@ -62,6 +62,7 @@ namespace StagWare.Plugins.Generic
 
         public void Dispose()
         {
+            // nothing to dispose
         }
 
         #endregion

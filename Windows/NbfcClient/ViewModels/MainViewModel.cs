@@ -16,9 +16,9 @@ namespace NbfcClient.ViewModels
     {
         #region Private Fields
 
-        private TrayIconRenderer renderer;
+        private readonly IFanControlClient client;
+        private readonly TrayIconRenderer renderer;
         private BitmapSource trayIcon;
-        private IFanControlClient client;
 
         private string version;
         private string selectedConfig;

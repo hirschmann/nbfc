@@ -179,7 +179,7 @@ namespace StagWare.Plugins.Generic
 
         private static List<TemperatureSource> FindTemperatureSources()
         {
-            List<TemperatureSource> sources = new List<TemperatureSource>();
+            var tempSources = new List<TemperatureSource>();
 
             if (Environment.OSVersion.Platform == PlatformID.Unix)
             {
@@ -209,7 +209,7 @@ namespace StagWare.Plugins.Generic
                                     {
                                         GetTemperature(sensorFile, 0.001);
                                         var src = new TemperatureSource(sensorFile, 0.001);
-                                        sources.Add(src);
+                                        tempSources.Add(src);
                                     }
                                     catch (Exception)
                                     {
@@ -217,16 +217,16 @@ namespace StagWare.Plugins.Generic
                                 }
                             }
 
-                            if (sources.Count > 0)
+                            if (tempSources.Count > 0)
                             {
-                                return sources;
+                                return tempSources;
                             }
                         }
                     }
                 }
             }
 
-            return sources;
+            return tempSources;
         }
 
         #endregion

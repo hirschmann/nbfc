@@ -191,7 +191,7 @@ namespace StagWare.FanControl.Tests
 
                 Assert.True(fanControl.Enabled, nameof(fanControl.Enabled));
 
-                await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3));
+                await Task.WhenAny(task, Task.Delay(cfg.EcPollInterval * 3)).ConfigureAwait(false);
 
                 Assert.True(task.IsCompleted, nameof(task.IsCompleted));
                 A.CallTo(() => fan1.SetTargetSpeed(speed, A<float>.Ignored, false))
@@ -203,11 +203,10 @@ namespace StagWare.FanControl.Tests
             [Fact]
             public void ThrowsWhenIndexIsInvalid()
             {
-                var fanCfg = new FanConfiguration();
                 var cfg = new FanControlConfigV2()
                 {
                     EcPollInterval = 100,
-                    FanConfigurations = { fanCfg }
+                    FanConfigurations = { new FanConfiguration() }
                 };
 
                 var filter = A.Fake<ITemperatureFilter>();
@@ -225,7 +224,7 @@ namespace StagWare.FanControl.Tests
                     var exception = Record.Exception(() => fanControl.SetTargetFanSpeed(123, 12));
 
                     Assert.NotNull(exception);
-                    Assert.IsType<IndexOutOfRangeException>(exception);
+                    Assert.IsType<ArgumentOutOfRangeException>(exception);
                 }
             }
         }

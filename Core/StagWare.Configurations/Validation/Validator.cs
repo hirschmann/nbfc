@@ -6,9 +6,9 @@ namespace StagWare.FanControl.Configurations.Validation
     {
         public List<IValidationRule<T>> Rules { get; private set; } = new List<IValidationRule<T>>();
 
-        public ValidationSummary<T> Validate(T item, bool breakOnFailure = true, bool failOnWarnings = false)
+        public ValidationSummary Validate(T item, bool breakOnFailure = true, bool failOnWarnings = false)
         {
-            var summary = new ValidationSummary<T>();
+            var summary = new ValidationSummary();
             summary.Success = true;
 
             foreach (var rule in Rules)
@@ -29,6 +29,9 @@ namespace StagWare.FanControl.Configurations.Validation
                     case ValidationResult.Error:
                         summary.Failed.Add(validation);
                         summary.Success = false;
+                        break;
+
+                    default:
                         break;
                 }
 

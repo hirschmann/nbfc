@@ -91,6 +91,8 @@ namespace NbfcService
                 case PowerBroadcastStatus.Suspend:
                     this.service.Pause();
                     break;
+                default:
+                    break;
             }
 
             return true;

@@ -6,7 +6,7 @@ namespace StagWare.BiosInfo
     {
         #region Constants
 
-        string DmiIdDirectoryPath = "/sys/devices/virtual/dmi/id";
+        const string DmiIdDirectoryPath = "/sys/devices/virtual/dmi/id";
 
         #endregion
 

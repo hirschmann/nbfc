@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace StagWare.FanControl.Configurations.Validation
 {
-    public class ValidationSummary<T>
+    public class ValidationSummary
     {
         public bool Success { get; set; }
         public List<Validation> Passed { get; set; } = new List<Validation>();

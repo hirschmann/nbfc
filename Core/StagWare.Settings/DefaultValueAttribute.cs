@@ -38,26 +38,13 @@ namespace StagWare.Settings
             {
                 if (types.Length <= 0)
                 {
-                    string msg = "There ist no default constructor for the type " + propertyType;
-
+                    string msg = $"There ist no default constructor for the type {propertyType}";
                     throw new ArgumentException(msg);
                 }
                 else
                 {
-                    string msg = "There ist no default constructor for the type "
-                        + propertyType.ToString() + " which accepts the following arguments: ";
-
-                    for (int i = 0; i < types.Length; i++)
-                    {
-                        msg += types[i].ToString();
-
-                        if (i < types.Length - 1)
-                        {
-                            msg += ", ";
-                        }
-                    }
-
-                    throw new ArgumentException(msg);
+                    string format = "There ist no default constructor for the type {0} which accepts the following arguments: {1}";
+                    throw new ArgumentException(string.Format(format, propertyType, string.Join<Type>(", ", types)));
                 }
             }
         }

@@ -20,19 +20,18 @@ namespace NbfcClient.Views
 
         static T GetVisualParent<T>(DependencyObject child) where T : Visual
         {
-            T parent = default(T);
-            Visual v = (Visual)VisualTreeHelper.GetParent(child);
+            Visual visual = (Visual)VisualTreeHelper.GetParent(child);
 
-            if (v == null)
+            if (visual == null)
             {
                 return null;
             }
 
-            parent = v as T;
+            var parent = visual as T;
 
             if (parent == null)
             {
-                parent = GetVisualParent<T>(v);
+                parent = GetVisualParent<T>(visual);
             }
 
             return parent;
