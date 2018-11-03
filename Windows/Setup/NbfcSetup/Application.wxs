@@ -209,13 +209,13 @@
               Source="$(var.NbfcClient.TargetDir)GalaSoft.MvvmLight.Platform.dll"/>
       </Component>
       
-      <Component Id="App.Microsoft.Practices.ServiceLocation" Guid="{26C7DE67-BF58-45C1-A263-4D2F56386CD1}">
-        <File Id="Microsoft.Practices.ServiceLocation.dll" 
-              Name="Microsoft.Practices.ServiceLocation.dll" 
+      <Component Id="App.CommonServiceLocator" Guid="{D2258B3C-577D-4759-9076-96477D71F74D}">
+        <File Id="CommonServiceLocator.dll" 
+              Name="CommonServiceLocator.dll" 
               DiskId="1" 
               Vital="yes" 
               KeyPath="yes"
-              Source="$(var.NbfcClient.TargetDir)Microsoft.Practices.ServiceLocation.dll"/>
+              Source="$(var.NbfcClient.TargetDir)CommonServiceLocator.dll"/>
       </Component>
         
       
