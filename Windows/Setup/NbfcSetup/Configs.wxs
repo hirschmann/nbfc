@@ -170,6 +170,9 @@
             <Component Id="cmp70588471CAFA2D8F2CA4A1F1F18B63C5" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil24F5B9033E2315429E36DDA238DFC636" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG GL702VM.xml" />
             </Component>
+            <Component Id="cmpF160581180FAFAA09582005F8B655BA5" Directory="ConfigsFolder" Guid="*">
+                <File Id="fil50CE52A0B217ABC8E7986D4B67F67571" KeyPath="yes" Source="$(var.ConfigsDir)\Asus ROG GL702ZC.xml" />
+            </Component>
             <Component Id="cmpC10D1BA7C0B9CC89F96FF50187AA0246" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil7CEC05D2D0CEFA8AA10E3796B2155BB9" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Transformer 3 Pro.xml" />
             </Component>
@@ -190,6 +193,9 @@
             </Component>
             <Component Id="cmpA4BDD2F09AF018E3BC378E8AB030DA0C" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil71D6886595D57BAEEED131A8E13AED28" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook Flip UX360UAK.xml" />
+            </Component>
+            <Component Id="cmpDA0F5B5C7DD725F6E6B2AF0FE53E8277" Directory="ConfigsFolder" Guid="*">
+                <File Id="filF979BCFCA925E4527DE217593D2DAF04" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook Pro UX550VE.xml" />
             </Component>
             <Component Id="cmp263D719CF20BAC188000A77D7ECF1A1E" Directory="ConfigsFolder" Guid="*">
                 <File Id="fil1E6993524556085E8372314BD987D137" KeyPath="yes" Source="$(var.ConfigsDir)\Asus Zenbook UX21E.xml" />
