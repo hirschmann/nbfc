@@ -4,7 +4,7 @@
   <Author>Chandradeep Dey</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>true</ReadWriteWords>
-  <CriticalTemperature>87</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>19</ReadRegister>
@@ -97,6 +97,11 @@
           <UpThreshold>84</UpThreshold>
           <DownThreshold>83</DownThreshold>
           <FanSpeed>88</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>88</UpThreshold>
+          <DownThreshold>86</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
@@ -192,6 +197,11 @@
           <UpThreshold>84</UpThreshold>
           <DownThreshold>83</DownThreshold>
           <FanSpeed>86</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>88</UpThreshold>
+          <DownThreshold>86</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
