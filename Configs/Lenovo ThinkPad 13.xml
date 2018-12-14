@@ -15,7 +15,7 @@
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>22</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
-      <FanSpeedResetValue>80</FanSpeedResetValue>
+      <FanSpeedResetValue>128</FanSpeedResetValue>
       <FanDisplayName>System Fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
