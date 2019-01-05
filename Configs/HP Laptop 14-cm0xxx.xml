@@ -2,7 +2,7 @@
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>HP Laptop 14-cm0xxx</NotebookModel>
   <Author>Matias Hiltunen</Author>
-  <EcPollInterval>500</EcPollInterval>
+  <EcPollInterval>200</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>76</CriticalTemperature>
   <FanConfigurations>
