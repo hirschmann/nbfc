@@ -4,7 +4,7 @@
   <Author>Matias Hiltunen</Author>
   <EcPollInterval>200</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>76</CriticalTemperature>
+  <CriticalTemperature>80</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>113</ReadRegister>
