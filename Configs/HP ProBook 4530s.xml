@@ -15,36 +15,61 @@
       <FanSpeedResetValue>255</FanSpeedResetValue>
       <FanDisplayName>CPU fan</FanDisplayName>
       <TemperatureThresholds>
+
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
+
         <TemperatureThreshold>
-          <UpThreshold>63</UpThreshold>
-          <DownThreshold>48</DownThreshold>
-          <FanSpeed>10</FanSpeed>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>12.5</FanSpeed>
         </TemperatureThreshold>
+
+        <TemperatureThreshold>
+          <UpThreshold>59</UpThreshold>
+          <DownThreshold>48</DownThreshold>
+          <FanSpeed>25</FanSpeed>
+        </TemperatureThreshold>
+
+        <TemperatureThreshold>
+          <UpThreshold>61</UpThreshold>
+          <DownThreshold>53</DownThreshold>
+          <FanSpeed>30</FanSpeed>
+        </TemperatureThreshold>
+
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
           <DownThreshold>55</DownThreshold>
-          <FanSpeed>22.5</FanSpeed>
+          <FanSpeed>35</FanSpeed>
         </TemperatureThreshold>
+
         <TemperatureThreshold>
           <UpThreshold>67</UpThreshold>
           <DownThreshold>59</DownThreshold>
           <FanSpeed>40</FanSpeed>
         </TemperatureThreshold>
+
+        <TemperatureThreshold>
+          <UpThreshold>68</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+
         <TemperatureThreshold>
           <UpThreshold>69</UpThreshold>
           <DownThreshold>65</DownThreshold>
           <FanSpeed>65</FanSpeed>
         </TemperatureThreshold>
+
         <TemperatureThreshold>
           <UpThreshold>71</UpThreshold>
           <DownThreshold>67</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
+
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
