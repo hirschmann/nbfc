@@ -32,5 +32,14 @@ namespace NbfcCli.CommandLineOptions
             Constraint = NumArgsConstraint.AtLeast,
             Description = "Show fan status")]
         public List<int> Fan { get; set; }
+
+        [NamedArgument(
+            'p',
+            "poll",
+            Constraint = NumArgsConstraint.Optional,
+            Action = ParseAction.Store,
+            Description = "Output selected status every <value> seconds (default: 1)",
+            Const = 1f)]
+        public float? Poll { get; set; }
     }
 }

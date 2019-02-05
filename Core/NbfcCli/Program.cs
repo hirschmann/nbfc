@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 
 namespace NbfcCli
 {
@@ -65,6 +66,9 @@ namespace NbfcCli
 
         private static void PrintStatus(StatusVerb verb)
         {
+            // If we are polling, we return to here:
+            start:
+
             FanControlInfo info = GetFanControlInfo();
 
             if (info == null)
@@ -106,6 +110,11 @@ namespace NbfcCli
                         PrintFanStatus(status);
                     }
                 }
+            }
+
+            if (verb.Poll.HasValue){
+                Thread.Sleep((int)(verb.Poll.Value*1000));
+                goto start;
             }
         }
 
