@@ -4,7 +4,7 @@
   <Author>danielfm123</Author>
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>95</CriticalTemperature>
+  <CriticalTemperature>100</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
@@ -62,6 +62,11 @@
           <DownThreshold>90</DownThreshold>
           <UpThreshold>98</UpThreshold>
           <FanSpeed>68</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <DownThreshold>93</DownThreshold>
+          <UpThreshold>100</UpThreshold>
+          <FanSpeed>70</FanSpeed>
         </TemperatureThreshold>
         
     </TemperatureThresholds>
