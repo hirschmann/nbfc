@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <NotebookModel>Inspiron 7348</NotebookModel>
-  <Author>lembi</Author>
+  <NotebookModel>Inspiron 7375</NotebookModel>
+  <Author>danielfm123</Author>
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>95</CriticalTemperature>
@@ -17,19 +17,19 @@
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>14</FanSpeedResetValue>
       <TemperatureThresholds>
-        <TemperatureThreshold>
-          <UpThreshold>60</UpThreshold>
+          <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
           <DownThreshold>0</DownThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>63</UpThreshold>
-          <DownThreshold>55</DownThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>50</DownThreshold>
           <FanSpeed>20</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
-          <DownThreshold>58</DownThreshold>
+          <DownThreshold>55</DownThreshold>
           <FanSpeed>50</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
