@@ -67,17 +67,12 @@
           <DownThreshold>93</DownThreshold>
           <UpThreshold>100</UpThreshold>
           <FanSpeed>70</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
-          <DownThreshold>95</DownThreshold>
-          <UpThreshold>105</UpThreshold>
-          <FanSpeed>73</FanSpeed>
-        </TemperatureThreshold>    
+        </TemperatureThreshold>  
         
     </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>75</FanSpeedPercentage>
+          <FanSpeedPercentage>73</FanSpeedPercentage>
           <FanSpeedValue>10</FanSpeedValue>
           <TargetOperation>ReadWrite</TargetOperation>
         </FanSpeedPercentageOverride>
