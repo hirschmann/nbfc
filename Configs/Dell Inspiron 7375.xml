@@ -4,7 +4,7 @@
   <Author>danielfm123</Author>
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>95</CriticalTemperature>
+  <CriticalTemperature>100</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
@@ -77,7 +77,7 @@
     </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>100</FanSpeedPercentage>
+          <FanSpeedPercentage>75</FanSpeedPercentage>
           <FanSpeedValue>10</FanSpeedValue>
           <TargetOperation>ReadWrite</TargetOperation>
         </FanSpeedPercentageOverride>
