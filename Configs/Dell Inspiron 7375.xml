@@ -20,96 +20,54 @@
 
         <TemperatureThreshold>
           <DownThreshold>0</DownThreshold>
-          <UpThreshold>55</UpThreshold>
+          <UpThreshold>50</UpThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
           
         <TemperatureThreshold>
-          <DownThreshold>50</DownThreshold>
-          <UpThreshold>60</UpThreshold>
-          <FanSpeed>20</FanSpeed>
-        </TemperatureThreshold>
-        
-        <TemperatureThreshold>
-          <DownThreshold>55</DownThreshold>
-          <UpThreshold>65</UpThreshold>
-          <FanSpeed>30</FanSpeed>
-        </TemperatureThreshold>
-        
-        <TemperatureThreshold>
-          <DownThreshold>60</DownThreshold>
-          <UpThreshold>68</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <UpThreshold>55</UpThreshold>
           <FanSpeed>35</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
-          <DownThreshold>63</DownThreshold>
-          <UpThreshold>70</UpThreshold>
-          <FanSpeed>40</FanSpeed>
-        </TemperatureThreshold>
-
-        <TemperatureThreshold>
-          <DownThreshold>65</DownThreshold>
-          <UpThreshold>73</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <UpThreshold>60</UpThreshold>
           <FanSpeed>45</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
-          <DownThreshold>68</DownThreshold>
-          <UpThreshold>75</UpThreshold>
-          <FanSpeed>50</FanSpeed>
-        </TemperatureThreshold>
-        
-        <TemperatureThreshold>
-          <DownThreshold>70</DownThreshold>
-          <UpThreshold>78</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <UpThreshold>68</UpThreshold>
           <FanSpeed>55</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
-          <DownThreshold>73</DownThreshold>
-          <UpThreshold>80</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <UpThreshold>73</UpThreshold>
           <FanSpeed>60</FanSpeed>
         </TemperatureThreshold>
-        
+
         <TemperatureThreshold>
-          <DownThreshold>75</DownThreshold>
-          <UpThreshold>83</UpThreshold>
+          <DownThreshold>68</DownThreshold>
+          <UpThreshold>80</UpThreshold>
           <FanSpeed>62</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
-          <DownThreshold>78</DownThreshold>
-          <UpThreshold>85</UpThreshold>
-          <FanSpeed>64</FanSpeed>
-        </TemperatureThreshold>
-        
-        <TemperatureThreshold>
-          <DownThreshold>80</DownThreshold>
+          <DownThreshold>75</DownThreshold>
           <UpThreshold>88</UpThreshold>
           <FanSpeed>65</FanSpeed>
         </TemperatureThreshold>
-
-        <TemperatureThreshold>
-          <DownThreshold>83</DownThreshold>
-          <UpThreshold>90</UpThreshold>
-          <FanSpeed>66</FanSpeed>
-        </TemperatureThreshold>
         
         <TemperatureThreshold>
-          <DownThreshold>85</DownThreshold>
+          <DownThreshold>83</DownThreshold>
           <UpThreshold>93</UpThreshold>
-          <FanSpeed>67</FanSpeed>
+          <FanSpeed>66</FanSpeed>
         </TemperatureThreshold>
 
         <TemperatureThreshold>
           <DownThreshold>88</DownThreshold>
-          <UpThreshold>95</UpThreshold>
-          <FanSpeed>68</FanSpeed>
-        </TemperatureThreshold>
-        
-        <TemperatureThreshold>
-          <DownThreshold>90</DownThreshold>
           <UpThreshold>97</UpThreshold>
           <FanSpeed>70</FanSpeed>
         </TemperatureThreshold>
