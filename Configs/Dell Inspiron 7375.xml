@@ -17,23 +17,29 @@
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>14</FanSpeedResetValue>
       <TemperatureThresholds>
-    
+
         <TemperatureThreshold>
           <DownThreshold>0</DownThreshold>
+          <UpThreshold>55</UpThreshold>
+          <FanSpeed>20</FanSpeed>
+        </TemperatureThreshold>
+          
+        <TemperatureThreshold>
+          <DownThreshold>50</DownThreshold>
           <UpThreshold>60</UpThreshold>
-          <FanSpeed>0</FanSpeed>
+          <FanSpeed>20</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
           <DownThreshold>55</DownThreshold>
           <UpThreshold>65</UpThreshold>
-          <FanSpeed>20</FanSpeed>
+          <FanSpeed>30</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
           <DownThreshold>60</DownThreshold>
           <UpThreshold>68</UpThreshold>
-          <FanSpeed>30</FanSpeed>
+          <FanSpeed>35</FanSpeed>
         </TemperatureThreshold>
         
         <TemperatureThreshold>
