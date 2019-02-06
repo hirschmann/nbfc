@@ -50,7 +50,7 @@
 
         <TemperatureThreshold>
           <DownThreshold>68</DownThreshold>
-          <UpThreshold>80</UpThreshold>
+          <UpThreshold>83</UpThreshold>
           <FanSpeed>62</FanSpeed>
         </TemperatureThreshold>
         
