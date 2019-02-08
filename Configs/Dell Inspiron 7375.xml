@@ -23,9 +23,15 @@
           <UpThreshold>50</UpThreshold>
           <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
-        
+
         <TemperatureThreshold>
           <DownThreshold>45</DownThreshold>
+          <UpThreshold>55</UpThreshold>
+          <FanSpeed>45</FanSpeed>
+        </TemperatureThreshold>
+        
+        <TemperatureThreshold>
+          <DownThreshold>50</DownThreshold>
           <UpThreshold>60</UpThreshold>
           <FanSpeed>59</FanSpeed>
         </TemperatureThreshold>
