@@ -4,7 +4,7 @@
   <Author>danielfm123</Author>
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>100</CriticalTemperature>
+  <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
