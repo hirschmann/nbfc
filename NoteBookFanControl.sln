@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.FanControl", "Core\StagWare.FanControl\StagWare.FanControl.csproj", "{12084B38-C1A2-414C-80A7-B8D02D6F5B84}"
 EndProject
@@ -68,6 +68,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7CC8ECD-A3E9-4391-B933-2F010ED24767}"
 	ProjectSection(SolutionItems) = preProject
 		Common\CommonAssemblyInfo.cs = Common\CommonAssemblyInfo.cs
+		Common\CommonAssemblyVersion.cs = Common\CommonAssemblyVersion.cs
 	EndProjectSection
 EndProject
 Global

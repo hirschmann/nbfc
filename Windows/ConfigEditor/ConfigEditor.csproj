@@ -87,6 +87,9 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\Common\CommonAssemblyVersion.cs">
+      <Link>Properties\CommonAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Behaviors\SelectionChangedBehavior.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="ExtensionMethods\IconExtensionMethods.cs" />

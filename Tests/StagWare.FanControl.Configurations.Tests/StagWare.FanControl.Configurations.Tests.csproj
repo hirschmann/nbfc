@@ -68,6 +68,9 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\Common\CommonAssemblyVersion.cs">
+      <Link>Properties\CommonAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="ConfigManagerTests.cs" />
     <Compile Include="ConfigsTests.cs" />
     <Compile Include="ExtensionMethods\StringExtensionMethodsTests.cs" />
