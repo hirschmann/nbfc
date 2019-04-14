@@ -21,9 +21,10 @@
              Description="$(var.ProductName) Installer"/>
 
     <!--Upgrade-->
-    <!--Use Upgrade instead of MajorUpgrade because the latter doesn't support removing previous versions
-        before installing upgrades (without checking file versions)-->
-    <Upgrade Id="$(var.UpgradeGuid)"/>
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  AllowDowngrades="no"
+                  AllowSameVersionUpgrades="no"
+                  DowngradeErrorMessage="A newer version of $(var.ProductName) is already installed." />
 
     <!--Media-->
     <Media Id="1" Cabinet="NBFC.cab" EmbedCab="yes" CompressionLevel="high"/>
@@ -81,11 +82,7 @@
     <util:CloseApplication Id="CloseNbfcClientOld" Target="NoteBook FanControl.exe" EndSessionMessage="yes" />
 
     <!--Do actions-->
-    <InstallExecuteSequence>
-      <!--Always uninstall existing products before installing updated versions 
-          to avoid problems during up/downgrade-->
-      <RemoveExistingProducts Before='InstallInitialize' />
-      
+    <InstallExecuteSequence>      
       <Custom Action="SetInstallFolderForUninstallDriver" Before="UninstallDriver"/>
       <Custom Action="UninstallDriver" After="DeleteServices"/>
 
