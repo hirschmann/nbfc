@@ -4,7 +4,7 @@
   <Author>Bekliev Parviz</Author>
   <EcPollInterval>6000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>90</CriticalTemperature>
+  <CriticalTemperature>105</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
