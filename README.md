@@ -22,7 +22,8 @@ In general the [NBFC Wiki](https://github.com/hirschmann/nbfc/wiki) is the first
 
 ## Contributing
 
-Every contribution, no matter how small it is, is welcome. Please read the [contribution guidelines](CONTRIBUTING.md) before creating a new issue or pull request.
+Every contribution, no matter how small it is, is welcome. Please read the [contribution guidelines](CONTRIBUTING.md) before creating a new issue or pull request.  
+You can also [buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUALCC9HY9MKC) if you like my work :)
 
 ## Build status
 
