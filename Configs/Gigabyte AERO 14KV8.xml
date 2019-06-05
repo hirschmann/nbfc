@@ -39,14 +39,14 @@
           <FanSpeed>60.2620049</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>90</UpThreshold>
-          <DownThreshold>80</DownThreshold>
-          <FanSpeed>100</FanSpeed>
-        </TemperatureThreshold>
-        <TemperatureThreshold>
           <UpThreshold>85</UpThreshold>
           <DownThreshold>77</DownThreshold>
           <FanSpeed>80.34934</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>90</UpThreshold>
+          <DownThreshold>80</DownThreshold>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
@@ -130,7 +130,7 @@
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
-      <WriteOccasion>OnWriteFanSpeed</WriteOccasion>
+      <WriteOccasion>OnInitialization</WriteOccasion>
       <Register>13</Register>
       <Value>1</Value>
       <ResetRequired>true</ResetRequired>
