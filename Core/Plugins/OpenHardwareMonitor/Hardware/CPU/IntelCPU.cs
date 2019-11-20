@@ -30,7 +30,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       Airmont,
       KabyLake,
       ApolloLake,
-      CoffeeLake
+      CoffeeLake,
+      IceLake,
     }
 
     private readonly Sensor[] coreTemperatures;
@@ -193,6 +194,11 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 microarchitecture = Microarchitecture.CoffeeLake;
                 tjMax = GetTjMaxFromMSR();
                 break;
+              case 0x7D: // Intel Core i3, i5, i7 10xxx (10nm+)
+              case 0x7E:
+                microarchitecture = Microarchitecture.IceLake;
+                tjMax = GetTjMaxFromMSR();
+                break;
               default:
                 microarchitecture = Microarchitecture.Unknown;
                 tjMax = Floats(100);
@@ -243,7 +249,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         case Microarchitecture.Airmont:
         case Microarchitecture.ApolloLake:
         case Microarchitecture.KabyLake:
-        case Microarchitecture.CoffeeLake: {
+        case Microarchitecture.CoffeeLake:
+        case Microarchitecture.IceLake: {
             uint eax, edx;
             if (Ring0.Rdmsr(MSR_PLATFORM_INFO, out eax, out edx)) {
               timeStampCounterMultiplier = (eax >> 8) & 0xff;
@@ -308,7 +315,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           microarchitecture == Microarchitecture.Silvermont ||
           microarchitecture == Microarchitecture.Airmont ||
           microarchitecture == Microarchitecture.KabyLake ||
-          microarchitecture == Microarchitecture.ApolloLake) 
+          microarchitecture == Microarchitecture.ApolloLake ||
+          microarchitecture == Microarchitecture.IceLake) 
       {
         powerSensors = new Sensor[energyStatusMSRs.Length];
         lastEnergyTime = new DateTime[energyStatusMSRs.Length];
@@ -427,7 +435,8 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case Microarchitecture.Skylake:
               case Microarchitecture.ApolloLake:
               case Microarchitecture.KabyLake:
-              case Microarchitecture.CoffeeLake: {
+              case Microarchitecture.CoffeeLake:
+              case Microarchitecture.IceLake: {
                   uint multiplier = (eax >> 8) & 0xff;
                   coreClocks[i].Value = (float)(multiplier * newBusClock);
                 } break;
