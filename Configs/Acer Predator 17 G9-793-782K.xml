@@ -16,7 +16,7 @@
       <MaxSpeedValueRead>255</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>0</FanSpeedResetValue>
-      <FanDisplayName>CPU &amp; GPU fan</FanDisplayName>
+      <FanDisplayName>CPU & GPU fan</FanDisplayName>
       <TemperatureThresholds />
       <FanSpeedPercentageOverrides />
     </FanConfiguration>
@@ -30,7 +30,7 @@
       <MaxSpeedValueRead>1</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>0</FanSpeedResetValue>
-      <FanDisplayName>Max fan speed switch (on/off)</FanDisplayName>
+      <FanDisplayName>Max. fan speed switch (on/off)</FanDisplayName>
       <TemperatureThresholds />
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
