@@ -3,7 +3,7 @@
   <NotebookModel>N550JX</NotebookModel>
   <EcPollInterval>150</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>70</CriticalTemperature>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>151</ReadRegister>
