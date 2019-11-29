@@ -16,7 +16,7 @@
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
-      <FanDisplayName>单风扇</FanDisplayName>
+      <FanDisplayName></FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
