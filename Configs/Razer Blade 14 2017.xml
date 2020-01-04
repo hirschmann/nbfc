@@ -4,7 +4,7 @@
   <Author>keeper121</Author>
   <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>85</CriticalTemperature>
+  <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>200</ReadRegister>
@@ -49,9 +49,9 @@
           <FanSpeed>65</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>100</UpThreshold>
+          <UpThreshold>90</UpThreshold>
           <DownThreshold>87</DownThreshold>
-          <FanSpeed>90</FanSpeed>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
@@ -99,9 +99,9 @@
           <FanSpeed>80</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>100</UpThreshold>
+          <UpThreshold>90</UpThreshold>
           <DownThreshold>87</DownThreshold>
-          <FanSpeed>95</FanSpeed>
+          <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
