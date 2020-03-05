@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
@@ -70,6 +70,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C7CC8E
 		Common\CommonAssemblyInfo.cs = Common\CommonAssemblyInfo.cs
 		Common\CommonAssemblyVersion.cs = Common\CommonAssemblyVersion.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StagWare.Plugins.ECModuleLinux", "Core\Plugins\StagWare.Plugins.ECModuleLinux\StagWare.Plugins.ECModuleLinux.csproj", "{BBA487E7-9EB4-4BCE-99DA-0C0E9DDA543F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
