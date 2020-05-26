@@ -63,6 +63,9 @@
     <Compile Include="..\..\Common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\..\Common\CommonAssemblyVersion.cs">
+      <Link>Properties\CommonAssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="CommandLineOptions\ECMonitorVerb.cs" />
     <Compile Include="CommandLineOptions\ECWriteVerb.cs" />
     <Compile Include="CommandLineOptions\ECReadVerb.cs" />
