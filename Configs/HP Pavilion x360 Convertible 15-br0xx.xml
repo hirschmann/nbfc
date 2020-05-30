@@ -1,26 +1,36 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>HP ProBook 650 G2</NotebookModel>
-  <Author>Christian Malek</Author>
+  <NotebookModel>HP Pavilion x360 Convertible 15-br0xx</NotebookModel>
+  <Author>Wojciech Berdowski</Author>
   <EcPollInterval>3000</EcPollInterval>
-  <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <ReadWriteWords>true</ReadWriteWords>
+  <CriticalTemperature>90</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
-      <ReadRegister>46</ReadRegister>
-      <WriteRegister>47</WriteRegister>
-      <MinSpeedValue>123</MinSpeedValue>
-      <MaxSpeedValue>48</MaxSpeedValue>
+      <ReadRegister>149</ReadRegister>
+      <WriteRegister>148</WriteRegister>
+      <MinSpeedValue>248</MinSpeedValue>
+      <MaxSpeedValue>85</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
       <MaxSpeedValueRead>0</MaxSpeedValueRead>
-      <ResetRequired>true</ResetRequired>
+      <ResetRequired>false</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
       <FanDisplayName>CPU fan</FanDisplayName>
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>60</UpThreshold>
+          <DownThreshold>48</DownThreshold>
+          <FanSpeed>10</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>63</UpThreshold>
+          <DownThreshold>55</DownThreshold>
           <FanSpeed>20</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
@@ -29,21 +39,21 @@
           <FanSpeed>50</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>71</UpThreshold>
-          <DownThreshold>65</DownThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <FanSpeed>70</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>74</UpThreshold>
+          <DownThreshold>69</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
           <FanSpeedPercentage>0</FanSpeedPercentage>
-          <FanSpeedValue>254</FanSpeedValue>
-          <TargetOperation>ReadWrite</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>0</FanSpeedPercentage>
           <FanSpeedValue>255</FanSpeedValue>
-          <TargetOperation>Read</TargetOperation>
+          <TargetOperation>ReadWrite</TargetOperation>
         </FanSpeedPercentageOverride>
       </FanSpeedPercentageOverrides>
     </FanConfiguration>
@@ -52,22 +62,12 @@
     <RegisterWriteConfiguration>
       <WriteMode>Set</WriteMode>
       <WriteOccasion>OnInitialization</WriteOccasion>
-      <Register>34</Register>
-      <Value>1</Value>
+      <Register>147</Register>
+      <Value>20</Value>
       <ResetRequired>true</ResetRequired>
-      <ResetValue>1</ResetValue>
+      <ResetValue>4</ResetValue>
       <ResetWriteMode>Set</ResetWriteMode>
-      <Description>Select thermal zone</Description>
-    </RegisterWriteConfiguration>
-    <RegisterWriteConfiguration>
-      <WriteMode>Set</WriteMode>
-      <WriteOccasion>OnInitialization</WriteOccasion>
-      <Register>38</Register>
-      <Value>28</Value>
-      <ResetRequired>true</ResetRequired>
-      <ResetValue>0</ResetValue>
-      <ResetWriteMode>Set</ResetWriteMode>
-      <Description>Fake thermal zone temperature</Description>
+      <Description>Set EC to manual control</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
