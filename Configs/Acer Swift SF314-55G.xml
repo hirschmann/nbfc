@@ -4,7 +4,7 @@
   <Author>https://github.com/cjtim</Author>
   <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>85</CriticalTemperature>
+  <CriticalTemperature>86</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>236</ReadRegister>
