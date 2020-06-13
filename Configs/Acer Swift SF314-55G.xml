@@ -4,7 +4,7 @@
   <Author>https://github.com/cjtim</Author>
   <EcPollInterval>100</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>80</CriticalTemperature>
+  <CriticalTemperature>85</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>236</ReadRegister>
@@ -20,23 +20,33 @@
       <TemperatureThresholds>
         <TemperatureThreshold>
           <UpThreshold>60</UpThreshold>
-          <DownThreshold>0</DownThreshold>
-          <FanSpeed>0</FanSpeed>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>12.5</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>65</UpThreshold>
           <DownThreshold>60</DownThreshold>
-          <FanSpeed>12.5</FanSpeed>
+          <FanSpeed>25</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>70</UpThreshold>
           <DownThreshold>65</DownThreshold>
-          <FanSpeed>25</FanSpeed>
+          <FanSpeed>37.5</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
           <UpThreshold>80</UpThreshold>
           <DownThreshold>75</DownThreshold>
           <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>85</UpThreshold>
+          <DownThreshold>80</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>70</DownThreshold>
+          <FanSpeed>75</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides />
