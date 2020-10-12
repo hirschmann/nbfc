@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2017 Michael Möller <mmoeller@openhardwaremonitor.org>
+  Copyright (C) 2009-2020 Michael Möller <mmoeller@openhardwaremonitor.org>
 	
 */
 
@@ -29,9 +29,13 @@ namespace OpenHardwareMonitor.Hardware.CPU {
       Skylake,
       Airmont,
       KabyLake,
-      ApolloLake,
-      CoffeeLake,
+      Goldmont,
+      GoldmontPlus,
+      CannonLake,
       IceLake,
+      CometLake,
+      Tremont,
+      TigerLake
     }
 
     private readonly Sensor[] coreTemperatures;
@@ -107,7 +111,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                   case 0x0B: // G0
                     tjMax = Floats(90 + 10); break;
                   case 0x0D: // M0
-                    tjMax = Floats(90 + 10); break;
+                    tjMax = Floats(85 + 10); break;
                   default:
                     tjMax = Floats(85 + 10); break;
                 } break;
@@ -173,7 +177,7 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 break;
               case 0x4E:
               case 0x5E: // Intel Core i5, i7 6xxxx LGA1151 (14nm)
-              case 0x55: // Intel Core X i7, i9 7xxx LGA2066 (14nm)
+              case 0x55: // Intel Core i7, i9 7xxxx LGA2066 (14nm)
                 microarchitecture = Microarchitecture.Skylake;
                 tjMax = GetTjMaxFromMSR();
                 break;
@@ -186,17 +190,38 @@ namespace OpenHardwareMonitor.Hardware.CPU {
                 microarchitecture = Microarchitecture.KabyLake;
                 tjMax = GetTjMaxFromMSR();
                 break;
-              case 0x5C: // Intel ApolloLake
-                microarchitecture = Microarchitecture.ApolloLake;
-                tjMax = GetTjMaxFromMSR();
-                break;			    
-              case 0xAE: // Intel Core i5, i7 8xxxx (14nm++)
-                microarchitecture = Microarchitecture.CoffeeLake;
+              case 0x5C: // Intel Atom processors (Apollo Lake) (14nm)
+              case 0x5F: // Intel Atom processors (Denverton) (14nm)
+                microarchitecture = Microarchitecture.Goldmont;
                 tjMax = GetTjMaxFromMSR();
                 break;
-              case 0x7D: // Intel Core i3, i5, i7 10xxx (10nm+)
-              case 0x7E:
+              case 0x7A: // Intel Atom processors (14nm)
+                microarchitecture = Microarchitecture.GoldmontPlus;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x66: // Intel Core i3 8121U (10nm)
+                microarchitecture = Microarchitecture.CannonLake;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x7D: // Intel Core i3, i5, i7 10xxGx (10nm) 
+              case 0x7E: 
+              case 0x6A: // Intel Xeon (10nm)
+              case 0x6C:
                 microarchitecture = Microarchitecture.IceLake;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0xA5:
+              case 0xA6: // Intel Core i3, i5, i7 10xxxU (14nm)
+                microarchitecture = Microarchitecture.CometLake;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x86: // Intel Atom processors
+                microarchitecture = Microarchitecture.Tremont;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x8C: // Intel processors (10nm++)
+              case 0x8D:
+                microarchitecture = Microarchitecture.TigerLake;
                 tjMax = GetTjMaxFromMSR();
                 break;
               default:
@@ -247,10 +272,14 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         case Microarchitecture.Silvermont:
         case Microarchitecture.Skylake:
         case Microarchitecture.Airmont:
-        case Microarchitecture.ApolloLake:
         case Microarchitecture.KabyLake:
-        case Microarchitecture.CoffeeLake:
-        case Microarchitecture.IceLake: {
+        case Microarchitecture.Goldmont:
+        case Microarchitecture.GoldmontPlus:
+        case Microarchitecture.CannonLake:
+        case Microarchitecture.IceLake:
+        case Microarchitecture.CometLake:
+        case Microarchitecture.Tremont:
+        case Microarchitecture.TigerLake: {
             uint eax, edx;
             if (Ring0.Rdmsr(MSR_PLATFORM_INFO, out eax, out edx)) {
               timeStampCounterMultiplier = (eax >> 8) & 0xff;
@@ -314,9 +343,14 @@ namespace OpenHardwareMonitor.Hardware.CPU {
           microarchitecture == Microarchitecture.Skylake ||
           microarchitecture == Microarchitecture.Silvermont ||
           microarchitecture == Microarchitecture.Airmont ||
-          microarchitecture == Microarchitecture.KabyLake ||
-          microarchitecture == Microarchitecture.ApolloLake ||
-          microarchitecture == Microarchitecture.IceLake) 
+          microarchitecture == Microarchitecture.KabyLake || 
+          microarchitecture == Microarchitecture.Goldmont ||
+          microarchitecture == Microarchitecture.GoldmontPlus ||
+          microarchitecture == Microarchitecture.CannonLake ||
+          microarchitecture == Microarchitecture.IceLake ||
+          microarchitecture == Microarchitecture.CometLake ||
+          microarchitecture == Microarchitecture.Tremont ||
+          microarchitecture == Microarchitecture.TigerLake) 
       {
         powerSensors = new Sensor[energyStatusMSRs.Length];
         lastEnergyTime = new DateTime[energyStatusMSRs.Length];
@@ -433,10 +467,14 @@ namespace OpenHardwareMonitor.Hardware.CPU {
               case Microarchitecture.Broadwell:
               case Microarchitecture.Silvermont:
               case Microarchitecture.Skylake:
-              case Microarchitecture.ApolloLake:
-              case Microarchitecture.KabyLake:
-              case Microarchitecture.CoffeeLake:
-              case Microarchitecture.IceLake: {
+              case Microarchitecture.KabyLake: 
+              case Microarchitecture.Goldmont:
+              case Microarchitecture.GoldmontPlus:
+              case Microarchitecture.CannonLake:
+              case Microarchitecture.IceLake:
+              case Microarchitecture.CometLake:
+              case Microarchitecture.Tremont:
+              case Microarchitecture.TigerLake: {
                   uint multiplier = (eax >> 8) & 0xff;
                   coreClocks[i].Value = (float)(multiplier * newBusClock);
                 } break;
