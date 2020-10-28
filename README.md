@@ -9,6 +9,7 @@ It comes with a powerful configuration system, which allows to adjust it to many
 |---|---|---|
 | Download from github | [NBFC releases](https://github.com/hirschmann/nbfc/releases) | [![Github All Releases](https://img.shields.io/github/downloads/hirschmann/nbfc/total.svg)](https://github.com/hirschmann/nbfc/releases) |
 |Install via chocolatey| [NBFC package info](https://chocolatey.org/packages/nbfc) | [![Chocolatey](https://img.shields.io/chocolatey/dt/nbfc.svg)](https://chocolatey.org/packages/nbfc) |
+|Install via winget | `winget install Hirschmann.NotebookFanControl` | [![Github All Releases](https://img.shields.io/github/downloads/hirschmann/nbfc/total.svg)](https://github.com/hirschmann/nbfc/releases) |
 
 Currently there are no pre-built releases for Linux, but you can easily build NBFC yourself: [How to build NBFC](https://github.com/hirschmann/nbfc/wiki/How-to-build-NBFC)
 
