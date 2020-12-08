@@ -4,7 +4,7 @@
   <Author>Tejaswi Vykuntam</Author>
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>68</CriticalTemperature>
+  <CriticalTemperature>75</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>45</ReadRegister>
