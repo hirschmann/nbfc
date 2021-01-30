@@ -13,7 +13,7 @@
       <MaxSpeedValue>100</MaxSpeedValue>
       <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
       <MinSpeedValueRead>20</MinSpeedValueRead>
-      <MaxSpeedValueRead>70</MaxSpeedValueRead>
+      <MaxSpeedValueRead>100</MaxSpeedValueRead>
       <ResetRequired>false</ResetRequired>
       <FanSpeedResetValue>0</FanSpeedResetValue>
       <FanDisplayName>CPU Fan</FanDisplayName>
