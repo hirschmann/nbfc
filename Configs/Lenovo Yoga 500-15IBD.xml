@@ -5,7 +5,7 @@
   <EcPollInterval>300</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <!-- T_junction for i7-5500U is 105 °C, leave some margin -->
-  <CriticalTemperature>90</CriticalTemperature>
+  <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>149</ReadRegister>
