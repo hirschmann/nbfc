@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>Acer Nitro 5 AN515-43</NotebookModel>
+  <NotebookModel>Acer Nitro 5 AN515-43(AMD GPU)</NotebookModel>
   <Author>Author</Author>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>true</ReadWriteWords>
