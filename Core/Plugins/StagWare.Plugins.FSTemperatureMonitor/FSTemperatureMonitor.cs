@@ -25,7 +25,7 @@ namespace StagWare.Plugins.Generic
         private static readonly string[] LinuxHwmonDirs = { "/sys/class/hwmon/hwmon{0}/", "/sys/class/hwmon/hwmon{0}/device/" };
         private const string LinuxTempSensorFile = "temp{0}_input";
         private const string LinuxTempSensorNameFile = "name";
-        private static readonly string[] LinuxTempSensorNames = { "coretemp", "k10temp" };
+        private static readonly string[] LinuxTempSensorNames = { "coretemp", "k10temp", "zenpower" };
 
         #endregion
 
