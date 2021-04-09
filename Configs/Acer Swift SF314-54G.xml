@@ -49,7 +49,7 @@
           <FanSpeed>65.4902</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>95</UpThreshold>
+          <UpThreshold>94</UpThreshold>
           <DownThreshold>65</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
