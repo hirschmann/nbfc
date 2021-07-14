@@ -24,7 +24,7 @@ In general the [NBFC Wiki](https://github.com/hirschmann/nbfc/wiki) is the first
 ## Contributing
 
 Every contribution, no matter how small it is, is welcome. Please read the [contribution guidelines](CONTRIBUTING.md) before creating a new issue or pull request.  
-You can also [buy hirschmann a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUALCC9HY9MKC) [or buy me a cockroach](https://buymeacoffee.com/UraniumDonut) if you like our work :)
+You can also [buy hirschmann a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUALCC9HY9MKC) or [buy me a cockroach](https://buymeacoffee.com/UraniumDonut) if you like our work :)
 
 ## Build status
 
