@@ -9,7 +9,6 @@ It comes with a powerful configuration system, which allows to adjust it to many
 | Source | Link | Status |
 |---|---|---|
 | Download from github | [NBFC releases](https://github.com/UraniumDonut/nbfc-revive/releases) | [![Github All Releases](https://img.shields.io/github/downloads/hirschmann/nbfc/total.svg)](https://github.com/UraniumDonut/nbfc-revive/releases) |
-|Install via chocolatey| [NBFC package info](https://chocolatey.org/packages/nbfc) | [![Chocolatey](https://img.shields.io/chocolatey/dt/nbfc.svg)](https://chocolatey.org/packages/nbfc) |
 
 Currently there are no pre-built releases for Linux, but you can easily build NBFC yourself: [How to build NBFC](https://github.com/hirschmann/nbfc/wiki/How-to-build-NBFC)
 
@@ -26,8 +25,8 @@ In general the [NBFC Wiki](https://github.com/hirschmann/nbfc/wiki) is the first
 Every contribution, no matter how small it is, is welcome. Please read the [contribution guidelines](CONTRIBUTING.md) before creating a new issue or pull request.  
 You can also [buy hirschmann a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HUALCC9HY9MKC) or [buy me a cockroach](https://buymeacoffee.com/UraniumDonut) if you like our work :)
 
-## Build status
-
+## Build status (Legacy)
+This is the status of NBFC-Legacy, not this version
 | Platform | CI service | Status |
 |---|---|---|
 | Linux | Travis | [![Travis](https://img.shields.io/travis/hirschmann/nbfc.svg)](https://travis-ci.org/hirschmann/nbfc) |
@@ -36,3 +35,4 @@ You can also [buy hirschmann a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_
 ## Credits
 
 Many thanks to everyone who submitted pull requests, created config files, donated, or in any other way contributed to this project. :yellow_heart:
+Thank you to @hirschmann for creating this wonderful program!
