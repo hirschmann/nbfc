@@ -39,13 +39,15 @@
     </FanConfiguration>
   </FanConfigurations>
   <RegisterWriteConfigurations>
-        <Description>System Fan Thermal Zone</Description>
-        <WriteOccasion>OnInitialization</WriteOccasion>
-  <WriteMode>Set</WriteMode>  
-  <Register>27</Register>
-  <Value>28</Value>
-  <ResetRequired>true</ResetRequired>
-  <ResetWriteMode>Set</ResetWriteMode>
-  <ResetValue>0</ResetValue>
+    <RegisterWriteConfiguration>
+      <Description>System Fan Thermal Zone</Description>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <WriteMode>Set</WriteMode>  
+      <Register>27</Register>
+      <Value>28</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <ResetValue>0</ResetValue>
+    </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
 </FanControlConfigV2>
