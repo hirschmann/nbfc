@@ -324,6 +324,8 @@ namespace NbfcProbe
                         sb.Append(",");
                     }
 
+                    //remove last comma
+                    sb.Remove(sb.Length - 1, 1);
                     sb.AppendLine();
                 }
 
