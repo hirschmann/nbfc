@@ -9,7 +9,7 @@
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>
       <WriteRegister>47</WriteRegister>
-      <MinSpeedValue>255</MinSpeedValue>
+      <MinSpeedValue>225</MinSpeedValue>
       <MaxSpeedValue>0</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
@@ -55,7 +55,7 @@
     <FanConfiguration>
       <ReadRegister>53</ReadRegister>
       <WriteRegister>54</WriteRegister>
-      <MinSpeedValue>255</MinSpeedValue>
+      <MinSpeedValue>225</MinSpeedValue>
       <MaxSpeedValue>0</MaxSpeedValue>
       <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
       <MinSpeedValueRead>0</MinSpeedValueRead>
