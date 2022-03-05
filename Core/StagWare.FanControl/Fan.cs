@@ -32,6 +32,7 @@ namespace StagWare.FanControl
         private readonly Dictionary<int, FanSpeedPercentageOverride> overriddenValues;
 
         private float targetFanSpeed;
+        private float previousTargetFanSpeed = 0;
 
         #endregion
 
@@ -135,7 +136,9 @@ namespace StagWare.FanControl
 
             if (!readOnly)
             {
-                ECWriteValue(PercentageToFanSpeed(speed));
+                if(previousTargetFanSpeed != speed)
+                    ECWriteValue(PercentageToFanSpeed(speed));
+                previousTargetFanSpeed = speed;
             }
         }
 
