@@ -2,7 +2,7 @@
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <NotebookModel>HP EliteBook 840 G2</NotebookModel>
   <Author>Sandor Berczi</Author>
-  <EcPollInterval>3000</EcPollInterval>
+  <EcPollInterval>400</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
   <CriticalTemperature>95</CriticalTemperature>
   <FanConfigurations>
