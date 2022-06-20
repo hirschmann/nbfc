@@ -1,6 +1,5 @@
-![NoteBook FanControl](https://github.com/hirschmann/nbfc/wiki/images/banner.png)
+![NoteBook FanControl Revive](https://github.com/hirschmann/nbfc/wiki/images/banner.png)
 
-# NBFC wasn't updated since 1.5 years. This is a try to revive it
 NBFC is a cross-platform fan control service for notebooks.
 It comes with a powerful configuration system, which allows to adjust it to many different notebook models.
 
