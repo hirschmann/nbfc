@@ -1,19 +1,16 @@
 <?xml version="1.0"?>
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NotebookModel>HP ProBook 650 G2</NotebookModel>
-  <Author>Christian Malek</Author>
+  <NotebookModel>HP EliteBook 8470p</NotebookModel>
   <EcPollInterval>3000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
-  <CriticalTemperature>75</CriticalTemperature>
+  <CriticalTemperature>87</CriticalTemperature>
+  <Author>Mateo Estrada Ramirez</Author>
   <FanConfigurations>
     <FanConfiguration>
       <ReadRegister>46</ReadRegister>
       <WriteRegister>47</WriteRegister>
-      <MinSpeedValue>123</MinSpeedValue>
+      <MinSpeedValue>88</MinSpeedValue>
       <MaxSpeedValue>48</MaxSpeedValue>
-      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
-      <MinSpeedValueRead>0</MinSpeedValueRead>
-      <MaxSpeedValueRead>0</MaxSpeedValueRead>
       <ResetRequired>true</ResetRequired>
       <FanSpeedResetValue>255</FanSpeedResetValue>
       <FanDisplayName>CPU fan</FanDisplayName>
@@ -21,29 +18,38 @@
         <TemperatureThreshold>
           <UpThreshold>0</UpThreshold>
           <DownThreshold>0</DownThreshold>
-          <FanSpeed>20</FanSpeed>
+          <FanSpeed>0</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>66</UpThreshold>
+          <UpThreshold>54</UpThreshold>
+          <DownThreshold>48</DownThreshold>
+          <FanSpeed>10</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>58</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>22.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>64</UpThreshold>
           <DownThreshold>59</DownThreshold>
-          <FanSpeed>50</FanSpeed>
+          <FanSpeed>40</FanSpeed>
         </TemperatureThreshold>
         <TemperatureThreshold>
-          <UpThreshold>71</UpThreshold>
+          <UpThreshold>79</UpThreshold>
           <DownThreshold>65</DownThreshold>
+          <FanSpeed>65</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>84</UpThreshold>
+          <DownThreshold>80</DownThreshold>
           <FanSpeed>100</FanSpeed>
         </TemperatureThreshold>
       </TemperatureThresholds>
       <FanSpeedPercentageOverrides>
         <FanSpeedPercentageOverride>
           <FanSpeedPercentage>0</FanSpeedPercentage>
-          <FanSpeedValue>254</FanSpeedValue>
-          <TargetOperation>ReadWrite</TargetOperation>
-        </FanSpeedPercentageOverride>
-        <FanSpeedPercentageOverride>
-          <FanSpeedPercentage>0</FanSpeedPercentage>
           <FanSpeedValue>255</FanSpeedValue>
-          <TargetOperation>Read</TargetOperation>
         </FanSpeedPercentageOverride>
       </FanSpeedPercentageOverrides>
     </FanConfiguration>
@@ -56,7 +62,6 @@
       <Value>1</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>1</ResetValue>
-      <ResetWriteMode>Set</ResetWriteMode>
       <Description>Select thermal zone</Description>
     </RegisterWriteConfiguration>
     <RegisterWriteConfiguration>
@@ -66,7 +71,6 @@
       <Value>28</Value>
       <ResetRequired>true</ResetRequired>
       <ResetValue>0</ResetValue>
-      <ResetWriteMode>Set</ResetWriteMode>
       <Description>Fake thermal zone temperature</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
