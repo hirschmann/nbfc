@@ -32,7 +32,7 @@ if($LASTEXITCODE -ne 0) {
 
 # get msbuild path
 $path = & $vswhere -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
-$msbuild = join-path $path 'MSBuild\15.0\Bin\MSBuild.exe'
+$msbuild = join-path $path 'MSBuild\Current\Bin\MSBuild.exe'
 
 # build solution
 & $msbuild /t:Clean,Build /p:Configuration=ReleaseWindows NoteBookFanControl.sln
