@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Aspire E5-471G</NotebookModel>
+  <Author>Deivu</Author>
+  <EcPollInterval>500</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>90</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>85</ReadRegister>
+      <WriteRegister>85</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>8</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>CPU/GPU</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>44</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>12.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>45</UpThreshold>
+          <DownThreshold>41</DownThreshold>
+          <FanSpeed>37.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>56</UpThreshold>
+          <DownThreshold>53</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>66</UpThreshold>
+          <DownThreshold>61</DownThreshold>
+          <FanSpeed>87.5</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>62</UpThreshold>
+          <DownThreshold>57</DownThreshold>
+          <FanSpeed>75</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>69</UpThreshold>
+          <DownThreshold>67</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>147</Register>
+      <Value>20</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>4</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <Description>Set EC to manual control</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

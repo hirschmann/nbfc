@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Lenovo ThinkPad L380 Yoga</NotebookModel>
+  <Author>amissus@seznam.cz (based on Aspire V3-371)</Author>
+  <EcPollInterval>1500</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>92</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>149</ReadRegister>
+      <WriteRegister>148</WriteRegister>
+      <MinSpeedValue>255</MinSpeedValue>
+      <MaxSpeedValue>52</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>4</FanSpeedResetValue>
+      <FanDisplayName>Fan 1</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>20.1970444</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>63</DownThreshold>
+          <FanSpeed>40</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>79</UpThreshold>
+          <DownThreshold>68</DownThreshold>
+          <FanSpeed>60.0000038</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>85</UpThreshold>
+          <DownThreshold>77</DownThreshold>
+          <FanSpeed>80</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>89</UpThreshold>
+          <DownThreshold>79</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>147</Register>
+      <Value>20</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>4</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <Description>Set Ec</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

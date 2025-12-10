@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Acer Predator 17 G9-793-782K</NotebookModel>
+  <Author>Maxi</Author>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>232</ReadRegister>
+      <WriteRegister>224</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>100</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>255</MaxSpeedValueRead>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>CPU/GPU fan</FanDisplayName>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+    <FanConfiguration>
+      <ReadRegister>235</ReadRegister>
+      <WriteRegister>231</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>1</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>4</MinSpeedValueRead>
+      <MaxSpeedValueRead>1</MaxSpeedValueRead>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>Max. fan speed switch (on/off)</FanDisplayName>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>100</FanSpeedPercentage>
+          <FanSpeedValue>2</FanSpeedValue>
+          <TargetOperation>Write</TargetOperation>
+        </FanSpeedPercentageOverride>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>0</FanSpeedPercentage>
+          <FanSpeedValue>0</FanSpeedValue>
+          <TargetOperation>Write</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

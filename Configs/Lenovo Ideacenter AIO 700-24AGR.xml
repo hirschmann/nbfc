@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Lenovo 700-24AGR</NotebookModel>
+  <Author>M. Cahid AYDIN - A10-7800 APU</Author>
+  <EcPollInterval>1000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>72</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>80</ReadRegister>
+      <WriteRegister>52</WriteRegister>
+      <MinSpeedValue>10</MinSpeedValue>
+      <MaxSpeedValue>251</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>10</MinSpeedValueRead>
+      <MaxSpeedValueRead>251</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>69</FanSpeedResetValue>
+      <FanDisplayName>Main Fan</FanDisplayName>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>30</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>17</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>45</UpThreshold>
+          <DownThreshold>30</DownThreshold>
+          <FanSpeed>35</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>65</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>90</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>40</DownThreshold>
+          <FanSpeed>60</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>75</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>17</FanSpeedPercentage>
+          <FanSpeedValue>10</FanSpeedValue>
+          <TargetOperation>ReadWrite</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

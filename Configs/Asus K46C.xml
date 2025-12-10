@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Asus K46C</NotebookModel>
+  <Author>msafwan</Author>
+  <EcPollInterval>3000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>75</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>151</ReadRegister>
+      <WriteRegister>151</WriteRegister>
+      <MinSpeedValue>2</MinSpeedValue>
+      <MaxSpeedValue>6</MaxSpeedValue>
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>0</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>34</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>6</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>44</UpThreshold>
+          <DownThreshold>35</DownThreshold>
+          <FanSpeed>28</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>54</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <FanSpeed>51</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>64</UpThreshold>
+          <DownThreshold>55</DownThreshold>
+          <FanSpeed>75</FanSpeed>
+        </TemperatureThreshold>
+		<TemperatureThreshold>
+          <UpThreshold>74</UpThreshold>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

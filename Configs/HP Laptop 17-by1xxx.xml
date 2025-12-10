@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+This config was manually created by trial and error based on the "HP Laptop 14-cm0xxx.xml". It may be necessary to disable the BIOS option "System Configuration: Fan Always On" in order to make the fan turn off completely.
+-->
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP Laptop 17-by1xxx</NotebookModel>
+  <Author>Zwergesel</Author>
+  <EcPollInterval>300</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>80</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>113</ReadRegister>
+      <WriteRegister>219</WriteRegister>
+      <MinSpeedValue>45</MinSpeedValue>
+      <MaxSpeedValue>80</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>7</MinSpeedValueRead>
+      <MaxSpeedValueRead>17</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <TemperatureThresholds>
+        <TemperatureThreshold>
+          <UpThreshold>0</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>50</DownThreshold>
+          <FanSpeed>11.4285717</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>63</UpThreshold>
+          <DownThreshold>52</DownThreshold>
+          <FanSpeed>31.4285717</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>50</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>73</UpThreshold>
+          <DownThreshold>65</DownThreshold>
+          <FanSpeed>74.28571</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>78</UpThreshold>
+          <DownThreshold>69</DownThreshold>
+          <FanSpeed>100</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+      <FanSpeedPercentageOverrides>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>0</FanSpeedPercentage>
+          <FanSpeedValue>0</FanSpeedValue>
+          <TargetOperation>Read</TargetOperation>
+        </FanSpeedPercentageOverride>
+        <FanSpeedPercentageOverride>
+          <FanSpeedPercentage>0</FanSpeedPercentage>
+          <FanSpeedValue>30</FanSpeedValue>
+          <TargetOperation>Write</TargetOperation>
+        </FanSpeedPercentageOverride>
+      </FanSpeedPercentageOverrides>
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations />
+</FanControlConfigV2>

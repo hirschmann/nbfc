@@ -1,0 +1,84 @@
+{
+ "LegacyTemperatureThresholdsBehaviour": true,
+ "NotebookModel": "HP ProBook 470 G0",
+ "Author": "MadCodder",
+ "EcPollInterval": 3000,
+ "ReadWriteWords": false,
+ "CriticalTemperature": 80,
+ "FanConfigurations": [
+	{
+	 "ReadRegister": 46,
+	 "WriteRegister": 47,
+	 "MinSpeedValue": 88,
+	 "MaxSpeedValue": 48,
+	 "ResetRequired": true,
+	 "FanSpeedResetValue": 255,
+	 "FanDisplayName": "CPU fan",
+	 "TemperatureThresholds": [
+	  {
+	   "UpThreshold": 0,
+	   "DownThreshold": 0,
+	   "FanSpeed": 15.0
+	  },
+	  {
+	   "UpThreshold": 60,
+	   "DownThreshold": 48,
+	   "FanSpeed": 25.0
+	  },
+	  {
+	   "UpThreshold": 65,
+	   "DownThreshold": 55,
+	   "FanSpeed": 35.0
+	  },
+	  {
+	   "UpThreshold": 67,
+	   "DownThreshold": 59,
+	   "FanSpeed": 45.0
+	  },
+	  {
+	   "UpThreshold": 69,
+	   "DownThreshold": 65,
+	   "FanSpeed": 65.0
+	  },
+	  {
+	   "UpThreshold": 71,
+	   "DownThreshold": 67,
+	   "FanSpeed": 75.0
+	  },
+    {
+	   "UpThreshold": 75,
+	   "DownThreshold": 70,
+	   "FanSpeed": 100.0
+	  },
+	 ],
+	 "FanSpeedPercentageOverrides": [
+	  {
+	   "FanSpeedPercentage": 100.0,
+	   "FanSpeedValue": 255
+	  }
+	 ]
+	}
+ ],
+ "RegisterWriteConfigurations": [
+	{
+	 "WriteMode": "Set",
+	 "WriteOccasion": "OnInitialization",
+	 "Register": 34,
+	 "Value": 1,
+	 "ResetRequired": true,
+	 "ResetValue": 1,
+	 "ResetWriteMode": "Set",
+	 "Description": "Select thermal zone"
+	},
+	{
+	 "WriteMode": "Set",
+	 "WriteOccasion": "OnInitialization",
+	 "Register": 38,
+	 "Value": 28,
+	 "ResetRequired": true,
+	 "ResetValue": 0,
+	 "ResetWriteMode": "Set",
+	 "Description": "Fake thermal zone temperature"
+	}
+ ]
+}

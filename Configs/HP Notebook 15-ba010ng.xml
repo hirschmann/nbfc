@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<!--
+-) It seems not possible to completely turn off the fan but on lower values it is not even noticeable anymore.
+-) There is a weird offset between read and write values. To correctly display the percentage a bezier-curve would be needed. These values may be need to adjust on the target device also.
+-) The write register should not be greater than 0x3F, otherwise the fan spins on and off with further values. I was not able to find a pattern/bitmask here. It works well from 0x03 - 0x34.
+-->
+
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>HP Notebook 15-ba010ng</NotebookModel>
+  <Author>Webloft</Author>
+  <EcPollInterval>750</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>85</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>17</ReadRegister>
+      <WriteRegister>25</WriteRegister>
+      <MinSpeedValue>3</MinSpeedValue>
+      <MaxSpeedValue>54</MaxSpeedValue>
+      <IndependentReadMinMaxValues>true</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>5</MinSpeedValueRead>
+      <MaxSpeedValueRead>62</MaxSpeedValueRead>
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+      <FanDisplayName>Main Fan</FanDisplayName>
+      <TemperatureThresholds />
+      <FanSpeedPercentageOverrides />
+    </FanConfiguration>
+  </FanConfigurations>
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>21</Register>
+      <Value>1</Value>
+      <ResetRequired>true</ResetRequired>
+      <ResetValue>0</ResetValue>
+      <ResetWriteMode>Set</ResetWriteMode>
+      <Description>Manual Override</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+</FanControlConfigV2>

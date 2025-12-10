@@ -1,0 +1,18 @@
+name: "Close stale issues"
+
+on:
+  schedule:
+  - cron: "0 0 * * *"
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'This issue is stale because it has been open more than 180 days with no activity. If nobody comments within 7 days, this issue will be closed'
+        days-before-stale: 181
+        days-before-close: 7

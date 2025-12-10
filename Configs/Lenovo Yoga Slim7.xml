@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NotebookModel>Lenovo Yoga Slim7</NotebookModel>
+  <Author>dumprop</Author>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>96</CriticalTemperature>
+  <FanConfigurations>
+    <FanConfiguration>
+      <ReadRegister>47</ReadRegister>
+      <WriteRegister>47</WriteRegister>
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>7</MaxSpeedValue>
+      <ResetRequired>true</ResetRequired>
+      <FanSpeedResetValue>255</FanSpeedResetValue>
+      <FanDisplayName>CPU</FanDisplayName>
+    </FanConfiguration>
+      <TemperatureThresholds>
+	    <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>85</DownThreshold>
+          <FanSpeed>15</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>90</UpThreshold>
+          <DownThreshold>85</DownThreshold>
+          <FanSpeed>30</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>95</UpThreshold>
+          <DownThreshold>90</DownThreshold>
+          <FanSpeed>45</FanSpeed>
+        </TemperatureThreshold>
+        <TemperatureThreshold>
+          <UpThreshold>100</UpThreshold>
+          <DownThreshold>95</DownThreshold>
+          <FanSpeed>60</FanSpeed>
+        </TemperatureThreshold>
+      </TemperatureThresholds>
+  </FanConfigurations>
+</FanControlConfigV2>

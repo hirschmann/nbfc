@@ -3,7 +3,7 @@
 NUGET_URL="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
 
 function download-nuget {
-    wget $NUGET_URL
+    curl -O $NUGET_URL
 	
     # import Mozilla trusted root certificates into mono certificates store
     
