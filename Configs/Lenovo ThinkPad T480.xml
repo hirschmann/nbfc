@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <NotebookModel>Lenovo ThinkPad T480 (MEC1653)</NotebookModel>
+  <Author>Custom DSDT-based</Author>
+
+  <EcPollInterval>1000</EcPollInterval>
+  <ReadWriteWords>false</ReadWriteWords>
+  <CriticalTemperature>95</CriticalTemperature>
+
+  <FanConfigurations>
+    <FanConfiguration>
+
+      <!-- HFSP register -->
+      <ReadRegister>47</ReadRegister>
+      <WriteRegister>47</WriteRegister>
+
+      <!-- Manual range 0-7 -->
+      <MinSpeedValue>0</MinSpeedValue>
+      <MaxSpeedValue>7</MaxSpeedValue>
+
+      <IndependentReadMinMaxValues>false</IndependentReadMinMaxValues>
+      <MinSpeedValueRead>0</MinSpeedValueRead>
+      <MaxSpeedValueRead>7</MaxSpeedValueRead>
+
+      <ResetRequired>false</ResetRequired>
+      <FanSpeedResetValue>0</FanSpeedResetValue>
+
+      <FanDisplayName>CPU Fan</FanDisplayName>
+
+      <TemperatureThresholds>
+
+        <!-- Silent -->
+        <TemperatureThreshold>
+          <UpThreshold>40</UpThreshold>
+          <DownThreshold>0</DownThreshold>
+          <FanSpeed>0</FanSpeed>
+        </TemperatureThreshold>
+
+        <!-- Low -->
+        <TemperatureThreshold>
+          <UpThreshold>55</UpThreshold>
+          <DownThreshold>45</DownThreshold>
+          <FanSpeed>3</FanSpeed>
+        </TemperatureThreshold>
+
+        <!-- Medium -->
+        <TemperatureThreshold>
+          <UpThreshold>70</UpThreshold>
+          <DownThreshold>60</DownThreshold>
+          <FanSpeed>5</FanSpeed>
+        </TemperatureThreshold>
+
+        <!-- High -->
+        <TemperatureThreshold>
+          <UpThreshold>80</UpThreshold>
+          <DownThreshold>70</DownThreshold>
+          <FanSpeed>7</FanSpeed>
+        </TemperatureThreshold>
+
+      </TemperatureThresholds>
+
+      <FanSpeedPercentageOverrides />
+
+    </FanConfiguration>
+  </FanConfigurations>
+
+  <!-- Force manual mode on init (clear auto bit) -->
+  <RegisterWriteConfigurations>
+    <RegisterWriteConfiguration>
+      <WriteMode>Set</WriteMode>
+      <WriteOccasion>OnInitialization</WriteOccasion>
+      <Register>47</Register>
+      <Value>0</Value>
+      <ResetRequired>false</ResetRequired>
+      <Description>Force manual fan mode</Description>
+    </RegisterWriteConfiguration>
+  </RegisterWriteConfigurations>
+
+</FanControlConfigV2>
