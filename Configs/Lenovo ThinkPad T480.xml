@@ -3,7 +3,7 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <NotebookModel>Lenovo ThinkPad T480 (MEC1653)</NotebookModel>
-  <Author>Custom DSDT-based</Author>
+  <Author>swarties</Author>
 
   <EcPollInterval>1000</EcPollInterval>
   <ReadWriteWords>false</ReadWriteWords>
@@ -77,5 +77,6 @@
       <Description>Force manual fan mode</Description>
     </RegisterWriteConfiguration>
   </RegisterWriteConfigurations>
+
 
 </FanControlConfigV2>
