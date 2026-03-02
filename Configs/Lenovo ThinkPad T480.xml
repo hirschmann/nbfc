@@ -2,7 +2,7 @@
 <FanControlConfigV2 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-  <NotebookModel>Lenovo ThinkPad T480 (MEC1653)</NotebookModel>
+  <NotebookModel>LENOVO 20L6S6UE02</NotebookModel>
   <Author>swarties</Author>
 
   <EcPollInterval>1000</EcPollInterval>
@@ -80,3 +80,4 @@
 
 
 </FanControlConfigV2>
+
