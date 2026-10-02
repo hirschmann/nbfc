@@ -41,8 +41,8 @@ namespace StagWare.Plugins.Generic
         {
             if (!this.IsInitialized)
             {
-                this.IsInitialized = true;
                 this.hwMon = HardwareMonitor.Instance;
+                this.IsInitialized = true;
             }
         }
 

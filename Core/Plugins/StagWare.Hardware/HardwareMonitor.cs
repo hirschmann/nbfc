@@ -176,21 +176,26 @@ namespace StagWare.Hardware
 
         private void InitializeCpuSensors()
         {
-            this.cpus = GetHardware(HardwareType.CPU);
-            this.cpuTempSensors = new ISensor[this.cpus.Length][];
+            var cpus = GetHardware(HardwareType.CPU);
+            var cpuTempSensors = new ISensor[cpus.Length][];
             int sensorsTotal = 0;
 
-            for (int i = 0; i < this.cpus.Length; i++)
+            for (int i = 0; i < cpus.Length; i++)
             {
-                ISensor[] sensors = GetCpuTemperatureSensors(this.cpus[i]);
+                ISensor[] sensors = GetCpuTemperatureSensors(cpus[i]);
                 sensorsTotal += sensors.Length;
-                this.cpuTempSensors[i] = sensors;
+                cpuTempSensors[i] = sensors;
             }
 
             if (sensorsTotal <= 0)
             {
                 throw new PlatformNotSupportedException("Failed to access CPU temperature sensors(s).");
             }
+
+            // CpuTemperatures uses cpus as its initialization guard. Keep it null
+            // after a failed discovery so a later start retries instead of using partial state.
+            this.cpuTempSensors = cpuTempSensors;
+            this.cpus = cpus;
         }
 
         private void InitializeGpuSensors()

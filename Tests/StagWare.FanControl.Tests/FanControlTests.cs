@@ -11,6 +11,142 @@ namespace StagWare.FanControl.Tests
     {
         public class Start
         {
+            [Theory]
+            [InlineData(false, false)]
+            [InlineData(false, true)]
+            [InlineData(true, false)]
+            [InlineData(true, true)]
+            public static void DoesNotEnableControlWhenTemperatureBackendIsUnsupported(
+                bool readOnly, bool failDuringInitialization)
+            {
+                var cfg = new FanControlConfigV2()
+                {
+                    EcPollInterval = 100,
+                    FanConfigurations = { new FanConfiguration() },
+                    RegisterWriteConfigurations =
+                    {
+                        new RegisterWriteConfiguration() { Register = 123, Value = 12 }
+                    }
+                };
+
+                var filter = A.Fake<ITemperatureFilter>();
+                var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).Returns(true);
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                var exception = new PlatformNotSupportedException("Temperature backend unavailable");
+
+                if (failDuringInitialization)
+                {
+                    A.CallTo(() => tempMon.Initialize()).Throws(exception);
+                }
+                else
+                {
+                    A.CallTo(() => tempMon.IsInitialized).Returns(true);
+                    A.CallTo(() => tempMon.GetTemperature()).Throws(exception);
+                }
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon))
+                {
+                    fanControl.Start(readOnly);
+                    fanControl.SetTargetFanSpeed(50, 0);
+
+                    Assert.False(fanControl.Enabled);
+                    A.CallTo(() => ec.Initialize()).MustNotHaveHappened();
+                    A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).MustNotHaveHappened();
+                    A.CallTo(() => ec.WriteByte(A<byte>.Ignored, A<byte>.Ignored)).MustNotHaveHappened();
+                    A.CallTo(() => filter.FilterTemperature(A<double>.Ignored)).MustNotHaveHappened();
+                }
+            }
+
+            [Theory]
+            [InlineData(double.NaN)]
+            [InlineData(double.PositiveInfinity)]
+            [InlineData(double.NegativeInfinity)]
+            public static void DoesNotEnableControlWithInvalidTemperature(double temperature)
+            {
+                var cfg = new FanControlConfigV2() { EcPollInterval = 100 };
+                var filter = A.Fake<ITemperatureFilter>();
+                var ec = A.Fake<IEmbeddedController>();
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.IsInitialized).Returns(true);
+                A.CallTo(() => tempMon.GetTemperature()).Returns(temperature);
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon))
+                {
+                    fanControl.Start(false);
+
+                    Assert.False(fanControl.Enabled);
+                    A.CallTo(() => ec.Initialize()).MustNotHaveHappened();
+                    A.CallTo(() => ec.AcquireLock(A<int>.Ignored)).MustNotHaveHappened();
+                }
+            }
+
+            [Fact]
+            public static void CanRetryAfterTemperatureReadFails()
+            {
+                var cfg = new FanControlConfigV2() { EcPollInterval = 100 };
+                var filter = A.Fake<ITemperatureFilter>();
+                var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.IsInitialized).Returns(true);
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.IsInitialized).Returns(true);
+                A.CallTo(() => tempMon.GetTemperature()).Throws<PlatformNotSupportedException>();
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon))
+                {
+                    fanControl.Start();
+                    Assert.False(fanControl.Enabled);
+
+                    A.CallTo(() => tempMon.GetTemperature()).Returns(45);
+                    fanControl.Start();
+
+                    Assert.True(fanControl.Enabled);
+                    fanControl.Stop();
+                }
+            }
+
+            [Fact]
+            public static void ReadsTemperatureBeforeInitializingEc()
+            {
+                var cfg = new FanControlConfigV2() { EcPollInterval = 100 };
+                var filter = A.Fake<ITemperatureFilter>();
+                var ec = A.Fake<IEmbeddedController>();
+                A.CallTo(() => ec.Initialize()).Invokes(() =>
+                    A.CallTo(() => ec.IsInitialized).Returns(true));
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.Initialize()).Invokes(() =>
+                    A.CallTo(() => tempMon.IsInitialized).Returns(true));
+                A.CallTo(() => tempMon.GetTemperature()).Returns(45);
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon))
+                {
+                    fanControl.Start();
+                    fanControl.Stop();
+
+                    A.CallTo(() => tempMon.Initialize()).MustHaveHappened()
+                        .Then(A.CallTo(() => tempMon.GetTemperature()).MustHaveHappened())
+                        .Then(A.CallTo(() => ec.Initialize()).MustHaveHappened());
+                }
+            }
+
+            [Fact]
+            public static void DoesNotHideUnexpectedTemperatureErrors()
+            {
+                var cfg = new FanControlConfigV2() { EcPollInterval = 100 };
+                var filter = A.Fake<ITemperatureFilter>();
+                var ec = A.Fake<IEmbeddedController>();
+                var tempMon = A.Fake<ITemperatureMonitor>();
+                A.CallTo(() => tempMon.IsInitialized).Returns(true);
+                A.CallTo(() => tempMon.GetTemperature()).Throws<InvalidOperationException>();
+
+                using (var fanControl = new FanControl(cfg, filter, ec, tempMon))
+                {
+                    Assert.Throws<InvalidOperationException>(() => fanControl.Start());
+                    Assert.False(fanControl.Enabled);
+                    A.CallTo(() => ec.Initialize()).MustNotHaveHappened();
+                }
+            }
+
             [Fact]
             public static async Task CallsSetTargetSpeed()
             {

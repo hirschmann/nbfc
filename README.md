@@ -20,6 +20,11 @@ In general the [NBFC Wiki](https://github.com/hirschmann/nbfc/wiki) is the first
 - [FAQ](https://github.com/hirschmann/nbfc/wiki/FAQ)
 - [How to create a NBFC config](https://github.com/hirschmann/nbfc/wiki/How-to-create-a-NBFC-config)
 
+NBFC checks temperature access before starting fan control. If the temperature
+backend reports that it is unsupported or returns an invalid temperature, control
+remains disabled and the failure is logged; no fan-control registers are written.
+This startup check does not add support for otherwise unsupported hardware.
+
 ## Contributing
 
 Every contribution, no matter how small it is, is welcome. Please read the [contribution guidelines](CONTRIBUTING.md) before creating a new issue or pull request.  

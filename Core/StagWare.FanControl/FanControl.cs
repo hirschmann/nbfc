@@ -277,15 +277,33 @@ namespace StagWare.FanControl
             }
             else
             {
-                if (!this.tempMon.IsInitialized)
+                try
                 {
-                    this.tempMon.Initialize();
-
                     if (!this.tempMon.IsInitialized)
                     {
-                        throw new PluginInitializationException(
-                            "Could not initialize plugin of type " + nameof(ITemperatureMonitor));
+                        this.tempMon.Initialize();
+
+                        if (!this.tempMon.IsInitialized)
+                        {
+                            throw new PluginInitializationException(
+                                "Could not initialize plugin of type " + nameof(ITemperatureMonitor));
+                        }
                     }
+
+                    // Sensor discovery can be deferred until the first read. Validate it
+                    // before writing EC registers or allowing an exception on a timer thread.
+                    double initialTemperature = this.tempMon.GetTemperature();
+
+                    if (double.IsNaN(initialTemperature) || double.IsInfinity(initialTemperature))
+                    {
+                        logger.Error("Cannot start fan control: the temperature sensor returned an invalid value.");
+                        return;
+                    }
+                }
+                catch (PlatformNotSupportedException e)
+                {
+                    logger.Error(e, "Cannot start fan control: the temperature backend is unsupported or unavailable.");
+                    return;
                 }
 
                 if (!this.ec.IsInitialized)
